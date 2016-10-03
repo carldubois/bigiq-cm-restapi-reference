@@ -1,2 +1,2 @@
-- [Enable, Disable, and Force Offline Pool Members](index.html?Help=./HowToSamples/t_enable_disable_force_offline_pool_members.md)/n
-- [Apply and Deploy Firewall Policies](index.html?Help=./HowToSamples/t_apply_deploy_firewall_policies.md)/n
+- [Enable, Disable, and Force Offline Pool Members](index.html?Help=./HowToSamples/t_enable_disable_force_offline_pool_members.md)
+- [Apply and Deploy Firewall Policies](index.html?Help=./HowToSamples/t_apply_deploy_firewall_policies.md)
