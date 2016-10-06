@@ -1,0 +1,460 @@
+= BIG-IQ Deploy Configuration
+
+
+[[_overview]]
+== Overview
+API used to deploy configuration changes made on BIG-IQ or BIG-IP devices.
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/firewalls/tasks
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_deploy-configuration_get]]
+=== GET all deployment tasks.
+....
+GET /deploy-configuration
+....
+
+
+==== Description
+Returns the collection of deployment tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Collection of deployment tasks.|<<_properties_deploy_collection,properties_deploy_collection>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+[[_deploy-configuration_objectid_post]]
+=== PATCH firewall policy into firewall context.
+....
+POST /deploy-configuration/{objectId}
+....
+
+
+==== Description
+Will patch enforced policy reference link into firewall context.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST a deploy task to BIGIQ.|<<_properties_deploy,properties_deploy>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+[[_deploy-configuration_objectid_get]]
+=== Used to get a single firewall policy.
+....
+GET /deploy-configuration/{objectId}
+....
+
+
+==== Description
+Returns the firewall policy identified by a endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Firewall policy object|<<_properties_deploy,properties_deploy>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_error_collection]]
+=== error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_||string
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_||string
+|*message* +
+_optional_ +
+_read-only_||string
+|*requestBody* +
+_optional_ +
+_read-only_||string
+|*requestOperationId* +
+_optional_ +
+_read-only_||integer(int64)
+|===
+
+
+[[_properties_deploy]]
+=== properties_deploy
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*childDeployTasks* +
+_optional_||< <<_properties_deploy_childdeploytasks,childDeployTasks>> > array
+|*childSnapshotReference* +
+_optional_||<<_properties_deploy_childsnapshotreference,childSnapshotReference>>
+|*currentStep* +
+_optional_|Step of task during deploy.|string
+|*deviceDetails* +
+_optional_||< <<_properties_deploy_devicedetails,deviceDetails>> > array
+|*differenceReference* +
+_optional_||<<_properties_deploy_differencereference,differenceReference>>
+|*differenceTaskReference* +
+_optional_||<<_properties_deploy_differencetaskreference,differenceTaskReference>>
+|*differenceTaskReferences* +
+_optional_||<<_properties_deploy_differencetaskreferences,differenceTaskReferences>>
+|*discoveryTaskReferences* +
+_optional_||< <<_properties_deploy_discoverytaskreferences,discoveryTaskReferences>> > array
+|*distributeTaskReference* +
+_optional_||<<_properties_deploy_distributetaskreference,distributeTaskReference>>
+|*distributeTaskReferences* +
+_optional_||<<_properties_deploy_distributetaskreferences,distributeTaskReferences>>
+|*endDateTime* +
+_optional_||string
+|*firewallIpAddress* +
+_optional_|Firewall IP Address|string
+|*firewallType* +
+_optional_|Firewall Type (VIP, SIP, RD, Mgmt etc..)|string
+|*generation* +
+_optional_ +
+_read-only_||integer(int64)
+|*id* +
+_optional_ +
+_read-only_||string
+|*identityReferences* +
+_optional_||< <<_properties_deploy_identityreferences,identityReferences>> > array
+|*isChildTask* +
+_optional_||boolean
+|*kind* +
+_optional_ +
+_read-only_||string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_||integer(int64)
+|*name* +
+_optional_|Name of deployment task|string
+|*ownerMachineId* +
+_optional_||string
+|*parentTaskReference* +
+_optional_||<<_properties_deploy_parenttaskreference,parentTaskReference>>
+|*partition* +
+_optional_||string
+|*selfLink* +
+_optional_ +
+_read-only_||string
+|*skipVerifyConfig* +
+_optional_|Skip verification of configuration for deployment.|boolean
+|*snapshotReference* +
+_optional_|Reference to snapshot for deploy task.|<<_properties_deploy_snapshotreference,snapshotReference>>
+|*snapshotTaskReference* +
+_optional_||<<_properties_deploy_snapshottaskreference,snapshotTaskReference>>
+|*startDateTime* +
+_optional_||string
+|*status* +
+_optional_|Status or actual state of task in state machine.|string
+|*userReference* +
+_optional_||<<_properties_deploy_userreference,userReference>>
+|*username* +
+_optional_||string
+|*verifyConfigReference* +
+_optional_||<<_properties_deploy_verifyconfigreference,verifyConfigReference>>
+|*verifyConfigTaskReference* +
+_optional_||<<_properties_deploy_verifyconfigtaskreference,verifyConfigTaskReference>>
+|===
+
+[[_properties_deploy_childdeploytasks]]
+*childDeployTasks*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*deviceReference* +
+_optional_||< <<_properties_deploy_devicereference,deviceReference>> > array
+|*skipDistribution* +
+_optional_||boolean
+|===
+
+[[_properties_deploy_devicereference]]
+*deviceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_childsnapshotreference]]
+*childSnapshotReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_||boolean
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_devicedetails]]
+*deviceDetails*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*deviceReference* +
+_optional_||<<_properties_deploy_devicereference,deviceReference>>
+|*differenceCount* +
+_optional_||integer
+|*hostname* +
+_optional_||string
+|*postDeploymentErrorCount* +
+_optional_||integer
+|*verificationCriticalErrorCount* +
+_optional_||integer
+|*verificationErrorCount* +
+_optional_||integer
+|===
+
+[[_properties_deploy_devicereference]]
+*deviceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_differencereference]]
+*differenceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_||boolean
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_differencetaskreference]]
+*differenceTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_differencetaskreferences]]
+*differenceTaskReferences*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_||boolean
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_discoverytaskreferences]]
+*discoveryTaskReferences*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_||boolean
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_distributetaskreference]]
+*distributeTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_distributetaskreferences]]
+*distributeTaskReferences*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_||boolean
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_identityreferences]]
+*identityReferences*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_||boolean
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_parenttaskreference]]
+*parentTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_snapshotreference]]
+*snapshotReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_snapshottaskreference]]
+*snapshotTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_||boolean
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_userreference]]
+*userReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_verifyconfigreference]]
+*verifyConfigReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_deploy_verifyconfigtaskreference]]
+*verifyConfigTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+
+[[_properties_deploy_collection]]
+=== properties_deploy_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_||integer(int64)
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_||string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_||integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_||string
+|===
+
+
+
+
+
