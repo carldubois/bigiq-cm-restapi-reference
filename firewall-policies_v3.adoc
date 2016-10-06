@@ -1,0 +1,306 @@
+= BIG-IQ Firewall Policy API
+
+
+[[_overview]]
+== Overview
+API used to create and modify firewall policies on BIG-IQ
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/firewalls/working-config
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_policies_get]]
+=== List of policy collections.
+....
+GET /policies
+....
+
+
+==== Description
+Returns the collection of firewall policies.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Collection of firewall policies.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+[[_policies_objectid_get]]
+=== Used to get a single firewall policy.
+....
+GET /policies/{objectId}
+....
+
+
+==== Description
+Returns the firewall policy identified by a endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Firewall policy object|<<_properties_policy,properties_policy>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+[[_policies_objectid_rules_get]]
+=== Used to get the rules for a firewall policy.
+....
+GET /policies/{objectId}/rules
+....
+
+
+==== Description
+Returns the firewall rules subcollection for a policy.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Collection of firewall rules.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_properties_collection,properties_collection>>
+|===
+
+
+[[_policies_objectid_rules_objectid_get]]
+=== Get a single rule for a firewall policy.
+....
+GET /policies/{objectId}/rules/{objectId}
+....
+
+
+==== Description
+Returns the firewall rule identified by a endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Firewall rule object|<<_properties_rule,properties_rule>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_error_collection]]
+=== error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_||string
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_||string
+|*message* +
+_optional_ +
+_read-only_||string
+|*requestBody* +
+_optional_ +
+_read-only_||string
+|*requestOperationId* +
+_optional_ +
+_read-only_||integer(int64)
+|===
+
+
+[[_properties_collection]]
+=== properties_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_||integer(int64)
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_||string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_||integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_||string
+|===
+
+
+[[_properties_policy]]
+=== properties_policy
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*description* +
+_optional_||string
+|*generation* +
+_optional_ +
+_read-only_||integer(int64)
+|*id* +
+_optional_ +
+_read-only_||string
+|*kind* +
+_optional_ +
+_read-only_||string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_||integer(int64)
+|*name* +
+_optional_||string
+|*partition* +
+_optional_||string
+|*rulesCollectionReference* +
+_optional_||<<_properties_policy_rulescollectionreference,properties_policy_rulesCollectionReference>>
+|*selfLink* +
+_optional_ +
+_read-only_||string
+|*subPath* +
+_optional_||string
+|===
+
+
+[[_properties_policy_rulescollectionreference]]
+=== properties_policy_rulesCollectionReference
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_||boolean
+|*link* +
+_optional_||string
+|===
+
+
+[[_properties_rule]]
+=== properties_rule
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*action* +
+_optional_||string
+|*destination* +
+_optional_||object
+|*evalOrder* +
+_optional_||integer
+|*generation* +
+_optional_ +
+_read-only_||integer(int64)
+|*hitCountStatReference* +
+_optional_||object
+|*iRule* +
+_optional_||string
+|*iRuleSampleRate* +
+_optional_||integer
+|*icmpTypeCodes* +
+_optional_||< object > array
+|*id* +
+_optional_ +
+_read-only_||string
+|*kind* +
+_optional_ +
+_read-only_||string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_||integer(int64)
+|*log* +
+_optional_||boolean
+|*name* +
+_optional_||string
+|*protocol* +
+_optional_||string
+|*ruleListReference* +
+_optional_||object
+|*scheduleReference* +
+_optional_||object
+|*selfLink* +
+_optional_ +
+_read-only_||string
+|*servicePolicyReference* +
+_optional_||object
+|*source* +
+_optional_||object
+|*state* +
+_optional_||string
+|===
+
+
+
+
+
