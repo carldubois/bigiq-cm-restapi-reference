@@ -13,7 +13,7 @@ _Version_ : 5.2
 
 === URI scheme
 [%hardbreaks]
-_BasePath_ : /mgmt/cm/firewalls/tasks
+_BasePath_ : /mgmt/cm/firewall/tasks
 _Schemes_ : HTTPS
 
 
