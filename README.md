@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # big_iq_deploy_configuration
 
 BigIqDeployConfiguration - JavaScript client for big_iq_deploy_configuration
@@ -94,3 +95,6 @@ Class | Method | HTTP request | Description
 
  All endpoints do not require authorization.
 
+=======
+# bigiq-cm-restapi-reference
+>>>>>>> d4f37de16950543c99f4e654ac08e963c846b1fa
