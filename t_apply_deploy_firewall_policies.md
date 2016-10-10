@@ -134,7 +134,7 @@ Perform a POST operation to the following URL to create the deployment task:
 ```
 POST: https://<mgmtip>/mgmt/cm/firewall/tasks/deploy-configuration
 ```
-[Deploy Distribution API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/deploy_configuration-v2.adoc)
+[Deploy Distribution API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/deploy_configuration_v2.adoc)
 
 The deployment can also be created in the deploy-immediately mode (where `skipDistribution` is set to false) as follows.  This type of deployment is only recommended if no warnings or errors are expected. 
 ```
