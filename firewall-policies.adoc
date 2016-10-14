@@ -187,7 +187,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|A integer that will track change made to a policy object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Collection of policies-properties.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for this policy object.|string
@@ -238,9 +238,9 @@ _read-only_|A reference link URI to the policy object.|string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to rules collection object.|string
 |===
 
 
