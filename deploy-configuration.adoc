@@ -185,7 +185,7 @@ _read-only_|Unique id assigned to a deploy task object.|string
 |*identityReferences* +
 _optional_|Reference link table to authz users.|< <<_properties_deploy_identityreferences,identityReferences>> > array
 |*isChildTask* +
-_optional_|Defines if a task is a child object noted by childDeployTasks. (True / False)|boolean
+_optional_|Defines if a task is a child object noted by childDeployTasks. (True/False)|boolean
 |*kind* +
 _optional_ +
 _read-only_|Identification of resource ex. cm:firewall:tasks:deploy-configuration:deployconfigtaskstate|string
@@ -232,7 +232,7 @@ _optional_|Reference to the verification task.|<<_properties_deploy_verifyconfig
 |*deviceReference* +
 _optional_|Device reference link for each child task of deploy.|< <<_properties_deploy_devicereference,deviceReference>> > array
 |*skipDistribution* +
-_optional_|Skip distribution of configuration during deployment.(True|False) Verfication only prior.|boolean
+_optional_|Skip distribution of configuration during deployment.(True/False) Verfication only prior.|boolean
 |===
 
 [[_properties_deploy_devicereference]]
@@ -252,7 +252,7 @@ _optional_|Reference link to device object for deploy task.|string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_|Is subcollection of snapshots created by the deploy task. (True|False)|boolean
+_optional_|Is subcollection of snapshots created by the deploy task. (True/False)|boolean
 |*link* +
 _optional_|Reference link to snapshot for deploy task.|string
 |===
@@ -294,7 +294,7 @@ _optional_|Reference link to device object for deploy task.|string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_|Is subcollection of differences (True|False)|boolean
+_optional_|Is subcollection of differences (True/False)|boolean
 |*link* +
 _optional_|Reference link to difference array object.|string
 |===
