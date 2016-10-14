@@ -101,7 +101,7 @@ Returns the firewall rules subcollection for a policy.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_|Policy rule object id|string(UUID)|None
+_required_|Collection of policy rule object id|string(UUID)|None
 |===
 
 
@@ -132,7 +132,7 @@ Returns the firewall rule identified by a endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Policy object id|string(UUID)|None
 |===
 
 
