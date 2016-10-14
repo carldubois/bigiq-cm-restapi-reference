@@ -161,7 +161,7 @@ _required_|Policy object id|string(UUID)|None
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of policies-error.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for policy object.|string
