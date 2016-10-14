@@ -264,17 +264,17 @@ _optional_|Reference link to snapshot for deploy task.|string
 |===
 |Name|Description|Schema
 |*deviceReference* +
-_optional_||<<_properties_deploy_devicereference,deviceReference>>
+_optional_|Reference link to device object for deploy task.|<<_properties_deploy_devicereference,deviceReference>>
 |*differenceCount* +
-_optional_||integer
+_optional_|A count of the number of difference during evaluation.|integer
 |*hostname* +
-_optional_||string
+_optional_|Hostname of device deploying configuration to. |string
 |*postDeploymentErrorCount* +
-_optional_||integer
+_optional_|A count of the errors encountered post deploy.|integer
 |*verificationCriticalErrorCount* +
-_optional_||integer
+_optional_|A count of critical errors encountered during verification.|integer
 |*verificationErrorCount* +
-_optional_||integer
+_optional_|A count of errors encountered during verification.|integer
 |===
 
 [[_properties_deploy_devicereference]]
@@ -284,7 +284,7 @@ _optional_||integer
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to device object for deploy task.|string
 |===
 
 [[_properties_deploy_differencereference]]
@@ -294,9 +294,9 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is subcollection of differences (True|False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to difference array object.|string
 |===
 
 [[_properties_deploy_differencetaskreference]]
@@ -306,7 +306,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to differencer task.|string
 |===
 
 [[_properties_deploy_differencetaskreferences]]
@@ -316,9 +316,9 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is subcollection of diffencer tasks.|boolean
 |*link* +
-_optional_||string
+_optional_|Reference links to differencer task.|string
 |===
 
 [[_properties_deploy_discoverytaskreferences]]
@@ -328,9 +328,9 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is subcollection of discovery tasks.|boolean
 |*link* +
-_optional_||string
+_optional_|Reference links to discovery task.|string
 |===
 
 [[_properties_deploy_distributetaskreference]]
@@ -340,7 +340,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference links to distribute task.|string
 |===
 
 [[_properties_deploy_distributetaskreferences]]
@@ -350,9 +350,9 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is subcollection of distribute tasks.|boolean
 |*link* +
-_optional_||string
+_optional_|Reference links to discovery task.|string
 |===
 
 [[_properties_deploy_identityreferences]]
@@ -362,9 +362,9 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is subcollection of identity reference tasks.|boolean
 |*link* +
-_optional_||string
+_optional_|Reference links to discovery task.|string
 |===
 
 [[_properties_deploy_parenttaskreference]]
@@ -374,7 +374,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference links to discovery task.|string
 |===
 
 [[_properties_deploy_snapshotreference]]
@@ -384,7 +384,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference links to discovery task.|string
 |===
 
 [[_properties_deploy_snapshottaskreference]]
@@ -394,9 +394,9 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is subcollection of snapshot tasks.|boolean
 |*link* +
-_optional_||string
+_optional_|Reference links to discovery task.|string
 |===
 
 [[_properties_deploy_userreference]]
@@ -406,7 +406,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference links to discovery task.|string
 |===
 
 [[_properties_deploy_verifyconfigreference]]
@@ -416,7 +416,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference links to discovery task.|string
 |===
 
 [[_properties_deploy_verifyconfigtaskreference]]
@@ -426,7 +426,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference links to discovery task.|string
 |===
 
 
@@ -438,18 +438,18 @@ _optional_||string
 |Name|Description|Schema
 |*generation* +
 _optional_ +
-_read-only_||integer(int64)
+_read-only_|A unique integer that tracks changes to deploy collection object.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Collection of deploy tasks-properties.|< object > array
 |*kind* +
 _optional_ +
-_read-only_||string
+_read-only_|Type information for this deploy collection object.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_||integer(int64)
+_read-only_|Update time (micros) for last change made to an deploy task collection object-time.|integer(int64)
 |*selfLink* +
 _optional_ +
-_read-only_||string
+_read-only_|A reference link URI to the deploy task collection object.|string
 |===
 
 
