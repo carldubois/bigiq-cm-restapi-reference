@@ -33,7 +33,7 @@ _Schemes_ : HTTPS
 == Paths
 
 [[_firewalls_get]]
-=== List of policy collections.
+=== List of firewall collections.
 ....
 GET /firewalls
 ....
@@ -54,14 +54,14 @@ Returns the collection of firewalls.
 
 
 [[_firewalls_objectid_get]]
-=== Used to get a single firewall policy.
+=== Used to get a single firewall context.
 ....
 GET /firewalls/{objectId}
 ....
 
 
 ==== Description
-Returns the firewall policy identified by a endpoint URI.
+Returns the firewall context identified by a endpoint URI.
 
 
 ==== Parameters
@@ -79,13 +79,13 @@ _required_|Firewall object id|string(UUID)|None
 [options="header", cols=".^2,.^14,.^4"]
 |===
 |HTTP Code|Description|Schema
-|*200*|Firewall policy object|<<_properties_firewall,properties_firewall>>
+|*200*|Firewall context object|<<_properties_firewall,properties_firewall>>
 |*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
 |===
 
 
 [[_firewalls_objectid_patch]]
-=== PATCH firewall policy into firewall context.
+=== PATCH firewall context into firewall context.
 ....
 PATCH /firewalls/{objectId}
 ....
