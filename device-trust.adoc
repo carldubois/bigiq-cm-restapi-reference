@@ -3,7 +3,7 @@
 
 [[_overview]]
 == Overview
-API used to create a device trust certificate between BIG-IQ and BIG-IP.
+API used to create a device trust task to negotiate certificate between BIG-IQ and BIG-IP using key exchange.
 
 
 === Version information
@@ -120,7 +120,7 @@ _required_||string(UUID)|
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|device-task collection of errors|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for device-trust collections-cm:global:tasks:device-trust:bigiptrusttaskstate.|string
@@ -146,7 +146,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|A integer that will track change made to a device trust collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|collection of device-task objects|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for this device trust collection object.|string
