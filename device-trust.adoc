@@ -220,7 +220,7 @@ _optional_|User name of device object to be managed.|string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to device trust user identity.|string
 |===
 
 [[_properties_device-trust_userreference]]
@@ -230,7 +230,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to device trust user.|string
 |===
 
 
