@@ -3,7 +3,7 @@
 
 [[_overview]]
 == Overview
-API used to create a device trust certificate between BIG-IQ and BIG-IP.
+API used to create a device trust task resulting in negotiated certificate between BIG-IQ and BIG-IP using key exchange.
 
 
 === Version information
