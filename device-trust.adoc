@@ -146,7 +146,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|A integer that will track change made to a device trust collection object. generation.|integer(int64)
 |*items* +
-_optional_|collection of device-task objects|< object > array
+_optional_|Collection of device-task objects|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for this device trust collection object.|string
