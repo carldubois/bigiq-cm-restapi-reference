@@ -188,7 +188,7 @@ _optional_|User name of device object to be managed.|string
 |*endTime* +
 _optional_|End time of device discovery task, per module.|string
 |*module* +
-_optional_|Module type of device discovery task, (AFM, ASM, APM)|string
+_optional_|Module type of device discovery task, (Module List- adc-core, firewall, asm, security_shared)|string
 |*startTime* +
 _optional_|Start time of device discovery task, per module|string
 |===
