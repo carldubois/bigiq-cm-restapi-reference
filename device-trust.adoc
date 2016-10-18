@@ -188,7 +188,7 @@ _optional_ +
 _read-only_|Type information for this device trust object.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an policy object. time.|integer(int64)
+_read-only_|Update time (micros) for last change made to an device trust task object. time.|integer(int64)
 |*machineId* +
 _optional_|A unique id string for the BIGIP device.|string
 |*ownerMachineId* +
