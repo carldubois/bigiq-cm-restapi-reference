@@ -91,7 +91,7 @@ Returns the device discovery task identified by a endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assigned to device discovery task.|string(UUID)|None
 |===
 
 
@@ -186,11 +186,11 @@ _optional_|User name of device object to be managed.|string
 |===
 |Name|Description|Schema
 |*endTime* +
-_optional_||string
+_optional_|End time of device discovery task, per module.|string
 |*module* +
-_optional_||string
+_optional_|Module type of device discovery task, (AFM, ASM, APM)|string
 |*startTime* +
-_optional_||string
+_optional_|Start time of device discovery task, per module|string
 |===
 
 [[_properties_device_discovery_devicereference]]
@@ -200,7 +200,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Device reference link to device resolver.|string
 |===
 
 [[_properties_device_discovery_identityreference]]
@@ -210,7 +210,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Array of user reference links used to discovery devices.|string
 |===
 
 [[_properties_device_discovery_userreference]]
@@ -220,7 +220,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to a user used to discover devices.|string
 |===
 
 
