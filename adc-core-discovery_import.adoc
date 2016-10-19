@@ -3,7 +3,7 @@
 
 [[_overview]]
 == Overview
-API used for discovery task management of BIGIP for the ADC namespace by BIGIQ.
+API used for discovery task management of BIGIP for the ADC namespace by BIGIQ. This task will be used for import as well.
 
 
 === Version information
