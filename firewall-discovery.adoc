@@ -1,0 +1,432 @@
+= BIG-IQ Discovery for Firewall Management.
+
+
+[[_overview]]
+== Overview
+API used for discovery task management of BIGIP for the AFM (Firewall) namespace by BIGIQ. Re import will use this task as well.
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/firewall/tasks
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_declare-mgmt-authority_post]]
+=== Create a device discovery declare-mgmt-authority task managed by BIGIQ module (AFM).
+....
+POST /declare-mgmt-authority
+....
+
+
+==== Description
+Create a device discovery declare-mgmt-authority task and add to collection.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST a device discovery declare-mgmt-authority task.|<<_properties_declare_mgmt_authority_collection,properties_declare_mgmt_authority_collection>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+[[_declare-mgmt-authority_get]]
+=== List of device declare-mgmt-authority collection tasks managed by BIGIQ module (AFM).
+....
+GET /declare-mgmt-authority
+....
+
+
+==== Description
+Returns the collection of device discover declare-mgmt-authority tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Returns a collection of device discover declare-mgmt-authority tasks.|<<_properties_declare_mgmt_authority_collection,properties_declare_mgmt_authority_collection>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+[[_declare-mgmt-authority_objectid_get]]
+=== Used to get a single device discovery declare-mgmt-authority task (AFM).
+....
+GET /declare-mgmt-authority/{objectId}
+....
+
+
+==== Description
+Returns the device discovery declare-mgmt-authority task identified by a endpoint URI (AFM).
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Device discovery declare-mgmt-authority task object. (AFM)|<<_properties_declare-mgmt-authority,properties_declare-mgmt-authority>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_error_collection]]
+=== error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection of device discovery firewall task objects.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for this device discovery firewall task collection object. cm:firewall:tasks:declare-mgmt-authority:dmataskcollectionstate|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_properties_declare-mgmt-authority]]
+=== properties_declare-mgmt-authority
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*childTaskReference* +
+_optional_|Reference link to child task. shared-object security discovery.|< <<_properties_declare-mgmt-authority_childtaskreference,childTaskReference>> > array
+|*childTaskStates* +
+_optional_||< <<_properties_declare-mgmt-authority_childtaskstates,childTaskStates>> > array
+|*copyTaskReference* +
+_optional_|Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).|<<_properties_declare-mgmt-authority_copytaskreference,copyTaskReference>>
+|*createChildTasks* +
+_optional_|To create a child task as part of this declare-mgmt-authority for firewall.|boolean
+|*currentStep* +
+_optional_|The current step of device declare-mgmt-authority firewall task as predicated by state.|string
+|*deviceReference* +
+_optional_|Reference link to resolver for device firewall to be managed by BIGIQ. (AFM)|<<_properties_declare-mgmt-authority_devicereference,deviceReference>>
+|*differenceReference* +
+_optional_|Reference link to differences object containing differences between working-configuration (BIGIQ) and current-configuration (BIGIP)|<<_properties_declare-mgmt-authority_differencereference,differenceReference>>
+|*differencerTaskReference* +
+_optional_|Reference link to differencer task. Used to manage difference between working-configuration (BIGIQ) and current-configuration (BIGIP)|<<_properties_declare-mgmt-authority_differencertaskreference,differencerTaskReference>>
+|*endDateTime* +
+_optional_|Date/Time when device discovery task declare-mgmt-authority firewall ended. 2016-10-11T10:30:17.834-0400|string
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a device discovery declare-mgmt-authority task object. (AFM) generation.|integer(int64)
+|*id* +
+_optional_ +
+_read-only_|Unique id assigned to a device declare-mgmt-authority firewall task object.|string
+|*identityReference* +
+_optional_|Array of reference links to user used to discover device declare-mgmt-authority firewall. mgmt/shared/authz/users/admin|< <<_properties_declare-mgmt-authority_identityreference,identityReference>> > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for this device discovery declare-mgmt-authority firewall task object. cm:firewall:tasks:declare-mgmt-authority:dmataskitemstate|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an device discovery firewall task object. time (1476742109026835).|integer(int64)
+|*name* +
+_optional_|Name of device declare-mgmt-authority task.|string
+|*ownerMachineId* +
+_optional_|A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority. (AFM)|string
+|*reImport* +
+_optional_|Flag to enable / disable re import configuration.|boolean
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the device discovery declare-mgmt-authority task object. (AFM)|string
+|*skipDiscovery* +
+_optional_|Skip discovery for re import configuration.|boolean
+|*snapshotWorkingConfig* +
+_optional_|To snapshot the working-configuration (BIGIQ) during firewall module discovery.|boolean
+|*startDateTime* +
+_optional_|Date/Time when device discovery declare-mgmt-authority firewall task began. 2016-10-11T10:30:17.834-0400|string
+|*status* +
+_optional_|Status of device declare-mgmt-authority task predicated on state.|string
+|*useBigiqSync* +
+_optional_|Flag to sync BIGIP cluster management (True / False)|boolean
+|*userReference* +
+_optional_|Reference link to user used to discover device declare-mgmt-authority firewall. mgmt/shared/authz/users/admin|<<_properties_declare-mgmt-authority_userreference,userReference>>
+|*username* +
+_optional_|User name of device firewall object to be managed. (Firewall)|string
+|*validationBypassMode* +
+_optional_|Enable / Disable validation check when importing configuration device. BYPASS_NONE - no bypass (default), BYPASS_FINAL - skip final validation phase, BYPASS_ALL - skip all validation phases.|string
+|===
+
+[[_properties_declare-mgmt-authority_childtaskreference]]
+*childTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_childtaskstates]]
+*childTaskStates*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*copyTaskReference* +
+_optional_|Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).|<<_properties_declare-mgmt-authority_copytaskreference,copyTaskReference>>
+|*createChildTasks* +
+_optional_|To create a child task as part of this declare-mgmt-authority for firewall.|boolean
+|*currentStep* +
+_optional_|The current step of device declare-mgmt-authority firewall task as predicated by state.|string
+|*deviceIp* +
+_optional_||string
+|*deviceReference* +
+_optional_||<<_properties_declare-mgmt-authority_devicereference,deviceReference>>
+|*differenceReference* +
+_optional_|Reference link to differences object containing differences between working-configuration (BIGIQ) and current-configuration (BIGIP)|<<_properties_declare-mgmt-authority_differencereference,differenceReference>>
+|*differencerTaskReference* +
+_optional_|Reference link to differencer task. Used to manage difference between working-configuration (BIGIQ) and current-configuration (BIGIP)|<<_properties_declare-mgmt-authority_differencertaskreference,differencerTaskReference>>
+|*endDateTime* +
+_optional_|Date/Time when device discovery task declare-mgmt-authority firewall ended. 2016-10-11T10:30:17.834-0400|string
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a device discovery declare-mgmt-authority firewall task object. generation.|integer(int64)
+|*id* +
+_optional_|Unique id for child task.|string
+|*identityReference* +
+_optional_|Array of reference links to user used to discover device declare-mgmt-authority firewall. mgmt/shared/authz/users/admin|< <<_properties_declare-mgmt-authority_identityreference,identityReference>> > array
+|*isChildTask* +
+_optional_|Identify if task is a child of this declare-mgmt-authority for firewall.|boolean
+|*kind* +
+_optional_ +
+_read-only_|Type information for this device discovery declare-mgmt-authority firewall task object. cm:security-shared:tasks:declare-mgmt-authority:dmataskitemstate|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an device discovery firewall task object. time (1476742109026835).|integer(int64)
+|*ownerMachineId* +
+_optional_|A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority firewall. (Firewall)|string
+|*parentTaskReference* +
+_optional_||<<_properties_declare-mgmt-authority_parenttaskreference,parentTaskReference>>
+|*reImport* +
+_optional_|Flag to enable / disable re import configuration.|boolean
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the device discovery declare-mgmt-authority firewall task object.|string
+|*skipDiscovery* +
+_optional_|Skip discovery for re import configuration.|boolean
+|*startDateTime* +
+_optional_|Date/Time when device discovery declare-mgmt-authority firewall task began. 2016-10-11T10:30:17.834-0400|string
+|*status* +
+_optional_|Status of device discovery declare-mgmt-authority firewall task during state transistion. (Firewall)|string
+|*useBigiqSync* +
+_optional_|Flag to sync BIGIP cluster management (True / False)|boolean
+|*userReference* +
+_optional_|Reference link to user used to discover device declare-mgmt-authority firewall. mgmt/shared/authz/users/admin|<<_properties_declare-mgmt-authority_userreference,userReference>>
+|*username* +
+_optional_|User name of device firewall object to be managed. (Firewall)|string
+|*validationBypassMode* +
+_optional_|Enable / Disable validation check when importing configuration device. BYPASS_NONE - no bypass (default), BYPASS_FINAL - skip final validation phase, BYPASS_ALL - skip all validation phases.|string
+|===
+
+[[_properties_declare-mgmt-authority_copytaskreference]]
+*copyTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_devicereference]]
+*deviceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_differencereference]]
+*differenceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_differencertaskreference]]
+*differencerTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_identityreference]]
+*identityReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_parenttaskreference]]
+*parentTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_userreference]]
+*userReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_copytaskreference]]
+*copyTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_devicereference]]
+*deviceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_differencereference]]
+*differenceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_differencertaskreference]]
+*differencerTaskReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_identityreference]]
+*identityReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_declare-mgmt-authority_userreference]]
+*userReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+
+[[_properties_declare_mgmt_authority_collection]]
+=== properties_declare_mgmt_authority_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a device discovery firewall task collection object. generation.|integer(int64)
+|*items* +
+_optional_|Array of device discovery firewall task object.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for this device discover firewall task collection object. cm:firewall:tasks:declare-mgmt-authority:dmataskcollectionstate|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an device discovery firewall task collection object. time.|integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the device discovery firewall task collection object.|string
+|===
+
+
+
+
+
