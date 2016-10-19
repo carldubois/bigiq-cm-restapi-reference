@@ -33,14 +33,14 @@ _Schemes_ : HTTPS
 == Paths
 
 [[_declare-mgmt-authority_post]]
-=== Create a device discovery declare-mgmt-authority task managed by BIGIQ module (LTM/ADC).
+=== Create a device discovery declare-mgmt-authority task managed by BIGIQ module (AFM).
 ....
 POST /declare-mgmt-authority
 ....
 
 
 ==== Description
-Create a device discovery declare-mgmt-authority task and add to collection.
+Create a device discovery declare-mgmt-authority firewall task and add to collection.
 
 
 ==== Responses
@@ -48,20 +48,20 @@ Create a device discovery declare-mgmt-authority task and add to collection.
 [options="header", cols=".^2,.^14,.^4"]
 |===
 |HTTP Code|Description|Schema
-|*200*|POST a device discovery declare-mgmt-authority task.|<<_properties_declare_mgmt_authority_collection,properties_declare_mgmt_authority_collection>>
+|*200*|POST a device discovery firewall declare-mgmt-authority task.|<<_properties_declare_mgmt_authority_collection,properties_declare_mgmt_authority_collection>>
 |*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
 |===
 
 
 [[_declare-mgmt-authority_get]]
-=== List of device declare-mgmt-authority collection tasks managed by BIGIQ module (LTM/ADC).
+=== List of device declare-mgmt-authority firewall collection tasks managed by BIGIQ module (AFM).
 ....
 GET /declare-mgmt-authority
 ....
 
 
 ==== Description
-Returns the collection of device discover declare-mgmt-authority tasks.
+Returns the collection of device discover firewall declare-mgmt-authority tasks.
 
 
 ==== Responses
@@ -69,20 +69,20 @@ Returns the collection of device discover declare-mgmt-authority tasks.
 [options="header", cols=".^2,.^14,.^4"]
 |===
 |HTTP Code|Description|Schema
-|*200*|Returns a collection of device discover declare-mgmt-authority tasks.|<<_properties_declare_mgmt_authority_collection,properties_declare_mgmt_authority_collection>>
+|*200*|Returns a collection of device discover firewall declare-mgmt-authority tasks.|<<_properties_declare_mgmt_authority_collection,properties_declare_mgmt_authority_collection>>
 |*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
 |===
 
 
 [[_declare-mgmt-authority_objectid_get]]
-=== Used to get a single device discovery declare-mgmt-authority task (LTM/ADC).
+=== Used to get a single device discovery firewall declare-mgmt-authority task (AFM).
 ....
 GET /declare-mgmt-authority/{objectId}
 ....
 
 
 ==== Description
-Returns the device discovery declare-mgmt-authority task identified by a endpoint URI (LTM/ADC).
+Returns the device discovery firewall declare-mgmt-authority task identified by a endpoint URI (AFM).
 
 
 ==== Parameters
@@ -100,7 +100,7 @@ _required_||string(UUID)|
 [options="header", cols=".^2,.^14,.^4"]
 |===
 |HTTP Code|Description|Schema
-|*200*|Device discovery declare-mgmt-authority task object. (LTM/ADC)|<<_properties_declare-mgmt-authority,properties_declare-mgmt-authority>>
+|*200*|Device discovery firewall declare-mgmt-authority task object. (AFM)|<<_properties_declare-mgmt-authority,properties_declare-mgmt-authority>>
 |*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
 |===
 
@@ -120,10 +120,10 @@ _required_||string(UUID)|
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_|Collection of device discovery firewall task objects.|< object > array
+_optional_|Collection of device discovery firewall declare-mgmt-authority task objects.|< object > array
 |*kind* +
 _optional_ +
-_read-only_|Type information for this device discovery firewall task collection object. cm:firewall:tasks:declare-mgmt-authority:dmataskcollectionstate|string
+_read-only_|Type information for this device discovery firewall declare-mgmt-authority task collection object. cm:firewall:tasks:declare-mgmt-authority:dmataskcollectionstate|string
 |*message* +
 _optional_ +
 _read-only_|Error message returned from server.|string
