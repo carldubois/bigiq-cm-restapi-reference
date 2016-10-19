@@ -1,4 +1,4 @@
-= BIG-IQ LTM/ADC Pool member management.
+= BIG-IQ LTM/ADC Pool Member Management.
 
 
 [[_overview]]
