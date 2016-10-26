@@ -91,7 +91,7 @@ Returns the device discovery declare-mgmt-authority task identified by a endpoin
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assinged to declare-mgmt-authority asm task object.|string(UUID)|None
 |===
 
 
@@ -145,7 +145,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 |*childTaskReference* +
 _optional_|Reference link to child task. shared-object security discovery.|< <<_properties_declare-mgmt-authority_childtaskreference,childTaskReference>> > array
 |*childTaskStates* +
-_optional_||< <<_properties_declare-mgmt-authority_childtaskstates,childTaskStates>> > array
+_optional_|Description of child task state properties using by declare-mgmt-authority task object.|< <<_properties_declare-mgmt-authority_childtaskstates,childTaskStates>> > array
 |*copyTaskReference* +
 _optional_|Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).|<<_properties_declare-mgmt-authority_copytaskreference,copyTaskReference>>
 |*createChildTasks* +
@@ -204,7 +204,7 @@ _optional_|Enable / Disable validation check when importing configuration device
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to child task object.|string
 |===
 
 [[_properties_declare-mgmt-authority_childtaskstates]]
@@ -220,9 +220,9 @@ _optional_|To create a child task as part of this declare-mgmt-authority for ASM
 |*currentStep* +
 _optional_|The current step of device declare-mgmt-authority asm task as predicated by state.|string
 |*deviceIp* +
-_optional_||string
+_optional_|Device ip address this task is running on.|string
 |*deviceReference* +
-_optional_||<<_properties_declare-mgmt-authority_devicereference,deviceReference>>
+_optional_|Reference link to the device in the shared allAsmDevices resolver device group.|<<_properties_declare-mgmt-authority_devicereference,deviceReference>>
 |*differenceReference* +
 _optional_|Reference link to differences object containing differences between working-configuration (BIGIQ) and current-configuration (BIGIP)|<<_properties_declare-mgmt-authority_differencereference,differenceReference>>
 |*differencerTaskReference* +
@@ -276,7 +276,7 @@ _optional_|Enable / Disable validation check when importing configuration device
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to declare-mgmt-authority copy task object.|string
 |===
 
 [[_properties_declare-mgmt-authority_devicereference]]
@@ -286,7 +286,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to the device in the shared allAsmDevices resolver device group.|string
 |===
 
 [[_properties_declare-mgmt-authority_differencereference]]
@@ -296,7 +296,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to delcare-mgmt-authority differences found (current-config (BIGIP) and working-config (BIGIQ)) during task.|string
 |===
 
 [[_properties_declare-mgmt-authority_differencertaskreference]]
@@ -306,7 +306,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to delcare-mgmt-authority differences task object.|string
 |===
 
 [[_properties_declare-mgmt-authority_identityreference]]
@@ -316,7 +316,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Array of reference links to users. mgmt/shared/authz/users/admin|string
 |===
 
 [[_properties_declare-mgmt-authority_parenttaskreference]]
@@ -326,7 +326,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to parent task. This declare-mgmt-authority task object.|string
 |===
 
 [[_properties_declare-mgmt-authority_userreference]]
@@ -336,7 +336,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference links to user. mgmt/shared/authz/user|string
 |===
 
 [[_properties_declare-mgmt-authority_copytaskreference]]
@@ -346,7 +346,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to declare-mgmt-authority difference copy task.|string
 |===
 
 [[_properties_declare-mgmt-authority_devicereference]]
@@ -356,7 +356,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to declare-mgmt-authority task device.|string
 |===
 
 [[_properties_declare-mgmt-authority_differencereference]]
@@ -366,7 +366,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to shared security configuration difference report.|string
 |===
 
 [[_properties_declare-mgmt-authority_differencertaskreference]]
@@ -376,7 +376,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to shared security configuration difference task object.|string
 |===
 
 [[_properties_declare-mgmt-authority_identityreference]]
@@ -386,7 +386,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to users. /mgmt/shared/authz/users/admin |string
 |===
 
 [[_properties_declare-mgmt-authority_userreference]]
@@ -396,7 +396,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to users. /mgmt/shared/authz/users/admin|string
 |===
 
 
