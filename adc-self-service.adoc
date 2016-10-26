@@ -91,7 +91,7 @@ Returns a self-service task object identified by id for an endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assigned to a self-service task.|string(UUID)|
 |===
 
 
