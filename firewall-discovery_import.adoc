@@ -91,7 +91,7 @@ Returns the device discovery declare-mgmt-authority task identified by a endpoin
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_|Unique id assinged to declare-mgmt-authority firewall task object.|string(UUID)|
+_required_|Unique id assinged to declare-mgmt-authority firewall task object.|string(UUID)|None
 |===
 
 
