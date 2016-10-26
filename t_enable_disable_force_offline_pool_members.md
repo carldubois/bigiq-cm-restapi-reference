@@ -19,7 +19,7 @@ If already know the `selfLink` of pool members to operate on and desired state t
 ```
 GET https://ip_address/mgmt/cm/adc-core/working-config/ltm/pool
 ```
-[Adc-Core Pool Member Management API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/pool-member-management.adoc)
+[Pool Member Management API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/pool-member-management.adoc)
 
 The JSON in the body of the response can look similar to the following.
 ```
@@ -111,6 +111,8 @@ Send a GET request to the pool member sub-collections of the specific pools.
 ```
 GET https://ip_address/mgmt/cm/adc-core/working-config/ltm/pool/df237cb1-e272-3de9-8de3-a1afae6d6503/members
 ```
+[Pool Member Management API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/pool-member-management.adoc)
+
 The JSON in the body of the response can look similar to the following. Note the value of selfLink for pool members to operate on, which will be used in the next step.
 ```
 {
@@ -178,6 +180,8 @@ Send a POST request to set new state for each pool member. The pool member will 
 ```
 POST https://ip_address/mgmt/cm/adc-core/tasks/self-service
 ```
+[Self Service Task API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adc-self-service.adoc)
+
 The JSON in the body of the request can look similar to the following example. The `operation` can be `enable`, `disable`, or `force-offline` for pool members. 
 ```json
 {
