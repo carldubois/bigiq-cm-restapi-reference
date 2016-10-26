@@ -19,6 +19,7 @@ If already know the `selfLink` of pool members to operate on and desired state t
 ```
 GET https://ip_address/mgmt/cm/adc-core/working-config/ltm/pool
 ```
+[Adc-Core Pool Member Management API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/pool-member-management.adoc)
 The JSON in the body of the response can look similar to the following.
 ```
 {
