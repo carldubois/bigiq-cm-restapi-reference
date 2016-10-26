@@ -120,7 +120,7 @@ _required_||string(UUID)|
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of self-service task errors.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for device-trust collections-cm:global:tasks:device-trust:bigiptrusttaskstate.|string
@@ -146,7 +146,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|A integer that will track change made to a self-service collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Self-serivce task properties associated with the collection.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for this self-service task collection object.|string
@@ -212,7 +212,7 @@ _optional_|Username of user whom iniated the task.|string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to device assocated with this self-service task in the device resolver.|string
 |===
 
 [[_properties_self_service_identityreference]]
@@ -222,7 +222,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link table to authz users.|string
 |===
 
 [[_properties_self_service_resourcereference]]
@@ -232,7 +232,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to the resource in which the task is mananging. |string
 |===
 
 [[_properties_self_service_userreference]]
@@ -242,7 +242,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link table to authz user.|string
 |===
 
 
