@@ -251,7 +251,8 @@ _read-only_|Update time (micros) for last change made to an device discovery fir
 |*ownerMachineId* +
 _optional_|A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority firewall. (Firewall)|string
 |*parentTaskReference* +
-_optional_||<<_properties_declare-mgmt-authority_parenttaskreference,parentTaskReference>>
+_optional_|	
+Reference link to parent process. The declare-mgmt-authority task.|<<_properties_declare-mgmt-authority_parenttaskreference,parentTaskReference>>
 |*reImport* +
 _optional_|Flag to enable / disable re import configuration.|boolean
 |*selfLink* +
@@ -334,7 +335,7 @@ _optional_|Reference link to shared security configuration difference task objec
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to parent task. This declare-mgmt-authority task object.|string
 |===
 
 [[_properties_declare-mgmt-authority_userreference]]
