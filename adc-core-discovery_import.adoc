@@ -91,7 +91,7 @@ Returns the device discovery declare-mgmt-authority task identified by a endpoin
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assigned to this declare-mgmt-authority task object.|string(UUID)|None
 |===
 
 
@@ -194,7 +194,7 @@ _optional_|Enable / Disable validation check when importing configuration device
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to a declare-mgmt-authority copy task object. |string
 |===
 
 [[_properties_declare-mgmt-authority_devicereference]]
