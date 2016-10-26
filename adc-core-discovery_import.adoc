@@ -204,7 +204,7 @@ _optional_|Reference link to a declare-mgmt-authority copy task object. |string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to declare-mgmt-authority adc task device.|string
 |===
 
 [[_properties_declare-mgmt-authority_differencereference]]
@@ -214,7 +214,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to shared security configuration difference report for adc-core.|string
 |===
 
 [[_properties_declare-mgmt-authority_differencertaskreference]]
@@ -224,7 +224,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to shared security configuration difference adc-core task object.|string
 |===
 
 [[_properties_declare-mgmt-authority_identityreference]]
@@ -234,7 +234,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to users. /mgmt/shared/authz/users/admin|string
 |===
 
 [[_properties_declare-mgmt-authority_userreference]]
@@ -244,7 +244,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to users. /mgmt/shared/authz/users/admin|string
 |===
 
 
