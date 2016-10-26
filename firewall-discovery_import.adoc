@@ -145,7 +145,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 |*childTaskReference* +
 _optional_|Reference link to child task. shared-object security discovery.|< <<_properties_declare-mgmt-authority_childtaskreference,childTaskReference>> > array
 |*childTaskStates* +
-_optional_||< <<_properties_declare-mgmt-authority_childtaskstates,childTaskStates>> > array
+_optional_|Description of child task state properties using by declare-mgmt-authority task object.|< <<_properties_declare-mgmt-authority_childtaskstates,childTaskStates>> > array
 |*copyTaskReference* +
 _optional_|Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).|<<_properties_declare-mgmt-authority_copytaskreference,copyTaskReference>>
 |*createChildTasks* +
@@ -224,9 +224,9 @@ _optional_|To create a child task as part of this declare-mgmt-authority for fir
 |*currentStep* +
 _optional_|The current step of device declare-mgmt-authority firewall task as predicated by state.|string
 |*deviceIp* +
-_optional_||string
+_optional_|Device ip address this task is running on.|string
 |*deviceReference* +
-_optional_||<<_properties_declare-mgmt-authority_devicereference,deviceReference>>
+_optional_|Reference link to the device in the shared allAsmDevices resolver device group.|<<_properties_declare-mgmt-authority_devicereference,deviceReference>>
 |*differenceReference* +
 _optional_|Reference link to differences object containing differences between working-configuration (BIGIQ) and current-configuration (BIGIP)|<<_properties_declare-mgmt-authority_differencereference,differenceReference>>
 |*differencerTaskReference* +
@@ -312,7 +312,7 @@ _optional_|Reference link to shared security configuration difference report.
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to differencer task. Used to manage difference between working-configuration (BIGIQ) and current-configuration (BIGIP)|string
 |===
 
 [[_properties_declare-mgmt-authority_identityreference]]
