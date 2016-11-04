@@ -62,6 +62,7 @@ POST: https://<mgmtip>/mgmt/cm/gloal/tasks/device-trust
 }
 ```
 [Device Trust API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/device-trust.adoc)
+
 The following is the response JSON from the POST method:
 ```
     "address": "10.255.4.124",
