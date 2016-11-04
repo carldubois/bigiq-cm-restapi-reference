@@ -93,7 +93,7 @@ Returns the device-trust identified by id for an endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_|Unique id assigned to device trust task.|string(UUID)|
+_required_|Unique id assigned to device trust task.|string(UUID)|None
 |===
 
 
@@ -149,7 +149,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of device-trust task objects.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for device-trust collections-cm:global:tasks:device-trust:bigiptrusttaskstate.|string
@@ -175,7 +175,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|A integer that will track change made to a device trust collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Collection of device-trust task objects.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for this device trust collection object.|string
@@ -249,7 +249,7 @@ _optional_|User name of device object to be managed.|string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Array of user reference links used to discovery devices.|string
 |===
 
 [[_properties_device-trust_userreference]]
@@ -259,7 +259,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to a user used to discover devices.|string
 |===
 
 
