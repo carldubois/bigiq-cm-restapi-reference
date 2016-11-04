@@ -71,7 +71,7 @@ Returns a licensed pool object identified by id for an endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assigned to license purchased pool object.|string(UUID)|None
 |===
 
 
@@ -103,7 +103,7 @@ Invoke a task to license a BIGIP and add to this specific license pool as a memb
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assigned to license purchased pool object.|string(UUID)|None
 |===
 
 
@@ -135,7 +135,7 @@ Returns all members (BIGIP) devices that make up the license pool identified by 
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assigned to license purchased pool object.|string(UUID)|None
 |===
 
 
@@ -165,7 +165,7 @@ _required_||string(UUID)|
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of license purchased pool objects.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for license purchased pools - cm:shared:licensing:pools:licensepoolworkerstate.|string
@@ -191,7 +191,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of license purchased pool objects.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for license purchased pools - cm:shared:licensing:pools:licensepoolworkerstate.|string
@@ -217,7 +217,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|A integer that will track change made to a license purchased pool collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Collection of license purchased pool objects.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for a license purchase pool collection object.|string
@@ -257,7 +257,7 @@ _optional_|State representation of what is returned from the license server.|<<_
 _optional_ +
 _read-only_|Contents of licensed purchased pool. Spefices for licensed purchased pool such as Auth version, Tech support info, license tokens, keys etc..|string
 |*method* +
-_optional_|.|string
+_optional_|Licensing method used. (Example - MANUAL / AUTOMATIC)|string
 |*name* +
 _optional_|Name of licensed purchased pool object.|string
 |*privateKey* +
