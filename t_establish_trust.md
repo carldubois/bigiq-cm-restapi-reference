@@ -95,6 +95,8 @@ Perform GET methods to the 'selfLink' that is returned from the response JSON in
 ```
 GET: https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-892b-cb859b182cdb?$select=address,status,currentStep
 ```
+[Device Trust API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/device-trust.adoc)
+
 The following is the response JSON from the GET method:
 ```
 {
@@ -124,6 +126,8 @@ PATCH: https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-89
     "status": "STARTED"
 }
 ```
+[Device Trust API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/device-trust.adoc)
+
 The following is the response JSON from the PATCH method:
 ```
 {
@@ -166,6 +170,8 @@ Perform additional GET methods on the 'selfLink' that is returned from the Step 
 ```
 GET: https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-892b-cb859b182cdb?$select=address,status,currentStep
 ```
+[Device Trust API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/device-trust.adoc)
+
 The following is the response JSON from the GET method:
 ```
 {
