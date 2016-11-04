@@ -50,6 +50,7 @@ Returns the collection of device-trust tasks.
 |HTTP Code|Description|Schema
 |*200*|Collection of device-trust tasks.|<<_properties_device_trust_post,properties_device_trust_post>>
 |*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Public URI path not registered.|<<_404_error_collection,404_error_collection>>
 |===
 
 
@@ -92,7 +93,7 @@ Returns the device-trust identified by id for an endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assigned to device trust task.|string(UUID)|
 |===
 
 
@@ -103,6 +104,7 @@ _required_||string(UUID)|
 |HTTP Code|Description|Schema
 |*200*|Device-trust object.|<<_properties_device-trust,properties_device-trust>>
 |*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
+|*404*|Public URI path not registered.|<<_404_error_collection,404_error_collection>>
 |===
 
 
@@ -121,7 +123,7 @@ _required_||string(UUID)|
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of device-trust task objects.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for device-trust collections-cm:global:tasks:device-trust:bigiptrusttaskstate.|string
