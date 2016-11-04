@@ -1,0 +1,456 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "BIG-IQ licensing - Purchased Pools.",
+        "description": "API used to license BIGIP devices referencing a purchased licensed pool.",
+        "version": "5.2"
+    },
+    "schemes": [
+        "https"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "basePath": "/mgmt/cm/shared/licensing",
+    "parameters": {
+        "paramObjectId": {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "UUID"
+        }
+    },
+    "definitions": {
+        "400_error_collection": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "description": "Collection pertaining to license purchased pool."
+                    }
+                },
+                "kind": {
+                    "type": "string",
+                    "format": "kind",
+                    "description": "Type information for license purchased pools - cm:shared:licensing:pools:licensepoolworkerstate.",
+                    "readOnly": true
+                },
+                "message": {
+                    "type": "string",
+                    "format": "URI",
+                    "description": "Error message returned from server.",
+                    "readOnly": true
+                },
+                "requestOperationId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Unique id assigned to rest operation.",
+                    "readOnly": true
+                },
+                "requestBody": {
+                    "type": "string",
+                    "format": "request_body",
+                    "description": "The data in the request body. GET (None)",
+                    "readOnly": true
+                },
+                "errorStack": {
+                    "type": "string",
+                    "format": "java_error_stack",
+                    "description": "Error stack trace returned by java.",
+                    "readOnly": true
+                }
+            }
+        },
+        "404_error_collection": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "description": "Collection pertaining to license purchased pool. Public URI path not registered."
+                    }
+                },
+                "kind": {
+                    "type": "string",
+                    "format": "kind",
+                    "description": "Type information for license purchased pools - cm:shared:licensing:pools:licensepoolworkerstate.",
+                    "readOnly": true
+                },
+                "message": {
+                    "type": "string",
+                    "format": "URI",
+                    "description": "Error message returned from server.",
+                    "readOnly": true
+                },
+                "requestOperationId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Unique id assigned to rest operation.",
+                    "readOnly": true
+                },
+                "requestBody": {
+                    "type": "string",
+                    "format": "request_body",
+                    "description": "The data in the request body. GET (None)",
+                    "readOnly": true
+                },
+                "errorStack": {
+                    "type": "string",
+                    "format": "java_error_stack",
+                    "description": "Error stack trace returned by java.",
+                    "readOnly": true
+                }
+            }
+        },
+        "properties_collection": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "description": "Collection of license purchase pool properties."
+                    }
+                },
+                "kind": {
+                    "type": "string",
+                    "format": "kind",
+                    "description": "Type information for a license purchase pool collection object.",
+                    "readOnly": true
+                },
+                "selfLink": {
+                    "type": "string",
+                    "description": "A reference link URI to a license purchase pool collection object.",
+                    "format": "URI",
+                    "readOnly": true
+                },
+                "generation": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "A integer that will track change made to a license purchased pool collection object. generation.",
+                    "readOnly": true
+                },
+                "lastUpdateMicros": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Update time (micros) for last change made to an license purchased pool  collection object. time.",
+                    "readOnly": true
+                }
+            }
+        },
+        "properties_purchased_pool": {
+            "type": "object",
+            "properties": {
+                "uuid": {
+                    "type": "string",
+                    "format": "UUID",
+                    "description": "Unique id assigned to a license purchased pool object.",
+                    "readOnly": true
+                },
+                "baseRegKey": {
+                    "type": "string",
+                    "description": "Based Registration Key used to (re) activate licensed purchased pool."
+                },
+                "method": {
+                    "type": "string",
+                    "description": "."
+                },
+                "licenseText": {
+                    "type": "string",
+                    "description": "Contents of licensed purchased pool. Spefices for licensed purchased pool such as Auth version, Tech support info, license tokens, keys etc..",
+                    "readOnly": true
+                },
+                "sortName": {
+                    "type": "string",
+                    "description": "Sort string based on BIGIQ licensing type. (Purchased Pool)"
+                },
+                "isInternal": {
+                    "type": "boolean",
+                    "description": "Is this license pool internal to BIGIQ."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of licensed purchased pool object."
+                },
+                "licenseState": {
+                    "type": "object",
+                    "description": "State representation of what is returned from the license server.",
+                    "properties": {
+                        "vendor": {
+                            "type": "string",
+                            "description": "Company Name. Example F5 Networks, Inc."
+                        },
+                        "licenseDateTime": {
+                            "type": "string",
+                            "description": "Date and time license was generated. (Format - 2016-10-26T00:00:00-04:00)"
+                        },
+                        "licenseVersion": {
+                            "type": "string",
+                            "description": "Version of BIGIQ this license is generated for. (Example - 5.1.0)"
+                        },
+                        "evaluationStartDateTime": {
+                            "type": "string",
+                            "description": "Start date and time a license server evaluate took place (Format - 2016-10-26T00:00:00-04:00)"
+                        },
+                        "evaluationEndDateTime": {
+                            "type": "string",
+                            "description": "End date and time a license server evaluate took place (Format - 2016-10-26T00:00:00-04:00)"
+                        },
+                        "licenseEndDateTime": {
+                            "type": "string",
+                            "description": "End date and time a license was instatiated on BIGIQ (Format - 2016-10-26T00:00:00-04:00)"
+                        },
+                        "licenseStartDateTime": {
+                            "type": "string",
+                            "description": "Start date and time a license was instatiated on BIGIQ (Format - 2016-10-26T00:00:00-04:00)"
+                        },
+                        "registrationKey": {
+                            "type": "string",
+                            "description": "Registration Key used by this license purchaced pool. Response from license server."
+                        },
+                        "dossier": {
+                            "type": "string",
+                            "description": "Dossier generated for this license purchased pool. Response from license server."
+                        },
+                        "authorization": {
+                            "type": "string",
+                            "description": "Authorization string used by license purchace pool. Response from license server."
+                        },
+                        "usage": {
+                            "type": "string",
+                            "description": "Organization usage data. Example - F5 Internal Product Development"
+                        },
+                        "platformId": {
+                            "type": "string",
+                            "description": "Type of BIGIQ platform information. (Example - BIG-IQ Pool)"
+                        },
+                        "authVers": {
+                            "type": "string",
+                            "description": "Version of authentication used by BIGIQ. (Example - 5b)"
+                        },
+                        "serviceCheckDateTime": {
+                            "type": "string",
+                            "description": "Data and time the last service check status request / respose occur from server.  (Format - 2016-10-26T00:00:00-04:00)"
+                        },
+                        "serviceStatus": {
+                            "type": "string",
+                            "description": "Server response describing service status. (Example - As of 2016-10-26 this system has an active service contract.)"
+                        },
+                        "exclusivePlatform": {
+                            "type": "array",
+                            "description": "Platfrom description response from server. (Example - BIG-IQ Pool, Z100, Z100H, Z100K, Z100x)",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "activeModules": {
+                            "type": "array",
+                            "description": "Modules activivated for license purchased pool. (Example - VEP1, LTM, 1G, 4 Instances|V092327-5105381|IPV6 Gateway|Rate Shaping|Ram Cache)",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "optionalModules": {
+                            "type": "array",
+                            "description": "Modules that are optional for license purchased pool. (Example - VEP1, LTM, 1G, Add 25 Instances)",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "featureFlags": {
+                            "type": "array",
+                            "description": "Descritive flags avalible to license purchased pools.",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "featureName": {
+                                        "type": "string",
+                                        "description": "Name of feature. (Example - purchased_license_pool_count, apm_urlf_limited_session, apm_web_applications)"
+                                    },
+                                    "featureValue": {
+                                        "type": "string",
+                                        "description": "Weighted value for each feature. (Example - 10)"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "totalDeviceLicenses": {
+                    "type": "integer",
+                    "description": "Total number of device licenses for this purchased pool."
+                },
+                "freeDeviceLicenses": {
+                    "type": "integer",
+                    "description": "Total number of free device licenses for this purchased pool."
+                },
+                "state": {
+                    "type": "string",
+                    "description": "State of license for purchaced pool. (Example - LICENSED)"
+                },
+                "publicKey": {
+                    "type": "array",
+                    "description": "Public key cryptography which may be disseminated widely.",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "privateKey": {
+                    "type": "string",
+                    "description": "Private key cryptography keys which are known only to the owner."
+                },
+                "registeredKey": {
+                    "type": "array",
+                    "description": "Registered key post cryptography response from server.",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "kind": {
+                    "type": "string",
+                    "format": "kind",
+                    "description": "Type information for this license purchased pool object.",
+                    "readOnly": true
+                },
+                "selfLink": {
+                    "type": "string",
+                    "description": "Reference link to licensed purchased pool.",
+                    "readOnly": true
+                },
+                "generation": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "A integer that will track change made to a license purchaced pool object. generation.",
+                    "readOnly": true
+                },
+                "lastUpdateMicros": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Update time (micros) for last change made to an license purchased pool object. time.",
+                    "readOnly": true
+                }
+            }
+        }
+    },
+    "paths": {
+        "/pools": {
+            "get": {
+                "summary": "GET the BIG-IQ licensing purchased pool.",
+                "description": "Returns a BIGIQ licensed purchaced pools allowing an administrator to license BIGIP devices.",
+                "responses": {
+                    "200": {
+                        "description": "GET BIGIQ licensed purchased pools.",
+                        "schema": {
+                            "$ref": "#/definitions/properties_collection"
+                        }
+                    },
+                    "400": {
+                        "description": "Error response \"Bad Request\"",
+                        "schema": {
+                            "$ref": "#/definitions/400_error_collection"
+                        }
+                    },
+                    "404": {
+                        "description": "Error response \"Public URI path not registered.\"",
+                        "schema": {
+                            "$ref": "#/definitions/404_error_collection"
+                        }
+                    }
+                }
+            }
+        },
+        "/pools/{objectId}": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/paramObjectId"
+                }
+            ],
+            "get": {
+                "summary": "Used to GET a license pool.",
+                "description": "Returns a licensed pool object identified by id for an endpoint URI.",
+                "responses": {
+                    "200": {
+                        "description": "License pool object returned.",
+                        "schema": {
+                            "$ref": "#/definitions/properties_purchased_pool"
+                        }
+                    },
+                    "400": {
+                        "description": "Server error response \"Bad Request\".",
+                        "schema": {
+                            "$ref": "#/definitions/400_error_collection"
+                        }
+                    },
+                    "404": {
+                        "description": "Error response \"Public URI path not registered.\"",
+                        "schema": {
+                            "$ref": "#/definitions/404_error_collection"
+                        }
+                    }
+                }
+            }
+        },
+        "/pools/{objectId}/members": {
+            "parameters": [
+                {
+                    "$ref": "#/parameters/paramObjectId"
+                }
+            ],
+            "get": {
+                "summary": "Used to GET license pool members.",
+                "description": "Returns all members (BIGIP) devices that make up the license pool identified by id/members for an endpoint URI.",
+                "responses": {
+                    "200": {
+                        "description": "License pool members object returned.",
+                        "schema": {
+                            "$ref": "#/definitions/properties_purchased_pool"
+                        }
+                    },
+                    "400": {
+                        "description": "Server error response \"Bad Request\".",
+                        "schema": {
+                            "$ref": "#/definitions/400_error_collection"
+                        }
+                    },
+                    "404": {
+                        "description": "Error response \"Public URI path not registered.\"",
+                        "schema": {
+                            "$ref": "#/definitions/404_error_collection"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "License a BIGIP device and add to license pool members.",
+                "description": "Invoke a task to license a BIGIP and add to this specific license pool as a member to the pool.",
+                "responses": {
+                    "200": {
+                        "description": "POST a device level task to license a BIGIP device.",
+                        "schema": {
+                            "$ref": "#/definitions/properties_collection"
+                        }
+                    },
+                    "400": {
+                        "description": "Error response \"Bad Request\"",
+                        "schema": {
+                            "$ref": "#/definitions/400_error_collection"
+                        }
+                    },
+                    "404": {
+                        "description": "Error response \"Public URI path not registered.\"",
+                        "schema": {
+                            "$ref": "#/definitions/404_error_collection"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
