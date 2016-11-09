@@ -126,7 +126,7 @@ GET /pools/{objectId}/members
 
 
 ==== Description
-Returns all members (BIG-IP) devices that make up the purchased license pool identified by id/members for an endpoint URI.
+Returns all members (BIG-IP) devices that are assingned to this purchased license pool. Each are identified by id/members for an endpoint URI.
 
 
 ==== Parameters
