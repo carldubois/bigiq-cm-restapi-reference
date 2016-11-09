@@ -239,7 +239,7 @@ _read-only_|A reference link URI to a purchased license pool collection object.|
 |*baseRegKey* +
 _optional_|Based Registration Key used to (re) activate purchased license pool.|string
 |*freeDeviceLicenses* +
-_optional_|Total number of free device licenses for this purchased license pool.|integer
+_read-only_|Total number of free device licenses for this purchased license pool.|integer
 |*generation* +
 _optional_ +
 _read-only_|A integer that will track change made to a purchased license pool object. generation.|integer(int64)
