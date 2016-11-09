@@ -244,7 +244,7 @@ _read-only_|Total number of free device licenses for this purchased license pool
 _optional_ +
 _read-only_|A integer that will track change made to a purchased license pool object. generation.|integer(int64)
 |*isInternal* +
-_optional_|Is this purchased licensed pool internal to BIG-IQ.|boolean
+_BIG-IQ use only_|Is this purchased licensed pool internal to BIG-IQ.|boolean
 |*kind* +
 _optional_ +
 _read-only_|Type information for this purchased license pool object.|string
@@ -252,12 +252,12 @@ _read-only_|Type information for this purchased license pool object.|string
 _optional_ +
 _read-only_|Update time (micros) for last change made to an purchased license pool object. time.|integer(int64)
 |*licenseState* +
-_optional_|State representation of what is returned from the license server.|<<_properties_purchased_pool_licensestate,licenseState>>
+_read-only_|State representation of what is returned from the license server.|<<_properties_purchased_pool_licensestate,licenseState>>
 |*licenseText* +
 _optional_ +
 _read-only_|Contents of licensed purchased pool. Spefices for purchased license pool such as Auth version, Tech support info, license tokens, keys etc..|string
 |*method* +
-_optional_|Licensing method used. (Example - MANUAL / AUTOMATIC)|string
+_optional_|Activation method used. (Example - MANUAL / AUTOMATIC)|string
 |*name* +
 _optional_|Name of purchased license pool object.|string
 |*privateKey* +
