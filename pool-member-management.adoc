@@ -164,7 +164,7 @@ _read-only_|Error stack trace returned by java.|string
 _optional_|Collection of pool members. error response from server.|< object > array
 |*kind* +
 _optional_ +
-_read-only_|Type information for device-trust collections-cm:global:tasks:device-trust:bigiptrusttaskstate.|string
+_read-only_|Type information for pool member collections-cm:adc-core:working-config:ltm:pool:adcpoolstate.|string
 |*message* +
 _optional_ +
 _read-only_|Error message returned from server.|string
