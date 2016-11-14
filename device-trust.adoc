@@ -233,7 +233,7 @@ _optional_|Date/Time when device trust task began. 2016-10-11T10:30:17.834-0400|
 |*status* +
 _optional_|Status of device trust during state transistion.|string
 |*useBigiqSync* +
-_optional_|To enable DSC configuration sync. True / False|boolean
+_optional_|To enable DSC configuration sync. True / False. When enabled, the BIG-IQ will manually synchronize configurations changes between members in a DSC group.|boolean
 |*userName* +
 _optional_|Username of BIGIQ device object.|string
 |*userReference* +
