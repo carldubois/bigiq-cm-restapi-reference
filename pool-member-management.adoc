@@ -70,7 +70,7 @@ Returns the pool object identified by id for an endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_|Unique id assigned with a virutal pool.|string(UUID)|
+_required_|Unique id assigned with a virtual pool.|string(UUID)|
 |===
 
 
@@ -101,7 +101,7 @@ Returns a collection of pool members.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_|Unique id assigned to a virutal pool.|string(UUID)|
+_required_|Unique id assigned to a virtual pool.|string(UUID)|
 |===
 
 
@@ -132,7 +132,7 @@ Returns the pool memeber object identified by id for an endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_|Unique id assigned to a virutal pool member.|string(UUID)|
+_required_|Unique id assigned to a virtual pool member.|string(UUID)|
 |===
 
 
@@ -190,7 +190,7 @@ _read-only_|A integer that will track change made to a virtual pool collection o
 _optional_|A collection of pool members. properties defining items.|< object > array
 |*kind* +
 _optional_ +
-_read-only_|Type information for this virutal pool collection object.|string
+_read-only_|Type information for this virtual pool collection object.|string
 |*lastUpdateMicros* +
 _optional_ +
 _read-only_|Update time (micros) for last change made to an virtual pool collection object. time.|integer(int64)
