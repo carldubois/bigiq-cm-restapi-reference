@@ -297,7 +297,7 @@ _optional_|A name used to identify this device.|string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link fallback persistence profile for the virtual server to use when the default persistence profile is not available.|string
 |===
 
 [[_properties_virtual_poolreference]]
@@ -307,7 +307,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to virtual pool in which you want the virtual server to automatically direct traffic.|string
 |===
 
 [[_properties_virtual_profilescollectionreference]]
@@ -317,9 +317,9 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is this a collection of objects. In this case profiles. default: true|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to profiles for the virtual server to use when directing and managing traffic.|string
 |===
 
 [[_properties_virtual_sourceaddresstranslation]]
