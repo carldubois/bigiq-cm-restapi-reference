@@ -274,7 +274,7 @@ _optional_|Reference link to adc-core-allbigipDevices in shared resolver device-
 |*machineId* +
 _optional_|Unique id assigned to the hardware device. If virtual could be the same as id object.|string
 |*name* +
-_optional_|A name used to identify this pool member.|string
+_optional_|A name used to identify this device.|string
 |===
 
 [[_properties_pool_memberscollectionreference]]
