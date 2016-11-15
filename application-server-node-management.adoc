@@ -93,7 +93,7 @@ Returns the application server node object identified by id for an endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assigned to a application server node.|string(UUID)|
 |===
 
 
@@ -123,7 +123,7 @@ _required_||string(UUID)|
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of application server nodes. Errored response from server.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for LTM application server nodes - errors – cm:adc-core:working-config:ltm:node:adcnodecollectionstate.|string
@@ -149,7 +149,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of application server nodes. Errored response from server.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for node - cm:adc-core:working-config:ltm:node:adcnodecollectionstate.|string
@@ -175,7 +175,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|A integer that will track change made to a node collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|A collection of application server nodes. Properties defining items.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for this node collection object - cm:adc-core:working-config:ltm:node:adcnodecollectionstate.|string
@@ -239,15 +239,15 @@ _optional_|Marks the node up or down. The default value is user-up.|string
 |===
 |Name|Description|Schema
 |*id* +
-_optional_||string
+_optional_|Unique id assigned to a device referenced by this object.|string
 |*kind* +
-_optional_||string
+_optional_|Type information for device. shared:resolver:device-groups:restdeviceresolverdevicestate|string
 |*link* +
-_optional_||string
+_optional_|Reference link to adc-core-allbigipDevices in shared resolver device-groups.|string
 |*machineId* +
-_optional_||string
+_optional_|Unique id assigned to the hardware device. If virtual could be the same as id object.|string
 |*name* +
-_optional_||string
+_optional_|A name used to identify this device.|string
 |===
 
 [[_properties_node_fqdn]]
