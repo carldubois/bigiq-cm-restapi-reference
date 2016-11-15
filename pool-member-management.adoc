@@ -83,6 +83,35 @@ _required_|Unique id assigned to a virtual pool.|string(UUID)|
 |*400*|Server error response "Bad Request".|<<_error_collection,error_collection>>
 |===
 
+[[_pool_objectid_members_post]]
+=== Add a LTM node as a member of an virtual application pool.
+....
+POST /pool/{objectId}/members
+....
+
+==== Description
+Add a application server node to a specific virtual pool.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to pool member object.|string(UUID)|None
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST a node to an application pool.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
 
 [[_pool_objectid_members_get]]
 === List all pool members are part of a collection.
