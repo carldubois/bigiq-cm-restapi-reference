@@ -123,7 +123,7 @@ _required_|Unique id assigned to a virtual server.|string(UUID)|None
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of virtual servers. Errored response from server.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for LTM virtual servers - errors cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate.|string
