@@ -257,13 +257,13 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*addressFamily* +
-_optional_||string
+_optional_|Specifies the node's address family. The default is 'unspecified', or IP-agnostic|string
 |*downInterval* +
-_optional_||integer
+_optional_|Specifies the number of attempts to resolve a domain name. The default is 5.|integer
 |*interval* +
-_optional_||string
+_optional_|Specifies the amount of time before sending the next DNS query.|string
 |*isAutoPolulate* +
-_optional_||boolean
+_optional_|Specifies whether the node should scale to the IP address set returned by DNS.|boolean
 |===
 
 
