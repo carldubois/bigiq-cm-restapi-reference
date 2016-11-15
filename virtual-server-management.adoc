@@ -1,0 +1,338 @@
+= BIG-IQ LTM Virtual Server.
+
+
+[[_overview]]
+== Overview
+API used to create/manage LTM virutal server.
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/adc-core/working-config/ltm
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_virtual_post]]
+=== Create a LTM virtual server.
+....
+POST /virtual
+....
+
+
+==== Description
+POST to create a BIGIP virtual server.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST a BIGIP virtual server.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_virtual_get]]
+=== List all virtual server items as a collection.
+....
+GET /virtual
+....
+
+
+==== Description
+Returns the collection of virtual servers.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Collection of virtual servers.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_virtual_objectid_get]]
+=== Used to get a single virtual server object.
+....
+GET /virtual/{objectId}
+....
+
+
+==== Description
+Returns the virtual server object identified by id for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Virtual Server object.|<<_properties_virtual,properties_virtual>>
+|*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_400_error_collection]]
+=== 400_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for LTM virtual servers - errors cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_404_error_collection]]
+=== 404_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for virtual server - cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_properties_collection]]
+=== properties_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a virtual server collection object. generation.|integer(int64)
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for this virutal servers collection object - cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an virtual server collection object. time.|integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the virtual server collection object.|string
+|===
+
+
+[[_properties_virtual]]
+=== properties_virtual
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*addressStatus* +
+_optional_|Specither the virtual will contribute to the operational status of the associated virtual-address. The default is 'yes'.|string
+|*autoLasthop* +
+_optional_|Specifies whether to automatically map last hop for pools or not. The default is to use next level's default.|string
+|*connectionLimit* +
+_optional_|Specifies the maximum number of concurrent connections you want to allow for the virtual server.|integer
+|*defaultCookiePersistenceReference* +
+_optional_|Reference link to profiles that the virtual server uses to manage connection persistence.|<<_properties_virtual_defaultcookiepersistencereference,defaultCookiePersistenceReference>>
+|*description* +
+_optional_|Description of LTM virtual server.|string
+|*destinationFullPath* +
+_optional_|Destination address / port used for client access - ex. 10.44.100.100:80.|string
+|*deviceReference* +
+_optional_|Reference link to BIGIP device assiociated to virtual server.|<<_properties_virtual_devicereference,deviceReference>>
+|*fallbackSourceAddrPersistenceReference* +
+_optional_|Reference link fallback persistence profile for the virtual server to use when the default persistence profile is not available.|<<_properties_virtual_fallbacksourceaddrpersistencereference,fallbackSourceAddrPersistenceReference>>
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a LTM virtual server object. - generation.|integer(int64)
+|*gtmScore* +
+_optional_|Specifies a score that is associated with the virtual server. Global Traffic Manager (GTM) can rely on this value to load balance traffic in a proportional manner.|integer
+|*id* +
+_optional_ +
+_read-only_|Unique id assigned to a virtual server object.|string
+|*ipProtocol* +
+_optional_|Specifies the IP protocol for which you want the virtual server to direct traffic. Sample protocol names are tcp and udp.|string
+|*kind* +
+_optional_|Type information for this virutal server object. cm:adc-core:working-config:ltm:virtual:adcvirtualstate|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an LTN virtual server object - time.|integer(int64)
+|*mask* +
+_optional_|Destination netmask used for client access - ex. 255.255.255.255 or 32.|string
+|*mirror* +
+_optional_|Enables or disables state mirroring. You can use state mirroring to maintain the same state information in the standby unit that is in the active unit, allowing transactions such as FTP file transfers to continue as though uninterrupted. The default value is disabled.|string
+|*name* +
+_optional_|Name of LTM virtual server.|string
+|*nat64* +
+_optional_|Specifies whether this virtual does NAT64 translation.|string
+|*partition* +
+_optional_|Displays the administrative partition within which this virtual server profile resides.|string
+|*poolReference* +
+_optional_|Reference link to virtual pool in which you want the virtual server to automatically direct traffic.|<<_properties_virtual_poolreference,poolReference>>
+|*profilesCollectionReference* +
+_optional_|Reference link to profiles for the virtual server to use when directing and managing traffic.|<<_properties_virtual_profilescollectionreference,profilesCollectionReference>>
+|*rateLimit* +
+_optional_|Specifies the maximum number of connections per second allowed for a virtual server. The default value is disabled.|string
+|*rateLimitMode* +
+_optional_|Indicates whether the rate limit is applied per virtual object, per source address, per destination address, or some combination thereof. The default value is object, which does not use the source or destination address as part of the key.|string
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the LTM virtual server object.|string
+|*sourceAddress* +
+_optional_|Source address used for client access to virtual server object.|string
+|*sourceAddressTranslation* +
+_optional_|Type of address translation pool used for implementing selective and intellegent source address translation.|<<_properties_virtual_sourceaddresstranslation,sourceAddressTranslation>>
+|*sourcePort* +
+_optional_|Specifies whether the system preserves the source port of the connection. The default is preserve. Use of the preserve-strict setting should be restricted to UDP only under very special circumstances such as nPath or transparent (that is, no translation of any other L3/L3 field), where there is a 1:1 relationship between virtual IP addresses and node addresses, or when clustered multi-processing (CMP) is disabled. The change setting is useful for obfuscating internal network addresses.|string
+|*state* +
+_optional_|State of virtual server. enabled / disabled.|string
+|*subPath* +
+_optional_|Path to virtual server. Partition / app.app. ex. Common /app-service_1.app|string
+|*translatePort* +
+_optional_|Enables or disables port translation. Turn port translation off for a virtual server if you want to use the virtual server to load balance. connections to any service.|string
+|*vlansEnabled* +
+_optional_|Enables the virtual server on the VLANs specified by the VLANs option.|string
+|===
+
+[[_properties_virtual_defaultcookiepersistencereference]]
+*defaultCookiePersistenceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_virtual_devicereference]]
+*deviceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*id* +
+_optional_||string
+|*kind* +
+_optional_||string
+|*link* +
+_optional_||string
+|*machineId* +
+_optional_||string
+|*name* +
+_optional_||string
+|===
+
+[[_properties_virtual_fallbacksourceaddrpersistencereference]]
+*fallbackSourceAddrPersistenceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_virtual_poolreference]]
+*poolReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_virtual_profilescollectionreference]]
+*profilesCollectionReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_||boolean
+|*link* +
+_optional_||string
+|===
+
+[[_properties_virtual_sourceaddresstranslation]]
+*sourceAddressTranslation*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*type* +
+_optional_||string
+|===
+
+
+
+
+
