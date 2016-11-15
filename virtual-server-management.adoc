@@ -269,7 +269,7 @@ _optional_|Enables the virtual server on the VLANs specified by the VLANs option
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to profiles that the virtual server uses to manage connection persistence.|string
 |===
 
 [[_properties_virtual_devicereference]]
@@ -329,7 +329,7 @@ _optional_|Reference link to profiles for the virtual server to use when directi
 |===
 |Name|Description|Schema
 |*type* +
-_optional_||string
+_optional_|Type of address translation pool used for implementing selective and intellegent source address translation.|string
 |===
 
 
