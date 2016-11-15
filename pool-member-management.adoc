@@ -338,7 +338,7 @@ _optional_|Enables or disables the node for new sessions. The default value is u
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to node specific to pool member configuration.|string
 |===
 
 
