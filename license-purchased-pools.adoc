@@ -105,7 +105,7 @@ Invoke a task to license a BIG-IP and add to this specific purchased license poo
 |*Path*|*objectId* +
 _required_|Unique id assigned to license purchased pool object.|string(UUID)|None
 |*Body*|*Json string request body.* +
-_required_|Input parameter list in json format. Ex. {"deviceAddress": "bigip_address","username": "admin","password": "admin"]} |<<_post_purchased_pool_body,post_purchased_pool_body>>|None
+_required_|Input parameter list in json format. Ex. {"deviceAddress": "bigip_address","username": "admin","password": "admin"} |<<_post_purchased_pool_body,post_purchased_pool_body>>|None
 |===
 
 
