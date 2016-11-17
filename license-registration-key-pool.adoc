@@ -307,7 +307,7 @@ _required_|Unique id assigned to a member device licensed to a registration key 
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of license registration key pool objects. Error 400|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for license purchased pools - cm:device:licensing:pool:regkey:licenses:item:offerings:regkeypoollicenseofferingcollectionstate.|string
@@ -333,7 +333,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of license registration key pool objects. Error 404|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for license purchased pools - cm:device:licensing:pool:regkey:licenses:item:offerings:regkeypoollicenseofferingcollectionstate.|string
@@ -461,7 +461,7 @@ _read-only_|Sort by unique name of registration key pool used to (re) activate l
 _optional_ +
 _read-only_|A integer that will track change made to a license regoistration keys pool collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Collection of license registration key pool object.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for a license registration key pool collection object.|string
@@ -518,7 +518,7 @@ _optional_|The status of this licensing task. ex INSTALLING, LICENSED.|string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to audit record for license registration key.|string
 |===
 
 
@@ -532,7 +532,7 @@ _optional_||string
 _optional_ +
 _read-only_|A integer that will track change made to a license registration key for a device member collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Collection of license registration key member objects|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for a license registration key for a device member collection object.|string
@@ -555,7 +555,7 @@ _read-only_|A reference link URI to a license registration key for a device memb
 _optional_ +
 _read-only_|A integer that will track change made to a license registration keys properties collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Collection of license registration key objects.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for a license registration keys properties collection object.|string
