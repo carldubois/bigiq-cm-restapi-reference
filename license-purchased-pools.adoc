@@ -214,12 +214,12 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 [options="header", cols=".^3,.^11,.^4"]
 |===
 |Name|Description|Schema
-|*name* +
-_optional_|Name of license registration key.|string
-|*regKey* +
-_optional_|Registration Key|string
-|*status* +
-_optional_|ACTIVATING_AUTOMATIC, ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED. Please consult SA for activating manually, additional steps may be requested for generating dossier and retriving license txt file for POST.|string
+|*deviceAddress* +
+_required_|IP Address of BIGIP you wish to license.|string
+|*username* +
+_required_|Username of BIGIP you wish to license.|string
+|*password* +
+_required_|Password of BIGIP you wish to license.|string
 |===
 
 [[_properties_collection]]
