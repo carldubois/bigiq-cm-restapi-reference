@@ -358,7 +358,7 @@ _optional_|Name of license registration key.|string
 |*regKey* +
 _optional_|Registration Key|string
 |*status* +
-_optional_|ACTIVATING_AUTOMATIC, ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED. Please consult SA|string
+_optional_|ACTIVATING_AUTOMATIC, ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED. Please consult SA for activating manually, additional steps may be requested for generating dossier and retriving license txt file for POST.|string
 |===
 
 
