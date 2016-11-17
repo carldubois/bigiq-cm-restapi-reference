@@ -29,6 +29,267 @@ _Schemes_ : HTTPS
 
 
 
+[[_paths]]
+== Paths
+
+[[_licenses_get]]
+=== GET the BIG-IQ licensing registration key pool collection of license registration keys.
+....
+GET /licenses
+....
+
+
+==== Description
+Returns a BIGIQ licensed registration key allowing an administrator to license BIGIP managned / unmanaged devices.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET BIGIQ licensed registration keys that make up a registration key pool.|<<_properties_regkey_collection,properties_regkey_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_licenses_objectid_get]]
+=== Used to GET a license pool.
+....
+GET /licenses/{objectId}
+....
+
+
+==== Description
+Returns a licensed pool object identified by id for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|License pool object returned.|<<_properties_regkey,properties_regkey>>
+|*400*|Server error response Bad Request.|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_licenses_objectid_offerings_post]]
+=== Create a new registration license key.
+....
+POST /licenses/{objectId}/offerings
+....
+
+
+==== Description
+Add a new registration license key adding to BIGIQ licese regkey pool.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|*Body*|*Json string request body.* +
+_required_|Input parameter list in json format. ex. {regKey: U0151-71761-41002-45076-9552496, status: ACTIVATING_AUTOMATIC, name: RegKey1}|<<_post_regkey_body,post_regkey_body>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST a device level task to license a BIGIP device.|<<_properties_regkey_offerings_collection,properties_regkey_offerings_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_licenses_objectid_offerings_get]]
+=== Used to GET license pool members.
+....
+GET /licenses/{objectId}/offerings
+....
+
+
+==== Description
+Returns all members (BIGIP) devices that make up the license pool identified by id/members for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|License pool members object returned.|<<_properties_regkey_offerings_collection,properties_regkey_offerings_collection>>
+|*400*|Server error response Bad Request.|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_licenses_objectid_offerings_registrationkey_get]]
+=== Used to GET a specific license registration key.
+....
+GET /licenses/{objectId}/offerings/{registrationKey}
+....
+
+
+==== Description
+Returns a registration key license identified by id for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|*Path*|*registrationKey* +
+_required_||string(string)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|License registration key object returned.|<<_properties_offering,properties_offering>>
+|*400*|Server error response Bad Request.|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_licenses_objectid_offerings_registrationkey_members_post]]
+=== Add, or license, a device as a member of a BIGIQ license registration key pool.
+....
+POST /licenses/{objectId}/offerings/{registrationKey}/members
+....
+
+
+==== Description
+Will license a device and add as a member of a BIGIQ license registration key pool.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|*Path*|*registrationKey* +
+_required_||string(string)|
+|*Body*|*Json string request body.* +
+_required_|Input parameter list in json format. ex. {deviceAddress: 10.44.100.25, username: admin, password: admin}|<<_post_regkey_members_body,post_regkey_members_body>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST a device level task to license a BIGIP device.|<<_properties_regkey_members_collection,properties_regkey_members_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_licenses_objectid_offerings_registrationkey_members_get]]
+=== Used to GET a collection of device licenses that make up registration key pool members.
+....
+GET /licenses/{objectId}/offerings/{registrationKey}/members
+....
+
+
+==== Description
+Returns all members (BIGIP) devices that make up the registration key license pool identified by key for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|*Path*|*registrationKey* +
+_required_||string(string)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|License pool members object returned.|<<_properties_regkey_members_collection,properties_regkey_members_collection>>
+|*400*|Server error response Bad Request.|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_licenses_objectid_offerings_registrationkey_members_objectid_get]]
+=== Used to GET license pool members.
+....
+GET /licenses/{objectId}/offerings/{registrationKey}/members/{objectId}
+....
+
+
+==== Description
+Returns all members (BIGIP) devices that make up the license pool identified by id/members for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|*Path*|*registrationKey* +
+_required_||string(string)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|License pool members object returned.|<<_properties_regkey_member,properties_regkey_member>>
+|*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
 
 
 [[_definitions]]
@@ -47,7 +308,7 @@ _read-only_|Error stack trace returned by java.|string
 _optional_||< object > array
 |*kind* +
 _optional_ +
-_read-only_|Type information for license purchased pools - cm:shared:licensing:pools:licensepoolworkerstate.|string
+_read-only_|Type information for license purchased pools - cm:device:licensing:pool:regkey:licenses:item:offerings:regkeypoollicenseofferingcollectionstate.|string
 |*message* +
 _optional_ +
 _read-only_|Error message returned from server.|string
@@ -73,7 +334,7 @@ _read-only_|Error stack trace returned by java.|string
 _optional_||< object > array
 |*kind* +
 _optional_ +
-_read-only_|Type information for license purchased pools - cm:shared:licensing:pools:licensepoolworkerstate.|string
+_read-only_|Type information for license purchased pools - cm:device:licensing:pool:regkey:licenses:item:offerings:regkeypoollicenseofferingcollectionstate.|string
 |*message* +
 _optional_ +
 _read-only_|Error message returned from server.|string
@@ -93,11 +354,11 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 |===
 |Name|Description|Schema
 |*name* +
-_optional_|Name of license registration key|string
+_optional_|Name of license registration key.|string
 |*regKey* +
 _optional_|Registration Key|string
 |*status* +
-_optional_|ACTIVATING_AUTOMATIC, (ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED: please consult SA)|string
+_optional_|ACTIVATING_AUTOMATIC, ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED. Please consult SA|string
 |===
 
 
@@ -123,11 +384,20 @@ _optional_|Username of device to be licensed.|string
 |===
 |Name|Description|Schema
 |*dossier* +
-_optional_|The dossier is an encrypted list of key characteristics used to identify the platform. https://support.f5.com/kb/en-us/solutions/public/7000/700/sol7752.html
+_optional_|The dossier is an encrypted list of key characteristics used to identify the platform. https://support.f5.com/kb/en-us/solutions/public/7000/700/sol7752.html|string
 |*encryptedPrivateKey* +
 _optional_|Encypted private key used for decrypt / encrypt of data.|< integer > array
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a license registration key object. generation.|integer(int64)
 |*internalPrivateKey* +
 _optional_|Internal private key used for encryption.|string
+|*kind* +
+_optional_ +
+_read-only_|Type information for this license registration key object.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an license registration key object. time.|integer(int64)
 |*licenseState* +
 _optional_|State object of license registration key.|object
 |*licenseText* +
@@ -140,8 +410,13 @@ _optional_|General name for license registration key. ex. License for Q0168-9411
 _optional_|Public key used for encryption.|< integer > array
 |*regKey* +
 _optional_|License registration key generated.|string
+|*selfLink* +
+_optional_ +
+_read-only_|Reference link to license registration key object.|string
 |*sortName* +
 _optional_|Sort by unique name of registration key pool used to (re) activate license devices using registration key.|string
+|*status* +
+_optional_|License registration key status. ex. READY|string
 |===
 
 
@@ -194,6 +469,54 @@ _read-only_|Update time (micros) for last change made to an license registration
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to a license registration key pool collection object.|string
+|===
+
+
+[[_properties_regkey_member]]
+=== properties_regkey_member
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*auditRecordReference* +
+_optional_|A reference link to the license audit object. Will provide audit logs id, regKey, offering, machineId, address, hostname, type, grantDateTime, status.|<<_properties_regkey_member_auditrecordreference,auditRecordReference>>
+|*deviceAddress* +
+_optional_|Device (BIGIP) IP address.|string
+|*deviceMachineId* +
+_optional_|Unique device id assigned to BIGIP that is a member of this registration key pool.|string
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a license registration key pool memeber object. generation.|integer(int64)
+|*healthCheckFailureCount* +
+_optional_|Count of last check or poll for health failed.|integer
+|*id* +
+_optional_ +
+_read-only_|Unique id assigned to a registration key license pool device (member) object.|string
+|*kind* +
+_optional_ +
+_read-only_|Type information for this license registration key pool member (device) object, cm:device:licensing:pool:regkey:licenses:item:offerings:regkey:members:regkeypoollicensememberstate.|string
+|*lastGoodHealthCheckDateTime* +
+_optional_|Last date/time for device license health. 2016-11-16T21:20:49.368Z|string
+|*lastUpdateMicros* +
+_optional_|Update time (micros) for last change made to an license registration key pool member object.|integer(int64)
+|*message* +
+_optional_ +
+_read-only_|The message provided to the user of this licensing task state. ex. Device licensed.|string
+|*selfLink* +
+_optional_ +
+_read-only_|Reference link to license registration key pool member (device) object.|string
+|*status* +
+_optional_|The status of this licensing task. ex INSTALLING, LICENSED.|string
+|===
+
+[[_properties_regkey_member_auditrecordreference]]
+*auditRecordReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
 |===
 
 
