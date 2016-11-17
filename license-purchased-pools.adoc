@@ -104,6 +104,8 @@ Invoke a task to license a BIG-IP and add to this specific purchased license poo
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
 _required_|Unique id assigned to license purchased pool object.|string(UUID)|None
+|*Body*|*Json string request body.* +
+_required_|Input parameter list in json format.|<<_post_purchased_pool_body,post_purchased_pool_body>>|
 |===
 
 
@@ -206,6 +208,19 @@ _optional_ +
 _read-only_|Unique id assigned to rest operation.|integer(int64)
 |===
 
+[[_post_purchased_pool_body]]
+=== post_purchased_pool_body
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*name* +
+_optional_|Name of license registration key.|string
+|*regKey* +
+_optional_|Registration Key|string
+|*status* +
+_optional_|ACTIVATING_AUTOMATIC, ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED. Please consult SA for activating manually, additional steps may be requested for generating dossier and retriving license txt file for POST.|string
+|===
 
 [[_properties_collection]]
 === properties_collection
