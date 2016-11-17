@@ -71,7 +71,7 @@ Returns a licensed pool object identified by id for an endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assigned to  licensed registration key pool object.|string(UUID)|None
 |===
 
 
