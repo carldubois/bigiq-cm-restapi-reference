@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<title>BIG-IQ Device Trust</title>
+<title>BIG-IQ licensing - Purchased Pools.</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,14 +420,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>BIG-IQ Device Trust</h1>
+<h1>BIG-IQ licensing - Purchased Pools.</h1>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>API used to create a device trust certificate between BIG-IQ and BIG-IP.</p>
+<p>API used to license BIG-IP devices via a purchased licensed pool.</p>
 </div>
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
@@ -438,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_uri_scheme">URI scheme</h3>
 <div class="paragraph">
-<p><em>BasePath</em> : /mgmt/cm/global/tasks<br>
+<p><em>BasePath</em> : /mgmt/cm/shared/licensing<br>
 <em>Schemes</em> : HTTPS</p>
 </div>
 </div>
@@ -468,16 +468,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_paths">Paths</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_device-trust_post">List all device-trust task items.</h3>
+<h3 id="_pools_get">GET the BIG-IQ purchased license pools.</h3>
 <div class="literalblock">
 <div class="content">
-<pre>POST /device-trust</pre>
+<pre>GET /pools</pre>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_description">Description</h4>
 <div class="paragraph">
-<p>Returns the collection of device-trust tasks.</p>
+<p>Returns a BIG-IQ purchaced license pools allowing an administrator to license BIG-IP devices.</p>
 </div>
 </div>
 <div class="sect3">
@@ -498,55 +498,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Collection of device-trust tasks.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_device_trust_post">properties_device_trust_post</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>400</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Error response "Bad Request"</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_400_error_collection">400_error_collection</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>404</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Public URI path not registered.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_404_error_collection">404_error_collection</a></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_device-trust_get">List all device-trust task items.</h3>
-<div class="literalblock">
-<div class="content">
-<pre>GET /device-trust</pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_description_2">Description</h4>
-<div class="paragraph">
-<p>Returns the collection of device-trust tasks.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_responses_2">Responses</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 10%;">
-<col style="width: 70%;">
-<col style="width: 20%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-middle">HTTP Code</th>
-<th class="tableblock halign-left valign-middle">Description</th>
-<th class="tableblock halign-left valign-middle">Schema</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Collection of device-trust tasks.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">GET BIG-IQ purchased license pools.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_collection">properties_collection</a></p></td>
 </tr>
 <tr>
@@ -556,7 +508,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>404</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Public URI path not registered.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Error response "Public URI path not registered."</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_404_error_collection">404_error_collection</a></p></td>
 </tr>
 </tbody>
@@ -564,16 +516,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_device-trust_objectid_get">Used to get a single device-trust task.</h3>
+<h3 id="_pools_objectid_get">Used to GET a purchased license pool.</h3>
 <div class="literalblock">
 <div class="content">
-<pre>GET /device-trust/{objectId}</pre>
+<pre>GET /pools/{objectId}</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_description_3">Description</h4>
+<h4 id="_description_2">Description</h4>
 <div class="paragraph">
-<p>Returns the device-trust identified by id for an endpoint URI.</p>
+<p>Returns a purchased licensed pool object identified by id for an endpoint URI.</p>
 </div>
 </div>
 <div class="sect3">
@@ -600,8 +552,95 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Path</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>objectId</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Unique id assigned to device trust task.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Unique id assigned to purchased licensed pool object.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string(UUID)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">None</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_responses_2">Responses</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 70%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">HTTP Code</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Purchased license pool object returned.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_purchased_pool">properties_purchased_pool</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>400</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Server error response "Bad Request".</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_400_error_collection">400_error_collection</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>404</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Error response "Public URI path not registered."</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_404_error_collection">404_error_collection</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pools_objectid_members_post">License a BIG-IP device and add to purchased license pool members.</h3>
+<div class="literalblock">
+<div class="content">
+<pre>POST /pools/{objectId}/members</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_description_3">Description</h4>
+<div class="paragraph">
+<p>Invoke a task to license a BIG-IP and add to this specific purchased license pool as a member to the pool.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_parameters_2">Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 15%;">
+<col style="width: 45%;">
+<col style="width: 20%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">Type</th>
+<th class="tableblock halign-left valign-middle">Name</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Schema</th>
+<th class="tableblock halign-left valign-middle">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Path</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>objectId</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Unique id assigned to license purchased pool object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string(UUID)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Body</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Json string request body.</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format. Ex. {"deviceAddress": "bigip_address","username": "admin","password": "admin"}</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_post_purchased_pool_body">post_purchased_pool_body</a></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">None</p></td>
 </tr>
 </tbody>
@@ -625,8 +664,87 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Device-trust object.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_device-trust">properties_device-trust</a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">POST a device level task to license a BIG-IP device.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_collection">properties_collection</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>400</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Error response "Bad Request"</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_400_error_collection">400_error_collection</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>404</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Error response "Public URI path not registered."</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_404_error_collection">404_error_collection</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pools_objectid_members_get">Used to GET purchased license pool members.</h3>
+<div class="literalblock">
+<div class="content">
+<pre>GET /pools/{objectId}/members</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_description_4">Description</h4>
+<div class="paragraph">
+<p>Returns all members (BIG-IP) devices that are assingned to this purchased license pool. Each are identified by id/members for an endpoint URI.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_parameters_3">Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 15%;">
+<col style="width: 45%;">
+<col style="width: 20%;">
+<col style="width: 10%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">Type</th>
+<th class="tableblock halign-left valign-middle">Name</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Schema</th>
+<th class="tableblock halign-left valign-middle">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Path</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>objectId</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Unique id assigned to purchased license pool object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string(UUID)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">None</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_responses_4">Responses</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 70%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">HTTP Code</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>200</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Purchased license pool members object returned.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_purchased_pool">properties_purchased_pool</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>400</strong></p></td>
@@ -635,7 +753,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>404</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Public URI path not registered.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Error response "Public URI path not registered."</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_404_error_collection">404_error_collection</a></p></td>
 </tr>
 </tbody>
@@ -673,14 +791,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>items</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Collection of device-trust task objects.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Collection of purchased license pool objects.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; object &gt; array</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>kind</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for device-trust collections-cm:global:tasks:device-trust:bigiptrusttaskstate.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for purchased license pools - cm:shared:licensing:pools:licensepoolworkerstate.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
@@ -733,14 +851,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>items</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Collection of device-trust task objects.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Collection of purchased license pool objects.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; object &gt; array</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>kind</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for device-trust collections-cm:global:tasks:device-trust:bigiptrusttaskstate.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for purchased license pools - cm:shared:licensing:pools:licensepoolworkerstate.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
@@ -768,6 +886,43 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="sect2">
+<h3 id="_post_purchased_pool_body">post_purchased_pool_body</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 61.1111%;">
+<col style="width: 22.2223%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">Name</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>deviceAddress</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">IP Address of BIGIP you wish to license.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>username</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Username of BIGIP you wish to license.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>password</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Password of BIGIP you wish to license.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
 <h3 id="_properties_collection">properties_collection</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -787,41 +942,41 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>generation</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A integer that will track change made to a device trust collection object. generation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A integer that will track change made to a purchased license pool collection object. generation.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>items</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Collection of device-trust task objects.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Collection of purchased license pool objects.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; object &gt; array</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>kind</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this device trust collection object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for a purchased license pool collection object.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>lastUpdateMicros</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to an device trust collection object. time.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to an purchaced license pool collection object. time.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>selfLink</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A reference link URI to the device trust collection object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A reference link URI to a purchased license pool collection object.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_properties_device-trust">properties_device-trust</h3>
+<h3 id="_properties_purchased_pool">properties_purchased_pool</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 16.6666%;">
@@ -837,135 +992,123 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>address</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>baseRegKey</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">IP address of device object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Based Registration Key used to (re) activate purchased license pool.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>clusterName</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">DSC cluster name of device object to be managed. None if not part of a cluster group.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>currentStep</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">State machine current step for device trust task.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>endDateTime</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Date/Time when device trust task end. 2016-10-11T10:30:17.834-0400</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>freeDeviceLicenses</strong><br>
+<em>read-only</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Total number of free device licenses for this purchased license pool.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">integer</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>generation</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A integer that will track change made to a device-trust object. generation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A integer that will track change made to a purchased license pool object. generation.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>id</strong><br>
-<em>optional</em><br>
-<em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Unique id assigned to a device trust task object.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>identityReference</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Array of reference links to user used to estabish trust. mgmt/shared/authz/users/admin</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; <a href="#_properties_device-trust_identityreference">identityReference</a> &gt; array</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>isChassisDevice</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Is this device virtual or appliance. (True / False)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>isInternal</strong><br>
+<em>BIG-IQ use only</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Is this purchased licensed pool internal to BIG-IQ.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>kind</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this device trust object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this purchased license pool object.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>lastUpdateMicros</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to an policy object. time.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to an purchased license pool object. time.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>machineId</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A unique id string for the BIGIP device.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>licenseState</strong><br>
+<em>read-only</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">State representation of what is returned from the license server.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_purchased_pool_licensestate">licenseState</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>ownerMachineId</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>licenseText</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A unique id string for the BIGIQ acting as a device owner.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Contents of licensed purchased pool. Spefices for purchased license pool such as Auth version, Tech support info, license tokens, keys etc..</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>password</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>method</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Password of device object to be managed.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Activation method used. (Example - MANUAL / AUTOMATIC)</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>name</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of purchased license pool object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>privateKey</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Private key cryptography keys which are known only to the owner.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>publicKey</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Public key cryptography which may be disseminated widely.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; integer &gt; array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>registeredKey</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Registered key post cryptography response from server.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; integer &gt; array</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>selfLink</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A reference link URI to the device trust object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Reference link to ppurchased licensed pool.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>stateDateTime</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>sortName</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Date/Time when device trust task began. 2016-10-11T10:30:17.834-0400</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Sort string based on BIG-IQ licensing type. (Purchased Pool)</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>status</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>state</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Status of device trust during state transistion.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">State of license for purchaced license pool. (Example - LICENSED)</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>useBigiqSync</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>totalDeviceLicenses</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">To enable DSC configuration sync. True / False. When enabled, the BIG-IQ will manually synchronize configurations changes between members in a DSC group.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Total number of device licenses for this purchased license pool.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">integer</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>userName</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Username of BIGIQ device object.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>userReference</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Reference link to user used to estabish trust. mgmt/shared/authz/users/admin</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_device-trust_userreference">userReference</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>username</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">User name of device object to be managed.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>uuid</strong><br>
+<em>optional</em><br>
+<em>read-only</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Unique id assigned to a purchased license pool object.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
 </table>
-<div id="_properties_device-trust_identityreference" class="paragraph">
-<p><strong>identityReference</strong></p>
+<div id="_properties_purchased_pool_licensestate" class="paragraph">
+<p><strong>licenseState</strong></p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -982,15 +1125,123 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>link</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>activeModules</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Array of user reference links used to discovery devices.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Modules activivated for purchased license pool. (Example - VEP1, LTM, 1G, 4 Instances|V092327-5105381|IPV6 Gateway|Rate Shaping|Ram Cache)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; string &gt; array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>authVers</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Version of authentication used by BIG-IQ. (Example - 5b)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>authorization</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Authorization string used by purchased license pool. Response from license server.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>dossier</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Dossier generated for this purchased license pool. Response from license server.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>evaluationEndDateTime</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">End date and time a license server evaluate took place (Format - 2016-10-26T00:00:00-04:00)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>evaluationStartDateTime</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Start date and time a license server evaluate took place (Format - 2016-10-26T00:00:00-04:00)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>exclusivePlatform</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Platfrom description response from server. (Example - BIG-IQ Pool, Z100, Z100H, Z100K, Z100x)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; string &gt; array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>featureFlags</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Descritive flags avalible to purchased license pools.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; <a href="#_properties_purchased_pool_featureflags">featureFlags</a> &gt; array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>licenseDateTime</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Date and time license was generated. (Format - 2016-10-26T00:00:00-04:00)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>licenseEndDateTime</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">End date and time a license was instatiated on BIG-IQ (Format - 2016-10-26T00:00:00-04:00)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>licenseStartDateTime</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Start date and time a license was instatiated on BIG-IQ (Format - 2016-10-26T00:00:00-04:00)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>licenseVersion</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Version of BIG-IQ this license is generated for. (Example - 5.1.0)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>optionalModules</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Modules that are optional for purchased license pool. (Example - VEP1, LTM, 1G, Add 25 Instances)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; string &gt; array</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>platformId</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Type of BIG-IQ platform information. (Example - BIG-IQ Pool)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>registrationKey</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Registration Key used by this purchased license pool. Response from license server.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>serviceCheckDateTime</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Data and time the last service check status request / respose occur from server. (Format - 2016-10-26T00:00:00-04:00)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>serviceStatus</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Server response describing service status. (Example - As of 2016-10-26 this system has an active service contract.)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>usage</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Organization usage data. Example - F5 Internal Product Development</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>vendor</strong><br>
+<em>optional</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Company Name. Example F5 Networks, Inc.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
 </table>
-<div id="_properties_device-trust_userreference" class="paragraph">
-<p><strong>userReference</strong></p>
+<div id="_properties_purchased_pool_featureflags" class="paragraph">
+<p><strong>featureFlags</strong></p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -1007,58 +1258,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>link</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>featureName</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Reference link to a user used to discover devices.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_properties_device_trust_post">properties_device_trust_post</h3>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 61.1111%;">
-<col style="width: 22.2223%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-middle">Name</th>
-<th class="tableblock halign-left valign-middle">Description</th>
-<th class="tableblock halign-left valign-middle">Schema</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>address</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">IP address of device object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Name of feature. (Example - purchased_license_pool_count, apm_urlf_limited_session, apm_web_applications)</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>clusterName</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>featureValue</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">DSC cluster name of device object to be managed. None if not part of a cluster group.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>password</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Password of device object to be managed.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>useBigiqSync</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">To enable DSC configuration sync. True / False</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>userName</strong><br>
-<em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Username of BIGIQ device object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Weighted value for each feature. (Example - 10)</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
