@@ -280,8 +280,8 @@ _optional_ +
 _read-only_|A reference link URI to the device discovery declare-mgmt-authority task collection object.|string
 |===
 
-[[_post_discovery_body_adc]]
-=== post_discovery_body_adc
+[[_post_discovery_body]]
+=== post_discovery_body
 
 [options="header", cols=".^3,.^11,.^4"]
 |===
