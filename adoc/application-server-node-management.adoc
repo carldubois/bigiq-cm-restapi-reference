@@ -1,0 +1,272 @@
+= BIG-IQ LTM Application Server Node.
+
+
+[[_overview]]
+== Overview
+API used to create/manage LTM application server nodes allowing for distribution into pools.
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/adc-core/working-config/ltm
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_node_post]]
+=== Create a LTM application server node.
+....
+POST /node
+....
+
+
+==== Description
+POST to create a BIGIP application server node.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST a BIGIP LTM application server node.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_node_get]]
+=== List all application server node items as a collection.
+....
+GET /node
+....
+
+
+==== Description
+Returns the collection of nodes.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Collection of nodes.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_node_objectid_get]]
+=== Used to get a single application server node object.
+....
+GET /node/{objectId}
+....
+
+
+==== Description
+Returns the application server node object identified by id for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to a application server node.|string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Application server node object.|<<_properties_node,properties_node>>
+|*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_400_error_collection]]
+=== 400_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection of application server nodes. Errored response from server.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for LTM application server nodes - errors – cm:adc-core:working-config:ltm:node:adcnodecollectionstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_404_error_collection]]
+=== 404_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection of application server nodes. Errored response from server.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for node - cm:adc-core:working-config:ltm:node:adcnodecollectionstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_properties_collection]]
+=== properties_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a node collection object. generation.|integer(int64)
+|*items* +
+_optional_|A collection of application server nodes. Properties defining items.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for this node collection object - cm:adc-core:working-config:ltm:node:adcnodecollectionstate.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an node collection object. time.|integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the application server node collection object.|string
+|===
+
+
+[[_properties_node]]
+=== properties_node
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*address* +
+_optional_|Network address for application server used for node object.|string
+|*connectionLimit* +
+_optional_|Specifies the maximum number of connections allowed for the node or node address.|integer
+|*deviceReference* +
+_optional_|Reference link to BIGIP device assiociated to application server node.|<<_properties_node_devicereference,deviceReference>>
+|*fqdn* +
+_optional_|Specifies the node's fully qualified domain name (FQDN) attributes.|<<_properties_node_fqdn,fqdn>>
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a LTM application server node object. - generation.|integer(int64)
+|*id* +
+_optional_ +
+_read-only_|Unique id assigned to a virtual server object.|string
+|*isEphemeral* +
+_optional_|Is this node short lived when fowarding application traffic.|boolean
+|*kind* +
+_optional_|Type information for this application server node object. - cm:adc-core:working-config:ltm:node:adcnodestate|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an LTN application server node object - time.|integer(int64)
+|*name* +
+_optional_|Name of LTM application server node.|string
+|*partition* +
+_optional_|Displays the administrative partition within which this node resides.|string
+|*rateLimit* +
+_optional_|Specifies the maximum number of connections per second allowed for a node or node address. The default value is 'disabled'.|string
+|*ratio* +
+_optional_|Specifies the fixed ratio value used for a node during ratio load balancing.|string
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the LTM application server node object.|string
+|*sessionConfig* +
+_optional_|Enables or disables the node for new sessions. The default value is user-enabled.|string
+|*stateConfig* +
+_optional_|Marks the node up or down. The default value is user-up.|string
+|===
+
+[[_properties_node_devicereference]]
+*deviceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*id* +
+_optional_|Unique id assigned to a device referenced by this object.|string
+|*kind* +
+_optional_|Type information for device. shared:resolver:device-groups:restdeviceresolverdevicestate|string
+|*link* +
+_optional_|Reference link to adc-core-allbigipDevices in shared resolver device-groups.|string
+|*machineId* +
+_optional_|Unique id assigned to the hardware device. If virtual could be the same as id object.|string
+|*name* +
+_optional_|A name used to identify this device.|string
+|===
+
+[[_properties_node_fqdn]]
+*fqdn*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*addressFamily* +
+_optional_|Specifies the node's address family. The default is 'unspecified', or IP-agnostic|string
+|*downInterval* +
+_optional_|Specifies the number of attempts to resolve a domain name. The default is 5.|integer
+|*interval* +
+_optional_|Specifies the amount of time before sending the next DNS query.|string
+|*isAutoPolulate* +
+_optional_|Specifies whether the node should scale to the IP address set returned by DNS.|boolean
+|===
+
+
+
+
+
