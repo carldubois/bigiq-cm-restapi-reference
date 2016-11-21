@@ -42,6 +42,16 @@ POST /declare-mgmt-authority
 ==== Description
 Create a device discovery declare-mgmt-authority task and add to collection.
 
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to device discovery task object.|string(UUID)|None
+|*Body*|*Json string request body.* +
+_required_|Input parameter list in json format. Ex. {} |<<_post_discovery_body,post_discovery_body>>|None
+|===
 
 ==== Responses
 
@@ -270,6 +280,27 @@ _optional_ +
 _read-only_|A reference link URI to the device discovery declare-mgmt-authority task collection object.|string
 |===
 
+[[_post_discovery_body_adc]]
+=== post_discovery_body_adc
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*deviceReference* +
+_required_|Reference link to device in resolver group.|string
+|*moduleList* +
+_required_|List of modules to discover. ex. adc_core, asm, shared_security, firewall|string
+|*userName* +
+_required_|Username of device.|string
+|*password* +
+_required_|Password of device.|string
+|*rootUser* +
+_required_|Root user of device.|string
+|*rootPassword* +
+_required_|Root password of device.|string
+|*automaticallyUpdateFramework* +
+_required_|To update rest framework automatically. It is recommended to do so if using REST API.|boolean
+|===
 
 
 
