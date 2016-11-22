@@ -1,64 +1,69 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!doctype html>
+<html>
   <head>
-    <meta charset="UTF-8">
-    <title>BIG-IQ Central Management REST API Reference by carldubois</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>BIGIQ-CM by carldubois</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
-    <section class="page-header">
-      <h1 class="project-name">BIG-IQ Central Management REST API Reference</h1>
-      <h2 class="project-tagline">BIG-IQ workflow documentation.</h2>
-      <a href="https://github.com/carldubois/bigiq-cm-restapi-reference" class="btn">View on GitHub</a>
-      <a href="https://github.com/carldubois/bigiq-cm-restapi-reference/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/carldubois/bigiq-cm-restapi-reference/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
-
-    <section class="main-content">
-      <h2>
-<a id="workflow-documentation" class="anchor" href="#workflow-documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Workflow Documentation</h2>
-
-<h3>
-<a id="as-workflows-come-in-from-pd-will-add-reference-links-in-each" class="anchor" href="#as-workflows-come-in-from-pd-will-add-reference-links-in-each" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>(As workflows come in from PD, will add reference links in each.)</h3>
+    <div class="wrapper">
+      <header>
+        <h1>BIGIQ-CM</h1>
+        <p>REST API</p>
+        <p class="view"><a href="https://github.com/carldubois/bigiq-cm-restapi-reference">View the Project on GitHub <small>carldubois/bigiq-cm-restapi-reference</small></a></p>
+        <ul>
+          <li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>
+<a id="workflows" class="anchor" href="#workflows" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Workflows</h2>
 
 <ul>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/t_enable_disable_force_offline_pool_members.md">Enable, Disable, and Force Offline Pool Members</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/t_apply_deploy_firewall_policies.md">Apply and Deploy Firewall Policies</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/t_establish_trust.md">Device Trust</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_enable_disable_force_offline_pool_members.md">Enable, Disable, and Force Offline Pool Members</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_apply_deploy_firewall_policies.md">Apply and Deploy Firewall Policies</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_establish_trust.md">Establish trust</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_discover_ltm.md">Discover adc/ltm</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_import_ltm.md">Import adc/ltm</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_import_ltm.md">Asm list search policies</a></li>
 </ul>
 
 <h2>
-<a id="api-references" class="anchor" href="#api-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API references</h2>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h2>
 
 <ul>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/html/device-trust.html">Device Trust</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/device-discovery.adoc">Device Discovery</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adc-core-discovery_import.adoc">ADC-Core Discovery Import</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/firewall-discovery_import.adoc">Firewall Discovery Import</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/asm-discovery_import.adoc">Web Application Firewall Discovery Import</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/firewall-policies.adoc">Firewall Policies</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/firewalls.adoc">Firewalls</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/deploy-configuration.adoc">Deploy Configuration</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/pool-member-management.adoc">Pool Member Management</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adc-self-service.adoc">ADC Self Service</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/license-purchased-pools.adoc">License Purchased Pools</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/license-registration-key-pool.adoc">License Registration Keys Pool</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/virtual-server-management.adoc">Virtual Server Management</a></li>
-<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/application-server-node-management.adoc">Application Server Node Management</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/html/device-trust.html">Establish trust</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/html/device-discovery.html">Discover bigip configuration</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/html/adc-core-discovery_import.html">Adc-core discovery/import configuration</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/firewall-discovery_import.adoc">Firewall discovery/import configuration</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/deploy-configuration.adoc">Deploy configuration</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/html/license-purchased-pools.html">License purchased pools</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/html/license-registration-key-pool.html">License registration key pool</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/html/adoc/adc-self-service.adoc">Adc self service enable/disable pool member</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/virtual-server-management.adoc">Virtual Server management</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/pool-member-management.adoc">Pool member management</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/application-server-node-management.adoc">Application node management</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/firewall-policies.adoc">Firewall policy management</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/firewalls.adoc">Firewall context management</a></li>
 </ul>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/carldubois/bigiq-cm-restapi-reference">BIG-IQ Central Management REST API Reference</a> is maintained by <a href="https://github.com/carldubois">carldubois</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/carldubois">carldubois</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
   </body>
 </html>
