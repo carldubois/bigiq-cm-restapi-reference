@@ -42,6 +42,16 @@ POST /device-trust
 ==== Description
 Returns the collection of device-trust tasks.
 
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to device trust task.|string(UUID)|None
+|*Body*|*Json string request body.* +
+_required_|Input parameter list in json format. Ex. {} |<<_post_device_trust_body,post_device_trust_body>>|None
+|===
 
 ==== Responses
 
@@ -263,22 +273,22 @@ _optional_|Reference link to a user used to discover devices.|string
 |===
 
 
-[[_properties_device_trust_post]]
-=== properties_device_trust_post
+[[_post_device_trust_body]]
+=== post_device_trust_body
 
 [options="header", cols=".^3,.^11,.^4"]
 |===
 |Name|Description|Schema
 |*address* +
 _optional_|IP address of device object.|string
-|*clusterName* +
-_optional_|DSC cluster name of device object to be managed. None if not part of a cluster group.|string
-|*password* +
-_optional_|Password of device object to be managed.|string
-|*useBigiqSync* +
-_optional_|To enable DSC configuration sync. True / False|boolean
 |*userName* +
 _optional_|Username of BIGIQ device object.|string
+|*password* +
+_optional_|Password of device object to be managed.|string
+|*clusterName* +
+_optional_|DSC cluster name of device object to be managed. None if not part of a cluster group.|string
+|*useBigiqSync* +
+_optional_|To enable DSC configuration sync. True / False|boolean
 |===
 
 
