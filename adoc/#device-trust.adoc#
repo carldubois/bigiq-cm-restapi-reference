@@ -1,0 +1,297 @@
+= BIG-IQ Device Trust
+
+
+[[_overview]]
+== Overview
+API used to create a device trust certificate between BIG-IQ and BIG-IP.
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/global/tasks
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_device-trust_post]]
+=== List all device-trust task items.
+....
+POST /device-trust
+....
+
+
+==== Description
+Returns the collection of device-trust tasks.
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to device trust task.|string(UUID)|None
+|*Body*|*Json string request body.* +
+_required_|Input parameter list in json format. Ex. {"address":"10.90.2.22","userName":"admin","password":"admin","clusterName":"","useBigiqSync":false} |<<_post_device_trust_body,post_device_trust_body>>|None
+|===
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Collection of device-trust tasks.|<<_properties_device_trust_post,properties_device_trust_post>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_device-trust_get]]
+=== List all device-trust task items.
+....
+GET /device-trust
+....
+
+
+==== Description
+Returns the collection of device-trust tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Collection of device-trust tasks.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_device-trust_objectid_get]]
+=== Used to get a single device-trust task.
+....
+GET /device-trust/{objectId}
+....
+
+
+==== Description
+Returns the device-trust identified by id for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to device trust task.|string(UUID)|None
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Device-trust object.|<<_properties_device-trust,properties_device-trust>>
+|*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
+|*404*|Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_400_error_collection]]
+=== 400_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection of device-trust task objects.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for device-trust collections-cm:global:tasks:device-trust:bigiptrusttaskstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_404_error_collection]]
+=== 404_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection of device-trust task objects.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for device-trust collections-cm:global:tasks:device-trust:bigiptrusttaskstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_properties_collection]]
+=== properties_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a device trust collection object. generation.|integer(int64)
+|*items* +
+_optional_|Collection of device-trust task objects.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for this device trust collection object.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an device trust collection object. time.|integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the device trust collection object.|string
+|===
+
+
+[[_properties_device-trust]]
+=== properties_device-trust
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*address* +
+_optional_|IP address of device object.|string
+|*clusterName* +
+_optional_|DSC cluster name of device object to be managed. None if not part of a cluster group.|string
+|*currentStep* +
+_optional_|State machine current step for device trust task.|string
+|*endDateTime* +
+_optional_|Date/Time when device trust task end. 2016-10-11T10:30:17.834-0400|string
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a device-trust object. generation.|integer(int64)
+|*id* +
+_optional_ +
+_read-only_|Unique id assigned to a device trust task object.|string
+|*identityReference* +
+_optional_|Array of reference links to user used to estabish trust. mgmt/shared/authz/users/admin|< <<_properties_device-trust_identityreference,identityReference>> > array
+|*isChassisDevice* +
+_optional_|Is this device virtual or appliance. (True / False)|boolean
+|*kind* +
+_optional_ +
+_read-only_|Type information for this device trust object.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an policy object. time.|integer(int64)
+|*machineId* +
+_optional_|A unique id string for the BIGIP device.|string
+|*ownerMachineId* +
+_optional_ +
+_read-only_|A unique id string for the BIGIQ acting as a device owner.|string
+|*password* +
+_optional_|Password of device object to be managed.|string
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the device trust object.|string
+|*stateDateTime* +
+_optional_|Date/Time when device trust task began. 2016-10-11T10:30:17.834-0400|string
+|*status* +
+_optional_|Status of device trust during state transistion.|string
+|*useBigiqSync* +
+_optional_|To enable DSC configuration sync. True / False. When enabled, the BIG-IQ will manually synchronize configurations changes between members in a DSC group.|boolean
+|*userName* +
+_optional_|Username of BIGIQ device object.|string
+|*userReference* +
+_optional_|Reference link to user used to estabish trust. mgmt/shared/authz/users/admin|<<_properties_device-trust_userreference,userReference>>
+|*username* +
+_optional_|User name of device object to be managed.|string
+|===
+
+[[_properties_device-trust_identityreference]]
+*identityReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_|Array of user reference links used to discovery devices.|string
+|===
+
+[[_properties_device-trust_userreference]]
+*userReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_|Reference link to a user used to discover devices.|string
+|===
+
+
+[[_post_device_trust_body]]
+=== post_device_trust_body
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*address* +
+_required_|IP address of device object.|string
+|*userName* +
+_required_|Username of BIGIQ device object.|string
+|*password* +
+_required_|Password of device object to be managed.|string
+|*clusterName* +
+_required_|DSC cluster name of device object to be managed. None if not part of a cluster group.|string
+|*useBigiqSync* +
+_required_|To enable DSC configuration sync. True / False|boolean
+|===
+
+
+
+
+
