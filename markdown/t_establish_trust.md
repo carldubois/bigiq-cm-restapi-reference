@@ -10,6 +10,7 @@ You can use the REST API to establish trust between the BIG-IQ Centralized Manag
 This example assumes the following about the configuration:
 -	All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system.
 - The BIG-IQ Centralized Management system is operational, has completed the setup wizard and has all system-level configuration in place.
+- When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running  the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.
 
 ### Description
 You establish the trust between the BIG-IQ Centralized Management system and the BIG-IP device as follows:
@@ -51,7 +52,7 @@ Perform a POST method to the trust task URI. The following options must be inclu
 	- userName - The user name for the account that has admin privileges on the BIG-IP device.
 	- password - The password associated with the userName on the BIG-IP device.
 ```
-POST: https://<mgmtip>/mgmt/cm/global/tasks/device-trust
+POST: https://<mgmtip>/mgmt/cm/gloal/tasks/device-trust
 
 {
     "address": "10.255.4.124",
@@ -61,8 +62,6 @@ POST: https://<mgmtip>/mgmt/cm/global/tasks/device-trust
     "userName": "admin"
 }
 ```
-[Device Trust API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/device-trust.adoc)
-
 The following is the response JSON from the POST method:
 ```
     "address": "10.255.4.124",
@@ -95,8 +94,6 @@ Perform GET methods to the 'selfLink' that is returned from the response JSON in
 ```
 GET: https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-892b-cb859b182cdb?$select=address,status,currentStep
 ```
-[Device Trust API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/device-trust.adoc)
-
 The following is the response JSON from the GET method:
 ```
 {
@@ -126,8 +123,6 @@ PATCH: https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-89
     "status": "STARTED"
 }
 ```
-[Device Trust API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/device-trust.adoc)
-
 The following is the response JSON from the PATCH method:
 ```
 {
@@ -170,8 +165,6 @@ Perform additional GET methods on the 'selfLink' that is returned from the Step 
 ```
 GET: https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-892b-cb859b182cdb?$select=address,status,currentStep
 ```
-[Device Trust API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/device-trust.adoc)
-
 The following is the response JSON from the GET method:
 ```
 {

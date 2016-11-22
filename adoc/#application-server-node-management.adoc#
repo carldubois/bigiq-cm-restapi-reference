@@ -293,8 +293,8 @@ _required_|IP Addres of device.|string
 |*appService* +
 _required_|link uri to application servce.|string
 |*connectionLimit* +
-_required_|Password of device.|string
-|*rootUser* +
+_required_|Number of allowable connections.|integer
+|** +
 _required_|Root user of device.|string
 |*rootPassword* +
 _required_|Root password of device.|string

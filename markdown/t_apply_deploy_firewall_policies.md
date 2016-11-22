@@ -7,6 +7,7 @@ Describes how you use the REST API to apply one or more firewall policies to one
 - All BIG-IP devices to be used have been imported for the Local Traffic and Network Security services.
 - All firewall policies to be deployed have been configured on the BIG-IQ Centralized Management system.
 - All firewall contexts that will have firewall policies assigned to them have been created in the Local Traffic service and deployed to the BIG-IP device.
+- When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running  the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.
 
 ### Description
 Describes the steps you perform to apply one or more firewall policies to one or more firewall contexts and deploy the firewall changes to associated BIG-IP devices. 
@@ -20,15 +21,13 @@ Perform the REST API actions in the following order:
 
 The following extended example show each of these REST API actions.
 ### Example
-#### 1. Retrieve the firewall policy to be applied to the firewall contexts
+#### 1. Retrieve the firewall policy to be applied to the firewall contexts.
 
 Perform a GET operation on the policies collection. In the steps in this example, the context used is a virtual server.  Use the filter and select options to narrow the returned JSON information to just the policy in which you are interested.
 ```
 GET: https://<mgmtip>/mgmt/cm/firewall/working-config/policies?$filter=('name'+eq+'Policy_1')&$select=name,selfLink
 ```
-[Firewall Policy API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/firewall-policies.adoc)
-
-The following is the JSON response from the GET:
+The following is the JSON response from the GET operation:
 ```
 {
   "selfLink": "https://localhost/mgmt/cm/firewall/working-config/policies",
@@ -44,15 +43,13 @@ The following is the JSON response from the GET:
   "lastUpdateMicros": 1474559397713741
 }
 ```
-#### 2. Retrieve the firewall contexts by type and/or name
+#### 2. Retrieve the firewall contexts by type, name, or both.
 Perform a GET operation on the firewall collection to retrieve the contexts. In this example, a single virtual server is returned. Use the filter and select options to narrow the returned JSON information to just the firewall context in which you are interested. 
 In addition if a specific BIG-IP device is required, that could be used by appending the following: 
 ``+and+('deviceReference/name'+eq+'<name>')``
 ```
 GET: https://<mgmtip>/mgmt/cm/firewall/working-config/firewalls?$filter=('name'+eq+'VirtualServer_1')+and+(firewallType+eq+'vip') &$select=name,firewallType,selfLink,deviceReference
 ```
-[Firewalls API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/firewalls.adoc)
-
 The following is the JSON response from the GET:
 ```
 {
@@ -74,9 +71,9 @@ The following is the JSON response from the GET:
   ],
 }
 ```
-#### 3. Apply the firewall policy to the virtual server firewall context (staged or enforced)
+#### 3. Apply the firewall policy to the virtual server firewall context (staged or enforced).
 
-Perform a PATCH of the virtual server firewall context. The virtual server is identified by a URI containing its selfLink. Set either `stagedPolicyReference` or `enforcedPolicyReference` to the firewall policy selfLink.
+Perform a PATCH operation on the virtual server firewall context. The virtual server is identified by a URI containing its selfLink. Set either `stagedPolicyReference` or `enforcedPolicyReference` to the firewall policy selfLink.
 ```
 PATCH: https://<mgmtip>/mgmt/cm/firewall/working-config/firewalls/970b7b0b-8f21-3a88-909a-29df7e73fd5d
 {
@@ -85,7 +82,7 @@ PATCH: https://<mgmtip>/mgmt/cm/firewall/working-config/firewalls/970b7b0b-8f21-
   },
 }
 ```
-The following is the JSON response from the PATCH. The response to any successful PATCH is the complete patched object with the patch applied:
+The following is the JSON response from the PATCH operation. The response to any successful PATCH is the complete patched object with the patch applied:
 ```
 {
     "description": "Virtual Server for VirtualServer_1",
@@ -114,9 +111,9 @@ The following is the JSON response from the PATCH. The response to any successfu
     "selfLink": "https://localhost/mgmt/cm/firewall/working-config/firewalls/970b7b0b-8f21-3a88-909a-29df7e73fd5d"
 }
 ```
-#### 4. Determine which BIG-IP devices need changes deployed to them based on which firewalls were modified
+#### 4. Determine which BIG-IP devices need changes deployed to them based on which firewalls were modified.
 
-The device references needed for the deployment are found in the firewall context JSON for each modified context.  This example shows the `deviceReference` for the virtual server returned in the previous example:
+The device references needed for the deployment are found in the firewall context JSON for each modified context.  This example shows the deviceReference for the virtual server returned in the previous example:
 ```
     "deviceReference": {
         "id": "6e932e01-7b5e-431d-b1d3-8ca5e3eb891d",
@@ -126,7 +123,7 @@ The device references needed for the deployment are found in the firewall contex
         "name": "bigip25.f5.com"
     }
 ```
-#### 5. Evaluate the configuration changes created by the firewall configuration modifications to determine if there are errors
+#### 5. Evaluate the configuration changes created by the firewall configuration modifications to determine if there are errors.
 
 A deployment task must be created that includes each BIG-IP device that had an associated firewall context updated.
 
@@ -134,8 +131,6 @@ Perform a POST operation to the following URL to create the deployment task:
 ```
 POST: https://<mgmtip>/mgmt/cm/firewall/tasks/deploy-configuration
 ```
-[Deploy Distribution API Reference](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/deploy-configuration.adoc)
-
 The deployment can also be created in the deploy-immediately mode (where `skipDistribution` is set to false) as follows.  This type of deployment is only recommended if no warnings or errors are expected. 
 ```
 {
@@ -321,7 +316,7 @@ If however, the status does not reach FINISHED or either count is not 0, consult
 ```
 If the verification counts are all 0, then the deployment evaluation phase did not find any issues and the deployment can continue. 
 
-PATCH the existing deployment task as follows and then continue to the next step.
+Perform a PATCH operation on the existing deployment task as follows and then continue to the next step.
 ```
 PATCH:  https://<mgmtip>/mgmt/cm/firewall/tasks/deploy-configuration/70e8c87d-cec6-4ed5-8de4-88682ff3bd63
 
