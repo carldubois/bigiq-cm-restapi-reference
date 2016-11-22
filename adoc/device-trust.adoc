@@ -280,15 +280,15 @@ _optional_|Reference link to a user used to discover devices.|string
 |===
 |Name|Description|Schema
 |*address* +
-_optional_|IP address of device object.|string
+_required_|IP address of device object.|string
 |*userName* +
-_optional_|Username of BIGIQ device object.|string
+_required_|Username of BIGIQ device object.|string
 |*password* +
-_optional_|Password of device object to be managed.|string
+_required_|Password of device object to be managed.|string
 |*clusterName* +
-_optional_|DSC cluster name of device object to be managed. None if not part of a cluster group.|string
+_required_|DSC cluster name of device object to be managed. None if not part of a cluster group.|string
 |*useBigiqSync* +
-_optional_|To enable DSC configuration sync. True / False|boolean
+_required_|To enable DSC configuration sync. True / False|boolean
 |===
 
 
