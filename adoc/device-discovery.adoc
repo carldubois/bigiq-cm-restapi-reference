@@ -264,7 +264,7 @@ _read-only_|A reference link URI to the device discovery task collection object.
 |===
 |Name|Description|Schema
 |*moduleList* +
-_required_|A list of all modules to discover. ex. access, adc-core, firewall, asm, security_shared, dns|string
+_required_|A list of all modules to discover. ex. access, adc-core, firewall, asm, security_shared, dns|array
 |*deviceReference* +
 _required_|Reference link to device in resolver.|string
 |===
