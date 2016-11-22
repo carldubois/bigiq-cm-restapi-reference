@@ -50,7 +50,7 @@ Returns the collection of device-trust tasks.
 |*Path*|*objectId* +
 _required_|Unique id assigned to device trust task.|string(UUID)|None
 |*Body*|*Json string request body.* +
-_required_|Input parameter list in json format. Ex. {} |<<_post_device_trust_body,post_device_trust_body>>|None
+_required_|Input parameter list in json format. Ex. {"address":"10.90.2.22","userName":"admin","password":"admin","clusterName":"","useBigiqSync":false} |<<_post_device_trust_body,post_device_trust_body>>|None
 |===
 
 ==== Responses

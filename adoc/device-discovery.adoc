@@ -42,6 +42,17 @@ POST /device-discovery
 ==== Description
 Create a device discovery task and add to collection.
 
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to device discovery task.|string(UUID)|None
+|*Body*|*Json string request body.* +
+_required_|Input parameter list in json format. Ex. {"moduleList":[{"module":"adc_core"}],"deviceReference":{"link":"https://localhost/mgmt/cm/system/machineid-resolver/2a2baaf0-b22f-49dc-81c6-4711fa189820"}}|<<_post_device_discovery_body,post_device_discovery_body>>|None
+|===
+
 
 ==== Responses
 
@@ -246,7 +257,17 @@ _optional_ +
 _read-only_|A reference link URI to the device discovery task collection object.|string
 |===
 
+[[_post_device_discovery_body]]
+=== post_device_discovery_body
 
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*moduleList* +
+_required_|A list of all modules to discover. ex. access, adc-core, firewall, asm, security_shared, dns|string
+|*deviceReference* +
+_required_|Reference link to device in resolver.|string
+|===
 
 
 
