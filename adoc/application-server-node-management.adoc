@@ -276,7 +276,7 @@ _optional_|Specifies the amount of time before sending the next DNS query.|strin
 _optional_|Specifies whether the node should scale to the IP address set returned by DNS.|boolean
 |===
 
-[[_post_aplication_node_body]]
+[[_post_application_node_body]]
 === post_application_node_body
 
 [options="header", cols=".^3,.^11,.^4"]
