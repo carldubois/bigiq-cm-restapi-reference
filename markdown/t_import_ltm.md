@@ -35,6 +35,7 @@ GET: https://<mgmtip>/mgmt/cm/system/machineid-resolver?$filter=('address'+eq+'1
 ```
 
 In the following response JSON from the GET method, the adc value is returned. Having the adc value returned indicates that the Local Traffic service has been discovered, and that trust already exists between the BIG-IP device and the BIG-IQ Centralized Management system.
+
 ```
 "properties": {
     "cm:gui:module": [
@@ -43,6 +44,7 @@ In the following response JSON from the GET method, the adc value is returned. H
     ]
 }
 ```
+
 The Local Traffic service is discovered before any other service. If the adc value is not found in the list, the Local Traffic service has not been discovered and discovery must be performed. The machineId found in the response JSON will be used in Step 2.
 ```
 GET: https://<mgmtip>/mgmt/cm/system/machineid-resolver?$filter=('address'+eq+'10.255.4.124')
@@ -125,6 +127,7 @@ The following is the response JSON from the GET method:
 Before you import the Local Traffic service, verify that it has not already been imported.
 Perform a GET method on the cm-adccore-allbigipDevices device group, using the machine-id from the previous response to determine if the Local Traffic service on the BIG-IP device is already imported. Use the select filter to reduce the response JSON content. 
 Review the indicated information in the response JSON:
+
 ```
     "properties": {
         "discovered": true,
@@ -133,11 +136,15 @@ Review the indicated information in the response JSON:
         "imported": true                <-- Should be false
      }
 ```
+
 If the Local Traffic service is already imported, continuing with the example will re-import the existing current configuration into the working configuration.
+
 ```
 GET: https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da?$select=address,properties
 ```
+
 The following is the response JSON from the GET method:
+
 ```
 {
     "address": "10.255.4.124",

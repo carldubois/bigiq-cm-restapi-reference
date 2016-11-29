@@ -9,7 +9,7 @@ You can use the REST API to discover the current configuration of the Local Traf
 You should be sure the following prerequisites have been met.
 - All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system.
 - The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration.
-- Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system and the current configuration of the BIG-IP device has been discovered on the BIG-IQ Centralized Management system.
+- Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system.
 - When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running  the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.
 
 ### Description
@@ -28,10 +28,12 @@ In the following example:
 Perform a GET method on the machineid-resolver URI to determine if the BIG-IP device already has trust established. You will want to use the filter option to narrow the returned JSON information to just this particular BIG-IP device. If the value of the items element is not an empty list [], then the trust has already been established. If the value of the items element is an empty list, you must establish trust before you can attempt to discover the device.
 
 In the response to the GET method, you see trust is established since the following data is found in the list:
+```
 "properties": {
     "cm:gui:module": [
         "BigIPDevice"
     ]
+```
 If the adc value is found in the list, the Local Traffic service has already been discovered; the adc value represents the Local Traffic service.
 
 The machineId from the response JSON will be used in Step 2.
@@ -248,12 +250,11 @@ Response JSON from the PATCH:
 #### 5. Perform additional GET methods to the discovery task created in Step 3 or Step 4.
 Perform additional GET methods on the selfLink returned from the Step 3 or Step 4 response JSON. Perform them in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED. Use a select option to reduce the content of the returned JSON to a manageable amount. In addition to the status, currentStep should have the value of DONE.
 ```
-GET: https://localhost/mgmt/cm/global/tasks/device-discoveryd435934f-c615-4873-85f9-ddb4ac4e6c3e?$select=address,status,currentStep
+GET: https://localhost/mgmt/cm/global/tasks/device-discovery/d435934f-c615-4873-85f9-ddb4ac4e6c3e?$select=status,currentStep
 ```
 The following is the response JSON from the GET method:
 ```
 {
-  "address": "10.255.4.124",
   "currentStep": "DONE",
   "status": "FINISHED"
 }
