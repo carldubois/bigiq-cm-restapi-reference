@@ -1,0 +1,650 @@
+= BIG-IQ APM kill active access sessions.
+
+
+[[_overview]]
+== Overview
+API used to kill active access sessions on BIGIP using a BIGIQ centralized management system.
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/access/tasks
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_kill-sessions_access-groups_post]]
+=== Kill all active session by access-group match.
+....
+POST /kill-sessions (access-groups)
+....
+
+
+==== Description
+Kill all active access sessions by access-group match.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Body*|*Json string for request body.* +
+_required_|Input parameter list in json format. ex. {{"action":"KILL_BY_USER", "userName":"user2", "accessGroupNames":["TestGroup1", "TestGroup2"]}}|<<_post_kill_access_by_access_group,post_kill_access_by_access_group>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST to kill all active access session of a user.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_access-groups_get]]
+=== List all kill-session tasks as part of a collection.
+....
+GET /kill-sessions (access-groups)
+....
+
+
+==== Description
+Returns the collection of kill-session tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET collection of session tasks to kill.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_all_post]]
+=== Kill all active session.
+....
+POST /kill-sessions (all)
+....
+
+
+==== Description
+Kill all active access sessions.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Body*|*Json string for request body.* +
+_required_|Input parameter list in json format. ex. {"action":"KILL_ALL_SESSIONS", "deviceReferences":[{"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"}, {"link":"https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d&quot;}]}|<<_post_kill_access_all,post_kill_access_all>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST to kill all active access sessions.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_all_get]]
+=== List all kill-session tasks as part of a collection.
+....
+GET /kill-sessions (all)
+....
+
+
+==== Description
+Returns the collection of kill-session tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET collection of session tasks to kill.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_bigip_clusters_post]]
+=== Kill all active kill-session by access-group match.
+....
+POST /kill-sessions (bigip clusters)
+....
+
+
+==== Description
+Kill all active access kill-sessions by access-group match.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Body*|*Json string for request body.* +
+_required_|Input parameter list in json format. ex. {{"action":"KILL_BY_USER", "userName":"user2", "clusterNames":["BlueCluster", "RedCluster"]}}|<<_post_kill_access_by_cluster_name,post_kill_access_by_cluster_name>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST to kill all active access kill-session of a user.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_bigip_clusters_get]]
+=== List all kill-session tasks as part of a collection.
+....
+GET /kill-sessions (bigip clusters)
+....
+
+
+==== Description
+Returns the collection of kill-session tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET collection of kill-session tasks to kill.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_bigip_clusters_access-groups_and_device_reference_post]]
+=== Kill all active kill-session by access-group match.
+....
+POST /kill-sessions (bigip clusters, access-groups and device reference)
+....
+
+
+==== Description
+Kill all active access kill-sessions by access-group match.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Body*|*Json string for request body.* +
+_optional_|Input parameter list in json format. ex. {"action":"KILL_BY_USER", "userName":"user2", "accessGroupNames":["TestGroup1", "TestGroup2"], "clusterNames":["BlueCluster", "RedCluster"], "deviceReferences": [{"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"}, {"link":"https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d&quot;}]}|<<_post_kill_access_by_cluster_name_access_group_device_reference,post_kill_access_by_cluster_name_access_group_device_reference>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST to kill all active access kill-session of a user.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_bigip_clusters_access-groups_and_device_reference_get]]
+=== List all kill-session tasks as part of a collection.
+....
+GET /kill-sessions (bigip clusters, access-groups and device reference)
+....
+
+
+==== Description
+Returns the collection of kill-session tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET collection of kill-session tasks to kill.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_session_id_post]]
+=== Kill active sessions by session id.
+....
+POST /kill-sessions (session id)
+....
+
+
+==== Description
+Kill active access sessions by session id for a device.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Body*|*Json string for request body.* +
+_required_|Input parameter list in json format. ex. {"action":"KILL_BY_LIST_OF_SESSIONS", "sessions":[{"deviceReference":{"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"}, "sessionIds":["2a5d7604", "875f7fed"]}, {"deviceReference":{"link":"https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d"}, "sessionIds":["2hjj234", "9as3323"]}}|<<_post_kill_access_by_sessions,post_kill_access_by_sessions>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST to kill active access sessions by session id.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_session_id_get]]
+=== List all kill-session tasks as part of a collection.
+....
+GET /kill-sessions (session id)
+....
+
+
+==== Description
+Returns the collection of kill-session tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET collection of session tasks to kill.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_user_post]]
+=== Kill all active session by a user.
+....
+POST /kill-sessions (user)
+....
+
+
+==== Description
+Kill all active access sessions by a user.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Body*|*Json string for request body.* +
+_required_|Input parameter list in json format. ex. {{"action":"KILL_BY_USER","userName":"user2","deviceReferences":[{"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"}, {"link":"https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d"}}}|<<_post_kill_access_by_user_body,post_kill_access_by_user_body>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST to kill all active access session of a user.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_user_get]]
+=== List all kil-session tasks as part of a collection.
+....
+GET /kill-sessions (user)
+....
+
+
+==== Description
+Returns the collection of kill-session tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET collection of session tasks to kill.|<<_properties_kill_access_session_collection,properties_kill_access_session_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_kill-sessions_objectid_get]]
+=== Used to get a single instance of a kill access session task.
+....
+GET /kill-sessions/{objectId}
+....
+
+
+==== Description
+Returns a object for kill access session task identified by id for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|APM kill sessions task object.|<<_properties_kill_access_session,properties_kill_access_session>>
+|*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_400_error_collection]]
+=== 400_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for a collection of tasks used to kill access sessions - cm:access:tasks:kill-sessions:accesskillsessionstaskcollectionstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_404_error_collection]]
+=== 404_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for a collection of tasks used to kill access sessions - cm:access:tasks:kill-sessions:accesskillsessionstaskcollectionstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_post_kill_access_all]]
+=== post_kill_access_all
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*action* +
+_optional_|Action used to kill all access sessions. ex. "KILL_ALL_SESSIONS"|string
+|*deviceReferences* +
+_optional_|Reference link to one or more devices in which active access sessions live.|string
+|===
+
+
+[[_post_kill_access_by_access_group]]
+=== post_kill_access_by_access_group
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*accessGroupNames* +
+_optional_|One or more access group names. All sessions in these groups will be killed by invoking task.|string
+|*action* +
+_optional_|Action used to kill access session by access_group. ex action. "KILL_BY_USER"|string
+|*userName* +
+_optional_|User name defined to all sessions owned.|string
+|===
+
+
+[[_post_kill_access_by_cluster_name]]
+=== post_kill_access_by_cluster_name
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*action* +
+_optional_|Action used to kill access session by access_group. ex action. "KILL_BY_USER"|string
+|*clusterNames* +
+_optional_|One or more cluster names. All sessions in these bigip clusters will be killed by invoking task.|string
+|*userName* +
+_optional_|User name defined to all sessions owned.|string
+|===
+
+
+[[_post_kill_access_by_cluster_name_access_group_device_reference]]
+=== post_kill_access_by_cluster_name_access_group_device_reference
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*accessGroupNames* +
+_optional_|One or more access group names. All sessions in these groups will be killed by invoking task.|string
+|*action* +
+_optional_|Action used to kill access session by access_group. ex action. "KILL_BY_USER"|string
+|*clusterNames* +
+_optional_|One or more cluster names. All sessions in these bigip clusters will be killed by invoking task.|string
+|*deviceReferences* +
+_optional_|Reference link to one or more devices in which active access sessions live.|string
+|*userName* +
+_optional_|User name defined to all sessions owned.|string
+|===
+
+
+[[_post_kill_access_by_sessions]]
+=== post_kill_access_by_sessions
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*action* +
+_optional_|Action used to kill all access sessions identified by a session id. ex. "KILL_ALL_SESSIONS"|string
+|*sessions* +
+_optional_||< <<_post_kill_access_by_sessions_sessions,sessions>> > array
+|===
+
+[[_post_kill_access_by_sessions_sessions]]
+*sessions*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*deviceReferences* +
+_optional_|Reference link to one or more devices in which active access sessions live.|<<_post_kill_access_by_sessions_devicereferences,deviceReferences>>
+|*sessionIds* +
+_optional_||< string > array
+|===
+
+[[_post_kill_access_by_sessions_devicereferences]]
+*deviceReferences*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+
+[[_post_kill_access_by_user_body]]
+=== post_kill_access_by_user_body
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*action* +
+_optional_|Action used to kill access session by a user. ex. "KILL_BY_USER"|string
+|*deviceReferences* +
+_optional_|Reference link to one or more devices in which active access sessions live.|string
+|*userName* +
+_optional_|User name defined to all sessions owned.|string
+|===
+
+
+[[_properties_kill_access_session]]
+=== properties_kill_access_session
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*action* +
+_optional_|Unique id assigned to a access kill user session task object.|string
+|*currentStep* +
+_optional_ +
+_read-only_|BIG-IQ maintains a version # to track changes of ASM signatures.|string
+|*deviceReferences* +
+_optional_|Reference link to one or more devices in which active access sessions live.|< <<_properties_kill_access_session_devicereferences,deviceReferences>> > array
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a kill-sessions task object. generation.|integer(int64)
+|*id* +
+_optional_|Unique id assocaited with kill-sessions task object.|string
+|*identityReference* +
+_optional_|Reference link to the user who issued the rest call.|< <<_properties_kill_access_session_identityreference,identityReference>> > array
+|*kind* +
+_optional_|Type information for access kill user session task object - cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to a kill-sessions task object. time.|integer(int64)
+|*name* +
+_optional_|Name of access kill user session task object.|string
+|*ownerMachineId* +
+_optional_|Device machine id used by the kill user session task object. Sessions that live on this device will be killed.|string
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the kill-sessions task object.|string
+|*startDateTime* +
+_optional_|Date / Time of when this kill user session task began.|string
+|*status* +
+_optional_|Status of kill user session task state. - ex. STARTED, FINISHED.|string
+|*userName* +
+_optional_|User name defined to all sessions owned.|string
+|*userReference* +
+_optional_|Refernece link to user issing the rest call to start kill-session task.|string
+|*username* +
+_optional_||string
+|===
+
+[[_properties_kill_access_session_devicereferences]]
+*deviceReferences*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+[[_properties_kill_access_session_identityreference]]
+*identityReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+
+[[_properties_kill_access_session_collection]]
+=== properties_kill_access_session_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to the access kill user session task collection object. generation.|integer(int64)
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for access kill user session task collection object - cm:access:tasks:kill-sessions:accesskillsessionstaskcollectionstate.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change to the access kill user session task collection object. time.|integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI for the access kill user session task collection object.|string
+|===
+
+
+
+
+
