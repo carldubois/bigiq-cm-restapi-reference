@@ -710,7 +710,7 @@ _optional_|Signature staging is supported on the security policy. True / False|b
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to url asm signature.|string
 |===
 
 [[_properties_asm_violationsreference]]
