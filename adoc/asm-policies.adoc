@@ -358,9 +358,9 @@ _optional_|Specifies how the security policy processes URLs that use dynamic ses
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_|s a subcollection (True/False)|boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_charactersetreference]]
@@ -372,7 +372,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_cookiereference]]
@@ -384,7 +384,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_csrfprotectionreference]]
@@ -396,7 +396,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_dataguardreference]]
@@ -408,7 +408,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_disallowedgeolocationreference]]
@@ -420,7 +420,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_evasionsreference]]
@@ -432,7 +432,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_extractionsreference]]
@@ -444,7 +444,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_filetypereference]]
@@ -456,7 +456,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_gwtprofilereference]]
@@ -468,7 +468,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_headerreference]]
@@ -480,7 +480,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_hostnamereference]]
@@ -492,7 +492,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_httpprotocolsreference]]
@@ -504,7 +504,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_ipintelligencereference]]
@@ -516,7 +516,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_jsonprofilereference]]
@@ -528,7 +528,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_loginenforcementreference]]
@@ -540,7 +540,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_loginpagereference]]
@@ -552,7 +552,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_methodreference]]
@@ -564,7 +564,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_parameterreference]]
@@ -576,7 +576,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_plaintextprofilereference]]
@@ -588,7 +588,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_policybuilderreference]]
@@ -600,7 +600,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_redirectionprotectionreference]]
@@ -612,7 +612,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_responsepagereference]]
@@ -624,7 +624,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_sectionreference]]
@@ -636,7 +636,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_sensitiveparameterreference]]
@@ -648,7 +648,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_sessiontrackingreference]]
@@ -660,7 +660,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_signaturereference]]
@@ -672,7 +672,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_signaturesetreference]]
@@ -684,7 +684,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_stagingsettings]]
@@ -722,7 +722,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_webscrapingreference]]
@@ -734,7 +734,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_webservicessecurityreference]]
@@ -746,7 +746,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_websocketurlreference]]
@@ -758,7 +758,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_whitelistipreference]]
@@ -770,7 +770,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_xmlprofilereference]]
@@ -782,7 +782,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 [[_properties_asm_xmlvalidationfilereference]]
@@ -794,7 +794,7 @@ _optional_||string
 |*isSubcollection* +
 _optional_|Is a subcollection (True/False)|boolean
 |*link* +
-_optional_||string
+_optional_|Reference link to asm signature.|string
 |===
 
 
