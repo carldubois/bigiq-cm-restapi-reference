@@ -103,7 +103,7 @@ Returns a web application policy defined by a object id.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id associated with policy.|string(UUID)|None
 |===
 
 
@@ -133,7 +133,7 @@ _required_||string(UUID)|
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection if policies. 400 error.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for ASM web application security policies - cm:asm:working-config:policies:policycollectionstate.|string
@@ -159,7 +159,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of policies. 404 error.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for ASM web application security policies - cm:asm:working-config:policies:policycollectionstate|string
