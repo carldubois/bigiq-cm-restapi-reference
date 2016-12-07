@@ -246,7 +246,7 @@ _optional_|Reference link to ASM system.|string
 _optional_ +
 _read-only_|A integer that will track change made to web application security signatures collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Collection of ASM attack signatures.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for web application security signatures collection object.|string
