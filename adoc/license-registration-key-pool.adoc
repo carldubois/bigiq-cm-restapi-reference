@@ -105,7 +105,7 @@ Add a new registration license key adding to BIGIQ licese regkey pool.
 |*Path*|*objectId* +
 _required_|Unique id assigned to  licensed registration key pool object.|string(UUID)|None
 |*Body*|*Json string request body.* +
-_required_|Input parameter list in json format. ex. {regKey: U0151-71761-41002-45076-9552496, status: ACTIVATING_AUTOMATIC, name: RegKey1}|<<_post_regkey_body,post_regkey_body>>|
+_required_|Input parameter list in json format. ex. {regKey: U0151-71761-41002-45076-9552496, status: ACTIVATING_AUTOMATIC, name: RegKey1}|<<_post_regkey_body,post_regkey_body>>|None
 |===
 
 
@@ -207,7 +207,7 @@ _required_|Unique id assigned to  licensed registration key pool object.|string(
 |*Path*|*registrationKey* +
 _required_|Generated registration key used when licensing BIGIP.|string(string)|None
 |*Body*|*Json string request body.* +
-_required_|Input parameter list in json format. ex. {deviceAddress: 10.44.100.25, username: admin, password: admin}|<<_post_regkey_members_body,post_regkey_members_body>>|
+_required_|Input parameter list in json format. ex. {deviceAddress: 10.44.100.25, username: admin, password: admin}|<<_post_regkey_members_body,post_regkey_members_body>>|None
 |===
 
 
