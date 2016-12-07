@@ -43,7 +43,7 @@ Response:
 
 #### 2. Start activation of a license.
 
-POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
+POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/license
 
 Request:
 
