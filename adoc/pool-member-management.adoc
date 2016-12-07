@@ -70,7 +70,7 @@ Returns the pool object identified by id for an endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_|Unique id assigned to a virtual pool.|string(UUID)|
+_required_|Unique id assigned to a virtual pool.|string(UUID)|None
 |===
 
 
@@ -102,6 +102,8 @@ Add a application server node to a specific virtual pool.
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
 _required_|Unique id assigned to pool member object.|string(UUID)|None
+|*Body*|*Json string request body.* +
+_required_|Input parameter list in json format. Ex. {} |<<_post_pool_member_body,post_pool_member_body>>|None
 |===
 
 
@@ -405,7 +407,21 @@ _optional_|Enables or disables the node for new sessions. The default value is u
 _optional_|Reference link to node specific to pool member configuration.|string
 |===
 
+[[_post_pool_member_body]]
+=== post_pool_member_body
 
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*partition* +
+_required_|Partition where this application node lives. default Common|string
+|*name* +
+_required_|Name of application node.|string
+|*port* +
+_required_|Port to request connection to node.|integer
+|*nodeReference* +
+_required_|Reference link to application node.|string
+|===
 
 
 
