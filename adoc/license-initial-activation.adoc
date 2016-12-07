@@ -103,7 +103,7 @@ Returns the activation task allowing the user to poll for status.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id assigned to activation task.|string(UUID)|None
 |===
 
 
@@ -133,7 +133,7 @@ _required_||string(UUID)|
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of activation task objects|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for initial activation task - cm:device:licensing:pool:initial-activation:initialactivationworkercollectionstate|string
@@ -159,7 +159,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection of activation task objects.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for initial activation task - cm:device:licensing:pool:initial-activation:initialactivationworkercollectionstate|string
@@ -197,7 +197,7 @@ _optional_|The state or type of activation process to use. ex. ACTIVATING_AUTOMA
 |===
 |Name|Description|Schema
 |*items* +
-_optional_||< <<_properties_initial_activation_items,items>> > array
+_optional_|Activation task properties.|< <<_properties_initial_activation_items,items>> > array
 |===
 
 [[_properties_initial_activation_items]]
@@ -245,7 +245,7 @@ _optional_|Status of license key activation. ex. READY|string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to license data.|string
 |===
 
 
