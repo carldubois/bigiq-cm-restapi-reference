@@ -1,0 +1,273 @@
+= BIG-IQ Licensing inital activation.
+
+
+[[_overview]]
+== Overview
+API used activate a BIG-IP license of varying types.
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/device/licensing/pool/
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_initial-activation_post]]
+=== BIG-IQ initial activation using API.
+....
+POST /initial-activation
+....
+
+
+==== Description
+Using this BIG-IQ API you can activate a BIG-IP license of varying types. This endpoint is a common starting point for activating a pool-style regkey (utility, volume, purchased, etc..)
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Body*|*Json string for request body.* +
+_required_|Input parameter list in json format. ex. {"regkey": "MY-REGISTRATION-KEY", "name": "freeform name", "status": "ACTIVATING_AUTOMATIC"}|<<_post_initial_activation_body,post_initial_activation_body>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST to create license activation task.|<<_properties_initial_activation,properties_initial_activation>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_initial-activation_get]]
+=== BIG-IQ initial activation using API.
+....
+GET /initial-activation
+....
+
+
+==== Description
+Using this BIG-IQ API you can activate a BIG-IP license of varying types. This endpoint is a common starting point for activating a pool-style regkey (utility, volume, purchased, etc..)
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST to create license activation task.|<<_properties_initial_activation_collection,properties_initial_activation_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_initial-activation_objectid_get]]
+=== BIG-IQ returns the activation task using for licensing.
+....
+GET /initial-activation/{objectId}
+....
+
+
+==== Description
+Returns the activation task allowing the user to poll for status.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|BIG-IQ activation task.|<<_properties_initial_activation,properties_initial_activation>>
+|*400*|Server error response Bad Request.|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_400_error_collection]]
+=== 400_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for initial activation task - cm:device:licensing:pool:initial-activation:initialactivationworkercollectionstate|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_404_error_collection]]
+=== 404_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_||< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for initial activation task - cm:device:licensing:pool:initial-activation:initialactivationworkercollectionstate|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_post_initial_activation_body]]
+=== post_initial_activation_body
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*name* +
+_optional_|Name of activation process.|string
+|*regKey* +
+_optional_|Base registration key.|string
+|*status* +
+_optional_|The state or type of activation process to use. ex. ACTIVATING_AUTOMATIC.|string
+|===
+
+
+[[_properties_initial_activation]]
+=== properties_initial_activation
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*items* +
+_optional_||< <<_properties_initial_activation_items,items>> > array
+|===
+
+[[_properties_initial_activation_items]]
+*items*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*dossier* +
+_optional_|Auto-generated passphrase used for activation.|string
+|*encryptedPrivateKey* +
+_optional_|Encrypted private key used during calculation.|< integer > array
+|*generation* +
+_optional_|A integer that will track change made.|string
+|*internalPrivateKey* +
+_optional_|Internal encrypted key used during calculation.|string
+|*kind* +
+_optional_|Type information for initial activation. cm:device:licensing:pool:initial-activation:initialactivationworkeritemstate.|string
+|*lastUpdateMicros* +
+_optional_|Update time (micros) for last change made to a activation task.|integer
+|*licenseReference* +
+_optional_|Reference link to pool license used for activation.|<<_properties_initial_activation_licensereference,licenseReference>>
+|*licenseText* +
+_optional_|Contents of license file.|string
+|*message* +
+_optional_|Status message to user. ex. License BASE-REG-KEY ready.|string
+|*name* +
+_optional_|Name of initial activation task license type. ex. Purchased-Pools|string
+|*publicKey* +
+_optional_|Public key used during calculation.|< integer > array
+|*regKey* +
+_optional_|Base registration key.|string
+|*selfLink* +
+_optional_|Reference link to activation task.|string
+|*sortName* +
+_optional_|Name used to intentify sorting status. ex. Pending|string
+|*status* +
+_optional_|Status of license key activation. ex. READY|string
+|===
+
+[[_properties_initial_activation_licensereference]]
+*licenseReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_||string
+|===
+
+
+[[_properties_initial_activation_collection]]
+=== properties_initial_activation_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_|A integer that will track change made.|string
+|*items* +
+_optional_|Array of initial activation task properties.|< object > array
+|*kind* +
+_optional_|Type information for initial activation task. cm:device:licensing:pool:initial-activation:initialactivationworkeritemstate|string
+|*lastUpdateMicros* +
+_optional_|Update time (micros) for last change made to a initial activation task object. time.|string
+|*selfLink* +
+_optional_|Reference link to initial activation task object.|string
+|===
+
+
+
+
+
