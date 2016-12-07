@@ -49,7 +49,7 @@ Add a new web application security policy.
 |===
 |Type|Name|Description|Schema|Default
 |*Body*|*Json string for request body.* +
-_required_|Input parameter list in json format. ex. {"name":"Policy_3", "partition":"Common", "fullPath":"/Common/Policy_3", "applicationLanguage": "utf-8"}|<<_post_asm_body,post_asm_body>>|
+_required_|Input parameter list in json format. ex. {"name":"Policy_3", "partition":"Common", "fullPath":"/Common/Policy_3", "applicationLanguage": "utf-8"}|<<_post_asm_body,post_asm_body>>|None
 |===
 
 
@@ -358,7 +358,7 @@ _optional_|Specifies how the security policy processes URLs that use dynamic ses
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|s a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -370,7 +370,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -382,7 +382,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -394,7 +394,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -406,7 +406,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -418,7 +418,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -430,7 +430,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -442,7 +442,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -454,7 +454,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -466,7 +466,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -478,7 +478,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -490,7 +490,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -502,7 +502,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -514,7 +514,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -526,7 +526,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -538,7 +538,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -550,7 +550,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -562,7 +562,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -574,7 +574,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -586,7 +586,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -598,7 +598,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -610,7 +610,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -622,7 +622,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -634,7 +634,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -646,7 +646,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -658,7 +658,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -670,7 +670,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -682,7 +682,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -708,7 +708,7 @@ _optional_|Signature staging is supported on the security policy. True / False|b
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -720,7 +720,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -732,7 +732,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -744,7 +744,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -756,7 +756,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -768,7 +768,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -780,7 +780,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -792,7 +792,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_||boolean
+_optional_|Is a subcollection (True/False)|boolean
 |*link* +
 _optional_||string
 |===
@@ -808,7 +808,7 @@ _optional_||string
 _optional_ +
 _read-only_|A integer that will track change made to a ASM web application security policy collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Collection if asm signatures.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for a ASM web application security policy collection object - cm:asm:working-config:policies:policycollectionstate.|string
