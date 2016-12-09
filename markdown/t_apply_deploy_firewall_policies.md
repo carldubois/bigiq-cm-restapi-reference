@@ -8,6 +8,7 @@ Describes how you use the REST API to apply one or more firewall policies to one
 - All firewall policies to be deployed have been configured on the BIG-IQ Centralized Management system.
 - All firewall contexts that will have firewall policies assigned to them have been created in the Local Traffic service and deployed to the BIG-IP device.
 - When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running  the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.
+- The odata query will differ between rest clients POSTMAN and curl. Please not the filter='contents should be encapsulated in single quotes'
 
 ### Description
 Describes the steps you perform to apply one or more firewall policies to one or more firewall contexts and deploy the firewall changes to associated BIG-IP devices. 
