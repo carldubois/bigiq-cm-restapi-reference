@@ -34,7 +34,7 @@ In the response to the GET method, trust is established since the following data
         "adc"
     ]
 ```
-If the sharedsecurity and networksecurity values are found in the list, the Advanced Firewall service has already been discovered; the adc value represents the Local Traffic service and this must be found in order to continue with the Advanced Firewwall discovery workflow.
+If the sharedsecurity and networksecurity values are found in the list, the Advanced Firewall service has already been discovered; the adc value represents the Local Traffic service and this must be found in order to continue with the Advanced Firewall discovery workflow. Other possible values may also be shown in addition to adc, such as dns, asm, or access.
 
 The machineId from the response JSON will be used in Step 2.
 

@@ -52,7 +52,7 @@ Perform a POST method to the trust task URI. The following options must be inclu
 	- userName - The user name for the account that has admin privileges on the BIG-IP device.
 	- password - The password associated with the userName on the BIG-IP device.
 ```
-POST: https://<mgmtip>/mgmt/cm/global/tasks/device-trust
+POST: https://<mgmtip>/mgmt/cm/gloal/tasks/device-trust
 
 {
     "address": "10.255.4.124",

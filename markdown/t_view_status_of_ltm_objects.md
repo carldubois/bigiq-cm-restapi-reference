@@ -98,7 +98,6 @@ GET https://<ip>/mgmt/cm/adc-core/working-config/ltm/virtual/8fbe1abd-a87d-30e9-
 Results:
 {
     "entries": {
-		...
         "status.enabledState": {
             "description": "enabled",
             "lastUpdateMicros": 1479501254572669
@@ -115,8 +114,7 @@ Results:
             "value": 1479510554396833,
             "lastUpdateMicros": 1479510554400702,
             "updateType": "BASIC"
-        },
-        ...
+        }
     },
     "generation": 76,
     "lastUpdateMicros": 1479510554400702,
@@ -126,8 +124,8 @@ Results:
 ```
 > **Note:**
 > - This is a record of statistics since the last collection time. See *lastRefreshMicros.value* for a unix timestamp representing the last time statistics were collected for this object's device.
-> - There are many additional statistics collected, what is shown is a subset.
 > - *status.availabilityState* will indicate if the virtual server's pool has been marked available by monitors attached to the virtual server's pool, pool members or nodes.
+> - The location of these statistics may change in the future.
 
 
 ### Walk From Virtual Server To Nodes
