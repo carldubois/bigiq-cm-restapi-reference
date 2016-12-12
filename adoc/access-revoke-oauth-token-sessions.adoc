@@ -653,7 +653,7 @@ _optional_|Per device ids assocated with token.|< <<_post_revoke_list_of_tokens_
 |===
 |Name|Description|Schema
 |*oauthIds* +
-_optional_||< <<_post_revoke_list_of_tokens_body_oauthids,oauthIds>> > array
+_optional_|Id refering to oauth token.|< <<_post_revoke_list_of_tokens_body_oauthids,oauthIds>> > array
 |===
 
 [[_post_revoke_list_of_tokens_body_oauthids]]
