@@ -567,7 +567,7 @@ _optional_|User name defined to all sessions owned.|string
 _required_|Unique id assigned to a access kill user session task object.|string
 |*currentStep* +
 _optional_ +
-_read-only_|BIG-IQ maintains a version # to track changes of ASM signatures.|string
+_read-only_|Current step used to track state of session.|string
 |*deviceReferences* +
 _optional_|Reference link to one or more devices in which active access sessions live.|< <<_properties_kill_access_session_devicereferences,deviceReferences>> > array
 |*generation* +
