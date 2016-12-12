@@ -336,12 +336,12 @@ _required_||string(UUID)|
 [[_revoke-tokens_user_post]]
 === Revoke all oauth token by user.
 ....
-POST /revoke-tokens (user)
+POST /revoke-tokens (list of tokens)
 ....
 
 
 ==== Description
-Revoke all active oauth tokens by user.
+Revoke a list of active oauth tokens by user.
 
 
 ==== Parameters
@@ -350,7 +350,41 @@ Revoke all active oauth tokens by user.
 |===
 |Type|Name|Description|Schema|Default
 |*Body*|*Json string for request body.* +
-_required_|Input parameter list in json format. ex. { "action":"REVOKE_TOKEN_FOR_USER", "userName":"user1", "deviceReferences":[{"link":&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;}]}|<<_post_revoke_oauth_token_by_user_body,post_revoke_oauth_token_by_user_body>>|
+_required_|Input parameter list in json format. ex. {
+   "action":"REVOKE_LIST_OF_TOKENS",
+   "perDeviceOauthIds": [
+    {
+      "oauthIds": [
+        {
+          "id": "da6d57ffab9decbe9d75b7fdd4440ad43bedc7a475f3105b",
+          "clientId": "e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457"
+        },
+        {
+          "id": "0df998ae62ace6fb6a82bb745b8586e7306afb94e3ca146a",
+          "clientId": "e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457"
+        }
+      ],
+      "deviceReference": {
+        "link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"
+      }
+    },
+    {
+      "oauthIds": [
+        {
+          "id": "e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457",
+          "clientId": "bb745b8586e7306afb94"
+        },
+        {
+          "id": "8586e7306afb8586e7306afb8586e7306afb",
+          "clientId": "8ad92cbb970dd500"
+        }
+      ],
+      "deviceReference": {
+        "link":"https://localhost/mgmt/cm/system/machineid-resolver/23h4jkhk324-f405-489f-kj3434-98234"
+      }
+    }
+  ]
+}|<<_post_revoke_oauth_token_by_user_body,post_revoke_oauth_token_by_user_body>>|
 |===
 
 
