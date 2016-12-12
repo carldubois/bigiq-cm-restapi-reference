@@ -33,7 +33,7 @@ _Schemes_ : HTTPS
 == Paths
 
 [[_revoke-tokens_access-groups_post]]
-=== Revoke all oauth token by access groups.
+=== Revoke all oauth token by access groups for a specified user.
 ....
 POST /revoke-tokens (access-groups)
 ....
@@ -496,9 +496,9 @@ _optional_|User name defined to all revoke-oauth-token sessions owned.|string
 |===
 |Name|Description|Schema
 |*action* +
-_required_|Action used to revoke-oauth-token sessions identified by a oauth token id. ex. "REVOKE_TOKEN_FOR_CLIENT_ID"|string
+_required_|Action used to revoke-oauth-token identified by a oauth token id. ex. "REVOKE_TOKEN_FOR_CLIENT_ID"|string
 |*clientId* +
-_optional_|Unique id associated with the revoke-oauth-token session. ex. e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457|string
+_optional_|Unique id associated with the revoke-oauth-token. ex. e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457|string
 |===
 
 
@@ -513,7 +513,7 @@ _required_|Action used to revoke-oauth-token session by a user. ex. "REVOKE_TOKE
 |*deviceReferences* +
 _optional_|Reference link to one or more devices in which active revoke-oauth-token sessions live.|< <<_post_revoke_oauth_token_by_user_body_devicereferences,deviceReferences>> > array
 |*userName* +
-_optional_|User name defined for revoke-oauth-token sessions owned.|string
+_optional_|User name defined for revoke-oauth-tokens owned.|string
 |===
 
 [[_post_revoke_oauth_token_by_user_body_devicereferences]]
@@ -592,7 +592,7 @@ _optional_|Date / Time of when this revoke-oauth-token task began.|string
 |*status* +
 _optional_|Status of revoke-oauth-token task state. - ex. STARTED, FINISHED.|string
 |*userName* +
-_optional_|User name defined to all revoke-oauth-token sessions owned.|string
+_optional_|User name defined to all revoke-oauth-tokens owned.|string
 |*userReference* +
 _optional_|Refernece link to user issuing the rest call to start revoke-oauth-token task.|string
 |*username* +
@@ -617,18 +617,18 @@ _optional_|Reference link to user indenity.|string
 |Name|Description|Schema
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to revoke-oauth-token sessions task collection object. generation.|integer(int64)
+_read-only_|A integer that will track change made to revoke-oauth-tokens task collection object. generation.|integer(int64)
 |*items* +
 _optional_|Collection of revoke oauth tokens.|< object > array
 |*kind* +
 _optional_ +
-_read-only_|Type information for revoke-oauth-token sessions task collection object - cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate.|string
+_read-only_|Type information for revoke-oauth-token task collection object - cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change to revoke-oauth-token sessions task collection object. time.|integer(int64)
+_read-only_|Update time (micros) for last change to revoke-oauth-token task collection object. time.|integer(int64)
 |*selfLink* +
 _optional_ +
-_read-only_|A reference link URI for revoke-oauth-token sessions task collection object.|string
+_read-only_|A reference link URI for revoke-oauth-token task collection object.|string
 |===
 
 [[_post_revoke_list_of_tokens_body]]
