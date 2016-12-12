@@ -537,7 +537,9 @@ _optional_|Reference link to device in resolver group.|string
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Action used to revoke-oauth-token session by a user. ex. "REVOKE_TOKEN_FOR_USER"|string
+_optional_|Action used to revoke-oauth-token by a user. ex. "REVOKE_LIST_OF_TOKENS"|string
+|*perDeviceOauthIds* +
+_optional_|Action used to revoke-oauth-token by a user. ex. "REVOKE_LIST_OF_TOKENS"|string
 |*deviceReferences* +
 _optional_|Reference link to one or more devices in which active revoke-oauth-token sessions live.|< <<_post_revoke_oauth_token_by_user_body_devicereferences,deviceReferences>> > array
 |*userName* +
