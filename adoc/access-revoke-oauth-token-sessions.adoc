@@ -371,7 +371,7 @@ Returns a object for revoke-oauth-token session task identified by id for an end
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_|Unique id refering to a token.|string(UUID)|
+_required_|Unique id refering to a token.|string(UUID)|None
 |===
 
 
