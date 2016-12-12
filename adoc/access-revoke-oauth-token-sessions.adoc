@@ -333,15 +333,15 @@ _required_||string(UUID)|
 |*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
 |===
 
-[[_revoke-tokens_user_post]]
-=== Revoke all oauth token by user.
+[[_revoke-tokens_list_of_tokens_post]]
+=== Revoke a list oauth token by user.
 ....
 POST /revoke-tokens (list of tokens)
 ....
 
 
 ==== Description
-Revoke a list of active oauth tokens by user.
+Revoke a list of active oauth tokens for a specified user.
 
 
 ==== Parameters
@@ -350,9 +350,7 @@ Revoke a list of active oauth tokens by user.
 |===
 |Type|Name|Description|Schema|Default
 |*Body*|*Json string for request body.* +
-_required_|Input parameter list in json format. ex. {"action":"REVOKE_LIST_OF_TOKENS", "perDeviceOauthIds": [{"oauthIds": [{"id": "da6d57ffab9decbe9d75b7fdd4440ad43bedc7a475f3105b", "clientId": "e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457"}, {"id": "0df998ae62ace6fb6a82bb745b8586e7306afb94e3ca146a", "clientId": "e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457"}],
-"deviceReference": {"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"}}, {
-"oauthIds": [{"id": "e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457", "clientId": "bb745b8586e7306afb94"}, {"id": "8586e7306afb8586e7306afb8586e7306afb", "clientId": "8ad92cbb970dd500"}], "deviceReference": { "link":"https://localhost/mgmt/cm/system/machineid-resolver/23h4jkhk324-f405-489f-kj3434-98234"}}]}|<<_post_revoke_oauth_token_by_list_body,post_revoke_oauth_token_by_list_body>>|
+_required_|Input parameter list in json format. ex. {"action":"REVOKE_LIST_OF_TOKENS", "perDeviceOauthIds": [{"oauthIds": [{"id": "da6d57ffab9decbe9d75b7fdd4440ad43bedc7a475f3105b", "clientId": "e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457"}, {"id": "0df998ae62ace6fb6a82bb745b8586e7306afb94e3ca146a", "clientId": "e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457"}], "deviceReference": {"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"}}, { "oauthIds": [{"id": "e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457", "clientId": "bb745b8586e7306afb94"}, {"id": "8586e7306afb8586e7306afb8586e7306afb", "clientId": "8ad92cbb970dd500"}], "deviceReference": { "link":"https://localhost/mgmt/cm/system/machineid-resolver/23h4jkhk324-f405-489f-kj3434-98234&quot;}}]}|<<_post_revoke_list_of_tokens_body,post_revoke_list_of_tokens_body>>|
 |===
 
 
@@ -361,21 +359,21 @@ _required_|Input parameter list in json format. ex. {"action":"REVOKE_LIST_OF_TO
 [options="header", cols=".^2,.^14,.^4"]
 |===
 |HTTP Code|Description|Schema
-|*200*|POST to revoke all oauth tokens by user.|<<_properties_revoke_oauth_token,properties_revoke_oauth_token>>
+|*200*|POST to revoke a list of active oauth tokens by user.|<<_properties_revoke_oauth_token,properties_revoke_oauth_token>>
 |*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
 |*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
 |===
 
 
-[[_revoke-tokens_user_get]]
-=== List all oauth token revocation tasks as part of a collection.
+[[_revoke-tokens_list_of_tokens_get]]
+=== Returns a list of oauth token by user.
 ....
-GET /revoke-tokens
+GET /revoke-tokens 
 ....
 
 
 ==== Description
-Returns the collection of oauth token revocation tasks.
+Returns a list of active oauth tokens for a specified user.
 
 
 ==== Responses
@@ -383,11 +381,10 @@ Returns the collection of oauth token revocation tasks.
 [options="header", cols=".^2,.^14,.^4"]
 |===
 |HTTP Code|Description|Schema
-|*200*|GET collection of oauth token revocation tasks.|<<_properties_revoke_oauth_token_collection,properties_revoke_oauth_token_collection>>
-|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*200*|GET to revoke a list oauth tokens by user.|<<_properties_revoke_oauth_token_collection,properties_revoke_oauth_token_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
 |*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
 |===
-
 
 [[_definitions]]
 == Definitions
@@ -613,7 +610,6 @@ _optional_|User username.|string
 _optional_|Reference link to user indenity.|string
 |===
 
-
 [[_properties_revoke_oauth_token_collection]]
 === properties_revoke_oauth_token_collection
 
@@ -635,6 +631,43 @@ _read-only_|Update time (micros) for last change to revoke-oauth-token sessions 
 _optional_ +
 _read-only_|A reference link URI for revoke-oauth-token sessions task collection object.|string
 |===
+
+[[_post_revoke_list_of_tokens_body]]
+=== post_revoke_list_of_tokens_body
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*action* +
+_optional_|Action used to revoke-oauth-token by a user. ex. "REVOKE_LIST_OF_TOKENS".|string
+|*deviceReference* +
+_optional_|Reference link to device in resolver groups.|object
+|*perDeviceOauthIds* +
+_optional_|Per device ids assocated with token.|< <<_post_revoke_list_of_tokens_body_perdeviceoauthids,perDeviceOauthIds>> > array
+|===
+
+[[_post_revoke_list_of_tokens_body_perdeviceoauthids]]
+*perDeviceOauthIds*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*oauthIds* +
+_optional_||< <<_post_revoke_list_of_tokens_body_oauthids,oauthIds>> > array
+|===
+
+[[_post_revoke_list_of_tokens_body_oauthids]]
+*oauthIds*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*clientId* +
+_optional_|Unique id refering to a client.|string
+|*id* +
+_optional_|Unique if referint a token.|string
+|===
+
 
 
 
