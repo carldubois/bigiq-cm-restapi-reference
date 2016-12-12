@@ -333,7 +333,58 @@ _required_||string(UUID)|
 |*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
 |===
 
+[[_revoke-tokens_user_post]]
+=== Revoke all oauth token by user.
+....
+POST /revoke-tokens (user)
+....
 
+
+==== Description
+Revoke all active oauth tokens by user.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Body*|*Json string for request body.* +
+_required_|Input parameter list in json format. ex. { "action":"REVOKE_TOKEN_FOR_USER", "userName":"user1", "deviceReferences":[{"link":&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;}]}|<<_post_revoke_oauth_token_by_user_body,post_revoke_oauth_token_by_user_body>>|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST to revoke all oauth tokens by user.|<<_properties_revoke_oauth_token,properties_revoke_oauth_token>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_revoke-tokens_user_get]]
+=== List all oauth token revocation tasks as part of a collection.
+....
+GET /revoke-tokens
+....
+
+
+==== Description
+Returns the collection of oauth token revocation tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET collection of oauth token revocation tasks.|<<_properties_revoke_oauth_token_collection,properties_revoke_oauth_token_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
 
 
 [[_definitions]]
