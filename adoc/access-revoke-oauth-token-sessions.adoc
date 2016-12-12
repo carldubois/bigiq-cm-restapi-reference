@@ -49,7 +49,7 @@ Revoke all active oauth tokens by access groups by a specified user.
 |===
 |Type|Name|Description|Schema|Default
 |*Body*|*Json string for request body.* +
-_required_|Input parameter list in json format. ex. {"action":"REVOKE_TOKEN_FOR_USER", "userName":"user1", "accessGroupNames":["TestGroup1", "TestGroup2"]}|<<_post_revoke_oauth_token_by_access_group,post_revoke_oauth_token_by_access_group>>|
+_required_|Input parameter list in json format. ex. {"action":"REVOKE_TOKEN_FOR_USER", "userName":"user1", "accessGroupNames":["TestGroup1", "TestGroup2"]}|<<_post_revoke_oauth_token_by_access_group,post_revoke_oauth_token_by_access_group>>|None
 |===
 
 
