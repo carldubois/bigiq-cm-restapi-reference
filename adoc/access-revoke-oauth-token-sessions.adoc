@@ -551,7 +551,7 @@ _optional_|User name defined for revoke-oauth-token sessions owned.|string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to device in resolver group.|string
 |===
 
 [[_properties_revoke_oauth_token]]
@@ -598,7 +598,7 @@ _optional_|User name defined to all revoke-oauth-token sessions owned.|string
 |*userReference* +
 _optional_|Refernece link to user issuing the rest call to start revoke-oauth-token task.|string
 |*username* +
-_optional_||string
+_optional_|User username.|string
 |===
 
 [[_properties_revoke_oauth_token_identityreference]]
@@ -608,7 +608,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to user indenity.|string
 |===
 
 
@@ -622,7 +622,7 @@ _optional_||string
 _optional_ +
 _read-only_|A integer that will track change made to revoke-oauth-token sessions task collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|Collection of revoke oauth tokens.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for revoke-oauth-token sessions task collection object - cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate.|string
