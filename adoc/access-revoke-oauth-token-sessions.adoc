@@ -121,7 +121,7 @@ _required_|Input parameter list in json format. ex. {"action":"REVOKE_TOKEN_FOR_
 [[_revoke-tokens_bigip_clusters_get]]
 === List all revoke-oauth-token tasks as part of a collection.
 ....
-GET /revoke-tokens (bigip clusters)
+GET /revoke-tokens
 ....
 
 
@@ -283,7 +283,7 @@ _required_|Input parameter list in json format. ex. { "action":"REVOKE_TOKEN_FOR
 [[_revoke-tokens_user_get]]
 === List all oauth token revocation tasks as part of a collection.
 ....
-GET /revoke-tokens (user)
+GET /revoke-tokens
 ....
 
 
@@ -485,15 +485,15 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*accessGroupNames* +
-_optional_|One or more access group names. All revoke-oauth-token sessions in these groups will be killed by invoking task.|string
+_optional_|One or more access group names. All revoke-oauth-tokens in these groups will be killed by invoking task.|string
 |*action* +
-_optional_|Action used to revoke-oauth-token sessions identified by a oauth token id. ex. "REVOKE_TOKEN_FOR_CLIENT_ID" "REVOKE_TOKEN_FOR_USER"|string
+_optional_|Action used to revoke-oauth-tokens identified by a oauth token id. ex. "REVOKE_TOKEN_FOR_CLIENT_ID" "REVOKE_TOKEN_FOR_USER"|string
 |*clientId* +
 _optional_ +
 _read-only_|Unique id used as a reference for client session to BIGIP.|string
 |*currentStep* +
 _optional_ +
-_read-only_|Current status of state for revoke-oauth-token task. ex. STARTED, FINSIHED|string
+_read-only_|Current internal step for revoke-oauth-token task.|string
 |*generation* +
 _optional_ +
 _read-only_|A integer that will track change made to a revoke-oauth-token task object. generation.|integer(int64)
