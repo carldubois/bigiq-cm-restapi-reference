@@ -449,7 +449,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 |*accessGroupNames* +
 _optional_|One or more access group names. All oauth-token sessions in these groups will be revoked by invoking task.|string
 |*action* +
-_optional_|Action used to revoke-oauth-token session by access_group. ex action. "REVOKE_TOKEN_FOR_USER"|string
+_required_|Action used to revoke-oauth-token session by access_group. ex action. "REVOKE_TOKEN_FOR_USER"|string
 |*userName* +
 _optional_|User name defined for revoke-oauth-token sessions owned.|string
 |===
@@ -462,7 +462,7 @@ _optional_|User name defined for revoke-oauth-token sessions owned.|string
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Action used to revoke-oauth-token session by cluster_name. ex action. "REVOKE_TOKEN_FOR_USER"|string
+_required_|Action used to revoke-oauth-token session by cluster_name. ex action. "REVOKE_TOKEN_FOR_USER"|string
 |*clusterName* +
 _optional_|One or more cluster names. All oauth token sessions in these bigip clusters will be revoked by invoking task.|string
 |*userName* +
@@ -479,7 +479,7 @@ _optional_|User name defined for revoke-oauth-token sessions owned.|string
 |*accessGroupNames* +
 _optional_|One or more access group names. All oauth token sessions in these groups will be revoked by invoking task.|string
 |*action* +
-_optional_|Action used to revoke-oauth-token session by cluster_name. ex action. "REVOKE_TOKEN_FOR_USER"|string
+_required_|Action used to revoke-oauth-token session by cluster_name. ex action. "REVOKE_TOKEN_FOR_USER"|string
 |*clusterNames* +
 _optional_|One or more cluster names. All oauth token sessions in these bigip clusters will be revoked by invoking task.|string
 |*deviceReferences* +
@@ -496,7 +496,7 @@ _optional_|User name defined to all revoke-oauth-token sessions owned.|string
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Action used to revoke-oauth-token sessions identified by a oauth token id. ex. "REVOKE_TOKEN_FOR_CLIENT_ID"|string
+_required_|Action used to revoke-oauth-token sessions identified by a oauth token id. ex. "REVOKE_TOKEN_FOR_CLIENT_ID"|string
 |*clientId* +
 _optional_|Unique id associated with the revoke-oauth-token session. ex. e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457|string
 |===
@@ -509,7 +509,7 @@ _optional_|Unique id associated with the revoke-oauth-token session. ex. e3f3e72
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Action used to revoke-oauth-token session by a user. ex. "REVOKE_TOKEN_FOR_USER"|string
+_required_|Action used to revoke-oauth-token session by a user. ex. "REVOKE_TOKEN_FOR_USER"|string
 |*deviceReferences* +
 _optional_|Reference link to one or more devices in which active revoke-oauth-token sessions live.|< <<_post_revoke_oauth_token_by_user_body_devicereferences,deviceReferences>> > array
 |*userName* +
@@ -533,7 +533,7 @@ _optional_|Reference link to device in resolver group.|string
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Action used to revoke-oauth-token by a user. ex. "REVOKE_LIST_OF_TOKENS"|string
+_required_|Action used to revoke-oauth-token by a user. ex. "REVOKE_LIST_OF_TOKENS"|string
 |*perDeviceOauthIds* +
 _optional_|Device specfic oauth token id."|< <<_per_device_oauth_ids,perDeviceOauthIds>> >array
 |*deviceReferences* +
@@ -561,7 +561,7 @@ _optional_|Reference link to device in resolver group.|string
 |*accessGroupNames* +
 _optional_|One or more access group names. All revoke-oauth-tokens in these groups will be killed by invoking task.|string
 |*action* +
-_optional_|Action used to revoke-oauth-tokens identified by a oauth token id. ex. "REVOKE_TOKEN_FOR_CLIENT_ID" "REVOKE_TOKEN_FOR_USER"|string
+_required_|Action used to revoke-oauth-tokens identified by a oauth token id. ex. "REVOKE_TOKEN_FOR_CLIENT_ID" "REVOKE_TOKEN_FOR_USER"|string
 |*clientId* +
 _optional_ +
 _read-only_|Unique id used as a reference for client session to BIGIP.|string
@@ -638,7 +638,7 @@ _read-only_|A reference link URI for revoke-oauth-token sessions task collection
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Action used to revoke-oauth-token by a user. ex. "REVOKE_LIST_OF_TOKENS".|string
+_required_|Action used to revoke-oauth-token by a user. ex. "REVOKE_LIST_OF_TOKENS".|string
 |*deviceReference* +
 _optional_|Reference link to device in resolver groups.|object
 |*perDeviceOauthIds* +
