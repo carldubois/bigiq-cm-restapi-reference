@@ -40,7 +40,7 @@ POST /revoke-tokens (access-groups)
 
 
 ==== Description
-Revoke all active oauth tokens by access groups.
+Revoke all active oauth tokens by access groups by a specified user.
 
 
 ==== Parameters
@@ -87,14 +87,14 @@ Returns the collection of oauth token revocation tasks.
 
 
 [[_revoke-tokens_bigip_clusters_post]]
-=== Revoke all oauth-token sessions by access group, cluster name and device reference match.
+=== Revoke all oauth-token sessions by cluster-name match for a specified user.
 ....
 POST /revoke-tokens (bigip clusters)
 ....
 
 
 ==== Description
-Revoke all oauth-token sessions by access group, cluster name match for specified devices.
+Revoke all oauth-token sessions by cluster-name match for specified devices.
 
 
 ==== Parameters
@@ -141,7 +141,7 @@ Returns the collection of revoke-oauth-token tasks.
 
 
 [[_revoke-tokens_bigip_clusters_access-groups_and_device_reference_post]]
-=== Revoke all oauth-token sessions by access group, cluster name and device reference match.
+=== Revoke all oauth-token sessions by access group, cluster name and device reference match for a specified user.
 ....
 POST /revoke-tokens (bigip clusters, access-groups and device reference)
 ....
@@ -175,7 +175,7 @@ _required_|Input parameter list in json format. ex. {"action":"REVOKE_TOKEN_FOR_
 [[_revoke-tokens_bigip_clusters_access-groups_and_device_reference_get]]
 === List all revoke-oauth-token tasks as part of a collection.
 ....
-GET /revoke-tokens (bigip clusters, access-groups and device reference)
+GET /revoke-tokens
 ....
 
 
@@ -195,9 +195,9 @@ Returns the collection of revoke-oauth-token tasks.
 
 
 [[_revoke-tokens_oauth_token_id_post]]
-=== Revoke-oauth-token by oauth token id.
+=== Revoke-oauth-token by oauth client id.
 ....
-POST /revoke-tokens (oauth token id)
+POST /revoke-tokens (oauth client id)
 ....
 
 
@@ -229,7 +229,7 @@ _required_|Input parameter list in json format. ex. {"action":"REVOKE_TOKEN_FOR_
 [[_revoke-tokens_oauth_token_id_get]]
 === List all revoke-oauth-token tasks as part of a collection.
 ....
-GET /revoke-tokens (oauth token id)
+GET /revoke-tokens
 ....
 
 
