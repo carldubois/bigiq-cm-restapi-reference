@@ -69,7 +69,7 @@ The following is the JSON response from the POST operation:
                     "route_domain": "0",
                     "method": "GET",
                     "protocol": "HTTP",
-                    "query_string": "json_qs={%22N%22[%20%221]%20}",
+                    "query_string": "json_qs={22N22[20221]20}",
                     "x_forwarded_for_header_value": "N/A",
                     "sig_ids": [],
                     "sig_names": "",
