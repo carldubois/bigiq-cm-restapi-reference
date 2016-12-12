@@ -89,7 +89,7 @@ Returns the collection of kill-session tasks.
 [[_kill-sessions_all_post]]
 === Kill all active session.
 ....
-POST /kill-sessions (all)
+POST /kill-sessions (devices)
 ....
 
 
@@ -141,14 +141,14 @@ Returns the collection of kill-session tasks.
 
 
 [[_kill-sessions_bigip_clusters_post]]
-=== Kill all active kill-session by access-group match.
+=== Kill all active kill-session by cluster-name match.
 ....
 POST /kill-sessions (bigip clusters)
 ....
 
 
 ==== Description
-Kill all active access kill-sessions by access-group match.
+Kill all active access kill-sessions by cluster-name match.
 
 
 ==== Parameters
