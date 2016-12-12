@@ -452,7 +452,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Action used to kill all access sessions. ex. "KILL_ALL_SESSIONS"|string
+_required_|Action used to kill all access sessions. ex. "KILL_ALL_SESSIONS"|string
 |*deviceReferences* +
 _optional_|Reference link to one or more devices in which active access sessions live.|string
 |===
@@ -467,7 +467,7 @@ _optional_|Reference link to one or more devices in which active access sessions
 |*accessGroupNames* +
 _optional_|One or more access group names. All sessions in these groups will be killed by invoking task.|string
 |*action* +
-_optional_|Action used to kill access session by access_group. ex action. "KILL_BY_USER"|string
+_required_|Action used to kill access session by access_group. ex action. "KILL_BY_USER"|string
 |*userName* +
 _optional_|User name defined to all sessions owned.|string
 |===
@@ -480,7 +480,7 @@ _optional_|User name defined to all sessions owned.|string
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Action used to kill access session by access_group. ex action. "KILL_BY_USER"|string
+_required_|Action used to kill access session by access_group. ex action. "KILL_BY_USER"|string
 |*clusterNames* +
 _optional_|One or more cluster names. All sessions in these bigip clusters will be killed by invoking task.|string
 |*userName* +
@@ -497,7 +497,7 @@ _optional_|User name defined to all sessions owned.|string
 |*accessGroupNames* +
 _optional_|One or more access group names. All sessions in these groups will be killed by invoking task.|string
 |*action* +
-_optional_|Action used to kill access session by access_group. ex action. "KILL_BY_USER"|string
+_required_|Action used to kill access session by access_group. ex action. "KILL_BY_USER"|string
 |*clusterNames* +
 _optional_|One or more cluster names. All sessions in these bigip clusters will be killed by invoking task.|string
 |*deviceReferences* +
@@ -514,7 +514,7 @@ _optional_|User name defined to all sessions owned.|string
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Action used to kill all access sessions identified by a session id. ex. "KILL_ALL_SESSIONS"|string
+_required_|Action used to kill all access sessions identified by a session id. ex. "KILL_ALL_SESSIONS"|string
 |*sessions* +
 _optional_||< <<_post_kill_access_by_sessions_sessions,sessions>> > array
 |===
@@ -528,7 +528,7 @@ _optional_||< <<_post_kill_access_by_sessions_sessions,sessions>> > array
 |*deviceReferences* +
 _optional_|Reference link to one or more devices in which active access sessions live.|<<_post_kill_access_by_sessions_devicereferences,deviceReferences>>
 |*sessionIds* +
-_optional_||< string > array
+_optional_|Unique id referencing a session.|< string > array
 |===
 
 [[_post_kill_access_by_sessions_devicereferences]]
@@ -538,7 +538,7 @@ _optional_||< string > array
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to device in resolver group.|string
 |===
 
 
@@ -549,7 +549,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Action used to kill access session by a user. ex. "KILL_BY_USER"|string
+_required_|Action used to kill access session by a user. ex. "KILL_BY_USER"|string
 |*deviceReferences* +
 _optional_|Reference link to one or more devices in which active access sessions live.|string
 |*userName* +
@@ -564,7 +564,7 @@ _optional_|User name defined to all sessions owned.|string
 |===
 |Name|Description|Schema
 |*action* +
-_optional_|Unique id assigned to a access kill user session task object.|string
+_required_|Unique id assigned to a access kill user session task object.|string
 |*currentStep* +
 _optional_ +
 _read-only_|BIG-IQ maintains a version # to track changes of ASM signatures.|string
@@ -608,7 +608,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to device in resolver group.|string
 |===
 
 [[_properties_kill_access_session_identityreference]]
@@ -618,7 +618,7 @@ _optional_||string
 |===
 |Name|Description|Schema
 |*link* +
-_optional_||string
+_optional_|Reference link to user identity.|string
 |===
 
 
@@ -632,7 +632,7 @@ _optional_||string
 _optional_ +
 _read-only_|A integer that will track change made to the access kill user session task collection object. generation.|integer(int64)
 |*items* +
-_optional_||< object > array
+_optional_|A collection of kill-session tasks.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for access kill user session task collection object - cm:access:tasks:kill-sessions:accesskillsessionstaskcollectionstate.|string
