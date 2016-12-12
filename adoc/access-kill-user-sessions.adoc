@@ -525,14 +525,14 @@ _optional_||< <<_post_kill_access_by_sessions_sessions,sessions>> > array
 [options="header", cols=".^3,.^11,.^4"]
 |===
 |Name|Description|Schema
-|*deviceReferences* +
-_optional_|Reference link to one or more devices in which active access sessions live.|<<_post_kill_access_by_sessions_devicereferences,deviceReferences>>
+|*deviceReference* +
+_optional_|Reference link to one device in which active access sessions live.|<<_post_kill_access_by_sessions_devicereference,deviceReference>>
 |*sessionIds* +
 _optional_|Unique id referencing a session.|< string > array
 |===
 
-[[_post_kill_access_by_sessions_devicereferences]]
-*deviceReferences*
+[[_post_kill_access_by_sessions_devicereference]]
+*deviceReference*
 
 [options="header", cols=".^3,.^11,.^4"]
 |===
