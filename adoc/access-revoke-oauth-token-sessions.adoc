@@ -371,7 +371,7 @@ Returns a object for revoke-oauth-token session task identified by id for an end
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_||string(UUID)|
+_required_|Unique id refering to a token.|string(UUID)|
 |===
 
 
@@ -398,7 +398,7 @@ _required_||string(UUID)|
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection or list of tokens.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for a collection of tasks used to revoke-oauth-token sessions - cm:access:tasks:revoke-tokens:oauthrevoketokentaskcollectionstate.|string
@@ -424,7 +424,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_||< object > array
+_optional_|Collection or list of tokens.|< object > array
 |*kind* +
 _optional_ +
 _read-only_|Type information for a collection of tasks used to revoke-oauth-token sessions - cm:access:tasks:revoke-tokens:oauthrevoketokentaskcollectionstate.|string
