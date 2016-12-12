@@ -121,7 +121,7 @@ _required_|Input parameter list in json format. ex. {"action":"KILL_ALL_SESSIONS
 [[_kill-sessions_all_get]]
 === List all kill-session tasks as part of a collection.
 ....
-GET /kill-sessions (all)
+GET /kill-sessions (devices)
 ....
 
 
