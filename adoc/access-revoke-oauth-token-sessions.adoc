@@ -67,7 +67,7 @@ _required_|Input parameter list in json format. ex. {"action":"REVOKE_TOKEN_FOR_
 [[_revoke-tokens_access-groups_get]]
 === List all oauth token revocation tasks as part of a collection.
 ....
-GET /revoke-tokens (access-groups)
+GET /revoke-tokens
 ....
 
 
@@ -301,38 +301,6 @@ Returns the collection of oauth token revocation tasks.
 |*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
 |===
 
-
-[[_revoke-tokens_objectid_get]]
-=== Used to get a single instance of a revoke-oauth-token task.
-....
-GET /revoke-tokens/{objectId}
-....
-
-
-==== Description
-Returns a object for revoke-oauth-token session task identified by id for an endpoint URI.
-
-
-==== Parameters
-
-[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
-|===
-|Type|Name|Description|Schema|Default
-|*Path*|*objectId* +
-_required_||string(UUID)|
-|===
-
-
-==== Responses
-
-[options="header", cols=".^2,.^14,.^4"]
-|===
-|HTTP Code|Description|Schema
-|*200*|APM revoke-oauth-token task object.|<<_properties_revoke_oauth_token,properties_revoke_oauth_token>>
-|*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
-|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
-|===
-
 [[_revoke-tokens_list_of_tokens_post]]
 === Revoke a list oauth token by user.
 ....
@@ -383,6 +351,37 @@ Returns a list of active oauth tokens for a specified user.
 |HTTP Code|Description|Schema
 |*200*|GET to revoke a list oauth tokens by user.|<<_properties_revoke_oauth_token_collection,properties_revoke_oauth_token_collection>>
 |*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+[[_revoke-tokens_objectid_get]]
+=== Used to get a single instance of a revoke-oauth-token task.
+....
+GET /revoke-tokens/{objectId}
+....
+
+
+==== Description
+Returns a object for revoke-oauth-token session task identified by id for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_||string(UUID)|
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|APM revoke-oauth-token task object.|<<_properties_revoke_oauth_token,properties_revoke_oauth_token>>
+|*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
 |*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
 |===
 
