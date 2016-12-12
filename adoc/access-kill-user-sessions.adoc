@@ -87,14 +87,14 @@ Returns the collection of kill-session tasks.
 
 
 [[_kill-sessions_all_post]]
-=== Kill all active session.
+=== Kill all active session for specified devices.
 ....
 POST /kill-sessions (devices)
 ....
 
 
 ==== Description
-Kill all active access sessions.
+Kill all active access sessions for specified devices.
 
 
 ==== Parameters
