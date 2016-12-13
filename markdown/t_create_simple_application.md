@@ -38,7 +38,6 @@ Request body:
    	}
 }
 ```
-[Api reference - application node management](../adoc/application-server-node-management.adoc)
 
 When the POST command is completed successfully, it will create a node in working config and responds with the selfLink of the object. Here is the POST response example,
 ```
@@ -122,7 +121,6 @@ Request Body:
 After a successful creation, a new pool is created and it looks like,
 
 ```
-GET  https://ip/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1
 
 Results:
 {
@@ -180,7 +178,6 @@ Request Body:
      }
 }
 ```
-[Api reference - pool / member management](../adoc/pool-member-management.adoc)
 
 Upon a successful pool member creation, you can find a member under the target pool. It looks like,
 
@@ -228,8 +225,6 @@ Request Body:
     }
 }
 ```
-[Api reference - virtual server management](../adoc/virtual-server-management.adoc)
-
 Upon a successful creation, a virtual server object is created and it looks like
 ```
 GET  https://ip/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8
@@ -276,7 +271,6 @@ GET  https://ip/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8
     "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8"
 }
 ```
-[Api reference - virtual server management](../adoc/virtual-server-management.adoc)
 
 If you want to create a virtual server with pool attached. You need to include property "poolReference" into the POST request body.
 For example,

@@ -487,9 +487,6 @@ Request body:
 </div>
 </div>
 <div class="paragraph">
-<p>[Api reference - application node management](../adoc/application-server-node-management.adoc)</p>
-</div>
-<div class="paragraph">
 <p>When the POST command is completed successfully, it will create a node in working config and responds with the selfLink of the object. Here is the POST response example,</p>
 </div>
 <div class="listingblock">
@@ -585,9 +582,7 @@ Request Body:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>GET  https://ip/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1
-
-Results:
+<pre class="highlight"><code>Results:
 {
     "allowNat": true,
     "allowSnat": true,
@@ -650,9 +645,6 @@ Request Body:
 </div>
 </div>
 <div class="paragraph">
-<p>[Api reference - pool / member management](../adoc/pool-member-management.adoc)</p>
-</div>
-<div class="paragraph">
 <p>Upon a successful pool member creation, you can find a member under the target pool. It looks like,</p>
 </div>
 <div class="listingblock">
@@ -706,9 +698,6 @@ Request Body:
 </div>
 </div>
 <div class="paragraph">
-<p>[Api reference - virtual server management](../adoc/virtual-server-management.adoc)</p>
-</div>
-<div class="paragraph">
 <p>Upon a successful creation, a virtual server object is created and it looks like</p>
 </div>
 <div class="listingblock">
@@ -757,9 +746,6 @@ Request Body:
     "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8"
 }</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>[Api reference - virtual server management](../adoc/virtual-server-management.adoc)</p>
 </div>
 <div class="paragraph">
 <p>If you want to create a virtual server with pool attached. You need to include property "poolReference" into the POST request body.
@@ -817,7 +803,7 @@ Request Body:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-12-13 10:16:53 EST
+Last updated 2016-12-13 15:13:04 EST
 </div>
 </div>
 </body>
