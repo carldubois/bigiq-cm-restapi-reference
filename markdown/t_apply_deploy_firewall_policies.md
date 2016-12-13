@@ -44,6 +44,8 @@ The following is the JSON response from the GET operation:
   "lastUpdateMicros": 1474559397713741
 }
 ```
+[Api reference - firewall policies](../html/firewall-policies.html)
+
 #### 2. Retrieve the firewall contexts by type, name, or both.
 Perform a GET operation on the firewall collection to retrieve the contexts. In this example, a single virtual server is returned. Use the filter and select options to narrow the returned JSON information to just the firewall context in which you are interested. 
 In addition if a specific BIG-IP device is required, that could be used by appending the following: 
@@ -71,7 +73,10 @@ The following is the JSON response from the GET:
     }
   ],
 }
+
 ```
+[Api reference - firewall contexts](../html/firewalls.html)
+
 #### 3. Apply the firewall policy to the virtual server firewall context (staged or enforced).
 
 Perform a PATCH operation on the virtual server firewall context. The virtual server is identified by a URI containing its selfLink. Set either `stagedPolicyReference` or `enforcedPolicyReference` to the firewall policy selfLink.
@@ -112,6 +117,8 @@ The following is the JSON response from the PATCH operation. The response to any
     "selfLink": "https://localhost/mgmt/cm/firewall/working-config/firewalls/970b7b0b-8f21-3a88-909a-29df7e73fd5d"
 }
 ```
+[Api reference - firewall contexts](../html/firewalls.html)
+
 #### 4. Determine which BIG-IP devices need changes deployed to them based on which firewalls were modified.
 
 The device references needed for the deployment are found in the firewall context JSON for each modified context.  This example shows the deviceReference for the virtual server returned in the previous example:
@@ -394,3 +401,4 @@ If the status does not reach FINISHED, consult the Network Security Deployment p
     "restOperationId": 4644482
 }
 ```
+[Api reference - deploy configuration](../html/deploy-configuration.html)

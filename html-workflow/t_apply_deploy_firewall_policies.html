@@ -447,6 +447,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running  the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.</p>
 </li>
+<li>
+<p>The odata query will differ between rest clients POSTMAN and curl. Please note the filter='contents should be encapsulated in single quotes'</p>
+</li>
 </ul>
 </div>
 </div>
@@ -495,6 +498,9 @@ Perform the REST API actions in the following order:
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>[Api reference - firewall policies](../html/firewall-policies.html)</p>
+</div>
 <div class="sect3">
 <h4 id="_2_retrieve_the_firewall_contexts_by_type_name_or_both">2. Retrieve the firewall contexts by type, name, or both.</h4>
 <div class="paragraph">
@@ -531,6 +537,9 @@ In addition if a specific BIG-IP device is required, that could be used by appen
   ],
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>[Api reference - firewall contexts](../html/firewalls.html)</p>
 </div>
 </div>
 <div class="sect3">
@@ -580,6 +589,9 @@ In addition if a specific BIG-IP device is required, that could be used by appen
     "selfLink": "https://localhost/mgmt/cm/firewall/working-config/firewalls/970b7b0b-8f21-3a88-909a-29df7e73fd5d"
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>[Api reference - firewall contexts](../html/firewalls.html)</p>
 </div>
 </div>
 <div class="sect3">
@@ -925,6 +937,9 @@ Poll the deployment task as outlined previously, looking for the status of FINIS
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>[Api reference - deploy configuration](../html/deploy-configuration.html)</p>
+</div>
 </div>
 </div>
 </div>
@@ -932,7 +947,7 @@ Poll the deployment task as outlined previously, looking for the status of FINIS
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-11-29 09:37:22 EST
+Last updated 2016-12-13 17:03:22 EST
 </div>
 </div>
 </body>
