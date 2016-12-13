@@ -116,7 +116,6 @@ Request Body:
     }
 }
 ```
-[Api reference - pool / member management](../adoc/pool-member-management.adoc)
 
 After a successful creation, a new pool is created and it looks like,
 
