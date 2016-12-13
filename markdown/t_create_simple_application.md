@@ -38,6 +38,7 @@ Request body:
    	}
 }
 ```
+[Api reference - application node management](../adoc/application-server-node-management.adoc)
 
 When the POST command is completed successfully, it will create a node in working config and responds with the selfLink of the object. Here is the POST response example,
 ```
