@@ -362,3 +362,7 @@ Response:
 #### 8. Delete a purchased pool license
 
 DELETE https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
+
+#### API reference used to support this workflow:
+[Api reference - purchased pool licensing](../html-reference/license-purchased-pools.html)
+

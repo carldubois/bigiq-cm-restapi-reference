@@ -102,6 +102,7 @@ The JSON in the body of the response can look similar to the following.
 ```
 Note the value of selfLink for pools where the target pool members belong to, which will be used in the next step.
 
+
 ##2. Review Current State of Pool Members
 --------------------------
 
@@ -246,3 +247,7 @@ Result
 ------
 
 The pool members are enabled, disabled or forced offline, and the change is synchronized if the devices is in config sync group with either manual or automatic sync mode.
+
+### API references that support this workflow:
+[Api reference - pool member management](../html-reference/pool-member-management.html)
+[Api reference - adc self service task](../html-reference/adc-self-service.html)

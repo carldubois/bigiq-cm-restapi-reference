@@ -2,7 +2,7 @@
 
 BIG-IQ allows users to progammatically enabled/disable/force offline pools and pool members through the use of REST API calls.
 
-#### Prerequisites
+### Prerequisites
 - The BIG-IQ Centralized Management system is operational by completing the initial setup wizard.
 - Discovery and establishing trust with one BIG-IP with LTM Services enabled.
 
@@ -16,7 +16,7 @@ GET /mgmt/cm/adc-core/working-config/ltm/pool/{id1}/members
 GET /mgmt/cm/adc-core/working-config/ltm/pool/{id2}
 ```
 
-#### Viewing active Pools on BIG-IQ.
+### Viewing active Pools on BIG-IQ.
 
 GET `/mgmt/cm/adc-core/working-config/ltm/pool`
 
@@ -104,7 +104,7 @@ Response: 200
 }
 ```
 
-#### Searching for Pools By Fields
+### Searching for Pools By Fields
 
 Users are able to search the pool collection for a value in a field using exact or wildcard matching by appending "?$filter=PROPERTYNAME eq 'searchValue'".
 
@@ -160,7 +160,7 @@ Response: 200
   "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool"
 }
 ```
-#### Creating A Pool Object With A Monitor
+### Creating A Pool Object With A Monitor
 
 POST ```/mgmt/cm/adc-core/working-config/ltm/pool```
 
@@ -252,7 +252,7 @@ Response: 200
 }
 ```
 
-#### Deploying A Pool Object To A Device
+### Deploying A Pool Object To A Device
 
 This requires a deviceReference and the Rest Reference for the Pool object to be deployed. Users can configure the task verification by toggling the boolean attribute "skipVerifyConfig". Users may also pause the deployment after evaluation by setting the property "skipDistribution" to "true". 
 
@@ -322,9 +322,9 @@ If the task was configured to have "skipDistribution" set to "true", the task wi
 {"skipDistribution": false, "status": "STARTED"}
 ```
 
-#### Edit A Pool Object
+### Edit A Pool Object
 
-##### Attaching a new health monitor to the Pool.
+### Attaching a new health monitor to the Pool.
 
 This requires a proper monitor name and RestReference.
 
@@ -388,7 +388,7 @@ Response: 200
 }
 ```
 
-#### Attaching Pool Objects To Role Permissions
+### Attaching Pool Objects To Role Permissions
 
 Role permissions can be updated to give user roles the abilty to view/edit/delete Pool objects and Pool Members. 
 
@@ -411,7 +411,7 @@ BODY
 ```
 Note: Provisioning a user to GET "/mgmt/cm/adc-core/working-config/ltm/pool/{id}" does not automatically grant permissions to subcollections.
 
-#### Removing A Pool Object And Deploying Changes
+### Removing A Pool Object And Deploying Changes
 
 DELETE ```/mgmt/cm/adc-core/working-config/ltm/pool/{id}```
 
@@ -474,12 +474,12 @@ The 202 response contains details about the self service task along with the "st
 
 ## Pool Members
 
-#### Prerequisites
+### Prerequisites
 
 - A Pool object must exist.
 - A Node object must exist.
 
-#### Viewing Pool Members
+### Viewing Pool Members
 
 GET ```/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members```
 
@@ -515,7 +515,7 @@ Response: 200
 }
 ```
 
-#### Creating Pool Member
+### Creating Pool Member
 
 POST ```/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members```
 
@@ -564,11 +564,11 @@ Response: 200
 }
 ```
 
-#### Removing Pool Member
+### Removing Pool Member
 
 DELETE ```/mgmt/cm/adc-core/working-config/ltm/pool/{pool-id}/members/{memmber-id}```
 
-#### Enabling A Pool Member Using Self Service
+### Enabling A Pool Member Using Self Service
 
 POST ```/mgmt/cm/adc-core/tasks/self-service```
 
@@ -612,7 +612,7 @@ Response: 202
 
 The 202 response contains details about the self service task along with the "status" of "STARTED". The selfLink should be polled with GETs checking the "status" property to report "FINISHED" or "FAILED".
 
-#### Disabling A Pool Member Using Self Service
+### Disabling A Pool Member Using Self Service
 
 POST ```/mgmt/cm/adc-core/tasks/self-service```
 
@@ -656,7 +656,7 @@ Response: 202
 
 The 202 response contains details about the self service task along with the "status" of "STARTED". The selfLink should be polled with GETs checking the "status" property to report "FINISHED" or "FAILED".
 
-#### Force Offline A Pool Member Using Self Service
+### Force Offline A Pool Member Using Self Service
 
 POST ```/mgmt/cm/adc-core/tasks/self-service```
 
@@ -700,3 +700,8 @@ Response: 202
 ```
 
 The 202 response contains details about the self service task along with the "status" of "STARTED". The selfLink should be polled with GETs checking the "status" property to report "FINISHED" or "FAILED".
+
+
+### API references that support this workflow:
+[Api reference - pool member management](../html-reference/pool-member-management.html)
+[Api reference - deploy configuration](../html-reference/deploy-configuration.html)

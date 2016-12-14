@@ -104,3 +104,6 @@ The following is the JSON response from the PATCH operation:
 }
 ```
 
+### API references used to support this workflow:
+[Api reference - virtual server management](../html-reference/virtual-server-management.html)
+[Api reference - asm policy management](../html-reference/asm-policies.html)

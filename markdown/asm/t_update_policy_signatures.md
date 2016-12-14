@@ -14472,3 +14472,7 @@ The following is the JSON response from the POST operation:
     ]
 }
 ```
+
+### API references used to support this workflow:
+[Api reference - asm signature management](../html-reference/asm-attack-signatures.html)
+[Api reference - asm policy management](../html-reference/asm-policies.html)

@@ -340,3 +340,6 @@ When an error occurs, review the BIG-IQ Centralized Management user interface fo
     "username": "admin"
 }      
 ```
+
+### API references that support this workflow:
+[Api reference - global task device discovery](../html-reference/device-discovery.html)

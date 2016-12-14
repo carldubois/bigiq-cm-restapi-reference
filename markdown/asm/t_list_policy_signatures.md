@@ -14618,3 +14618,7 @@ The following is the JSON response from the GET operation:
     "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef/signatures"
 }
 ```
+
+### API references used to support this workflow:
+[Api reference - asm policy management](../html-reference/asm-policies.html)
+[Api reference - asm signature management](../html-reference/asm-attack-signatures.html)

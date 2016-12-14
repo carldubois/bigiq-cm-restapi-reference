@@ -975,3 +975,6 @@ When an error occurs, use the BIG-IQ Centralized Management user interface for d
   "kind": ":resterrorresponse"
 }
 ```
+
+### API Reference supporting this workflow:
+[Api reference - Import configuration: AFM](../html-reference/firewall-discovery_import.html)

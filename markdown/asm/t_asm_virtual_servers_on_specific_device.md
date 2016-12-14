@@ -56,3 +56,6 @@ The following is the JSON response from the GET operation:
     "lastUpdateMicros": 1479388471928975
 }
 ```
+
+### API references used to support this workflow:
+[Api reference - virtual server management](../html-reference/virtual-server-management.html)

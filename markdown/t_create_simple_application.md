@@ -100,7 +100,6 @@ GET https://ip/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-
     "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48"
 }
 ```
-[Api reference - application node management](../adoc/application-server-node-management.adoc)
 
 #### 2. Create a pool
 ```
@@ -159,7 +158,6 @@ Results:
 }
 
 ```
-[Api reference - pool / member management](../adoc/pool-member-management.adoc)
 
 #### 3. Create a pool member
 In order to create a pool member, you must create a pool and a node first. Here is an example showing we create a pool member using the node created in step 1 and pool created in step 2. 
@@ -204,7 +202,6 @@ Results:
     "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1/members/43ef0c03-0630-379f-a652-0c2e4fbbdce0"
 }
 ```
-[Api reference - pool / member management](../adoc/pool-member-management.adoc)
 
 #### 4. Create a virtual server
 
@@ -293,7 +290,6 @@ Request Body:
 }
 
 ```
-[Api reference - virtual server management](../adoc/virtual-server-management.adoc)
 
 #### 5. Attach a pool to virtual server
 Technically speaking, step 4 and step 5 can be combined into one step. Since attach and detach a pool is a significant step, we call it out as a separate step. If you like to combine step 5 with step 4, you just need to add the property "poolReference" into the POST request body. 
@@ -309,5 +305,8 @@ Request Body:
 }
     
 ```
-[Api reference - virtual server management](../adoc/virtual-server-management.adoc)
 
+### API references used to support this workflow:
+[Api reference - application node management](../adoc/application-server-node-management.adoc)
+[Api reference - pool / member management](../adoc/pool-member-management.adoc)
+[Api reference - virtual server management](../adoc/virtual-server-management.adoc)

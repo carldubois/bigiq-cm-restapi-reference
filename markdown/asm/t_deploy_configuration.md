@@ -174,3 +174,5 @@ The final task response JSON should look similar to the following:
 ```
 If the status does not reach FINISHED, consult the Web Application Security Deployment page in the BIG-IQ Centralized Management user interface to determine the issue encountered with the deployment task.
 
+### API reference used to support this workflow
+[Api reference - ASM deploy configuration](../html-reference/deploy-configuration.html)

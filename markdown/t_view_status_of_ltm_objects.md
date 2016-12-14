@@ -317,3 +317,9 @@ Results:
     "lastUpdateMicros": 1479756371933830
 }
 ```
+
+### API references used to support this workflow:
+### API references used to support this workflow:
+[Api reference - application node management](../adoc/application-server-node-management.adoc)
+[Api reference - pool / member management](../adoc/pool-member-management.adoc)
+[Api reference - virtual server management](../adoc/virtual-server-management.adoc)

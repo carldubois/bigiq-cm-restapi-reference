@@ -109,3 +109,9 @@ Response:
 #### 6. Remove a failed activation
 
 DELETE https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
+
+
+#### API referneces used to support this workflow:
+[Api reference - inital license activation](../html-reference/license-initial-activation.html)
+
+

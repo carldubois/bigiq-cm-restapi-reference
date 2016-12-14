@@ -61,3 +61,6 @@ The following is the JSON response from the GET operation:
     "lastUpdateMicros": 1478688837870194
 }
 ```
+
+### API reference used to support this workflow:
+[Api reference - asm policies](../html-reference/asm-policies.html)

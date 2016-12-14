@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<title>Creating a default policy.</title>
+<title>Pool and Pool Members Management Overview</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -423,247 +423,844 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_creating_a_default_policy">Creating a default policy.</h2>
+<h2 id="_pool_and_pool_members_management_overview">Pool and Pool Members Management Overview</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_overview">Overview</h3>
 <div class="paragraph">
-<p>Describes how you use the REST API to create a Web Application Security policy.</p>
-</div>
+<p>BIG-IQ allows users to progammatically enabled/disable/force offline pools and pool members through the use of REST API calls.</p>
 </div>
 <div class="sect2">
 <h3 id="_prerequisites">Prerequisites</h3>
-<div class="paragraph">
-<p>None.
-<mark>#</mark> Description
-Describes how you use the REST API to create a Web Application Security policy.
-The Web Application Security policy is a complex object with multiple sub collections, some of them have default values created by the system when the policy is created.
-Perform the REST API actions:
-1. Perform a POST operation to the policies collection.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The BIG-IQ Centralized Management system is operational by completing the initial setup wizard.</p>
+</li>
+<li>
+<p>Discovery and establishing trust with one BIG-IP with LTM Services enabled.</p>
+</li>
+</ul>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pools">Pools</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The following extended example shows each of these REST API actions.
-<mark># Example
-</mark>## 1. Perform a POST operation to the policies collection.
-Perform a POST operation to the policies collection. The data being sent to the server includes the name of the policy, the partition, the fullPath and the application language.
-Note - the fullPath is usually determined by the partition and name, separated by the '/' character.</p>
+<p>A user may view and filter the Pools collection if they have the proper RBAC permissions to perform GETs on '/mgmt/cm/adc-core/working-config/ltm/pool'.
+Permissions can be setup so users may only see Pool and Pool Member objects if they have been granted permission. Permission could look like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>POST: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/policies
-{
-   "name":"Policy_3",
-   "partition":"Common",
-   "fullPath":"/Common/Policy_3",
-   "applicationLanguage":"utf-8"
-}</code></pre>
+<pre class="highlight"><code>GET /mgmt/cm/adc-core/working-config/ltm/pool/{id1}
+GET /mgmt/cm/adc-core/working-config/ltm/pool/{id1}/members
+GET /mgmt/cm/adc-core/working-config/ltm/pool/{id2}</code></pre>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_viewing_active_pools_on_big_iq">Viewing active Pools on BIG-IQ.</h3>
+<div class="paragraph">
+<p>GET <code>/mgmt/cm/adc-core/working-config/ltm/pool</code></p>
 </div>
 <div class="paragraph">
-<p>The following is the JSON response from the POST operation:</p>
+<p>Response: 200</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>{
-    "allowedResponseCodes": [
-        400,
-        401,
-        404,
-        407,
-        417,
-        503
-    ],
-    "createdDatetime": "2016-11-20T11:37:32Z",
-    "creatorName": "admin",
-    "customXffHeaders": [],
-    "applicationLanguage": "utf-8",
-    "caseInsensitive": false,
-    "protocolIndependent": false,
-    "enforcementMode": "transparent",
-    "learningMode": "manual",
-    "modifierName": "",
-    "stagingSettings": {
-        "signatureStaging": true,
-        "placeSignaturesInStaging": false,
-        "enforcementReadinessPeriod": 7
-    },
-    "attributes": {
-        "maximumCookieHeaderLength": "8192",
-        "inspectHttpUploads": false,
-        "triggerAsmIruleEvent": "disabled",
-        "useDynamicSessionIdInUrl": false,
-        "maximumHttpHeaderLength": "8192",
-        "maskCreditCardNumbersInRequest": true,
-        "pathParameterHandling": "as-parameters"
-    },
-    "fullPath": "/Common/Policy_3",
-    "versionDeviceName": "Policy_3",
-    "versionLastChange": "POST Policy_3",
-    "versionPolicyName": "/Common/Policy_3",
-    "versionDatetime": "2016-11-20T11:37:32Z",
-    "trustXff": false,
-    "disallowedGeolocationReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/disallowed-geolocations",
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "items": [
+    {
+      "allowNat": true,
+      "allowSnat": true,
+      "ignorePersistedWeight": false,
+      "ipTosToClientControl": "pass-through",
+      "ipTosToServerControl": "pass-through",
+      "linkQosToClient": 65535,
+      "linkQosToServer": 65535,
+      "loadBalancingMode": "round-robin",
+      "minActiveMembers": 0,
+      "queueDepthLimit": 0,
+      "enableQueueOnConnectionLimit": false,
+      "queueTimeLimit": 0,
+      "reselectTries": 0,
+      "serviceDownAction": "none",
+      "slowRampTime": 10,
+      "membersCollectionReference": {
+        "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a/members",
         "isSubcollection": true
+      },
+      "partition": "Common",
+      "deviceReference": {
+        "id": "eb0f77b6-ee63-449c-8e90-ce5498926a1c",
+        "name": "ip65.f5.pd.com",
+        "kind": "shared:resolver:device-groups:restdeviceresolverdevicestate",
+        "machineId": "eb0f77b6-ee63-449c-8e90-ce5498926a1c",
+        "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/eb0f77b6-ee63-449c-8e90-ce5498926a1c"
+      },
+      "name": "pool-east",
+      "description": "LAB",
+      "id": "b045388c-a454-3b53-a190-940d665d0a1a",
+      "generation": 1,
+      "lastUpdateMicros": 1480628497415304,
+      "kind": "cm:adc-core:working-config:ltm:pool:adcpoolstate",
+      "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a"
     },
-    "signatureReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/signatures",
+    {
+      "allowNat": true,
+      "allowSnat": true,
+      "ignorePersistedWeight": false,
+      "ipTosToClientControl": "pass-through",
+      "ipTosToServerControl": "pass-through",
+      "linkQosToClient": 65535,
+      "linkQosToServer": 65535,
+      "loadBalancingMode": "round-robin",
+      "minActiveMembers": 0,
+      "queueDepthLimit": 0,
+      "enableQueueOnConnectionLimit": false,
+      "queueTimeLimit": 0,
+      "reselectTries": 0,
+      "serviceDownAction": "none",
+      "slowRampTime": 10,
+      "membersCollectionReference": {
+        "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members",
         "isSubcollection": true
-    },
-    "csrfProtectionReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/csrf-protection",
-        "isSubcollection": true
-    },
-    "methodReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/methods",
-        "isSubcollection": true
-    },
-    "sessionTrackingReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/session-tracking",
-        "isSubcollection": true
-    },
-    "parameterReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/parameters",
-        "isSubcollection": true
-    },
-    "ipIntelligenceReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/ip-intelligence",
-        "isSubcollection": true
-    },
-    "policyBuilderReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/policy-builder",
-        "isSubcollection": true
-    },
-    "dataGuardReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/data-guard",
-        "isSubcollection": true
-    },
-    "webScrapingReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/web-scraping",
-        "isSubcollection": true
-    },
-    "headerReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/headers",
-        "isSubcollection": true
-    },
-    "responsePageReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/response-pages",
-        "isSubcollection": true
-    },
-    "xmlProfileReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/xml-profiles",
-        "isSubcollection": true
-    },
-    "urlReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/urls",
-        "isSubcollection": true
-    },
-    "sensitiveParameterReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/sensitive-parameters",
-        "isSubcollection": true
-    },
-    "loginPageReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/login-pages",
-        "isSubcollection": true
-    },
-    "xmlValidationFileReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/xml-validation-files",
-        "isSubcollection": true
-    },
-    "cookieReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/cookies",
-        "isSubcollection": true
-    },
-    "characterSetReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/character-sets",
-        "isSubcollection": true
-    },
-    "loginEnforcementReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/login-enforcement",
-        "isSubcollection": true
-    },
-    "bruteForceAttackPreventionReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/brute-force-attack-preventions",
-        "isSubcollection": true
-    },
-    "redirectionProtectionReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/redirection-protection",
-        "isSubcollection": true
-    },
-    "whitelistIpReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/whitelist-ips",
-        "isSubcollection": true
-    },
-    "gwtProfileReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/gwt-profiles",
-        "isSubcollection": true
-    },
-    "signatureSetReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/signature-sets",
-        "isSubcollection": true
-    },
-    "jsonProfileReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/json-profiles",
-        "isSubcollection": true
-    },
-    "filetypeReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/filetypes",
-        "isSubcollection": true
-    },
-    "hostNameReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/host-names",
-        "isSubcollection": true
-    },
-    "violationsReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/violations",
-        "isSubcollection": true
-    },
-    "evasionsReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/evasions",
-        "isSubcollection": true
-    },
-    "httpProtocolsReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/http-protocols",
-        "isSubcollection": true
-    },
-    "webServicesSecurityReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/web-services-securities",
-        "isSubcollection": true
-    },
-    "extractionsReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/extractions",
-        "isSubcollection": true
-    },
-    "plainTextProfileReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/plain-text-profiles",
-        "isSubcollection": true
-    },
-    "websocketUrlReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/websocket-urls",
-        "isSubcollection": true
-    },
-    "sectionReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/sections",
-        "isSubcollection": true
-    },
-    "type": "security",
-    "hasParent": false,
-    "partition": "Common",
-    "name": "Policy_3",
-    "description": "",
-    "id": "ae0dedd4-56dd-32c3-9910-a29937d7db40",
-    "generation": 1,
-    "lastUpdateMicros": 1479641852337670,
-    "kind": "cm:asm:working-config:policies:policystate",
-    "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40"
+      },
+      "partition": "Common",
+      "deviceReference": {
+        "id": "00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9",
+        "name": "ip223.f5.pd.com",
+        "kind": "shared:resolver:device-groups:restdeviceresolverdevicestate",
+        "machineId": "00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9",
+        "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9"
+      },
+      "name": "pool-west",
+      "description": "RESERVE",
+      "id": "dcf33ae3-ac2e-3984-95cf-6afd341e90e7",
+      "generation": 1,
+      "lastUpdateMicros": 1480628465441408,
+      "kind": "cm:adc-core:working-config:ltm:pool:adcpoolstate",
+      "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7"
+    }
+  ],
+  "generation": 7,
+  "kind": "cm:adc-core:working-config:ltm:pool:adcpoolcollectionstate",
+  "lastUpdateMicros": 1480628497456842,
+  "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool"
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_api_references_used_to_support_this_workflow">API references used to support this workflow:</h3>
+<h3 id="_searching_for_pools_by_fields">Searching for Pools By Fields</h3>
 <div class="paragraph">
-<p>[Api reference - asm policy management](../html-reference/asm-policies.html)</p>
+<p>Users are able to search the pool collection for a value in a field using exact or wildcard matching by appending "?$filter=PROPERTYNAME eq 'searchValue'".</p>
+</div>
+<div class="paragraph">
+<p>Searching for any Pool objects that contain "LAB" in the description would look like</p>
+</div>
+<div class="paragraph">
+<p>GET <code><code>/mgmt/cm/adc-core/working-config/ltm/pool?$filter=description eq '<strong>LAB</strong>'</code></code></p>
+</div>
+<div class="paragraph">
+<p>Response: 200</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "totalItems": 1,
+  "items": [
+    {
+      "ignorePersistedWeight": false,
+      "membersCollectionReference": {
+        "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a/members",
+        "isSubcollection": true
+      },
+      "linkQosToServer": 65535,
+      "slowRampTime": 10,
+      "reselectTries": 0,
+      "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a",
+      "ipTosToServerControl": "pass-through",
+      "kind": "cm:adc-core:working-config:ltm:pool:adcpoolstate",
+      "deviceReference": {
+        "id": "eb0f77b6-ee63-449c-8e90-ce5498926a1c",
+        "name": "ip65.f5.pd.com",
+        "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/eb0f77b6-ee63-449c-8e90-ce5498926a1c",
+        "machineId": "eb0f77b6-ee63-449c-8e90-ce5498926a1c",
+        "kind": "shared:resolver:device-groups:restdeviceresolverdevicestate"
+      },
+      "minActiveMembers": 0,
+      "id": "b045388c-a454-3b53-a190-940d665d0a1a",
+      "loadBalancingMode": "round-robin",
+      "partition": "Common",
+      "lastUpdateMicros": 1480628497415304,
+      "allowSnat": true,
+      "enableQueueOnConnectionLimit": false,
+      "ipTosToClientControl": "pass-through",
+      "description": "LAB",
+      "name": "pool-east",
+      "serviceDownAction": "none",
+      "queueTimeLimit": 0,
+      "linkQosToClient": 65535,
+      "allowNat": true,
+      "generation": 1,
+      "queueDepthLimit": 0
+    }
+  ],
+  "generation": 7,
+  "kind": "cm:adc-core:working-config:ltm:pool:adcpoolcollectionstate",
+  "lastUpdateMicros": 1480628497456842,
+  "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_pool_object_with_a_monitor">Creating A Pool Object With A Monitor</h3>
+<div class="paragraph">
+<p>POST <code><code>/mgmt/cm/adc-core/working-config/ltm/pool</code></code></p>
+</div>
+<div class="paragraph">
+<p>BODY</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "allowNat":true,
+   "allowSnat":true,
+   "description":"",
+   "ignorePersistedWeight":false,
+   "ipTosToClient":null,
+   "ipTosToServer":null,
+   "linkQosToClient":65535,
+   "linkQosToServer":65535,
+   "loadBalancingMode":"round-robin",
+   "monitorReferences":[],
+   "minActiveMembers":0,
+   "minUpMembers":null,
+   "queueDepthLimit":0,
+   "enableQueueOnConnectionLimit":false,
+   "queueTimeLimit":0,
+   "serviceDownAction":"none",
+   "slowRampTime":10,
+   "reselectTries":0,
+   "membersReference":{
+      "link":""
+   },
+   "profiles":[],
+   "requestQueueTimeLimit":0,
+   "deviceReference":{
+      "link":"https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/465b8fe0-4441-4ece-a8b6-04fcd613ff83"
+   },
+   "partition":"Common",
+   "kind":"cm:adc-core:working-config:ltm:pool:adcpoolstate",
+   "name":"new-pool-with-http-monitor",
+   "monitorHttpReferences":[
+      {
+         "name":"http",
+         "partition":"Common",
+         "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/monitor/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26"
+      }
+   ],
+   "ipTosToClientControl":"pass-through",
+   "ipTosToServerControl":"pass-through"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response: 200</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "allowNat":true,
+   "allowSnat":true,
+   "ignorePersistedWeight":false,
+   "ipTosToClientControl":"pass-through",
+   "ipTosToServerControl":"pass-through",
+   "linkQosToClient":65535,
+   "linkQosToServer":65535,
+   "loadBalancingMode":"round-robin",
+   "minActiveMembers":0,
+   "queueDepthLimit":0,
+   "enableQueueOnConnectionLimit":false,
+   "queueTimeLimit":0,
+   "reselectTries":0,
+   "serviceDownAction":"none",
+   "slowRampTime":10,
+   "membersCollectionReference":{
+      "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/56e0bcd8-b3e7-358b-bf0f-965fc798e507/members",
+      "isSubcollection":true
+   },
+   "monitorHttpReferences":[
+      {
+         "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/monitor/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26"
+      }
+   ],
+   "partition":"Common",
+   "deviceReference":{
+      "id":"465b8fe0-4441-4ece-a8b6-04fcd613ff83",
+      "name":"ip66.f5.pd.com",
+      "kind":"shared:resolver:device-groups:restdeviceresolverdevicestate",
+      "machineId":"465b8fe0-4441-4ece-a8b6-04fcd613ff83",
+      "link":"https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/465b8fe0-4441-4ece-a8b6-04fcd613ff83"
+   },
+   "name":"new-pool-with-http-monitor",
+   "id":"56e0bcd8-b3e7-358b-bf0f-965fc798e507",
+   "generation":1,
+   "lastUpdateMicros":1480549590312880,
+   "kind":"cm:adc-core:working-config:ltm:pool:adcpoolstate",
+   "selfLink":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/56e0bcd8-b3e7-358b-bf0f-965fc798e507"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deploying_a_pool_object_to_a_device">Deploying A Pool Object To A Device</h3>
+<div class="paragraph">
+<p>This requires a deviceReference and the Rest Reference for the Pool object to be deployed. Users can configure the task verification by toggling the boolean attribute "skipVerifyConfig". Users may also pause the deployment after evaluation by setting the property "skipDistribution" to "true".</p>
+</div>
+<div class="paragraph">
+<p>POST <code><code>/mgmt/cm/adc-core/tasks/deploy-configuration</code></code></p>
+</div>
+<div class="paragraph">
+<p>BODY</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "skipVerifyConfig":false,
+   "skipDistribution":false,
+   "snapshotReference":null,
+   "objectsToDeployReferences":[
+      {
+         "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/e80bf7e0-41ac-3056-a114-4a1b2ddc0b6c"
+      }
+   ],
+   "name":"add",
+   "deploySpecifiedObjectsOnly":false,
+   "deviceReferences":[
+      {
+         "link":"https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9"
+      }
+   ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response: 202</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "skipDistribution":false,
+   "deviceReferences":[
+      {
+         "link":"https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9"
+      }
+   ],
+   "skipVerifyConfig":false,
+   "objectsToDeployReferences":[
+      {
+         "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/e80bf7e0-41ac-3056-a114-4a1b2ddc0b6c"
+      }
+   ],
+   "deploySpecifiedObjectsOnly":false,
+   "id":"2120a0bc-b311-407e-844f-f89e151f0bb5",
+   "status":"STARTED",
+   "name":"add",
+   "userReference":{
+      "link":"https://localhost/mgmt/shared/authz/users/admin"
+   },
+   "identityReferences":[
+      {
+         "link":"https://localhost/mgmt/shared/authz/users/admin"
+      }
+   ],
+   "ownerMachineId":"3b786166-8069-45ae-b633-60e7416ef7a0",
+   "taskWorkerGeneration":1,
+   "generation":1,
+   "lastUpdateMicros":1480703520843810,
+   "kind":"cm:adc-core:tasks:deploy-configuration:deployconfigtaskstate",
+   "selfLink":"https://localhost/mgmt/cm/adc-core/tasks/deploy-configuration/2120a0bc-b311-407e-844f-f89e151f0bb5"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The 202 response contains details about the self service task along with the "status" of "STARTED". The selfLink should be polled with GETs checking the "status" property to report "FINISHED" or "FAILED".
+If the task was configured to have "skipVerifyConfig" to "false", the self service task will eventually be populated with a "verifyConfigReference". Performing a GET on the "verifyConfigReference.link" will provide any warnings and errors found during verification. Only critical errors will prevent users from deploying the objects to the BIG-IP.
+If the task was configured to have "skipDistribution" set to "true", the task will pause after an evaluation has been created. This allows users to review their changes before deployment. Users can resume the deployment by PATCHing the task with the following body:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{"skipDistribution": false, "status": "STARTED"}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_edit_a_pool_object">Edit A Pool Object</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_attaching_a_new_health_monitor_to_the_pool">Attaching a new health monitor to the Pool.</h3>
+<div class="paragraph">
+<p>This requires a proper monitor name and RestReference.</p>
+</div>
+<div class="paragraph">
+<p>PATCH <code><code>/mgmt/cm/adc-core/working-config/ltm/pool/{id}</code></code></p>
+</div>
+<div class="paragraph">
+<p>BODY</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "monitorHttpReferences":[
+      {
+         "name":"http",
+         "partition":"Common",
+         "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/monitor/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26"
+      }
+   ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response: 200</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "allowNat": true,
+  "allowSnat": true,
+  "ignorePersistedWeight": false,
+  "ipTosToClientControl": "pass-through",
+  "ipTosToServerControl": "pass-through",
+  "linkQosToClient": 65535,
+  "linkQosToServer": 65535,
+  "loadBalancingMode": "round-robin",
+  "minActiveMembers": 0,
+  "queueDepthLimit": 0,
+  "enableQueueOnConnectionLimit": false,
+  "queueTimeLimit": 0,
+  "reselectTries": 0,
+  "serviceDownAction": "none",
+  "slowRampTime": 10,
+  "membersCollectionReference": {
+    "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a/members",
+    "isSubcollection": true
+  },
+  "monitorHttpReferences": [
+    {
+      "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/monitor/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26"
+    }
+  ],
+  "partition": "Common",
+  "deviceReference": {
+    "id": "eb0f77b6-ee63-449c-8e90-ce5498926a1c",
+    "name": "ip65.f5.pd.com",
+    "kind": "shared:resolver:device-groups:restdeviceresolverdevicestate",
+    "machineId": "eb0f77b6-ee63-449c-8e90-ce5498926a1c",
+    "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/eb0f77b6-ee63-449c-8e90-ce5498926a1c"
+  },
+  "name": "pool-east",
+  "description": "LAB",
+  "id": "b045388c-a454-3b53-a190-940d665d0a1a",
+  "generation": 2,
+  "lastUpdateMicros": 1480630096304382,
+  "kind": "cm:adc-core:working-config:ltm:pool:adcpoolstate",
+  "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_attaching_pool_objects_to_role_permissions">Attaching Pool Objects To Role Permissions</h3>
+<div class="paragraph">
+<p>Role permissions can be updated to give user roles the abilty to view/edit/delete Pool objects and Pool Members.</p>
+</div>
+<div class="paragraph">
+<p>PUT <code><code>/mgmt/shared/authz/users/{user role name}</code></code></p>
+</div>
+<div class="paragraph">
+<p>BODY</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+...
+    resources: [
+        ...
+        {resourceMask: "/mgmt/cm/adc-core/working-config/ltm/pool/{id}", restMethod: "GET"},
+        {resourceMask: "/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members", restMethod: "GET"},
+        {resourceMask: "/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members/*", restMethod: "GET"},
+        {resourceMask: "/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members/*/*", restMethod: "POST"},
+        ...
+    ]
+...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note: Provisioning a user to GET "/mgmt/cm/adc-core/working-config/ltm/pool/{id}" does not automatically grant permissions to subcollections.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_removing_a_pool_object_and_deploying_changes">Removing A Pool Object And Deploying Changes</h3>
+<div class="paragraph">
+<p>DELETE <code><code>/mgmt/cm/adc-core/working-config/ltm/pool/{id}</code></code></p>
+</div>
+<div class="paragraph">
+<p>The pool object will no longer exist in the working config of the BIG-IQ. To deploy these changes to a device, the device reference is needed.</p>
+</div>
+<div class="paragraph">
+<p>POST <code><code>/mgmt/cm/adc-core/tasks/deploy-configuration</code></code></p>
+</div>
+<div class="paragraph">
+<p>BODY</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "skipVerifyConfig":false,
+   "skipDistribution":false,
+   "snapshotReference":null,
+   "objectsToDeployReferences":[
+
+   ],
+   "name":"removedPool",
+   "deviceReferences":[
+      {
+         "link":"https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9"
+      }
+   ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response: 202</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "skipDistribution":false,
+   "deviceReferences":[
+      {
+         "link":"https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9"
+      }
+   ],
+   "skipVerifyConfig":false,
+   "objectsToDeployReferences":[
+   ],
+   "id":"c1a3501f-293f-45e4-b3a0-29ff6c59203b",
+   "status":"STARTED",
+   "name":"removedPool",
+   "userReference":{
+      "link":"https://localhost/mgmt/shared/authz/users/admin"
+   },
+   "identityReferences":[
+      {
+         "link":"https://localhost/mgmt/shared/authz/users/admin"
+      }
+   ],
+   "ownerMachineId":"3b786166-8069-45ae-b633-60e7416ef7a0",
+   "taskWorkerGeneration":1,
+   "generation":1,
+   "lastUpdateMicros":1480705617532917,
+   "kind":"cm:adc-core:tasks:deploy-configuration:deployconfigtaskstate",
+   "selfLink":"https://localhost/mgmt/cm/adc-core/tasks/deploy-configuration/c1a3501f-293f-45e4-b3a0-29ff6c59203b"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The 202 response contains details about the self service task along with the "status" of "STARTED". The selfLink should be polled with GETs checking the "status" property to report "FINISHED" or "FAILED".</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pool_members">Pool Members</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prerequisites_2">Prerequisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>A Pool object must exist.</p>
+</li>
+<li>
+<p>A Node object must exist.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_viewing_pool_members">Viewing Pool Members</h3>
+<div class="paragraph">
+<p>GET <code><code>/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members</code></code></p>
+</div>
+<div class="paragraph">
+<p>Response: 200</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "items": [
+    {
+      "connectionLimit": 0,
+      "port": 80,
+      "priorityGroup": 0,
+      "rateLimit": "disabled",
+      "ratio": 1,
+      "sessionConfig": "user-enabled",
+      "stateConfig": "user-up",
+      "nodeReference": {
+        "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/node/36d49760-3d0e-3368-a679-52e79ff44227"
+      },
+      "partition": "Common",
+      "name": "testNode:80",
+      "description": "a test member",
+      "id": "e93af93a-c397-39ba-853f-c2808b818ef3",
+      "generation": 1,
+      "lastUpdateMicros": 1480551570546280,
+      "kind": "cm:adc-core:working-config:ltm:pool:members:adcpoolmemberstate",
+      "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/56e0bcd8-b3e7-358b-bf0f-965fc798e507/members/e93af93a-c397-39ba-853f-c2808b818ef3"
+    }
+  ],
+  "generation": 2,
+  "kind": "cm:adc-core:working-config:ltm:pool:members:adcpoolmembercollectionstate",
+  "lastUpdateMicros": 1480551570582031,
+  "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/56e0bcd8-b3e7-358b-bf0f-965fc798e507/members"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_pool_member">Creating Pool Member</h3>
+<div class="paragraph">
+<p>POST <code><code>/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members</code></code></p>
+</div>
+<div class="paragraph">
+<p>BODY</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "nodeReference":{
+      "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/node/36d49760-3d0e-3368-a679-52e79ff44227"
+   },
+   "ratio":1,
+   "priorityGroup":0,
+   "connectionLimit":0,
+   "rateLimit":"disabled",
+   "dynamicRatio":1,
+   "sessionConfig":"user-enabled",
+   "stateConfig":"user-up",
+   "name":"testNode:80",
+   "description":"a test member",
+   "kind":"cm:adc-core:working-config:ltm:pool:members:adcpoolmemberstate",
+   "partition":"Common",
+   "port":"80"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response: 200</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "connectionLimit":0,
+   "port":80,
+   "priorityGroup":0,
+   "rateLimit":"disabled",
+   "ratio":1,
+   "sessionConfig":"user-enabled",
+   "stateConfig":"user-up",
+   "nodeReference":{
+      "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/node/36d49760-3d0e-3368-a679-52e79ff44227"
+   },
+   "partition":"Common",
+   "name":"testNode:80",
+   "description":"a test member",
+   "id":"e93af93a-c397-39ba-853f-c2808b818ef3",
+   "generation":1,
+   "lastUpdateMicros":1480551570546280,
+   "kind":"cm:adc-core:working-config:ltm:pool:members:adcpoolmemberstate",
+   "selfLink":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/56e0bcd8-b3e7-358b-bf0f-965fc798e507/members/e93af93a-c397-39ba-853f-c2808b818ef3"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_removing_pool_member">Removing Pool Member</h3>
+<div class="paragraph">
+<p>DELETE <code><code>/mgmt/cm/adc-core/working-config/ltm/pool/{pool-id}/members/{memmber-id}</code></code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_enabling_a_pool_member_using_self_service">Enabling A Pool Member Using Self Service</h3>
+<div class="paragraph">
+<p>POST <code><code>/mgmt/cm/adc-core/tasks/self-service</code></code></p>
+</div>
+<div class="paragraph">
+<p>BODY</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "name":"Self-Service_someNode:80",
+   "resourceReference":{
+      "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2"
+   },
+   "operation":"enable"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response: 202</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "resourceReference":{
+      "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2"
+   },
+   "operation":"enable",
+   "id":"865ec76a-02a2-47f1-a007-f07010b18177",
+   "status":"STARTED",
+   "name":"Self-Service_someNode:80",
+   "userReference":{
+      "link":"https://localhost/mgmt/shared/authz/users/admin"
+   },
+   "identityReferences":[
+      {
+         "link":"https://localhost/mgmt/shared/authz/users/admin"
+      }
+   ],
+   "ownerMachineId":"3b786166-8069-45ae-b633-60e7416ef7a0",
+   "taskWorkerGeneration":1,
+   "generation":1,
+   "lastUpdateMicros":1480632847604821,
+   "kind":"cm:adc-core:tasks:self-service:selfservicetaskitemstate",
+   "selfLink":"https://localhost/mgmt/cm/adc-core/tasks/self-service/865ec76a-02a2-47f1-a007-f07010b18177"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The 202 response contains details about the self service task along with the "status" of "STARTED". The selfLink should be polled with GETs checking the "status" property to report "FINISHED" or "FAILED".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_disabling_a_pool_member_using_self_service">Disabling A Pool Member Using Self Service</h3>
+<div class="paragraph">
+<p>POST <code><code>/mgmt/cm/adc-core/tasks/self-service</code></code></p>
+</div>
+<div class="paragraph">
+<p>BODY</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "name":"Self-Service_someNode:80",
+   "resourceReference":{
+      "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2"
+   },
+   "operation":"disable"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response: 202</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "resourceReference":{
+      "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2"
+   },
+   "operation":"disable",
+   "id":"40f8385a-9f76-4377-9b9e-dccfd1c0d089",
+   "status":"STARTED",
+   "name":"Self-Service_someNode:80",
+   "userReference":{
+      "link":"https://localhost/mgmt/shared/authz/users/admin"
+   },
+   "identityReferences":[
+      {
+         "link":"https://localhost/mgmt/shared/authz/users/admin"
+      }
+   ],
+   "ownerMachineId":"3b786166-8069-45ae-b633-60e7416ef7a0",
+   "taskWorkerGeneration":1,
+   "generation":1,
+   "lastUpdateMicros":1480632998507447,
+   "kind":"cm:adc-core:tasks:self-service:selfservicetaskitemstate",
+   "selfLink":"https://localhost/mgmt/cm/adc-core/tasks/self-service/40f8385a-9f76-4377-9b9e-dccfd1c0d089"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The 202 response contains details about the self service task along with the "status" of "STARTED". The selfLink should be polled with GETs checking the "status" property to report "FINISHED" or "FAILED".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_force_offline_a_pool_member_using_self_service">Force Offline A Pool Member Using Self Service</h3>
+<div class="paragraph">
+<p>POST <code><code>/mgmt/cm/adc-core/tasks/self-service</code></code></p>
+</div>
+<div class="paragraph">
+<p>BODY</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "name":"Self-Service_someNode:80",
+   "resourceReference":{
+      "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2"
+   },
+   "operation":"force-offline"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response: 202</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+   "resourceReference":{
+      "link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2"
+   },
+   "operation":"force-offline",
+   "id":"bfccaa9d-7add-4ed6-82a3-5e5026ee98a6",
+   "status":"STARTED",
+   "name":"Self-Service_someNode:80",
+   "userReference":{
+      "link":"https://localhost/mgmt/shared/authz/users/admin"
+   },
+   "identityReferences":[
+      {
+         "link":"https://localhost/mgmt/shared/authz/users/admin"
+      }
+   ],
+   "ownerMachineId":"3b786166-8069-45ae-b633-60e7416ef7a0",
+   "taskWorkerGeneration":1,
+   "generation":1,
+   "lastUpdateMicros":1480633122692313,
+   "kind":"cm:adc-core:tasks:self-service:selfservicetaskitemstate",
+   "selfLink":"https://localhost/mgmt/cm/adc-core/tasks/self-service/bfccaa9d-7add-4ed6-82a3-5e5026ee98a6"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The 202 response contains details about the self service task along with the "status" of "STARTED". The selfLink should be polled with GETs checking the "status" property to report "FINISHED" or "FAILED".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_api_references_that_support_this_workflow">API references that support this workflow:</h3>
+<div class="paragraph">
+<p>[Api reference - pool member management](../html-reference/pool-member-management.html)
+[Api reference - deploy configuration](../html-reference/deploy-configuration.html)</p>
 </div>
 </div>
 </div>
@@ -671,7 +1268,7 @@ Note - the fullPath is usually determined by the partition and name, separated b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-12-14 11:10:26 EST
+Last updated 2016-12-14 11:21:34 EST
 </div>
 </div>
 </body>

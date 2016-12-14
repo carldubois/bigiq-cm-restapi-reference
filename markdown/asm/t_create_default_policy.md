@@ -221,3 +221,6 @@ The following is the JSON response from the POST operation:
     "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40"
 }
 ```
+
+### API references used to support this workflow:
+[Api reference - asm policy management](../html-reference/asm-policies.html)

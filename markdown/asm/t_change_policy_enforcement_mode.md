@@ -227,3 +227,7 @@ The following is the JSON response from the PATCH operation (the server returns 
     "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40"
 }
 ```
+
+### API reference used to support this workflow:
+[Api reference - virtual server management](../html-reference/virtual-server-management.html)
+[Api reference - asm policy management](../html-reference/asm-policies.html)

@@ -273,3 +273,6 @@ On a failure condition, review the BIG-IQ Centralized Management Devices user in
             "username": "admin"
         }
 ```
+
+### API references that support this workflow:
+[Api reference - device trust task](../html-reference/device-trust.html)

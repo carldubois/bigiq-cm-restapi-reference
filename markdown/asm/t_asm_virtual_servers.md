@@ -60,3 +60,6 @@ The following is the JSON response from the GET operation:
 }
 ```
 Note: that there are two types of virtual servers in Web Application Security: inactive policies holder, and regular. The inactive policies holder can have multiple policies associated with it, and is used to deploy policies to devices without using them to enforce rules on traffic for that device. The regular virtual servers can only have one policy associated with them, and are used to enforce rules on traffic.
+
+### API reference used to support this workflow:
+[Api reference - asm virtual servers](../html-reference/virtual-server-management.html)

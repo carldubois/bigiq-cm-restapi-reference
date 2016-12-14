@@ -1243,3 +1243,6 @@ Even for valid request, you can sometimes see failures, because currently API wi
     "kind": ":resterrorresponse"
 }
 ```
+
+#### API reference used to support this workflow:
+[Api reference - revoke oauth authentication token](../html-reference/access-revoke-oauth-token-sessions.html)

@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<title>Creating a default policy.</title>
+<title>Untitled</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -422,256 +422,74 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_creating_a_default_policy">Creating a default policy.</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_overview">Overview</h3>
-<div class="paragraph">
-<p>Describes how you use the REST API to create a Web Application Security policy.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_prerequisites">Prerequisites</h3>
-<div class="paragraph">
-<p>None.
-<mark>#</mark> Description
-Describes how you use the REST API to create a Web Application Security policy.
-The Web Application Security policy is a complex object with multiple sub collections, some of them have default values created by the system when the policy is created.
-Perform the REST API actions:
-1. Perform a POST operation to the policies collection.</p>
-</div>
-<div class="paragraph">
-<p>The following extended example shows each of these REST API actions.
-<mark># Example
-</mark>## 1. Perform a POST operation to the policies collection.
-Perform a POST operation to the policies collection. The data being sent to the server includes the name of the policy, the partition, the fullPath and the application language.
-Note - the fullPath is usually determined by the partition and name, separated by the '/' character.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>POST: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/policies
-{
-   "name":"Policy_3",
-   "partition":"Common",
-   "fullPath":"/Common/Policy_3",
-   "applicationLanguage":"utf-8"
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The following is the JSON response from the POST operation:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>{
-    "allowedResponseCodes": [
-        400,
-        401,
-        404,
-        407,
-        417,
-        503
-    ],
-    "createdDatetime": "2016-11-20T11:37:32Z",
-    "creatorName": "admin",
-    "customXffHeaders": [],
-    "applicationLanguage": "utf-8",
-    "caseInsensitive": false,
-    "protocolIndependent": false,
-    "enforcementMode": "transparent",
-    "learningMode": "manual",
-    "modifierName": "",
-    "stagingSettings": {
-        "signatureStaging": true,
-        "placeSignaturesInStaging": false,
-        "enforcementReadinessPeriod": 7
-    },
-    "attributes": {
-        "maximumCookieHeaderLength": "8192",
-        "inspectHttpUploads": false,
-        "triggerAsmIruleEvent": "disabled",
-        "useDynamicSessionIdInUrl": false,
-        "maximumHttpHeaderLength": "8192",
-        "maskCreditCardNumbersInRequest": true,
-        "pathParameterHandling": "as-parameters"
-    },
-    "fullPath": "/Common/Policy_3",
-    "versionDeviceName": "Policy_3",
-    "versionLastChange": "POST Policy_3",
-    "versionPolicyName": "/Common/Policy_3",
-    "versionDatetime": "2016-11-20T11:37:32Z",
-    "trustXff": false,
-    "disallowedGeolocationReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/disallowed-geolocations",
-        "isSubcollection": true
-    },
-    "signatureReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/signatures",
-        "isSubcollection": true
-    },
-    "csrfProtectionReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/csrf-protection",
-        "isSubcollection": true
-    },
-    "methodReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/methods",
-        "isSubcollection": true
-    },
-    "sessionTrackingReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/session-tracking",
-        "isSubcollection": true
-    },
-    "parameterReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/parameters",
-        "isSubcollection": true
-    },
-    "ipIntelligenceReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/ip-intelligence",
-        "isSubcollection": true
-    },
-    "policyBuilderReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/policy-builder",
-        "isSubcollection": true
-    },
-    "dataGuardReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/data-guard",
-        "isSubcollection": true
-    },
-    "webScrapingReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/web-scraping",
-        "isSubcollection": true
-    },
-    "headerReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/headers",
-        "isSubcollection": true
-    },
-    "responsePageReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/response-pages",
-        "isSubcollection": true
-    },
-    "xmlProfileReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/xml-profiles",
-        "isSubcollection": true
-    },
-    "urlReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/urls",
-        "isSubcollection": true
-    },
-    "sensitiveParameterReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/sensitive-parameters",
-        "isSubcollection": true
-    },
-    "loginPageReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/login-pages",
-        "isSubcollection": true
-    },
-    "xmlValidationFileReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/xml-validation-files",
-        "isSubcollection": true
-    },
-    "cookieReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/cookies",
-        "isSubcollection": true
-    },
-    "characterSetReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/character-sets",
-        "isSubcollection": true
-    },
-    "loginEnforcementReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/login-enforcement",
-        "isSubcollection": true
-    },
-    "bruteForceAttackPreventionReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/brute-force-attack-preventions",
-        "isSubcollection": true
-    },
-    "redirectionProtectionReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/redirection-protection",
-        "isSubcollection": true
-    },
-    "whitelistIpReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/whitelist-ips",
-        "isSubcollection": true
-    },
-    "gwtProfileReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/gwt-profiles",
-        "isSubcollection": true
-    },
-    "signatureSetReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/signature-sets",
-        "isSubcollection": true
-    },
-    "jsonProfileReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/json-profiles",
-        "isSubcollection": true
-    },
-    "filetypeReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/filetypes",
-        "isSubcollection": true
-    },
-    "hostNameReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/host-names",
-        "isSubcollection": true
-    },
-    "violationsReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/violations",
-        "isSubcollection": true
-    },
-    "evasionsReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/evasions",
-        "isSubcollection": true
-    },
-    "httpProtocolsReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/http-protocols",
-        "isSubcollection": true
-    },
-    "webServicesSecurityReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/web-services-securities",
-        "isSubcollection": true
-    },
-    "extractionsReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/extractions",
-        "isSubcollection": true
-    },
-    "plainTextProfileReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/plain-text-profiles",
-        "isSubcollection": true
-    },
-    "websocketUrlReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/websocket-urls",
-        "isSubcollection": true
-    },
-    "sectionReference": {
-        "link": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/sections",
-        "isSubcollection": true
-    },
-    "type": "security",
-    "hasParent": false,
-    "partition": "Common",
-    "name": "Policy_3",
-    "description": "",
-    "id": "ae0dedd4-56dd-32c3-9910-a29937d7db40",
-    "generation": 1,
-    "lastUpdateMicros": 1479641852337670,
-    "kind": "cm:asm:working-config:policies:policystate",
-    "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40"
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_api_references_used_to_support_this_workflow">API references used to support this workflow:</h3>
-<div class="paragraph">
-<p>[Api reference - asm policy management](../html-reference/asm-policies.html)</p>
-</div>
-</div>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>[Enable, Disable, and Force Offline Pool Members](index.html?Help=./HowToSamples/t_enable_disable_force_offline_pool_members.md)\n</p>
+</li>
+<li>
+<p>[Establish Trust Between BIG-IQ system and BIG-IP device](index.html?Help=./HowToSamples/t_establish_trust.md)\n</p>
+</li>
+<li>
+<p>[Discover the Local Traffic service on a BIG-IP device using a BIG-IQ Centralized Management system](index.html?Help=./HowToSamples/t_discover_ltm.md)\n</p>
+</li>
+<li>
+<p>[Import the Local Traffic service into the working configuration on a BIG-IQ Centralized Management system](index.html?Help=./HowToSamples/t_import_ltm.md)\n</p>
+</li>
+<li>
+<p>[Discover the Advanced Firewall service on a BIG-IP device using a BIG-IQ Centralized Management system](index.html?Help=./HowToSamples/t_discover_afm.md)\n</p>
+</li>
+<li>
+<p>[Import the Advanced Firewall service into the working configuration on a BIG-IQ Centralized Management system](index.html?Help=./HowToSamples/t_import_afm.md)\n</p>
+</li>
+<li>
+<p>[Apply and Deploy Firewall Policies](index.html?Help=./HowToSamples/t_apply_deploy_firewall_policies.md)\n</p>
+</li>
+<li>
+<p>[Listing virtual servers with a Web Application Security policy associated with them](index.html?Help=./HowToSamples/asm/t_asm_virtual_servers.md)\n</p>
+</li>
+<li>
+<p>[Getting the active policy of a specific virtual server on a specific device](index.html?Help=./HowToSamples/asm/t_asm_virtual_servers_on_specific_device.md)\n</p>
+</li>
+<li>
+<p>[Associating a Web Application Security policy with a virtual server](index.html?Help=./HowToSamples/asm/t_associate_policy_to_virtual_server.md)\n</p>
+</li>
+<li>
+<p>[Listing Web Application Security policies and searching for a specific policy by name](index.html?Help=./HowToSamples/asm/t_list_search_policies.md)\n</p>
+</li>
+<li>
+<p>[Checking whether policies are in use](index.html?Help=./HowToSamples/asm/t_find_policies_in_use.md)\n</p>
+</li>
+<li>
+<p>[Checking whether a policy is in use by a specific device](index.html?Help=./HowToSamples/asm/t_find_policies_in_use_on_specific_device.md)\n</p>
+</li>
+<li>
+<p>[Retrieving links to all policy subcollections and listing all parameters in the policy](index.html?Help=./HowToSamples/asm/t_list_policy_parameters.md)\n</p>
+</li>
+<li>
+<p>[Listing all signatures in a Web Application Security policy](index.html?Help=./HowToSamples/asm/t_list_policy_signatures.md)\n</p>
+</li>
+<li>
+<p>[Enable and enforce a specific signature in a policy by signatureId](index.html?Help=./HowToSamples/asm/t_update_policy_signatures.md)\n</p>
+</li>
+<li>
+<p>[Creating a default policy](index.html?Help=./HowToSamples/asm/t_create_default_policy.md)\n</p>
+</li>
+<li>
+<p>[Changing a policy enforcement mode](index.html?Help=./HowToSamples/asm/t_change_policy_enforcement_mode.md)\n</p>
+</li>
+<li>
+<p>[Deploying a Web Application Security configuration](index.html?Help=./HowToSamples/asm/t_deploy_configuration.md)\n</p>
+</li>
+<li>
+<p>[Retrieving a Web Application Security Event Log record using a support_id](index.html?Help=./HowToSamples/asm/t_get_event_log_record_by_support_id.md)\n</p>
+</li>
+</ul>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-12-14 11:10:26 EST
+Last updated 2016-12-09 10:40:34 EST
 </div>
 </div>
 </body>
