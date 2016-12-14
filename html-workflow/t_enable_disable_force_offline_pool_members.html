@@ -447,7 +447,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="paragraph">
-<p>1. Find Pool Members</p>
+<p>##1. Find Pool Members</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -537,11 +537,12 @@ The JSON in the body of the response can look similar to the following.
 }
 ```
 Note the value of selfLink for pools where the target pool members belong to, which will be used in the next step.
-
-
-2. Review Current State of Pool Members
---------------------------
-
+</pre>
+<p>##2. Review Current State of Pool Members</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>
 Send a GET request to the pool member sub-collections of the specific pools.
 ```
 GET https://ip_address/mgmt/cm/adc-core/working-config/ltm/pool/df237cb1-e272-3de9-8de3-a1afae6d6503/members
@@ -605,10 +606,12 @@ The JSON in the body of the response can look similar to the following. Note the
   "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/df237cb1-e272-3de9-8de3-a1afae6d6503/members"
 }
 ```
-
-3. Set New State for Pool Members
------------------------------
-
+</pre>
+<p>##3. Set New State for Pool Members</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>
 Send a POST request to set new state for each pool member. The pool member will be set to the new state regardless of the previous state.
 ```
 POST https://ip_address/mgmt/cm/adc-core/tasks/self-service
@@ -681,7 +684,6 @@ Note the value of selfLink for pools and wait for the task to complete. Upon com
 
 Result
 ------
-
 The pool members are enabled, disabled or forced offline, and the change is synchronized if the devices is in config sync group with either manual or automatic sync mode.
 </pre>
 </div>
