@@ -1,0 +1,6 @@
+{
+  "name": "Bigiq-cm-restapi-reference",
+  "tagline": "BIGIQ-CM rest api reference documentation.",
+  "body": "> The contents of this page are workflow guides that will allow development/operations to create automation around specific task/s.\r\n> Each workflow guide will contain a url link, under step operations, to the respective reference rest api document broken out under references below.\r\n> Once reviewed and approved by test, field and support, contents will be deployed to a devcentral.com BIGIQ wiki for general consumption.\r\n> Thank you for your support.\r\n\r\n##Workflows\r\n- [Create a simple ADC application for deployment](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/gh-pages/html-workflow/t_create_simple_application.html)\r\n- [Enable, Disable, and Force Offline Pool Members](https://github.com/carldubois/bigiq-cm-restapi-reference/blob/gh-pages/html-workflow/t_enable_disable_force_offline_pool_members.html)",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
