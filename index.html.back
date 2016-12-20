@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>BIGIQ-CM by carldubois</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>BIGIQ-CM</h1>
+        <p>REST API</p>
+        <p class="view"><a href="https://github.com/carldubois/bigiq-cm-restapi-reference">View the Project on GitHub <small>carldubois/bigiq-cm-restapi-reference</small></a></p>
+        <ul>
+          <li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <blockquote>
+<p>The contents of this page are workflow guides that will allow development/operations to create automation around specific task/s.
+Each workflow guide will contain a url link, under step operations, to the respective reference rest api document broken out under references below.
+Once reviewed and approved by test, field and support, contents will be deployed to a devcentral.com BIGIQ wiki for general consumption.
+Thank you for your support.</p>
+</blockquote>
+
+<h2>
+<a id="workflows" class="anchor" href="#workflows" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Workflows</h2>
+
+<ul>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_create_simple_application.md">Create a simple ADC application for deployment</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_enable_disable_force_offline_pool_members.md">Enable, Disable, and Force Offline Pool Members</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_apply_deploy_firewall_policies.md">Apply and Deploy Firewall Policies</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_establish_trust.md">Establish trust</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_discover_ltm.md">Discover adc/ltm</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_discover_afm.md">Discover afm</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_import_ltm.md">Import adc/ltm</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_import_afm.md">Import afm</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_view_status_of_ltm_objects.md">View status of ltm objects</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_list_search_policies.md">Asm list search policies</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_asm_virtual_servers.md">Asm list virtual servers with policy reference</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_asm_virtual_servers_on_specific_device.md">Asm get a active policy for a virtual server</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_associate_policy_to_virtual_server.md">Asm associate a policy with a virtual server</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_change_policy_enforcement_mode.md">Asm change policy enforcement mode</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_create_default_policy.md">Asm create a default policy</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_deploy_configuration.md">Asm deploy configuration</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_find_policies_in_use.md">Asm find policies in use</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_find_policies_in_use_on_specific_device.md">Asm find policies in use for a specific device</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_get_event_log_record_by_support_id.md">Asm retrieve a security event log record using support id</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_list_policy_parameters.md">Asm retrieve reference links to policy subcollection</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_list_policy_signatures.md">Asm list signatures for a policy</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_list_search_policies.md">Asm list search for policy</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/asm/t_update_policy_signatures.md">Asm enable and enforce signature in a policy by signature id</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_license_initial_activation.md">Licensing - Init</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_purchased_pool_license.md">Licensing - Purchased pool</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_purchased_pool_license_member.md">Licensing - Purchased pool add member</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_kill_sessions_access.md">Access - Kill active sessions</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/markdown/t_revoke_oauthtoken_access.md">Access - Revoke oauth token sessions</a></li>
+</ul>
+
+<h2>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h2>
+
+<ul>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/device-trust.adoc">Establish trust</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/device-discovery.adoc">Discover bigip configuration</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/adc-core-discovery_import.adoc">Adc-core discovery/import configuration</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/firewall-discovery_import.adoc">Firewall discovery/import configuration</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/asm-discovery_import.adoc">Asm discovery/import configuration</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/deploy-configuration.adoc">Deploy configuration</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/license-initial-activation.adoc">License initial activation</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/license-purchased-pools.adoc">License purchased pools</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/license-registration-key-pool.adoc">License registration key pool</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/adc-self-service.adoc">Adc self service enable/disable pool member</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/virtual-server-management.adoc">Virtual Server management</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/pool-member-management.adoc">Pool member management</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/application-server-node-management.adoc">Application node management</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/firewall-policies.adoc">Firewall policy management</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/asm-policies.adoc">Asm policies</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/asm-attack-signatures.adoc">Asm attack signatures</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/firewalls.adoc">Firewall context management</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/access-kill-user-sessions.adoc">Apm (Access) kill user sessions</a></li>
+<li><a href="https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/adoc/access-revoke-oauth-token-sessions.adoc">Apm (Access) revoke oauth token sessions</a></li>
+</ul>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/carldubois">carldubois</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>

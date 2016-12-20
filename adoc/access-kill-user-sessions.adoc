@@ -157,7 +157,7 @@ Kill all active access kill-sessions by cluster-name match.
 |===
 |Type|Name|Description|Schema|Default
 |*Body*|*Json string for request body.* +
-_required_|Input parameter list in json format. ex. {{"action":"KILL_BY_USER", "userName":"user2", "clusterNames":["BlueCluster", "RedCluster"]}}|<<_post_kill_access_by_cluster_name,post_kill_access_by_cluster_name>>|
+_required_|Input parameter list in json format. ex. {{"action":"KILL_BY_SESSIONS", "userName":"user2", "clusterNames":["BlueCluster", "RedCluster"]}}|<<_post_kill_access_by_cluster_name,post_kill_access_by_cluster_name>>|
 |===
 
 
