@@ -19,8 +19,7 @@ Release Version: |release|
 
 Introduction
 ------------
-:html-workflow:`t_apply_deploy_firewall_policies.html/apply_deploy_firewall_policies`
-
+:html-workflow:`t_apply_deploy_firewall_policies.html`
 
 Support
 -------
