@@ -20,7 +20,7 @@ Release Version: |release|
 Introduction
 ------------
 :html-workflow:`t_apply_deploy_firewall_policies.html/t_apply_deploy_firewall_policies.html`
-
+:apply_firewall: https://github.com/carldubois/bigiq-cm-restapi-reference/blob/master/html-workflow/t_apply_deploy_firewall_policies.html
 Support
 -------
 
