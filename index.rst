@@ -12,14 +12,14 @@
 	userguide/userguide
 	refguide
 
-App Services Integration iApp
-=============================
+BIGIQ REST API Workflow and Reference Documentation
+===================================================
 
 Release Version: |release|
 
 Introduction
 ------------
-:html-workflow:`t_apply_deploy_firewall_policies.html`
+:html-workflow:`t_apply_deploy_firewall_policies.html/t_apply_deploy_firewall_policies.html`
 
 Support
 -------
