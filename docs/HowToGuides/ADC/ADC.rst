@@ -3,7 +3,6 @@ ADC
 *************
 
 .. toctree::
-	:numbered:
 	:glob:
 
 	t_create_simple_application
