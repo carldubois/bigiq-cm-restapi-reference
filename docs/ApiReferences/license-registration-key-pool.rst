@@ -1,3 +1,6 @@
+License - registration key
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. raw:: html
 
    <div id="header">

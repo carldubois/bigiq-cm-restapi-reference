@@ -1,3 +1,6 @@
+Pool member management
+^^^^^^^^^^^^^^^^^^^^^^
+
 .. raw:: html
 
    <div id="header">

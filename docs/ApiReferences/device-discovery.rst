@@ -1,3 +1,6 @@
+Device Discover
+^^^^^^^^^^^^^^^
+
 .. raw:: html
 
    <div id="header">

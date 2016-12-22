@@ -1,5 +1,5 @@
-Access-revoke-oauth-token-sessions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Access revoke oauth token
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. raw:: html
 

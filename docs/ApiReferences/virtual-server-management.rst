@@ -1,3 +1,6 @@
+Virtual server management
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. raw:: html
 
    <div id="header">

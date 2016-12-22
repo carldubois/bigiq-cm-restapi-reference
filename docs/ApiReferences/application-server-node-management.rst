@@ -1,3 +1,6 @@
+Application node management
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. raw:: html
 
    <div id="header">

@@ -1,3 +1,6 @@
+License - purchased pools
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. raw:: html
 
    <div id="header">
