@@ -41,8 +41,10 @@ needed, PATCH the deployment task as well. 6. GET the deployment task
 status to determine if the deployment completed successfully.
 
 The following extended example show each of these REST API actions. ###
-Example #### 1. Retrieve the firewall policy to be applied to the
-firewall contexts.
+Example #### 
+
+Retrieve the firewall policy to be applied to the firewall contexts.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Perform a GET operation on the policies collection. In the steps in this
 example, the context used is a virtual server. Use the filter and select
@@ -71,7 +73,7 @@ The following is the JSON response from the GET operation:
       "lastUpdateMicros": 1474559397713741
     }
 
-2. Retrieve the firewall contexts by type, name, or both.
+Retrieve the firewall contexts by type, name, or both.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Perform a GET operation on the firewall collection to retrieve the
@@ -108,7 +110,7 @@ The following is the JSON response from the GET:
       ],
     }
 
-3. Apply the firewall policy to the virtual server firewall context (staged or enforced).
+Apply the firewall policy to the virtual server firewall context (staged or enforced).
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Perform a PATCH operation on the virtual server firewall context. The
@@ -158,7 +160,7 @@ patch applied:
         "selfLink": "https://localhost/mgmt/cm/firewall/working-config/firewalls/970b7b0b-8f21-3a88-909a-29df7e73fd5d"
     }
 
-4. Determine which BIG-IP devices need changes deployed to them based on which firewalls were modified.
+Determine which BIG-IP devices need changes deployed to them based on which firewalls were modified.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The device references needed for the deployment are found in the
@@ -175,7 +177,7 @@ deviceReference for the virtual server returned in the previous example:
             "name": "bigip25.f5.com"
         }
 
-5. Evaluate the configuration changes created by the firewall configuration modifications to determine if there are errors.
+Evaluate the configuration changes created by the firewall configuration modifications to determine if there are errors.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A deployment task must be created that includes each BIG-IP device that
@@ -417,7 +419,7 @@ then continue to the next step.
         "status": "STARTED"
     }
 
-6. Check the status of the deployment of the firewall configuration changes to the network.
+Check the status of the deployment of the firewall configuration changes to the network.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Check that the deployment task has completed without errors. Poll the

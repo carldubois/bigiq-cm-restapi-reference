@@ -1,132 +1,580 @@
-= BIG-IQ Firewall Contexts API
+.. raw:: html
 
-[[\_overview]] == Overview API used to create and modify firewall
-contexts on BIG-IQ
+   <div id="header">
 
-=== Version information [%hardbreaks] *Version* : 5.2
+.. rubric:: BIG-IQ Firewall Contexts API
+   :name: big-iq-firewall-contexts-api
 
-=== URI scheme [%hardbreaks] *BasePath* :
-/mgmt/cm/firewalls/working-config *Schemes* : HTTPS
+.. raw:: html
 
-=== Consumes
+   </div>
+
+.. raw:: html
+
+   <div id="content">
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Overview
+   :name: _overview
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="paragraph">
+
+API used to create and modify firewall contexts on BIG-IQ
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Version information
+   :name: _version_information
+
+.. raw:: html
+
+   <div class="paragraph">
+
+*Version* : 5.2
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: URI scheme
+   :name: _uri_scheme
+
+.. raw:: html
+
+   <div class="paragraph">
+
+| *BasePath* : /mgmt/cm/firewalls/working-config
+| *Schemes* : HTTPS
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Consumes
+   :name: _consumes
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-=== Produces
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Produces
+   :name: _produces
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-[[\_paths]] == Paths
+.. raw:: html
 
-[[\_firewalls\_get]] === List of firewall collections. .... GET
-/firewalls ....
+   </div>
 
-==== Description Returns the collection of firewalls.
+.. raw:: html
 
-==== Responses
+   </div>
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|Collection of
-firewalls.\|<<\_properties\_firewall\_collection,properties\_firewall\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_error\_collection,error\_collection>> \|===
+.. raw:: html
 
-[[\_firewalls\_objectid\_get]] === Used to get a single firewall
-context. .... GET /firewalls/{objectId} ....
+   </div>
 
-==== Description Returns the firewall context identified by a endpoint
-URI.
+.. raw:: html
 
-==== Parameters
+   </div>
 
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Path*\ \|\ *objectId* +
-*required*\ \|Firewall object id\|string(UUID)\|None \|===
+.. raw:: html
 
-==== Responses
+   <div class="sect1">
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|Firewall context
-object\|<<\_properties\_firewall,properties\_firewall>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_error\_collection,error\_collection>> \|===
+.. rubric:: Paths
+   :name: _paths
 
-[[\_firewalls\_objectid\_patch]] === PATCH firewall context into
-firewall context. .... PATCH /firewalls/{objectId} ....
+.. raw:: html
 
-==== Description Will patch enforced policy reference link into firewall
-context.
+   <div class="sectionbody">
 
-==== Parameters
+.. raw:: html
 
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Path*\ \|\ *objectId* +
-*required*\ \|Firewall object id\|string(UUID)\|None \|===
+   <div class="sect2">
 
-==== Responses
+.. rubric:: List of firewall collections.
+   :name: _firewalls_get
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|Patch firewall policies to
-firewalls success.\|<<\_properties\_firewall,properties\_firewall>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_error\_collection,error\_collection>> \|===
+.. raw:: html
 
-[[\_definitions]] == Definitions
+   <div class="literalblock">
 
-[[\_error\_collection]] === error\_collection
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *errorStack* + *optional* +
-*read-only*\ \|Error stack trace returned by java.\|string \|\ *items* +
-*optional*\ \|Collection of firewalls-error.\|< object > array
-\|\ *kind* + *optional* + *read-only*\ \|Type information for firewalls
-object.\|string \|\ *message* + *optional* + *read-only*\ \|Error
-message returned from server.\|string \|\ *requestBody* + *optional* +
-*read-only*\ \|The data in the request body. GET (None)\|string
-\|\ *requestOperationId* + *optional* + *read-only*\ \|Unique id
-assigned to rest operation.\|integer(int64) \|===
+   <div class="content">
 
-[[\_properties\_firewall]] === properties\_firewall
+::
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *firewallIpAddress* +
-*optional*\ \|Firewall IP Address\|string \|\ *firewallType* +
-*optional*\ \|Firewall Type (VIP, SIP, RD, Mgmt etc..)\|string
-\|\ *generation* + *optional* + *read-only*\ \|A integer that will track
-change made to a firewall object. generation.\|integer(int64) \|\ *id* +
-*optional* + *read-only*\ \|Unique id assigned to a firewall
-object.\|string \|\ *kind* + *optional* + *read-only*\ \|Type
-information for this firewall object.\|string \|\ *lastUpdateMicros* +
-*optional* + *read-only*\ \|Update time (micros) for last change made to
-an firewall object. time.\|integer(int64) \|\ *name* +
-*optional*\ \|Name of object.\|string \|\ *partition* +
-*optional*\ \|BIGIP partition this object exists.\|string
-\|\ *rulesCollectionReference* + *optional*\ \|Reference link to
-firewall rules assigned to this firewall
-object.\|<<\_properties\_firewall\_rulescollectionreference,rulesCollectionReference>>
-\|\ *selfLink* + *optional* + *read-only*\ \|A reference link URI to the
-firewall object.\|string \|===
+    GET /firewalls
 
-[[\_properties\_firewall\_rulescollectionreference]]
-*rulesCollectionReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *isSubcollection* + *optional*\ \| Is a
-subcollection (True/False)\|boolean \|\ *link* + *optional*\ \|Reference
-link to rules collection object. (In-line rules for firewalls not
-supported.)\|string \|===
+   </div>
 
-[[\_properties\_firewall\_collection]] ===
-properties\_firewall\_collection
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *generation* + *optional* +
-*read-only*\ \|A integer that will track change made to a firewall
-collection object-generation.\|integer(int64) \|\ *items* +
-*optional*\ \|Collection of firewall-properties.\|< object > array
-\|\ *kind* + *optional* + *read-only*\ \|Type information for this
-firewall collection object.\|string \|\ *lastUpdateMicros* + *optional*
-+ *read-only*\ \|Update time (micros) for last change made to an
-firewall collection object-time.\|integer(int64) \|\ *selfLink* +
-*optional* + *read-only*\ \|A reference link URI to the firewall
-collection object.\|string \|===
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the collection of firewalls.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses
+
++-------------+--------------------------------+---------------------------------------------------------------------------+
+| HTTP Code   | Description                    | Schema                                                                    |
++=============+================================+===========================================================================+
+| **200**     | Collection of firewalls.       | `properties\_firewall\_collection <#_properties_firewall_collection>`__   |
++-------------+--------------------------------+---------------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"   | `error\_collection <#_error_collection>`__                                |
++-------------+--------------------------------+---------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Used to get a single firewall context.
+   :name: _firewalls_objectid_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /firewalls/{objectId}
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_2
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the firewall context identified by a endpoint URI.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters
+
++------------+------------------+----------------------+----------------+-----------+
+| Type       | Name             | Description          | Schema         | Default   |
++============+==================+======================+================+===========+
+| **Path**   | | **objectId**   | Firewall object id   | string(UUID)   | None      |
+|            | | *required*     |                      |                |           |
++------------+------------------+----------------------+----------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_2
+
++-------------+--------------------------------+----------------------------------------------------+
+| HTTP Code   | Description                    | Schema                                             |
++=============+================================+====================================================+
+| **200**     | Firewall context object        | `properties\_firewall <#_properties_firewall>`__   |
++-------------+--------------------------------+----------------------------------------------------+
+| **400**     | Error response "Bad Request"   | `error\_collection <#_error_collection>`__         |
++-------------+--------------------------------+----------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: PATCH firewall context into firewall context.
+   :name: _firewalls_objectid_patch
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    PATCH /firewalls/{objectId}
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_3
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Will patch enforced policy reference link into firewall context.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters_2
+
++------------+------------------+----------------------+----------------+-----------+
+| Type       | Name             | Description          | Schema         | Default   |
++============+==================+======================+================+===========+
+| **Path**   | | **objectId**   | Firewall object id   | string(UUID)   | None      |
+|            | | *required*     |                      |                |           |
++------------+------------------+----------------------+----------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_3
+
++-------------+-------------------------------------------------+----------------------------------------------------+
+| HTTP Code   | Description                                     | Schema                                             |
++=============+=================================================+====================================================+
+| **200**     | Patch firewall policies to firewalls success.   | `properties\_firewall <#_properties_firewall>`__   |
++-------------+-------------------------------------------------+----------------------------------------------------+
+| **400**     | Error response "Bad Request"                    | `error\_collection <#_error_collection>`__         |
++-------------+-------------------------------------------------+----------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Definitions
+   :name: _definitions
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: error\_collection
+   :name: _error_collection
+
++----------------------------+--------------------------------------------+--------------------+
+| Name                       | Description                                | Schema             |
++============================+============================================+====================+
+| | **errorStack**           | Error stack trace returned by java.        | string             |
+| | *optional*               |                                            |                    |
+| | *read-only*              |                                            |                    |
++----------------------------+--------------------------------------------+--------------------+
+| | **items**                | Collection of firewalls-error.             | < object > array   |
+| | *optional*               |                                            |                    |
++----------------------------+--------------------------------------------+--------------------+
+| | **kind**                 | Type information for firewalls object.     | string             |
+| | *optional*               |                                            |                    |
+| | *read-only*              |                                            |                    |
++----------------------------+--------------------------------------------+--------------------+
+| | **message**              | Error message returned from server.        | string             |
+| | *optional*               |                                            |                    |
+| | *read-only*              |                                            |                    |
++----------------------------+--------------------------------------------+--------------------+
+| | **requestBody**          | The data in the request body. GET (None)   | string             |
+| | *optional*               |                                            |                    |
+| | *read-only*              |                                            |                    |
++----------------------------+--------------------------------------------+--------------------+
+| | **requestOperationId**   | Unique id assigned to rest operation.      | integer(int64)     |
+| | *optional*               |                                            |                    |
+| | *read-only*              |                                            |                    |
++----------------------------+--------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_firewall
+   :name: _properties_firewall
+
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+| Name                             | Description                                                               | Schema                                                                          |
++==================================+===========================================================================+=================================================================================+
+| | **firewallIpAddress**          | Firewall IP Address                                                       | string                                                                          |
+| | *optional*                     |                                                                           |                                                                                 |
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+| | **firewallType**               | Firewall Type (VIP, SIP, RD, Mgmt etc..)                                  | string                                                                          |
+| | *optional*                     |                                                                           |                                                                                 |
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+| | **generation**                 | A integer that will track change made to a firewall object. generation.   | integer(int64)                                                                  |
+| | *optional*                     |                                                                           |                                                                                 |
+| | *read-only*                    |                                                                           |                                                                                 |
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+| | **id**                         | Unique id assigned to a firewall object.                                  | string                                                                          |
+| | *optional*                     |                                                                           |                                                                                 |
+| | *read-only*                    |                                                                           |                                                                                 |
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+| | **kind**                       | Type information for this firewall object.                                | string                                                                          |
+| | *optional*                     |                                                                           |                                                                                 |
+| | *read-only*                    |                                                                           |                                                                                 |
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+| | **lastUpdateMicros**           | Update time (micros) for last change made to an firewall object. time.    | integer(int64)                                                                  |
+| | *optional*                     |                                                                           |                                                                                 |
+| | *read-only*                    |                                                                           |                                                                                 |
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+| | **name**                       | Name of object.                                                           | string                                                                          |
+| | *optional*                     |                                                                           |                                                                                 |
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+| | **partition**                  | BIGIP partition this object exists.                                       | string                                                                          |
+| | *optional*                     |                                                                           |                                                                                 |
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+| | **rulesCollectionReference**   | Reference link to firewall rules assigned to this firewall object.        | `rulesCollectionReference <#_properties_firewall_rulescollectionreference>`__   |
+| | *optional*                     |                                                                           |                                                                                 |
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+| | **selfLink**                   | A reference link URI to the firewall object.                              | string                                                                          |
+| | *optional*                     |                                                                           |                                                                                 |
+| | *read-only*                    |                                                                           |                                                                                 |
++----------------------------------+---------------------------------------------------------------------------+---------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_properties_firewall_rulescollectionreference"
+   class="paragraph">
+
+**rulesCollectionReference**
+
+.. raw:: html
+
+   </div>
+
++-------------------------+-------------------------------------------------------------------------------------------+-----------+
+| Name                    | Description                                                                               | Schema    |
++=========================+===========================================================================================+===========+
+| | **isSubcollection**   | Is a subcollection (True/False)                                                           | boolean   |
+| | *optional*            |                                                                                           |           |
++-------------------------+-------------------------------------------------------------------------------------------+-----------+
+| | **link**              | Reference link to rules collection object. (In-line rules for firewalls not supported.)   | string    |
+| | *optional*            |                                                                                           |           |
++-------------------------+-------------------------------------------------------------------------------------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_firewall\_collection
+   :name: _properties_firewall_collection
+
++--------------------------+-------------------------------------------------------------------------------------+--------------------+
+| Name                     | Description                                                                         | Schema             |
++==========================+=====================================================================================+====================+
+| | **generation**         | A integer that will track change made to a firewall collection object-generation.   | integer(int64)     |
+| | *optional*             |                                                                                     |                    |
+| | *read-only*            |                                                                                     |                    |
++--------------------------+-------------------------------------------------------------------------------------+--------------------+
+| | **items**              | Collection of firewall-properties.                                                  | < object > array   |
+| | *optional*             |                                                                                     |                    |
++--------------------------+-------------------------------------------------------------------------------------+--------------------+
+| | **kind**               | Type information for this firewall collection object.                               | string             |
+| | *optional*             |                                                                                     |                    |
+| | *read-only*            |                                                                                     |                    |
++--------------------------+-------------------------------------------------------------------------------------+--------------------+
+| | **lastUpdateMicros**   | Update time (micros) for last change made to an firewall collection object-time.    | integer(int64)     |
+| | *optional*             |                                                                                     |                    |
+| | *read-only*            |                                                                                     |                    |
++--------------------------+-------------------------------------------------------------------------------------+--------------------+
+| | **selfLink**           | A reference link URI to the firewall collection object.                             | string             |
+| | *optional*             |                                                                                     |                    |
+| | *read-only*            |                                                                                     |                    |
++--------------------------+-------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div id="footer">
+
+.. raw:: html
+
+   <div id="footer-text">
+
+Last updated 2016-11-18 10:40:00 EST
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>

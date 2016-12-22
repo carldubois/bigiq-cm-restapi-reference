@@ -1,342 +1,938 @@
-= BIG-IQ Discovery for Web Application Firewall (ASM) Management.
+.. raw:: html
 
-[[\_overview]] == Overview API used for discovery task management of
-BIGIP for the ASM (Web Application Firewall) namespace by BIGIQ. Re
-import will use this task as well.
+   <div id="header">
 
-=== Version information [%hardbreaks] *Version* : 5.2
+.. rubric:: BIG-IQ Discovery for Web Application Firewall (ASM)
+   Management.
+   :name: big-iq-discovery-for-web-application-firewall-asm-management.
 
-=== URI scheme [%hardbreaks] *BasePath* : /mgmt/cm/asm/tasks *Schemes* :
-HTTPS
+.. raw:: html
 
-=== Consumes
+   </div>
+
+.. raw:: html
+
+   <div id="content">
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Overview
+   :name: _overview
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="paragraph">
+
+API used for discovery task management of BIGIP for the ASM (Web
+Application Firewall) namespace by BIGIQ. Re import will use this task
+as well.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Version information
+   :name: _version_information
+
+.. raw:: html
+
+   <div class="paragraph">
+
+*Version* : 5.2
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: URI scheme
+   :name: _uri_scheme
+
+.. raw:: html
+
+   <div class="paragraph">
+
+| *BasePath* : /mgmt/cm/asm/tasks
+| *Schemes* : HTTPS
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Consumes
+   :name: _consumes
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-=== Produces
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Produces
+   :name: _produces
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-[[\_paths]] == Paths
+.. raw:: html
 
-[[\_declare-mgmt-authority\_post]] === Create a device discovery
-declare-mgmt-authority task managed by BIGIQ module (ASM). .... POST
-/declare-mgmt-authority ....
+   </div>
 
-==== Description Create a device discovery declare-mgmt-authority task
-and add to collection. (ASM)
+.. raw:: html
 
-==== Responses
+   </div>
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|POST a device discovery
-declare-mgmt-authority task.
-(ASM)\|<<\_properties\_declare\_mgmt\_authority\_collection,properties\_declare\_mgmt\_authority\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_error\_collection,error\_collection>> \|===
+.. raw:: html
 
-[[\_declare-mgmt-authority\_get]] === List of device
-declare-mgmt-authority collection tasks managed by BIGIQ module (ASM).
-.... GET /declare-mgmt-authority ....
+   </div>
 
-==== Description Returns the collection of device discover
-declare-mgmt-authority tasks. (ASM)
+.. raw:: html
 
-==== Responses
+   </div>
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|Returns a collection of device
-discover declare-mgmt-authority tasks.
-(ASM)\|<<\_properties\_declare\_mgmt\_authority\_collection,properties\_declare\_mgmt\_authority\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_error\_collection,error\_collection>> \|===
+.. raw:: html
 
-[[\_declare-mgmt-authority\_objectid\_get]] === Used to get a single
-device discovery declare-mgmt-authority task (ASM). .... GET
-/declare-mgmt-authority/{objectId} ....
+   <div class="sect1">
 
-==== Description Returns the device discovery declare-mgmt-authority
-task identified by a endpoint URI (ASM).
+.. rubric:: Paths
+   :name: _paths
 
-==== Parameters
+.. raw:: html
 
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Path*\ \|\ *objectId* +
-*required*\ \|Unique id assinged to declare-mgmt-authority asm task
-object.\|string(UUID)\|None \|===
+   <div class="sectionbody">
 
-==== Responses
+.. raw:: html
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|Device discovery
-declare-mgmt-authority task object.
-(ASM)\|<<\_properties\_declare-mgmt-authority,properties\_declare-mgmt-authority>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_error\_collection,error\_collection>> \|===
+   <div class="sect2">
 
-[[\_definitions]] == Definitions
+.. rubric:: Create a device discovery declare-mgmt-authority task
+   managed by BIGIQ module (ASM).
+   :name: _declare-mgmt-authority_post
 
-[[\_error\_collection]] === error\_collection
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *errorStack* + *optional* +
-*read-only*\ \|Error stack trace returned by java.\|string \|\ *items* +
-*optional*\ \|Collection of device discovery asm task objects.\|< object
-> array \|\ *kind* + *optional* + *read-only*\ \|Type information for
-this device discovery asm task collection object.
-cm:asm:tasks:declare-mgmt-authority:dmataskitemstate\|string
-\|\ *message* + *optional* + *read-only*\ \|Error message returned from
-server.\|string \|\ *requestBody* + *optional* + *read-only*\ \|The data
-in the request body. GET (None)\|string \|\ *requestOperationId* +
-*optional* + *read-only*\ \|Unique id assigned to rest
-operation.\|integer(int64) \|===
+   <div class="literalblock">
 
-[[\_properties\_declare-mgmt-authority]] ===
-properties\_declare-mgmt-authority
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *childTaskReference* +
-*optional*\ \|Reference link to child task. shared-object security
-discovery.\|<
-<<\_properties\_declare-mgmt-authority\_childtaskreference,childTaskReference>>
-> array \|\ *childTaskStates* + *optional*\ \|Description of child task
-state properties using by declare-mgmt-authority task object.\|<
-<<\_properties\_declare-mgmt-authority\_childtaskstates,childTaskStates>>
-> array \|\ *copyTaskReference* + *optional*\ \|Enable / Disable
-declare-mgmt-authority firewall copy difference between
-working-configuration (BIGIQ) and current-configuration
-(BIGIP).\|<<\_properties\_declare-mgmt-authority\_copytaskreference,copyTaskReference>>
-\|\ *createChildTasks* + *optional*\ \|To create a child task as part of
-this declare-mgmt-authority for firewall.\|boolean \|\ *currentStep* +
-*optional*\ \|The current step of device declare-mgmt-authority firewall
-task as predicated by state.\|string \|\ *deviceReference* +
-*optional*\ \|Reference link to resolver for device to be managed by
-BIGIQ.
-(ASM)\|<<\_properties\_declare-mgmt-authority\_devicereference,deviceReference>>
-\|\ *differenceReference* + *optional*\ \|Reference link to differences
-object containing differences between working-configuration (BIGIQ) and
-current-configuration
-(BIGIP)\|<<\_properties\_declare-mgmt-authority\_differencereference,differenceReference>>
-\|\ *differencerTaskReference* + *optional*\ \|Reference link to
-differencer task. Used to manage difference between
-working-configuration (BIGIQ) and current-configuration
-(BIGIP)\|<<\_properties\_declare-mgmt-authority\_differencertaskreference,differencerTaskReference>>
-\|\ *endDateTime* + *optional*\ \|Date/Time when device discovery task
-declare-mgmt-authority firewall ended.
-2016-10-11T10:30:17.834-0400\|string \|\ *generation* + *optional* +
-*read-only*\ \|A integer that will track change made to a device
-discovery declare-mgmt-authority task object. (ASM)
-generation.\|integer(int64) \|\ *id* + *optional* +
-*read-only*\ \|Unique id assigned to a device declare-mgmt-authority asm
-task object.\|string \|\ *identityReference* + *optional*\ \|Array of
-reference links to user used to discover device declare-mgmt-authority
-firewall. mgmt/shared/authz/users/admin\|<
-<<\_properties\_declare-mgmt-authority\_identityreference,identityReference>>
-> array \|\ *kind* + *optional* + *read-only*\ \|Type information for
-this device discovery declare-mgmt-authority firewall task object.
-cm:asm:tasks:declare-mgmt-authority:dmataskitemstate\|string
-\|\ *lastUpdateMicros* + *optional* + *read-only*\ \|Update time
-(micros) for last change made to an device discovery firewall task
-object. time (1476742109026835).\|integer(int64) \|\ *name* +
-*optional*\ \|Name of device declare-mgmt-authority task.\|string
-\|\ *ownerMachineId* + *optional*\ \|A unique id string for the BIGIQ
-acting as a device owner for declare-mgmt-authority. (ASM)\|string
-\|\ *reImport* + *optional*\ \|Flag to enable / disable re import
-configuration.\|boolean \|\ *selfLink* + *optional* + *read-only*\ \|A
-reference link URI to the device discovery declare-mgmt-authority task
-object. (ASM)\|string \|\ *snapshotWorkingConfig* + *optional*\ \|To
-snapshot the working-configuration (BIGIQ) during asm module
-discovery.\|boolean \|\ *startDateTime* + *optional*\ \|Date/Time when
-device discovery declare-mgmt-authority firewall task began.
-2016-10-11T10:30:17.834-0400\|string \|\ *status* + *optional*\ \|Status
-of device declare-mgmt-authority task predicated on state.\|string
-\|\ *userReference* + *optional*\ \|Reference link to user used to
-discover device declare-mgmt-authority firewall.
-mgmt/shared/authz/users/admin\|<<\_properties\_declare-mgmt-authority\_userreference,userReference>>
-\|\ *username* + *optional*\ \|User name of device firewall object to be
-managed. (Firewall)\|string \|\ *validationBypassMode* +
-*optional*\ \|Enable / Disable validation check when importing
-configuration device. BYPASS\_NONE - no bypass (default), BYPASS\_FINAL
-- skip final validation phase, BYPASS\_ALL - skip all validation
-phases.\|string \|===
+   <div class="content">
 
-[[\_properties\_declare-mgmt-authority\_childtaskreference]]
-*childTaskReference*
+::
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-child task object.\|string \|===
+    POST /declare-mgmt-authority
 
-[[\_properties\_declare-mgmt-authority\_childtaskstates]]
-*childTaskStates*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *copyTaskReference* +
-*optional*\ \|Enable / Disable declare-mgmt-authority firewall copy
-difference between working-configuration (BIGIQ) and
-current-configuration
-(BIGIP).\|<<\_properties\_declare-mgmt-authority\_copytaskreference,copyTaskReference>>
-\|\ *createChildTasks* + *optional*\ \|To create a child task as part of
-this declare-mgmt-authority for ASM module.\|boolean \|\ *currentStep* +
-*optional*\ \|The current step of device declare-mgmt-authority asm task
-as predicated by state.\|string \|\ *deviceIp* + *optional*\ \|Device ip
-address this task is running on.\|string \|\ *deviceReference* +
-*optional*\ \|Reference link to the device in the shared allAsmDevices
-resolver device
-group.\|<<\_properties\_declare-mgmt-authority\_devicereference,deviceReference>>
-\|\ *differenceReference* + *optional*\ \|Reference link to differences
-object containing differences between working-configuration (BIGIQ) and
-current-configuration
-(BIGIP)\|<<\_properties\_declare-mgmt-authority\_differencereference,differenceReference>>
-\|\ *differencerTaskReference* + *optional*\ \|Reference link to
-differencer task. Used to manage difference between
-working-configuration (BIGIQ) and current-configuration
-(BIGIP)\|<<\_properties\_declare-mgmt-authority\_differencertaskreference,differencerTaskReference>>
-\|\ *endDateTime* + *optional*\ \|Date/Time when device discovery task
-declare-mgmt-authority ended. 2016-10-11T10:30:17.834-0400\|string
-\|\ *generation* + *optional* + *read-only*\ \|A integer that will track
-change made to a device discovery declare-mgmt-authority task object.
-(ASM) generation.\|integer(int64) \|\ *id* + *optional*\ \|Unique id for
-child task.\|string \|\ *identityReference* + *optional*\ \|Array of
-reference links to user used to discover device declare-mgmt-authority.
-mgmt/shared/authz/users/admin\|<
-<<\_properties\_declare-mgmt-authority\_identityreference,identityReference>>
-> array \|\ *isChildTask* + *optional*\ \|Identify if task is a child of
-this declare-mgmt-authority for ASM module.\|boolean \|\ *kind* +
-*optional* + *read-only*\ \|Type information for this device discovery
-declare-mgmt-authority firewall task object.
-cm:asm:tasks:declare-mgmt-authority:dmataskitemstate\|string
-\|\ *lastUpdateMicros* + *optional* + *read-only*\ \|Update time
-(micros) for last change made to an device discovery firewall task
-object. time (1476742109026835).\|integer(int64) \|\ *ownerMachineId* +
-*optional*\ \|A unique id string for the BIGIQ acting as a device owner
-for declare-mgmt-authority. (ASM)\|string \|\ *parentTaskReference* +
-*optional*\ \|Reference link to parent
-process.\|<<\_properties\_declare-mgmt-authority\_parenttaskreference,parentTaskReference>>
-\|\ *reImport* + *optional*\ \|Flag to enable / disable re import
-configuration.\|boolean \|\ *selfLink* + *optional* + *read-only*\ \|A
-reference link URI to the device discovery declare-mgmt-authority task
-object. (ASM)\|string \|\ *skipDiscovery* + *optional*\ \|Skip discovery
-for re import configuration.\|boolean \|\ *startDateTime* +
-*optional*\ \|Date/Time when device discovery declare-mgmt-authority
-task began. 2016-10-11T10:30:17.834-0400\|string \|\ *status* +
-*optional*\ \|Status of device discovery declare-mgmt-authority task
-during state transistion. (ASM)\|string \|\ *useBigiqSync* +
-*optional*\ \|Flag to sync BIGIP cluster management (True /
-False)\|boolean \|\ *userReference* + *optional*\ \|Reference link to
-user used to discover device declare-mgmt-authority.
-mgmt/shared/authz/users/admin\|<<\_properties\_declare-mgmt-authority\_userreference,userReference>>
-\|\ *username* + *optional*\ \|User name of device firewall object to be
-managed. (ASM)\|string \|\ *validationBypassMode* + *optional*\ \|Enable
-/ Disable validation check when importing configuration device.
-BYPASS\_NONE - no bypass (default), BYPASS\_FINAL - skip final
-validation phase, BYPASS\_ALL - skip all validation phases.\|string
-\|===
+   </div>
 
-[[\_properties\_declare-mgmt-authority\_copytaskreference]]
-*copyTaskReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-declare-mgmt-authority copy task object.\|string \|===
+   </div>
 
-[[\_properties\_declare-mgmt-authority\_devicereference]]
-*deviceReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-the device in the shared allAsmDevices resolver device group.\|string
-\|===
+   <div class="sect3">
 
-[[\_properties\_declare-mgmt-authority\_differencereference]]
-*differenceReference*
+.. rubric:: Description
+   :name: _description
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-delcare-mgmt-authority differences found (current-config (BIGIP) and
-working-config (BIGIQ)) during task.\|string \|===
+.. raw:: html
 
-[[\_properties\_declare-mgmt-authority\_differencertaskreference]]
-*differencerTaskReference*
+   <div class="paragraph">
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-delcare-mgmt-authority differences task object.\|string \|===
+Create a device discovery declare-mgmt-authority task and add to
+collection. (ASM)
 
-[[\_properties\_declare-mgmt-authority\_identityreference]]
-*identityReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Array of
-reference links to users. mgmt/shared/authz/users/admin\|string \|===
+   </div>
 
-[[\_properties\_declare-mgmt-authority\_parenttaskreference]]
-*parentTaskReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-parent task. This declare-mgmt-authority task object.\|string \|===
+   </div>
 
-[[\_properties\_declare-mgmt-authority\_userreference]] *userReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference links
-to user. mgmt/shared/authz/user\|string \|===
+   <div class="sect3">
 
-[[\_properties\_declare-mgmt-authority\_copytaskreference]]
-*copyTaskReference*
+.. rubric:: Responses
+   :name: _responses
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-declare-mgmt-authority difference copy task.\|string \|===
++-------------+--------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+| HTTP Code   | Description                                                  | Schema                                                                                                  |
++=============+==============================================================+=========================================================================================================+
+| **200**     | POST a device discovery declare-mgmt-authority task. (ASM)   | `properties\_declare\_mgmt\_authority\_collection <#_properties_declare_mgmt_authority_collection>`__   |
++-------------+--------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"                                 | `error\_collection <#_error_collection>`__                                                              |
++-------------+--------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
 
-[[\_properties\_declare-mgmt-authority\_devicereference]]
-*deviceReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-declare-mgmt-authority task device.\|string \|===
+   </div>
 
-[[\_properties\_declare-mgmt-authority\_differencereference]]
-*differenceReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-shared security configuration difference report.\|string \|===
+   </div>
 
-[[\_properties\_declare-mgmt-authority\_differencertaskreference]]
-*differencerTaskReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-shared security configuration difference task object.\|string \|===
+   <div class="sect2">
 
-[[\_properties\_declare-mgmt-authority\_identityreference]]
-*identityReference*
+.. rubric:: List of device declare-mgmt-authority collection tasks
+   managed by BIGIQ module (ASM).
+   :name: _declare-mgmt-authority_get
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-users. /mgmt/shared/authz/users/admin \|string \|===
+.. raw:: html
 
-[[\_properties\_declare-mgmt-authority\_userreference]] *userReference*
+   <div class="literalblock">
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-users. /mgmt/shared/authz/users/admin\|string \|===
+.. raw:: html
 
-[[\_properties\_declare\_mgmt\_authority\_collection]] ===
-properties\_declare\_mgmt\_authority\_collection
+   <div class="content">
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *generation* + *optional* +
-*read-only*\ \|A integer that will track change made to a device
-discovery asm task collection object. generation.\|integer(int64)
-\|\ *items* + *optional*\ \|Array of device discovery asm task
-objects.\|< object > array \|\ *kind* + *optional* + *read-only*\ \|Type
-information for this device discover asm task collection object.
-cm:asm:tasks:declare-mgmt-authority:dmataskitemstate\|string
-\|\ *lastUpdateMicros* + *optional* + *read-only*\ \|Update time
-(micros) for last change made to an device discovery asm task collection
-object. time.\|integer(int64) \|\ *selfLink* + *optional* +
-*read-only*\ \|A reference link URI to the device discovery asm task
-collection object.\|string \|===
+::
+
+    GET /declare-mgmt-authority
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_2
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the collection of device discover declare-mgmt-authority tasks.
+(ASM)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_2
+
++-------------+-------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+| HTTP Code   | Description                                                                   | Schema                                                                                                  |
++=============+===============================================================================+=========================================================================================================+
+| **200**     | Returns a collection of device discover declare-mgmt-authority tasks. (ASM)   | `properties\_declare\_mgmt\_authority\_collection <#_properties_declare_mgmt_authority_collection>`__   |
++-------------+-------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"                                                  | `error\_collection <#_error_collection>`__                                                              |
++-------------+-------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Used to get a single device discovery declare-mgmt-authority
+   task (ASM).
+   :name: _declare-mgmt-authority_objectid_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /declare-mgmt-authority/{objectId}
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_3
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the device discovery declare-mgmt-authority task identified by a
+endpoint URI (ASM).
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters
+
++------------+------------------+-----------------------------------------------------------------+----------------+-----------+
+| Type       | Name             | Description                                                     | Schema         | Default   |
++============+==================+=================================================================+================+===========+
+| **Path**   | | **objectId**   | Unique id assinged to declare-mgmt-authority asm task object.   | string(UUID)   | None      |
+|            | | *required*     |                                                                 |                |           |
++------------+------------------+-----------------------------------------------------------------+----------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_3
+
++-------------+--------------------------------------------------------------+--------------------------------------------------------------------------------+
+| HTTP Code   | Description                                                  | Schema                                                                         |
++=============+==============================================================+================================================================================+
+| **200**     | Device discovery declare-mgmt-authority task object. (ASM)   | `properties\_declare-mgmt-authority <#_properties_declare-mgmt-authority>`__   |
++-------------+--------------------------------------------------------------+--------------------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"                                 | `error\_collection <#_error_collection>`__                                     |
++-------------+--------------------------------------------------------------+--------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Definitions
+   :name: _definitions
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: error\_collection
+   :name: _error_collection
+
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| Name                       | Description                                                                                                                   | Schema             |
++============================+===============================================================================================================================+====================+
+| | **errorStack**           | Error stack trace returned by java.                                                                                           | string             |
+| | *optional*               |                                                                                                                               |                    |
+| | *read-only*              |                                                                                                                               |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**                | Collection of device discovery asm task objects.                                                                              | < object > array   |
+| | *optional*               |                                                                                                                               |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**                 | Type information for this device discovery asm task collection object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate   | string             |
+| | *optional*               |                                                                                                                               |                    |
+| | *read-only*              |                                                                                                                               |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **message**              | Error message returned from server.                                                                                           | string             |
+| | *optional*               |                                                                                                                               |                    |
+| | *read-only*              |                                                                                                                               |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestBody**          | The data in the request body. GET (None)                                                                                      | string             |
+| | *optional*               |                                                                                                                               |                    |
+| | *read-only*              |                                                                                                                               |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestOperationId**   | Unique id assigned to rest operation.                                                                                         | integer(int64)     |
+| | *optional*               |                                                                                                                               |                    |
+| | *read-only*              |                                                                                                                               |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_declare-mgmt-authority
+   :name: _properties_declare-mgmt-authority
+
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| Name                             | Description                                                                                                                                                                                         | Schema                                                                                        |
++==================================+=====================================================================================================================================================================================================+===============================================================================================+
+| | **childTaskReference**         | Reference link to child task. shared-object security discovery.                                                                                                                                     | < `childTaskReference <#_properties_declare-mgmt-authority_childtaskreference>`__ > array     |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **childTaskStates**            | Description of child task state properties using by declare-mgmt-authority task object.                                                                                                             | < `childTaskStates <#_properties_declare-mgmt-authority_childtaskstates>`__ > array           |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **copyTaskReference**          | Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).                                                           | `copyTaskReference <#_properties_declare-mgmt-authority_copytaskreference>`__                 |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **createChildTasks**           | To create a child task as part of this declare-mgmt-authority for firewall.                                                                                                                         | boolean                                                                                       |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **currentStep**                | The current step of device declare-mgmt-authority firewall task as predicated by state.                                                                                                             | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **deviceReference**            | Reference link to resolver for device to be managed by BIGIQ. (ASM)                                                                                                                                 | `deviceReference <#_properties_declare-mgmt-authority_devicereference>`__                     |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **differenceReference**        | Reference link to differences object containing differences between working-configuration (BIGIQ) and current-configuration (BIGIP)                                                                 | `differenceReference <#_properties_declare-mgmt-authority_differencereference>`__             |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **differencerTaskReference**   | Reference link to differencer task. Used to manage difference between working-configuration (BIGIQ) and current-configuration (BIGIP)                                                               | `differencerTaskReference <#_properties_declare-mgmt-authority_differencertaskreference>`__   |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **endDateTime**                | Date/Time when device discovery task declare-mgmt-authority firewall ended. 2016-10-11T10:30:17.834-0400                                                                                            | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **generation**                 | A integer that will track change made to a device discovery declare-mgmt-authority task object. (ASM) generation.                                                                                   | integer(int64)                                                                                |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
+| | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **id**                         | Unique id assigned to a device declare-mgmt-authority asm task object.                                                                                                                              | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
+| | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **identityReference**          | Array of reference links to user used to discover device declare-mgmt-authority firewall. mgmt/shared/authz/users/admin                                                                             | < `identityReference <#_properties_declare-mgmt-authority_identityreference>`__ > array       |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **kind**                       | Type information for this device discovery declare-mgmt-authority firewall task object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate                                                        | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
+| | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **lastUpdateMicros**           | Update time (micros) for last change made to an device discovery firewall task object. time (1476742109026835).                                                                                     | integer(int64)                                                                                |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
+| | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **name**                       | Name of device declare-mgmt-authority task.                                                                                                                                                         | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **ownerMachineId**             | A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority. (ASM)                                                                                                         | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **reImport**                   | Flag to enable / disable re import configuration.                                                                                                                                                   | boolean                                                                                       |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **selfLink**                   | A reference link URI to the device discovery declare-mgmt-authority task object. (ASM)                                                                                                              | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
+| | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **snapshotWorkingConfig**      | To snapshot the working-configuration (BIGIQ) during asm module discovery.                                                                                                                          | boolean                                                                                       |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **startDateTime**              | Date/Time when device discovery declare-mgmt-authority firewall task began. 2016-10-11T10:30:17.834-0400                                                                                            | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **status**                     | Status of device declare-mgmt-authority task predicated on state.                                                                                                                                   | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **userReference**              | Reference link to user used to discover device declare-mgmt-authority firewall. mgmt/shared/authz/users/admin                                                                                       | `userReference <#_properties_declare-mgmt-authority_userreference>`__                         |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **username**                   | User name of device firewall object to be managed. (Firewall)                                                                                                                                       | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **validationBypassMode**       | Enable / Disable validation check when importing configuration device. BYPASS\_NONE - no bypass (default), BYPASS\_FINAL - skip final validation phase, BYPASS\_ALL - skip all validation phases.   | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_childtaskreference"
+   class="paragraph">
+
+**childTaskReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+----------------------------------------+----------+
+| Name           | Description                            | Schema   |
++================+========================================+==========+
+| | **link**     | Reference link to child task object.   | string   |
+| | *optional*   |                                        |          |
++----------------+----------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_childtaskstates"
+   class="paragraph">
+
+**childTaskStates**
+
+.. raw:: html
+
+   </div>
+
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| Name                             | Description                                                                                                                                                                                         | Schema                                                                                        |
++==================================+=====================================================================================================================================================================================================+===============================================================================================+
+| | **copyTaskReference**          | Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).                                                           | `copyTaskReference <#_properties_declare-mgmt-authority_copytaskreference>`__                 |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **createChildTasks**           | To create a child task as part of this declare-mgmt-authority for ASM module.                                                                                                                       | boolean                                                                                       |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **currentStep**                | The current step of device declare-mgmt-authority asm task as predicated by state.                                                                                                                  | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **deviceIp**                   | Device ip address this task is running on.                                                                                                                                                          | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **deviceReference**            | Reference link to the device in the shared allAsmDevices resolver device group.                                                                                                                     | `deviceReference <#_properties_declare-mgmt-authority_devicereference>`__                     |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **differenceReference**        | Reference link to differences object containing differences between working-configuration (BIGIQ) and current-configuration (BIGIP)                                                                 | `differenceReference <#_properties_declare-mgmt-authority_differencereference>`__             |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **differencerTaskReference**   | Reference link to differencer task. Used to manage difference between working-configuration (BIGIQ) and current-configuration (BIGIP)                                                               | `differencerTaskReference <#_properties_declare-mgmt-authority_differencertaskreference>`__   |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **endDateTime**                | Date/Time when device discovery task declare-mgmt-authority ended. 2016-10-11T10:30:17.834-0400                                                                                                     | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **generation**                 | A integer that will track change made to a device discovery declare-mgmt-authority task object. (ASM) generation.                                                                                   | integer(int64)                                                                                |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
+| | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **id**                         | Unique id for child task.                                                                                                                                                                           | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **identityReference**          | Array of reference links to user used to discover device declare-mgmt-authority. mgmt/shared/authz/users/admin                                                                                      | < `identityReference <#_properties_declare-mgmt-authority_identityreference>`__ > array       |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **isChildTask**                | Identify if task is a child of this declare-mgmt-authority for ASM module.                                                                                                                          | boolean                                                                                       |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **kind**                       | Type information for this device discovery declare-mgmt-authority firewall task object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate                                                        | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
+| | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **lastUpdateMicros**           | Update time (micros) for last change made to an device discovery firewall task object. time (1476742109026835).                                                                                     | integer(int64)                                                                                |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
+| | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **ownerMachineId**             | A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority. (ASM)                                                                                                         | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **parentTaskReference**        | Reference link to parent process.                                                                                                                                                                   | `parentTaskReference <#_properties_declare-mgmt-authority_parenttaskreference>`__             |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **reImport**                   | Flag to enable / disable re import configuration.                                                                                                                                                   | boolean                                                                                       |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **selfLink**                   | A reference link URI to the device discovery declare-mgmt-authority task object. (ASM)                                                                                                              | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
+| | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **skipDiscovery**              | Skip discovery for re import configuration.                                                                                                                                                         | boolean                                                                                       |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **startDateTime**              | Date/Time when device discovery declare-mgmt-authority task began. 2016-10-11T10:30:17.834-0400                                                                                                     | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **status**                     | Status of device discovery declare-mgmt-authority task during state transistion. (ASM)                                                                                                              | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **useBigiqSync**               | Flag to sync BIGIP cluster management (True / False)                                                                                                                                                | boolean                                                                                       |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **userReference**              | Reference link to user used to discover device declare-mgmt-authority. mgmt/shared/authz/users/admin                                                                                                | `userReference <#_properties_declare-mgmt-authority_userreference>`__                         |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **username**                   | User name of device firewall object to be managed. (ASM)                                                                                                                                            | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| | **validationBypassMode**       | Enable / Disable validation check when importing configuration device. BYPASS\_NONE - no bypass (default), BYPASS\_FINAL - skip final validation phase, BYPASS\_ALL - skip all validation phases.   | string                                                                                        |
+| | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_copytaskreference"
+   class="paragraph">
+
+**copyTaskReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+--------------------------------------------------------------+----------+
+| Name           | Description                                                  | Schema   |
++================+==============================================================+==========+
+| | **link**     | Reference link to declare-mgmt-authority copy task object.   | string   |
+| | *optional*   |                                                              |          |
++----------------+--------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_devicereference"
+   class="paragraph">
+
+**deviceReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+-----------------------------------------------------------------------------------+----------+
+| Name           | Description                                                                       | Schema   |
++================+===================================================================================+==========+
+| | **link**     | Reference link to the device in the shared allAsmDevices resolver device group.   | string   |
+| | *optional*   |                                                                                   |          |
++----------------+-----------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_differencereference"
+   class="paragraph">
+
+**differenceReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+-------------------------------------------------------------------------------------------------------------------------------+----------+
+| Name           | Description                                                                                                                   | Schema   |
++================+===============================================================================================================================+==========+
+| | **link**     | Reference link to delcare-mgmt-authority differences found (current-config (BIGIP) and working-config (BIGIQ)) during task.   | string   |
+| | *optional*   |                                                                                                                               |          |
++----------------+-------------------------------------------------------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_differencertaskreference"
+   class="paragraph">
+
+**differencerTaskReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------------------------------------------+----------+
+| Name           | Description                                                         | Schema   |
++================+=====================================================================+==========+
+| | **link**     | Reference link to delcare-mgmt-authority differences task object.   | string   |
+| | *optional*   |                                                                     |          |
++----------------+---------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_identityreference"
+   class="paragraph">
+
+**identityReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+--------------------------------------------------------------------+----------+
+| Name           | Description                                                        | Schema   |
++================+====================================================================+==========+
+| | **link**     | Array of reference links to users. mgmt/shared/authz/users/admin   | string   |
+| | *optional*   |                                                                    |          |
++----------------+--------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_parenttaskreference"
+   class="paragraph">
+
+**parentTaskReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------------------------------------------------+----------+
+| Name           | Description                                                               | Schema   |
++================+===========================================================================+==========+
+| | **link**     | Reference link to parent task. This declare-mgmt-authority task object.   | string   |
+| | *optional*   |                                                                           |          |
++----------------+---------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_userreference"
+   class="paragraph">
+
+**userReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------------------------+----------+
+| Name           | Description                                       | Schema   |
++================+===================================================+==========+
+| | **link**     | Reference links to user. mgmt/shared/authz/user   | string   |
+| | *optional*   |                                                   |          |
++----------------+---------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_copytaskreference"
+   class="paragraph">
+
+**copyTaskReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+------------------------------------------------------------------+----------+
+| Name           | Description                                                      | Schema   |
++================+==================================================================+==========+
+| | **link**     | Reference link to declare-mgmt-authority difference copy task.   | string   |
+| | *optional*   |                                                                  |          |
++----------------+------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_devicereference"
+   class="paragraph">
+
+**deviceReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------------------------------+----------+
+| Name           | Description                                             | Schema   |
++================+=========================================================+==========+
+| | **link**     | Reference link to declare-mgmt-authority task device.   | string   |
+| | *optional*   |                                                         |          |
++----------------+---------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_differencereference"
+   class="paragraph">
+
+**differenceReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+----------------------------------------------------------------------+----------+
+| Name           | Description                                                          | Schema   |
++================+======================================================================+==========+
+| | **link**     | Reference link to shared security configuration difference report.   | string   |
+| | *optional*   |                                                                      |          |
++----------------+----------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_differencertaskreference"
+   class="paragraph">
+
+**differencerTaskReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------------------------------------------------+----------+
+| Name           | Description                                                               | Schema   |
++================+===========================================================================+==========+
+| | **link**     | Reference link to shared security configuration difference task object.   | string   |
+| | *optional*   |                                                                           |          |
++----------------+---------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_identityreference"
+   class="paragraph">
+
+**identityReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+-----------------------------------------------------------+----------+
+| Name           | Description                                               | Schema   |
++================+===========================================================+==========+
+| | **link**     | Reference link to users. /mgmt/shared/authz/users/admin   | string   |
+| | *optional*   |                                                           |          |
++----------------+-----------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_declare-mgmt-authority_userreference"
+   class="paragraph">
+
+**userReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+-----------------------------------------------------------+----------+
+| Name           | Description                                               | Schema   |
++================+===========================================================+==========+
+| | **link**     | Reference link to users. /mgmt/shared/authz/users/admin   | string   |
+| | *optional*   |                                                           |          |
++----------------+-----------------------------------------------------------+----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_declare\_mgmt\_authority\_collection
+   :name: _properties_declare_mgmt_authority_collection
+
++--------------------------+------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| Name                     | Description                                                                                                                  | Schema             |
++==========================+==============================================================================================================================+====================+
+| | **generation**         | A integer that will track change made to a device discovery asm task collection object. generation.                          | integer(int64)     |
+| | *optional*             |                                                                                                                              |                    |
+| | *read-only*            |                                                                                                                              |                    |
++--------------------------+------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**              | Array of device discovery asm task objects.                                                                                  | < object > array   |
+| | *optional*             |                                                                                                                              |                    |
++--------------------------+------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**               | Type information for this device discover asm task collection object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate   | string             |
+| | *optional*             |                                                                                                                              |                    |
+| | *read-only*            |                                                                                                                              |                    |
++--------------------------+------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **lastUpdateMicros**   | Update time (micros) for last change made to an device discovery asm task collection object. time.                           | integer(int64)     |
+| | *optional*             |                                                                                                                              |                    |
+| | *read-only*            |                                                                                                                              |                    |
++--------------------------+------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **selfLink**           | A reference link URI to the device discovery asm task collection object.                                                     | string             |
+| | *optional*             |                                                                                                                              |                    |
+| | *read-only*            |                                                                                                                              |                    |
++--------------------------+------------------------------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div id="footer">
+
+.. raw:: html
+
+   <div id="footer-text">
+
+Last updated 2016-11-18 10:40:00 EST
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>

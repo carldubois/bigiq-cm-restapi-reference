@@ -1,182 +1,608 @@
-= BIG-IQ ASM Signatures
+.. raw:: html
 
-[[\_overview]] == Overview API used to list all ASM signatures.
+   <div id="header">
 
-=== Version information [%hardbreaks] *Version* : 5.2
+.. rubric:: BIG-IQ ASM Signatures
+   :name: big-iq-asm-signatures
 
-=== URI scheme [%hardbreaks] *BasePath* : /mgmt/cm/asm/working-config
-*Schemes* : HTTPS
+.. raw:: html
 
-=== Consumes
+   </div>
+
+.. raw:: html
+
+   <div id="content">
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Overview
+   :name: _overview
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="paragraph">
+
+API used to list all ASM signatures.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Version information
+   :name: _version_information
+
+.. raw:: html
+
+   <div class="paragraph">
+
+*Version* : 5.2
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: URI scheme
+   :name: _uri_scheme
+
+.. raw:: html
+
+   <div class="paragraph">
+
+| *BasePath* : /mgmt/cm/asm/working-config
+| *Schemes* : HTTPS
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Consumes
+   :name: _consumes
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-=== Produces
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Produces
+   :name: _produces
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-[[\_paths]] == Paths
+.. raw:: html
 
-[[\_signatures\_get]] === List all ASM signatures as a collection. ....
-GET /signatures ....
+   </div>
 
-==== Description Returns the collection of ASM signatures.
+.. raw:: html
 
-==== Responses
+   </div>
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|GET collection of ASM
-signatures.\|<<\_properties\_signature\_collection,properties\_signature\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
+.. raw:: html
 
-[[\_signatures\_objectid\_get]] === Used to get a single instance of a
-ASM signature object. .... GET /signatures/{objectId} ....
+   </div>
 
-==== Description Returns a ASM signature object identified by id for an
-endpoint URI.
+.. raw:: html
 
-==== Parameters
+   </div>
 
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Path*\ \|\ *objectId* +
-*required*\ \|Unique id associated with the
-signature.\|string(UUID)\|None \|===
+.. raw:: html
 
-==== Responses
+   <div class="sect1">
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|ASM signature
-object.\|<<\_properties\_signature,properties\_signature>>
-\|\ *400*\ \|Server error response "Bad
-Request".\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
+.. rubric:: Paths
+   :name: _paths
 
-[[\_definitions]] == Definitions
+.. raw:: html
 
-[[\_400\_error\_collection]] === 400\_error\_collection
+   <div class="sectionbody">
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *errorStack* + *optional* +
-*read-only*\ \|Error stack trace returned by java.\|string \|\ *items* +
-*optional*\ \|Collection if attack signatures.\|< object > array
-\|\ *kind* + *optional* + *read-only*\ \|Type information for ASM web
-application security signatures -
-cm:asm:working-config:signatures:signaturecollectionstate.\|string
-\|\ *message* + *optional* + *read-only*\ \|Error message returned from
-server.\|string \|\ *requestBody* + *optional* + *read-only*\ \|The data
-in the request body. GET (None)\|string \|\ *requestOperationId* +
-*optional* + *read-only*\ \|Unique id assigned to rest
-operation.\|integer(int64) \|===
+.. raw:: html
 
-[[\_404\_error\_collection]] === 404\_error\_collection
+   <div class="sect2">
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *errorStack* + *optional* +
-*read-only*\ \|Error stack trace returned by java.\|string \|\ *items* +
-*optional*\ \|Collection of attack signatures.\|< object > array
-\|\ *kind* + *optional* + *read-only*\ \|Type information for ASM web
-application security signatures -
-cm:asm:working-config:signatures:signaturecollectionstate.\|string
-\|\ *message* + *optional* + *read-only*\ \|Error message returned from
-server.\|string \|\ *requestBody* + *optional* + *read-only*\ \|The data
-in the request body. GET (None)\|string \|\ *requestOperationId* +
-*optional* + *read-only*\ \|Unique id assigned to rest
-operation.\|integer(int64) \|===
+.. rubric:: List all ASM signatures as a collection.
+   :name: _signatures_get
 
-[[\_properties\_signature]] === properties\_signature
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *accuracy* + *optional*\ \|Indicates the
-ability of the attack signature to identify the attack including
-susceptibility to false-positive alarms: Low: Indicates a high
-likelihood of false positives. Medium: Indicates some likelihood of
-false positives. High: Indicates a low likelihood of false
-positives.\|string \|\ *attackTypeReference* + *optional*\ \|Reference
-link to attack type properties. ex. uuid, name,
-bigipAttackId\|<<\_properties\_signature\_attacktypereference,attackTypeReference>>
-\|\ *bundleVersion* + *optional*\ \|Indicates the bundle version of the
-attack signature.\|integer \|\ *description* + *optional*\ \|Description
-of ASM attack signature.\|string \|\ *generation* + *optional* +
-*read-only*\ \|A integer that will track change made to a ASM attack
-signature object. generation.\|integer(int64) \|\ *id* +
-*optional*\ \|Unique id assocaited with ASM attack signature.\|string
-\|\ *isUserDefined* + *optional*\ \|Is this ASM signature created by a
-user or pre packaged by the system.\|boolean \|\ *lastUpdateMicros* +
-*optional* + *read-only*\ \|Update time (micros) for last change made to
-a ASM attack signature object. time.\|integer(int64)
-\|\ *matchesWihtinJson* + *optional*\ \|A unique id string for the BIGIQ
-acting as a device owner.\|boolean \|\ *matchesWithinCookie* +
-*optional*\ \|Array of reference links to user used to create
-self-service task. mgmt/shared/authz/users/admin\|boolean
-\|\ *matchesWithinGwt* + *optional*\ \|Type information for this
-self-service task object.\|boolean(kind) \|\ *matchesWithinParameter* +
-*optional*\ \|Use this built-in filter to display only signatures that
-match the attack type that you select.\|boolean
-\|\ *matchesWithinPlainText* + *optional*\ \|Type information for this
-self-service task object.\|boolean(kind) \|\ *matchesWithinRequest* +
-*optional*\ \|Type information for this self-service task
-object.\|boolean(kind) \|\ *matchesWithinUri* + *optional*\ \|Type
-information for this self-service task object.\|boolean(kind)
-\|\ *matchesWithinXml* + *optional*\ \|Type information for this
-self-service task object.\|boolean(kind) \|\ *modificationDateMicros* +
-*optional*\ \|Type information for this self-service task
-object.\|integer \|\ *name* + *optional*\ \|Name of ASM attack
-signature.\|string \|\ *partition* + *optional*\ \|BIGIP partition this
-ASM attack signature object exists.\|string \|\ *revision* +
-*optional*\ \|BIG-IQ maintains a version # to track changes of ASM
-signatures.\|string \|\ *risk* + *optional*\ \|Indicates the level of
-potential damage this attack might cause if it is successful: Low:
-Indicates the attack does not cause direct damage or reveal highly
-sensitive data. Medium: Indicates the attack may reveal sensitive data
-or cause moderate damage. High: Indicates the attack may cause a full
-system compromise.\|string \|\ *selfLink* + *optional* +
-*read-only*\ \|A reference link URI to the ASM attack signature
-object.\|string \|\ *signatureId* + *optional* + *read-only*\ \|Unique
-id assigned to a ASM signature object.\|string \|\ *signatureType* +
-*optional*\ \|Attack types describes common web application attacks that
-signatures can detect. Table 11.1 lists types -
-https://support.f5.com/kb/en-us/products/big-ip\_asm/manuals/product/config\_guide\_asm\_10\_2\_0/asm\_attack\_sigs.html\|string
-\|\ *systems* + *optional*\ \|Displays which systems (for example web
-applications, web servers databases, and application frameworks) the
-signature protects.\|< <<\_properties\_signature\_systems,systems>> >
-array \|===
+   <div class="literalblock">
 
-[[\_properties\_signature\_attacktypereference]] *attackTypeReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-attack type.\|string \|===
+   <div class="content">
 
-[[\_properties\_signature\_systems]] *systems*
+::
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *systemReference* +
-*optional*\ \|Reference link to ASM
-system.\|<<\_properties\_signature\_systemreference,systemReference>>
-\|===
+    GET /signatures
 
-[[\_properties\_signature\_systemreference]] *systemReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-ASM system.\|string \|===
+   </div>
 
-[[\_properties\_signature\_collection]] ===
-properties\_signature\_collection
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *generation* + *optional* +
-*read-only*\ \|A integer that will track change made to web application
-security signatures collection object. generation.\|integer(int64)
-\|\ *items* + *optional*\ \|Collection of ASM attack signatures.\|<
-object > array \|\ *kind* + *optional* + *read-only*\ \|Type information
-for web application security signatures collection object.\|string
-\|\ *lastUpdateMicros* + *optional* + *read-only*\ \|Update time
-(micros) for last change made to web application security signatures
-collection object. time.\|integer(int64) \|\ *selfLink* + *optional* +
-*read-only*\ \|A reference link URI to web application security
-signatures collection object.\|string \|===
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the collection of ASM signatures.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses
+
++-------------+--------------------------------------------------+-----------------------------------------------------------------------------+
+| HTTP Code   | Description                                      | Schema                                                                      |
++=============+==================================================+=============================================================================+
+| **200**     | GET collection of ASM signatures.                | `properties\_signature\_collection <#_properties_signature_collection>`__   |
++-------------+--------------------------------------------------+-----------------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"                     | `400\_error\_collection <#_400_error_collection>`__                         |
++-------------+--------------------------------------------------+-----------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.   | `404\_error\_collection <#_404_error_collection>`__                         |
++-------------+--------------------------------------------------+-----------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Used to get a single instance of a ASM signature object.
+   :name: _signatures_objectid_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /signatures/{objectId}
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_2
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns a ASM signature object identified by id for an endpoint URI.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters
+
++------------+------------------+--------------------------------------------+----------------+-----------+
+| Type       | Name             | Description                                | Schema         | Default   |
++============+==================+============================================+================+===========+
+| **Path**   | | **objectId**   | Unique id associated with the signature.   | string(UUID)   | None      |
+|            | | *required*     |                                            |                |           |
++------------+------------------+--------------------------------------------+----------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_2
+
++-------------+--------------------------------------------------+-------------------------------------------------------+
+| HTTP Code   | Description                                      | Schema                                                |
++=============+==================================================+=======================================================+
+| **200**     | ASM signature object.                            | `properties\_signature <#_properties_signature>`__    |
++-------------+--------------------------------------------------+-------------------------------------------------------+
+| **400**     | Server error response "Bad Request".             | `400\_error\_collection <#_400_error_collection>`__   |
++-------------+--------------------------------------------------+-------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.   | `404\_error\_collection <#_404_error_collection>`__   |
++-------------+--------------------------------------------------+-------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Definitions
+   :name: _definitions
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: 400\_error\_collection
+   :name: _400_error_collection
+
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| Name                       | Description                                                                                                                 | Schema             |
++============================+=============================================================================================================================+====================+
+| | **errorStack**           | Error stack trace returned by java.                                                                                         | string             |
+| | *optional*               |                                                                                                                             |                    |
+| | *read-only*              |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**                | Collection if attack signatures.                                                                                            | < object > array   |
+| | *optional*               |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**                 | Type information for ASM web application security signatures - cm:asm:working-config:signatures:signaturecollectionstate.   | string             |
+| | *optional*               |                                                                                                                             |                    |
+| | *read-only*              |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **message**              | Error message returned from server.                                                                                         | string             |
+| | *optional*               |                                                                                                                             |                    |
+| | *read-only*              |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestBody**          | The data in the request body. GET (None)                                                                                    | string             |
+| | *optional*               |                                                                                                                             |                    |
+| | *read-only*              |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestOperationId**   | Unique id assigned to rest operation.                                                                                       | integer(int64)     |
+| | *optional*               |                                                                                                                             |                    |
+| | *read-only*              |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: 404\_error\_collection
+   :name: _404_error_collection
+
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| Name                       | Description                                                                                                                 | Schema             |
++============================+=============================================================================================================================+====================+
+| | **errorStack**           | Error stack trace returned by java.                                                                                         | string             |
+| | *optional*               |                                                                                                                             |                    |
+| | *read-only*              |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**                | Collection of attack signatures.                                                                                            | < object > array   |
+| | *optional*               |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**                 | Type information for ASM web application security signatures - cm:asm:working-config:signatures:signaturecollectionstate.   | string             |
+| | *optional*               |                                                                                                                             |                    |
+| | *read-only*              |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **message**              | Error message returned from server.                                                                                         | string             |
+| | *optional*               |                                                                                                                             |                    |
+| | *read-only*              |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestBody**          | The data in the request body. GET (None)                                                                                    | string             |
+| | *optional*               |                                                                                                                             |                    |
+| | *read-only*              |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestOperationId**   | Unique id assigned to rest operation.                                                                                       | integer(int64)     |
+| | *optional*               |                                                                                                                             |                    |
+| | *read-only*              |                                                                                                                             |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_signature
+   :name: _properties_signature
+
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| Name                           | Description                                                                                                                                                                                                                                                                                                                    | Schema                                                                 |
++================================+================================================================================================================================================================================================================================================================================================================================+========================================================================+
+| | **accuracy**                 | Indicates the ability of the attack signature to identify the attack including susceptibility to false-positive alarms: Low: Indicates a high likelihood of false positives. Medium: Indicates some likelihood of false positives. High: Indicates a low likelihood of false positives.                                        | string                                                                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **attackTypeReference**      | Reference link to attack type properties. ex. uuid, name, bigipAttackId                                                                                                                                                                                                                                                        | `attackTypeReference <#_properties_signature_attacktypereference>`__   |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **bundleVersion**            | Indicates the bundle version of the attack signature.                                                                                                                                                                                                                                                                          | integer                                                                |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **description**              | Description of ASM attack signature.                                                                                                                                                                                                                                                                                           | string                                                                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **generation**               | A integer that will track change made to a ASM attack signature object. generation.                                                                                                                                                                                                                                            | integer(int64)                                                         |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
+| | *read-only*                  |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **id**                       | Unique id assocaited with ASM attack signature.                                                                                                                                                                                                                                                                                | string                                                                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **isUserDefined**            | Is this ASM signature created by a user or pre packaged by the system.                                                                                                                                                                                                                                                         | boolean                                                                |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **lastUpdateMicros**         | Update time (micros) for last change made to a ASM attack signature object. time.                                                                                                                                                                                                                                              | integer(int64)                                                         |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
+| | *read-only*                  |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **matchesWihtinJson**        | A unique id string for the BIGIQ acting as a device owner.                                                                                                                                                                                                                                                                     | boolean                                                                |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **matchesWithinCookie**      | Array of reference links to user used to create self-service task. mgmt/shared/authz/users/admin                                                                                                                                                                                                                               | boolean                                                                |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **matchesWithinGwt**         | Type information for this self-service task object.                                                                                                                                                                                                                                                                            | boolean(kind)                                                          |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **matchesWithinParameter**   | Use this built-in filter to display only signatures that match the attack type that you select.                                                                                                                                                                                                                                | boolean                                                                |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **matchesWithinPlainText**   | Type information for this self-service task object.                                                                                                                                                                                                                                                                            | boolean(kind)                                                          |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **matchesWithinRequest**     | Type information for this self-service task object.                                                                                                                                                                                                                                                                            | boolean(kind)                                                          |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **matchesWithinUri**         | Type information for this self-service task object.                                                                                                                                                                                                                                                                            | boolean(kind)                                                          |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **matchesWithinXml**         | Type information for this self-service task object.                                                                                                                                                                                                                                                                            | boolean(kind)                                                          |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **modificationDateMicros**   | Type information for this self-service task object.                                                                                                                                                                                                                                                                            | integer                                                                |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **name**                     | Name of ASM attack signature.                                                                                                                                                                                                                                                                                                  | string                                                                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **partition**                | BIGIP partition this ASM attack signature object exists.                                                                                                                                                                                                                                                                       | string                                                                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **revision**                 | BIG-IQ maintains a version # to track changes of ASM signatures.                                                                                                                                                                                                                                                               | string                                                                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **risk**                     | Indicates the level of potential damage this attack might cause if it is successful: Low: Indicates the attack does not cause direct damage or reveal highly sensitive data. Medium: Indicates the attack may reveal sensitive data or cause moderate damage. High: Indicates the attack may cause a full system compromise.   | string                                                                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **selfLink**                 | A reference link URI to the ASM attack signature object.                                                                                                                                                                                                                                                                       | string                                                                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
+| | *read-only*                  |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **signatureId**              | Unique id assigned to a ASM signature object.                                                                                                                                                                                                                                                                                  | string                                                                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
+| | *read-only*                  |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **signatureType**            | Attack types describes common web application attacks that signatures can detect. Table 11.1 lists types - https://support.f5.com/kb/en-us/products/big-ip_asm/manuals/product/config_guide_asm_10_2_0/asm_attack_sigs.html                                                                                                    | string                                                                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+| | **systems**                  | Displays which systems (for example web applications, web servers databases, and application frameworks) the signature protects.                                                                                                                                                                                               | < `systems <#_properties_signature_systems>`__ > array                 |
+| | *optional*                   |                                                                                                                                                                                                                                                                                                                                |                                                                        |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_properties_signature_attacktypereference"
+   class="paragraph">
+
+**attackTypeReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+----------------------------------+----------+
+| Name           | Description                      | Schema   |
++================+==================================+==========+
+| | **link**     | Reference link to attack type.   | string   |
+| | *optional*   |                                  |          |
++----------------+----------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_signature_systems" class="paragraph">
+
+**systems**
+
+.. raw:: html
+
+   </div>
+
++-------------------------+---------------------------------+----------------------------------------------------------------+
+| Name                    | Description                     | Schema                                                         |
++=========================+=================================+================================================================+
+| | **systemReference**   | Reference link to ASM system.   | `systemReference <#_properties_signature_systemreference>`__   |
+| | *optional*            |                                 |                                                                |
++-------------------------+---------------------------------+----------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_properties_signature_systemreference" class="paragraph">
+
+**systemReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------+----------+
+| Name           | Description                     | Schema   |
++================+=================================+==========+
+| | **link**     | Reference link to ASM system.   | string   |
+| | *optional*   |                                 |          |
++----------------+---------------------------------+----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_signature\_collection
+   :name: _properties_signature_collection
+
++--------------------------+---------------------------------------------------------------------------------------------------------------+--------------------+
+| Name                     | Description                                                                                                   | Schema             |
++==========================+===============================================================================================================+====================+
+| | **generation**         | A integer that will track change made to web application security signatures collection object. generation.   | integer(int64)     |
+| | *optional*             |                                                                                                               |                    |
+| | *read-only*            |                                                                                                               |                    |
++--------------------------+---------------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**              | Collection of ASM attack signatures.                                                                          | < object > array   |
+| | *optional*             |                                                                                                               |                    |
++--------------------------+---------------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**               | Type information for web application security signatures collection object.                                   | string             |
+| | *optional*             |                                                                                                               |                    |
+| | *read-only*            |                                                                                                               |                    |
++--------------------------+---------------------------------------------------------------------------------------------------------------+--------------------+
+| | **lastUpdateMicros**   | Update time (micros) for last change made to web application security signatures collection object. time.     | integer(int64)     |
+| | *optional*             |                                                                                                               |                    |
+| | *read-only*            |                                                                                                               |                    |
++--------------------------+---------------------------------------------------------------------------------------------------------------+--------------------+
+| | **selfLink**           | A reference link URI to web application security signatures collection object.                                | string             |
+| | *optional*             |                                                                                                               |                    |
+| | *read-only*            |                                                                                                               |                    |
++--------------------------+---------------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div id="footer">
+
+.. raw:: html
+
+   <div id="footer-text">
+
+Last updated 2016-12-07 16:37:03 EST
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>

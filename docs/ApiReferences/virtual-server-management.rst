@@ -1,258 +1,768 @@
-= BIG-IQ LTM Virtual Server.
+.. raw:: html
 
-[[\_overview]] == Overview API used to create/manage LTM virutal server.
+   <div id="header">
 
-=== Version information [%hardbreaks] *Version* : 5.2
+.. rubric:: BIG-IQ LTM Virtual Server.
+   :name: big-iq-ltm-virtual-server.
 
-=== URI scheme [%hardbreaks] *BasePath* :
-/mgmt/cm/adc-core/working-config/ltm *Schemes* : HTTPS
+.. raw:: html
 
-=== Consumes
+   </div>
+
+.. raw:: html
+
+   <div id="content">
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Overview
+   :name: _overview
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="paragraph">
+
+API used to create/manage LTM virutal server.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Version information
+   :name: _version_information
+
+.. raw:: html
+
+   <div class="paragraph">
+
+*Version* : 5.2
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: URI scheme
+   :name: _uri_scheme
+
+.. raw:: html
+
+   <div class="paragraph">
+
+| *BasePath* : /mgmt/cm/adc-core/working-config/ltm
+| *Schemes* : HTTPS
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Consumes
+   :name: _consumes
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-=== Produces
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Produces
+   :name: _produces
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-[[\_paths]] == Paths
+.. raw:: html
 
-[[\_virtual\_post]] === Create a LTM virtual server. .... POST /virtual
-....
+   </div>
 
-==== Description POST to create a BIGIP virtual server.
+.. raw:: html
 
-==== Responses
+   </div>
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|POST a BIGIP virtual
-server.\|<<\_properties\_collection,properties\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response "Public URI path not
-registered."\|<<\_404\_error\_collection,404\_error\_collection>> \|===
+.. raw:: html
 
-[[\_virtual\_get]] === List all virtual server items as a collection.
-.... GET /virtual ....
+   </div>
 
-==== Description Returns the collection of virtual servers.
+.. raw:: html
 
-==== Responses
+   </div>
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|Collection of virtual
-servers.\|<<\_properties\_collection,properties\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response "Public URI path not
-registered."\|<<\_404\_error\_collection,404\_error\_collection>> \|===
+.. raw:: html
 
-[[\_virtual\_objectid\_get]] === Used to get a single virtual server
-object. .... GET /virtual/{objectId} ....
+   <div class="sect1">
 
-==== Description Returns the virtual server object identified by id for
-an endpoint URI.
+.. rubric:: Paths
+   :name: _paths
 
-==== Parameters
+.. raw:: html
 
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Path*\ \|\ *objectId* +
-*required*\ \|Unique id assigned to a virtual
-server.\|string(UUID)\|None \|===
+   <div class="sectionbody">
 
-==== Responses
+.. raw:: html
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|Virtual Server
-object.\|<<\_properties\_virtual,properties\_virtual>>
-\|\ *400*\ \|Server error response "Bad
-Request".\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response "Public URI path not
-registered."\|<<\_404\_error\_collection,404\_error\_collection>> \|===
+   <div class="sect2">
 
-[[\_definitions]] == Definitions
+.. rubric:: Create a LTM virtual server.
+   :name: _virtual_post
 
-[[\_400\_error\_collection]] === 400\_error\_collection
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *errorStack* + *optional* +
-*read-only*\ \|Error stack trace returned by java.\|string \|\ *items* +
-*optional*\ \|Collection of virtual servers. Errored response from
-server.\|< object > array \|\ *kind* + *optional* + *read-only*\ \|Type
-information for LTM virtual servers - errors
-cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate.\|string
-\|\ *message* + *optional* + *read-only*\ \|Error message returned from
-server.\|string \|\ *requestBody* + *optional* + *read-only*\ \|The data
-in the request body. GET (None)\|string \|\ *requestOperationId* +
-*optional* + *read-only*\ \|Unique id assigned to rest
-operation.\|integer(int64) \|===
+   <div class="literalblock">
 
-[[\_404\_error\_collection]] === 404\_error\_collection
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *errorStack* + *optional* +
-*read-only*\ \|Error stack trace returned by java.\|string \|\ *items* +
-*optional*\ \|Collection of virtual servers. Errored response from
-server.\|< object > array \|\ *kind* + *optional* + *read-only*\ \|Type
-information for virtual server -
-cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate.\|string
-\|\ *message* + *optional* + *read-only*\ \|Error message returned from
-server.\|string \|\ *requestBody* + *optional* + *read-only*\ \|The data
-in the request body. GET (None)\|string \|\ *requestOperationId* +
-*optional* + *read-only*\ \|Unique id assigned to rest
-operation.\|integer(int64) \|===
+   <div class="content">
 
-[[\_properties\_collection]] === properties\_collection
+::
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *generation* + *optional* +
-*read-only*\ \|A integer that will track change made to a virtual server
-collection object. generation.\|integer(int64) \|\ *items* +
-*optional*\ \|A collection of virtual servers. Properties defining
-items.\|< object > array \|\ *kind* + *optional* + *read-only*\ \|Type
-information for this virutal servers collection object -
-cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate.\|string
-\|\ *lastUpdateMicros* + *optional* + *read-only*\ \|Update time
-(micros) for last change made to an virtual server collection object.
-time.\|integer(int64) \|\ *selfLink* + *optional* + *read-only*\ \|A
-reference link URI to the virtual server collection object.\|string
-\|===
+    POST /virtual
 
-[[\_properties\_virtual]] === properties\_virtual
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *addressStatus* +
-*optional*\ \|Specither the virtual will contribute to the operational
-status of the associated virtual-address. The default is 'yes'.\|string
-\|\ *autoLasthop* + *optional*\ \|Specifies whether to automatically map
-last hop for pools or not. The default is to use next level's
-default.\|string \|\ *connectionLimit* + *optional*\ \|Specifies the
-maximum number of concurrent connections you want to allow for the
-virtual server.\|integer \|\ *defaultCookiePersistenceReference* +
-*optional*\ \|Reference link to profiles that the virtual server uses to
-manage connection
-persistence.\|<<\_properties\_virtual\_defaultcookiepersistencereference,defaultCookiePersistenceReference>>
-\|\ *description* + *optional*\ \|Description of LTM virtual
-server.\|string \|\ *destinationFullPath* + *optional*\ \|Destination
-address / port used for client access - ex. 10.44.100.100:80.\|string
-\|\ *deviceReference* + *optional*\ \|Reference link to BIGIP device
-assiociated to virtual
-server.\|<<\_properties\_virtual\_devicereference,deviceReference>>
-\|\ *fallbackSourceAddrPersistenceReference* + *optional*\ \|Reference
-link fallback persistence profile for the virtual server to use when the
-default persistence profile is not
-available.\|<<\_properties\_virtual\_fallbacksourceaddrpersistencereference,fallbackSourceAddrPersistenceReference>>
-\|\ *generation* + *optional* + *read-only*\ \|A integer that will track
-change made to a LTM virtual server object. -
-generation.\|integer(int64) \|\ *gtmScore* + *optional*\ \|Specifies a
-score that is associated with the virtual server. Global Traffic Manager
-(GTM) can rely on this value to load balance traffic in a proportional
-manner.\|integer \|\ *id* + *optional* + *read-only*\ \|Unique id
-assigned to a virtual server object.\|string \|\ *ipProtocol* +
-*optional*\ \|Specifies the IP protocol for which you want the virtual
-server to direct traffic. Sample protocol names are tcp and udp.\|string
-\|\ *kind* + *optional*\ \|Type information for this virutal server
-object. cm:adc-core:working-config:ltm:virtual:adcvirtualstate\|string
-\|\ *lastUpdateMicros* + *optional* + *read-only*\ \|Update time
-(micros) for last change made to an LTN virtual server object -
-time.\|integer(int64) \|\ *mask* + *optional*\ \|Destination netmask
-used for client access - ex. 255.255.255.255 or 32.\|string \|\ *mirror*
-+ *optional*\ \|Enables or disables state mirroring. You can use state
-mirroring to maintain the same state information in the standby unit
-that is in the active unit, allowing transactions such as FTP file
-transfers to continue as though uninterrupted. The default value is
-disabled.\|string \|\ *name* + *optional*\ \|Name of LTM virtual
-server.\|string \|\ *nat64* + *optional*\ \|Specifies whether this
-virtual does NAT64 translation.\|string \|\ *partition* +
-*optional*\ \|Displays the administrative partition within which this
-virtual server profile resides.\|string \|\ *poolReference* +
-*optional*\ \|Reference link to virtual pool in which you want the
-virtual server to automatically direct
-traffic.\|<<\_properties\_virtual\_poolreference,poolReference>>
-\|\ *profilesCollectionReference* + *optional*\ \|Reference link to
-profiles for the virtual server to use when directing and managing
-traffic.\|<<\_properties\_virtual\_profilescollectionreference,profilesCollectionReference>>
-\|\ *rateLimit* + *optional*\ \|Specifies the maximum number of
-connections per second allowed for a virtual server. The default value
-is disabled.\|string \|\ *rateLimitMode* + *optional*\ \|Indicates
-whether the rate limit is applied per virtual object, per source
-address, per destination address, or some combination thereof. The
-default value is object, which does not use the source or destination
-address as part of the key.\|string \|\ *selfLink* + *optional* +
-*read-only*\ \|A reference link URI to the LTM virtual server
-object.\|string \|\ *sourceAddress* + *optional*\ \|Source address used
-for client access to virtual server object.\|string
-\|\ *sourceAddressTranslation* + *optional*\ \|Type of address
-translation pool used for implementing selective and intellegent source
-address
-translation.\|<<\_properties\_virtual\_sourceaddresstranslation,sourceAddressTranslation>>
-\|\ *sourcePort* + *optional*\ \|Specifies whether the system preserves
-the source port of the connection. The default is preserve. Use of the
-preserve-strict setting should be restricted to UDP only under very
-special circumstances such as nPath or transparent (that is, no
-translation of any other L3/L3 field), where there is a 1:1 relationship
-between virtual IP addresses and node addresses, or when clustered
-multi-processing (CMP) is disabled. The change setting is useful for
-obfuscating internal network addresses.\|string \|\ *state* +
-*optional*\ \|State of virtual server. enabled / disabled.\|string
-\|\ *subPath* + *optional*\ \|Path to virtual server. Partition /
-app.app. ex. Common /app-service\_1.app\|string \|\ *translatePort* +
-*optional*\ \|Enables or disables port translation. Turn port
-translation off for a virtual server if you want to use the virtual
-server to load balance. connections to any service.\|string
-\|\ *vlansEnabled* + *optional*\ \|Enables the virtual server on the
-VLANs specified by the VLANs option.\|string \|===
+   </div>
 
-[[\_properties\_virtual\_defaultcookiepersistencereference]]
-*defaultCookiePersistenceReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-profiles that the virtual server uses to manage connection
-persistence.\|string \|===
+   </div>
 
-[[\_properties\_virtual\_devicereference]] *deviceReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *id* + *optional*\ \|Unique id assigned
-to a device referenced by this object.\|string \|\ *kind* +
-*optional*\ \|Type information for device.
-shared:resolver:device-groups:restdeviceresolverdevicestate\|string
-\|\ *link* + *optional*\ \|Reference link to adc-core-allbigipDevices in
-shared resolver device-groups.\|string \|\ *machineId* +
-*optional*\ \|Unique id assigned to the hardware device. If virtual
-could be the same as id object.\|string \|\ *name* + *optional*\ \|A
-name used to identify this device.\|string \|===
+   <div class="sect3">
 
-[[\_properties\_virtual\_fallbacksourceaddrpersistencereference]]
-*fallbackSourceAddrPersistenceReference*
+.. rubric:: Description
+   :name: _description
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link
-fallback persistence profile for the virtual server to use when the
-default persistence profile is not available.\|string \|===
+.. raw:: html
 
-[[\_properties\_virtual\_poolreference]] *poolReference*
+   <div class="paragraph">
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-virtual pool in which you want the virtual server to automatically
-direct traffic.\|string \|===
+POST to create a BIGIP virtual server.
 
-[[\_properties\_virtual\_profilescollectionreference]]
-*profilesCollectionReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *isSubcollection* + *optional*\ \|Is
-this a collection of objects. In this case profiles. default:
-true\|boolean \|\ *link* + *optional*\ \|Reference link to profiles for
-the virtual server to use when directing and managing traffic.\|string
-\|===
+   </div>
 
-[[\_properties\_virtual\_sourceaddresstranslation]]
-*sourceAddressTranslation*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *type* + *optional*\ \|Type of address
-translation pool used for implementing selective and intellegent source
-address translation.\|string \|===
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses
+
++-------------+----------------------------------------------------+--------------------------------------------------------+
+| HTTP Code   | Description                                        | Schema                                                 |
++=============+====================================================+========================================================+
+| **200**     | POST a BIGIP virtual server.                       | `properties\_collection <#_properties_collection>`__   |
++-------------+----------------------------------------------------+--------------------------------------------------------+
+| **400**     | Error response "Bad Request"                       | `400\_error\_collection <#_400_error_collection>`__    |
++-------------+----------------------------------------------------+--------------------------------------------------------+
+| **404**     | Error response "Public URI path not registered."   | `404\_error\_collection <#_404_error_collection>`__    |
++-------------+----------------------------------------------------+--------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: List all virtual server items as a collection.
+   :name: _virtual_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /virtual
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_2
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the collection of virtual servers.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_2
+
++-------------+----------------------------------------------------+--------------------------------------------------------+
+| HTTP Code   | Description                                        | Schema                                                 |
++=============+====================================================+========================================================+
+| **200**     | Collection of virtual servers.                     | `properties\_collection <#_properties_collection>`__   |
++-------------+----------------------------------------------------+--------------------------------------------------------+
+| **400**     | Error response "Bad Request"                       | `400\_error\_collection <#_400_error_collection>`__    |
++-------------+----------------------------------------------------+--------------------------------------------------------+
+| **404**     | Error response "Public URI path not registered."   | `404\_error\_collection <#_404_error_collection>`__    |
++-------------+----------------------------------------------------+--------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Used to get a single virtual server object.
+   :name: _virtual_objectid_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /virtual/{objectId}
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_3
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the virtual server object identified by id for an endpoint URI.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters
+
++------------+------------------+-------------------------------------------+----------------+-----------+
+| Type       | Name             | Description                               | Schema         | Default   |
++============+==================+===========================================+================+===========+
+| **Path**   | | **objectId**   | Unique id assigned to a virtual server.   | string(UUID)   | None      |
+|            | | *required*     |                                           |                |           |
++------------+------------------+-------------------------------------------+----------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_3
+
++-------------+----------------------------------------------------+-------------------------------------------------------+
+| HTTP Code   | Description                                        | Schema                                                |
++=============+====================================================+=======================================================+
+| **200**     | Virtual Server object.                             | `properties\_virtual <#_properties_virtual>`__        |
++-------------+----------------------------------------------------+-------------------------------------------------------+
+| **400**     | Server error response "Bad Request".               | `400\_error\_collection <#_400_error_collection>`__   |
++-------------+----------------------------------------------------+-------------------------------------------------------+
+| **404**     | Error response "Public URI path not registered."   | `404\_error\_collection <#_404_error_collection>`__   |
++-------------+----------------------------------------------------+-------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Definitions
+   :name: _definitions
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: 400\_error\_collection
+   :name: _400_error_collection
+
++----------------------------+-----------------------------------------------------------------------------------------------------------------------+--------------------+
+| Name                       | Description                                                                                                           | Schema             |
++============================+=======================================================================================================================+====================+
+| | **errorStack**           | Error stack trace returned by java.                                                                                   | string             |
+| | *optional*               |                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                       |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**                | Collection of virtual servers. Errored response from server.                                                          | < object > array   |
+| | *optional*               |                                                                                                                       |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**                 | Type information for LTM virtual servers - errors cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate.   | string             |
+| | *optional*               |                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                       |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **message**              | Error message returned from server.                                                                                   | string             |
+| | *optional*               |                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                       |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestBody**          | The data in the request body. GET (None)                                                                              | string             |
+| | *optional*               |                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                       |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestOperationId**   | Unique id assigned to rest operation.                                                                                 | integer(int64)     |
+| | *optional*               |                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                       |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: 404\_error\_collection
+   :name: _404_error_collection
+
++----------------------------+-----------------------------------------------------------------------------------------------------------+--------------------+
+| Name                       | Description                                                                                               | Schema             |
++============================+===========================================================================================================+====================+
+| | **errorStack**           | Error stack trace returned by java.                                                                       | string             |
+| | *optional*               |                                                                                                           |                    |
+| | *read-only*              |                                                                                                           |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**                | Collection of virtual servers. Errored response from server.                                              | < object > array   |
+| | *optional*               |                                                                                                           |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**                 | Type information for virtual server - cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate.   | string             |
+| | *optional*               |                                                                                                           |                    |
+| | *read-only*              |                                                                                                           |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------+--------------------+
+| | **message**              | Error message returned from server.                                                                       | string             |
+| | *optional*               |                                                                                                           |                    |
+| | *read-only*              |                                                                                                           |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestBody**          | The data in the request body. GET (None)                                                                  | string             |
+| | *optional*               |                                                                                                           |                    |
+| | *read-only*              |                                                                                                           |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestOperationId**   | Unique id assigned to rest operation.                                                                     | integer(int64)     |
+| | *optional*               |                                                                                                           |                    |
+| | *read-only*              |                                                                                                           |                    |
++----------------------------+-----------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_collection
+   :name: _properties_collection
+
++--------------------------+-----------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| Name                     | Description                                                                                                                       | Schema             |
++==========================+===================================================================================================================================+====================+
+| | **generation**         | A integer that will track change made to a virtual server collection object. generation.                                          | integer(int64)     |
+| | *optional*             |                                                                                                                                   |                    |
+| | *read-only*            |                                                                                                                                   |                    |
++--------------------------+-----------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**              | A collection of virtual servers. Properties defining items.                                                                       | < object > array   |
+| | *optional*             |                                                                                                                                   |                    |
++--------------------------+-----------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**               | Type information for this virutal servers collection object - cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate.   | string             |
+| | *optional*             |                                                                                                                                   |                    |
+| | *read-only*            |                                                                                                                                   |                    |
++--------------------------+-----------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **lastUpdateMicros**   | Update time (micros) for last change made to an virtual server collection object. time.                                           | integer(int64)     |
+| | *optional*             |                                                                                                                                   |                    |
+| | *read-only*            |                                                                                                                                   |                    |
++--------------------------+-----------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **selfLink**           | A reference link URI to the virtual server collection object.                                                                     | string             |
+| | *optional*             |                                                                                                                                   |                    |
+| | *read-only*            |                                                                                                                                   |                    |
++--------------------------+-----------------------------------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_virtual
+   :name: _properties_virtual
+
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| Name                                           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Schema                                                                                                     |
++================================================+==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+============================================================================================================+
+| | **addressStatus**                            | Specither the virtual will contribute to the operational status of the associated virtual-address. The default is 'yes'.                                                                                                                                                                                                                                                                                                                                                                                     | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **autoLasthop**                              | Specifies whether to automatically map last hop for pools or not. The default is to use next level’s default.                                                                                                                                                                                                                                                                                                                                                                                                | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **connectionLimit**                          | Specifies the maximum number of concurrent connections you want to allow for the virtual server.                                                                                                                                                                                                                                                                                                                                                                                                             | integer                                                                                                    |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **defaultCookiePersistenceReference**        | Reference link to profiles that the virtual server uses to manage connection persistence.                                                                                                                                                                                                                                                                                                                                                                                                                    | `defaultCookiePersistenceReference <#_properties_virtual_defaultcookiepersistencereference>`__             |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **description**                              | Description of LTM virtual server.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **destinationFullPath**                      | Destination address / port used for client access - ex. 10.44.100.100:80.                                                                                                                                                                                                                                                                                                                                                                                                                                    | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **deviceReference**                          | Reference link to BIGIP device assiociated to virtual server.                                                                                                                                                                                                                                                                                                                                                                                                                                                | `deviceReference <#_properties_virtual_devicereference>`__                                                 |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **fallbackSourceAddrPersistenceReference**   | Reference link fallback persistence profile for the virtual server to use when the default persistence profile is not available.                                                                                                                                                                                                                                                                                                                                                                             | `fallbackSourceAddrPersistenceReference <#_properties_virtual_fallbacksourceaddrpersistencereference>`__   |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **generation**                               | A integer that will track change made to a LTM virtual server object. - generation.                                                                                                                                                                                                                                                                                                                                                                                                                          | integer(int64)                                                                                             |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
+| | *read-only*                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **gtmScore**                                 | Specifies a score that is associated with the virtual server. Global Traffic Manager (GTM) can rely on this value to load balance traffic in a proportional manner.                                                                                                                                                                                                                                                                                                                                          | integer                                                                                                    |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **id**                                       | Unique id assigned to a virtual server object.                                                                                                                                                                                                                                                                                                                                                                                                                                                               | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
+| | *read-only*                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **ipProtocol**                               | Specifies the IP protocol for which you want the virtual server to direct traffic. Sample protocol names are tcp and udp.                                                                                                                                                                                                                                                                                                                                                                                    | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **kind**                                     | Type information for this virutal server object. cm:adc-core:working-config:ltm:virtual:adcvirtualstate                                                                                                                                                                                                                                                                                                                                                                                                      | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **lastUpdateMicros**                         | Update time (micros) for last change made to an LTN virtual server object - time.                                                                                                                                                                                                                                                                                                                                                                                                                            | integer(int64)                                                                                             |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
+| | *read-only*                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **mask**                                     | Destination netmask used for client access - ex. 255.255.255.255 or 32.                                                                                                                                                                                                                                                                                                                                                                                                                                      | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **mirror**                                   | Enables or disables state mirroring. You can use state mirroring to maintain the same state information in the standby unit that is in the active unit, allowing transactions such as FTP file transfers to continue as though uninterrupted. The default value is disabled.                                                                                                                                                                                                                                 | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **name**                                     | Name of LTM virtual server.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **nat64**                                    | Specifies whether this virtual does NAT64 translation.                                                                                                                                                                                                                                                                                                                                                                                                                                                       | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **partition**                                | Displays the administrative partition within which this virtual server profile resides.                                                                                                                                                                                                                                                                                                                                                                                                                      | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **poolReference**                            | Reference link to virtual pool in which you want the virtual server to automatically direct traffic.                                                                                                                                                                                                                                                                                                                                                                                                         | `poolReference <#_properties_virtual_poolreference>`__                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **profilesCollectionReference**              | Reference link to profiles for the virtual server to use when directing and managing traffic.                                                                                                                                                                                                                                                                                                                                                                                                                | `profilesCollectionReference <#_properties_virtual_profilescollectionreference>`__                         |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **rateLimit**                                | Specifies the maximum number of connections per second allowed for a virtual server. The default value is disabled.                                                                                                                                                                                                                                                                                                                                                                                          | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **rateLimitMode**                            | Indicates whether the rate limit is applied per virtual object, per source address, per destination address, or some combination thereof. The default value is object, which does not use the source or destination address as part of the key.                                                                                                                                                                                                                                                              | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **selfLink**                                 | A reference link URI to the LTM virtual server object.                                                                                                                                                                                                                                                                                                                                                                                                                                                       | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
+| | *read-only*                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **sourceAddress**                            | Source address used for client access to virtual server object.                                                                                                                                                                                                                                                                                                                                                                                                                                              | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **sourceAddressTranslation**                 | Type of address translation pool used for implementing selective and intellegent source address translation.                                                                                                                                                                                                                                                                                                                                                                                                 | `sourceAddressTranslation <#_properties_virtual_sourceaddresstranslation>`__                               |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **sourcePort**                               | Specifies whether the system preserves the source port of the connection. The default is preserve. Use of the preserve-strict setting should be restricted to UDP only under very special circumstances such as nPath or transparent (that is, no translation of any other L3/L3 field), where there is a 1:1 relationship between virtual IP addresses and node addresses, or when clustered multi-processing (CMP) is disabled. The change setting is useful for obfuscating internal network addresses.   | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **state**                                    | State of virtual server. enabled / disabled.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **subPath**                                  | Path to virtual server. Partition / app.app. ex. Common /app-service\_1.app                                                                                                                                                                                                                                                                                                                                                                                                                                  | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **translatePort**                            | Enables or disables port translation. Turn port translation off for a virtual server if you want to use the virtual server to load balance. connections to any service.                                                                                                                                                                                                                                                                                                                                      | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| | **vlansEnabled**                             | Enables the virtual server on the VLANs specified by the VLANs option.                                                                                                                                                                                                                                                                                                                                                                                                                                       | string                                                                                                     |
+| | *optional*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                            |
++------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_properties_virtual_defaultcookiepersistencereference"
+   class="paragraph">
+
+**defaultCookiePersistenceReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------------------------------------------------------------------+----------+
+| Name           | Description                                                                                 | Schema   |
++================+=============================================================================================+==========+
+| | **link**     | Reference link to profiles that the virtual server uses to manage connection persistence.   | string   |
+| | *optional*   |                                                                                             |          |
++----------------+---------------------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_virtual_devicereference" class="paragraph">
+
+**deviceReference**
+
+.. raw:: html
+
+   </div>
+
++-------------------+--------------------------------------------------------------------------------------------+----------+
+| Name              | Description                                                                                | Schema   |
++===================+============================================================================================+==========+
+| | **id**          | Unique id assigned to a device referenced by this object.                                  | string   |
+| | *optional*      |                                                                                            |          |
++-------------------+--------------------------------------------------------------------------------------------+----------+
+| | **kind**        | Type information for device. shared:resolver:device-groups:restdeviceresolverdevicestate   | string   |
+| | *optional*      |                                                                                            |          |
++-------------------+--------------------------------------------------------------------------------------------+----------+
+| | **link**        | Reference link to adc-core-allbigipDevices in shared resolver device-groups.               | string   |
+| | *optional*      |                                                                                            |          |
++-------------------+--------------------------------------------------------------------------------------------+----------+
+| | **machineId**   | Unique id assigned to the hardware device. If virtual could be the same as id object.      | string   |
+| | *optional*      |                                                                                            |          |
++-------------------+--------------------------------------------------------------------------------------------+----------+
+| | **name**        | A name used to identify this device.                                                       | string   |
+| | *optional*      |                                                                                            |          |
++-------------------+--------------------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_virtual_fallbacksourceaddrpersistencereference"
+   class="paragraph">
+
+**fallbackSourceAddrPersistenceReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+------------------------------------------------------------------------------------------------------------------------------------+----------+
+| Name           | Description                                                                                                                        | Schema   |
++================+====================================================================================================================================+==========+
+| | **link**     | Reference link fallback persistence profile for the virtual server to use when the default persistence profile is not available.   | string   |
+| | *optional*   |                                                                                                                                    |          |
++----------------+------------------------------------------------------------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_virtual_poolreference" class="paragraph">
+
+**poolReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+--------------------------------------------------------------------------------------------------------+----------+
+| Name           | Description                                                                                            | Schema   |
++================+========================================================================================================+==========+
+| | **link**     | Reference link to virtual pool in which you want the virtual server to automatically direct traffic.   | string   |
+| | *optional*   |                                                                                                        |          |
++----------------+--------------------------------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_virtual_profilescollectionreference"
+   class="paragraph">
+
+**profilesCollectionReference**
+
+.. raw:: html
+
+   </div>
+
++-------------------------+-------------------------------------------------------------------------------------------------+-----------+
+| Name                    | Description                                                                                     | Schema    |
++=========================+=================================================================================================+===========+
+| | **isSubcollection**   | Is this a collection of objects. In this case profiles. default: true                           | boolean   |
+| | *optional*            |                                                                                                 |           |
++-------------------------+-------------------------------------------------------------------------------------------------+-----------+
+| | **link**              | Reference link to profiles for the virtual server to use when directing and managing traffic.   | string    |
+| | *optional*            |                                                                                                 |           |
++-------------------------+-------------------------------------------------------------------------------------------------+-----------+
+
+.. raw:: html
+
+   <div id="_properties_virtual_sourceaddresstranslation"
+   class="paragraph">
+
+**sourceAddressTranslation**
+
+.. raw:: html
+
+   </div>
+
++----------------+----------------------------------------------------------------------------------------------------------------+----------+
+| Name           | Description                                                                                                    | Schema   |
++================+================================================================================================================+==========+
+| | **type**     | Type of address translation pool used for implementing selective and intellegent source address translation.   | string   |
+| | *optional*   |                                                                                                                |          |
++----------------+----------------------------------------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div id="footer">
+
+.. raw:: html
+
+   <div id="footer-text">
+
+Last updated 2016-11-18 10:40:00 EST
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>

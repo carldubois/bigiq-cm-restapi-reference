@@ -1,313 +1,980 @@
-= BIG-IQ Deploy Configuration
+.. raw:: html
 
-[[\_overview]] == Overview API used to deploy configuration changes made
-on BIG-IQ or BIG-IP devices.
+   <div id="header">
 
-=== Version information [%hardbreaks] *Version* : 5.2
+.. rubric:: BIG-IQ Deploy Configuration
+   :name: big-iq-deploy-configuration
 
-=== URI scheme [%hardbreaks] *BasePath* : /mgmt/cm/firewall/tasks
-*Schemes* : HTTPS
+.. raw:: html
 
-=== Consumes
+   </div>
+
+.. raw:: html
+
+   <div id="content">
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Overview
+   :name: _overview
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="paragraph">
+
+API used to deploy configuration changes made on BIG-IQ or BIG-IP
+devices.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Version information
+   :name: _version_information
+
+.. raw:: html
+
+   <div class="paragraph">
+
+*Version* : 5.2
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: URI scheme
+   :name: _uri_scheme
+
+.. raw:: html
+
+   <div class="paragraph">
+
+| *BasePath* : /mgmt/cm/firewall/tasks
+| *Schemes* : HTTPS
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Consumes
+   :name: _consumes
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-=== Produces
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Produces
+   :name: _produces
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-[[\_paths]] == Paths
+.. raw:: html
 
-[[\_deploy-configuration\_get]] === GET all deployment tasks. .... GET
-/deploy-configuration ....
+   </div>
 
-==== Description Returns the collection of firewall namespace specific
-deployment tasks.
+.. raw:: html
 
-==== Responses
+   </div>
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|Collection of deployment tasks
-for firewall
-namespace.\|<<\_properties\_deploy\_collection,properties\_deploy\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_error\_collection,error\_collection>> \|===
+.. raw:: html
 
-[[\_deploy-configuration\_objectid\_post]] === POST deployment task
-policy for firewall namespace. .... POST
-/deploy-configuration/{objectId} ....
+   </div>
 
-==== Description Will POST a new deployment task within the firewall
-namespace.
+.. raw:: html
 
-==== Parameters
+   </div>
 
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Path*\ \|\ *objectId* +
-*required*\ \|Policy object id.\|string(UUID)\|None \|===
+.. raw:: html
 
-==== Responses
+   <div class="sect1">
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|POST a deploy task to BIGIQ
-firewall namespace.\|<<\_properties\_deploy,properties\_deploy>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_error\_collection,error\_collection>> \|===
+.. rubric:: Paths
+   :name: _paths
 
-[[\_deploy-configuration\_objectid\_get]] === Used to get a specific
-deployment configuration task identified by id. .... GET
-/deploy-configuration/{objectId} ....
+.. raw:: html
 
-==== Description Returns deployment configuration task within the
-firewall namespace identified by id.
+   <div class="sectionbody">
 
-==== Parameters
+.. raw:: html
 
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Path*\ \|\ *objectId* +
-*required*\ \|Policy object id.\|string(UUID)\|None \|===
+   <div class="sect2">
 
-==== Responses
+.. rubric:: GET all deployment tasks.
+   :name: _deploy-configuration_get
 
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|Deploy
-object\|<<\_properties\_deploy,properties\_deploy>> \|\ *400*\ \|Error
-response "Bad Request"\|<<\_error\_collection,error\_collection>> \|===
+.. raw:: html
 
-[[\_definitions]] == Definitions
+   <div class="literalblock">
 
-[[\_error\_collection]] === error\_collection
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *errorStack* + *optional* +
-*read-only*\ \|Error stack trace returned by java.\|string \|\ *items* +
-*optional*\ \|Collection of deployment tasks-error.\|< object > array
-\|\ *kind* + *optional* + *read-only*\ \|Type information for deployment
-task object.\|string \|\ *message* + *optional* + *read-only*\ \|Error
-message returned from server.\|string \|\ *requestBody* + *optional* +
-*read-only*\ \|The data in the request body. GET (None)\|string
-\|\ *requestOperationId* + *optional* + *read-only*\ \|Unique id
-assigned to rest operation.\|integer(int64) \|===
+   <div class="content">
 
-[[\_properties\_deploy]] === properties\_deploy
+::
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *childDeployTasks* + *optional*\ \|Child
-state of deploy task (currentStep, deviceReference, snapshotReference,
-status.)\|< <<\_properties\_deploy\_childdeploytasks,childDeployTasks>>
-> array \|\ *childSnapshotReference* + *optional*\ \|Shared namespace
-snapshot that was created during this deploy
-task.\|<<\_properties\_deploy\_childsnapshotreference,childSnapshotReference>>
-\|\ *currentStep* + *optional*\ \|Step of task during deploy
-process.\|string \|\ *deviceDetails* + *optional*\ \|Detail of device
-(deviceReference, difference count, verify error count, verify critical
-error count, post deploy error count, hostname).\|<
-<<\_properties\_deploy\_devicedetails,deviceDetails>> > array
-\|\ *differenceReference* + *optional*\ \|Reference link to config
-differences.\|<<\_properties\_deploy\_differencereference,differenceReference>>
-\|\ *differenceTaskReference* + *optional*\ \|Reference link to task
-config
-differences.\|<<\_properties\_deploy\_differencetaskreference,differenceTaskReference>>
-\|\ *discoveryTaskReferences* + *optional*\ \|Reference link to
-collection of discovery tasks.\|<
-<<\_properties\_deploy\_discoverytaskreferences,discoveryTaskReferences>>
-> array \|\ *distributeTaskReference* + *optional*\ \|Deploy needed,
-reference link to firewall distribute rest
-configuration.\|<<\_properties\_deploy\_distributetaskreference,distributeTaskReference>>
-\|\ *distributeTaskReferences* + *optional*\ \|Deploy needed, reference
-link to shared security distribute rest
-configuration.\|<<\_properties\_deploy\_distributetaskreferences,distributeTaskReferences>>
-\|\ *endDateTime* + *optional*\ \|End time, in date format, the
-deployment task completed.\|string \|\ *firewallIpAddress* +
-*optional*\ \|Firewall IP Address\|string \|\ *firewallType* +
-*optional*\ \|Firewall Type (VIP, SIP, RD, Mgmt etc..)\|string
-\|\ *generation* + *optional* + *read-only*\ \|A unique integer that
-allows admin track change to deploy object.\|integer(int64) \|\ *id* +
-*optional* + *read-only*\ \|Unique id assigned to a deploy task
-object.\|string \|\ *identityReferences* + *optional*\ \|Reference link
-table to authz users.\|<
-<<\_properties\_deploy\_identityreferences,identityReferences>> > array
-\|\ *isChildTask* + *optional*\ \|Defines if a task is a child object
-noted by childDeployTasks. (True/False)\|boolean \|\ *kind* + *optional*
-+ *read-only*\ \|Identification of resource ex.
-cm:firewall:tasks:deploy-configuration:deployconfigtaskstate\|string
-\|\ *lastUpdateMicros* + *optional* + *read-only*\ \|Time, in microsec,
-when deploy task was updated.\|integer(int64) \|\ *name* +
-*optional*\ \|Name of deployment task\|string \|\ *ownerMachineId* +
-*optional*\ \|A unique id generated by software if idenftiy device
-object using hardware address.\|string \|\ *parentTaskReference* +
-*optional*\ \|Reference link to parent deploy-configuration
-task.\|<<\_properties\_deploy\_parenttaskreference,parentTaskReference>>
-\|\ *partition* + *optional*\ \|BIGIP partition, default Common.\|string
-\|\ *selfLink* + *optional* + *read-only*\ \|URI link used to identify
-the deploy task object.\|string \|\ *skipVerifyConfig* +
-*optional*\ \|Skip verification of configuration for
-deployment.\|boolean \|\ *snapshotReference* + *optional*\ \|Reference
-to snapshot for deploy
-task.\|<<\_properties\_deploy\_snapshotreference,snapshotReference>>
-\|\ *snapshotTaskReference* + *optional*\ \|Reference link to
-snapshot-config
-task.\|<<\_properties\_deploy\_snapshottaskreference,snapshotTaskReference>>
-\|\ *startDateTime* + *optional*\ \|Start time, in date format, the
-depolyment task began.\|string \|\ *status* + *optional*\ \|Status or
-actual state of task in state machine.\|string \|\ *userReference* +
-*optional*\ \|Reference link to authz
-user.\|<<\_properties\_deploy\_userreference,userReference>>
-\|\ *username* + *optional*\ \|Username of user.\|string
-\|\ *verifyConfigReference* + *optional*\ \|Reference to the verify
-configuration.\|<<\_properties\_deploy\_verifyconfigreference,verifyConfigReference>>
-\|\ *verifyConfigTaskReference* + *optional*\ \|Reference to the
-verification
-task.\|<<\_properties\_deploy\_verifyconfigtaskreference,verifyConfigTaskReference>>
-\|===
+    GET /deploy-configuration
 
-[[\_properties\_deploy\_childdeploytasks]] *childDeployTasks*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *deviceReference* + *optional*\ \|Device
-reference link for each child task of deploy.\|<
-<<\_properties\_deploy\_devicereference,deviceReference>> > array
-\|\ *skipDistribution* + *optional*\ \|Skip distribution of
-configuration during deployment.(True/False) Verfication only
-prior.\|boolean \|===
+   </div>
 
-[[\_properties\_deploy\_devicereference]] *deviceReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-device object for deploy task.\|string \|===
+   </div>
 
-[[\_properties\_deploy\_childsnapshotreference]]
-*childSnapshotReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *isSubcollection* + *optional*\ \|Is
-subcollection of snapshots created by the deploy task.
-(True/False)\|boolean \|\ *link* + *optional*\ \|Reference link to
-snapshot for deploy task.\|string \|===
+   <div class="sect3">
 
-[[\_properties\_deploy\_devicedetails]] *deviceDetails*
+.. rubric:: Description
+   :name: _description
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *deviceReference* +
-*optional*\ \|Reference link to device object for deploy
-task.\|<<\_properties\_deploy\_devicereference,deviceReference>>
-\|\ *differenceCount* + *optional*\ \|A count of the number of
-difference during evaluation.\|integer \|\ *hostname* +
-*optional*\ \|Hostname of device deploying configuration to. \|string
-\|\ *postDeploymentErrorCount* + *optional*\ \|A count of the errors
-encountered post deploy.\|integer \|\ *verificationCriticalErrorCount* +
-*optional*\ \|A count of critical errors encountered during
-verification.\|integer \|\ *verificationErrorCount* + *optional*\ \|A
-count of errors encountered during verification.\|integer \|===
+.. raw:: html
 
-[[\_properties\_deploy\_devicereference]] *deviceReference*
+   <div class="paragraph">
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-device object for deploy task.\|string \|===
+Returns the collection of firewall namespace specific deployment tasks.
 
-[[\_properties\_deploy\_differencereference]] *differenceReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *isSubcollection* + *optional*\ \|Is
-subcollection of differences (True/False)\|boolean \|\ *link* +
-*optional*\ \|Reference link to difference array object.\|string \|===
+   </div>
 
-[[\_properties\_deploy\_differencetaskreference]]
-*differenceTaskReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-differencer task.\|string \|===
+   </div>
 
-[[\_properties\_deploy\_differencetaskreferences]]
-*differenceTaskReferences*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *isSubcollection* + *optional*\ \|Is
-subcollection of diffencer tasks.\|boolean \|\ *link* +
-*optional*\ \|Reference links to differencer tasks.\|string \|===
+   <div class="sect3">
 
-[[\_properties\_deploy\_discoverytaskreferences]]
-*discoveryTaskReferences*
+.. rubric:: Responses
+   :name: _responses
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *isSubcollection* + *optional*\ \|Is
-subcollection of discovery tasks.\|boolean \|\ *link* +
-*optional*\ \|Reference links to discovery tasks.\|string \|===
++-------------+----------------------------------------------------------+-----------------------------------------------------------------------+
+| HTTP Code   | Description                                              | Schema                                                                |
++=============+==========================================================+=======================================================================+
+| **200**     | Collection of deployment tasks for firewall namespace.   | `properties\_deploy\_collection <#_properties_deploy_collection>`__   |
++-------------+----------------------------------------------------------+-----------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"                             | `error\_collection <#_error_collection>`__                            |
++-------------+----------------------------------------------------------+-----------------------------------------------------------------------+
 
-[[\_properties\_deploy\_distributetaskreference]]
-*distributeTaskReference*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference links
-to distribute task.\|string \|===
+   </div>
 
-[[\_properties\_deploy\_distributetaskreferences]]
-*distributeTaskReferences*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *isSubcollection* + *optional*\ \|Is
-subcollection of distribute tasks.\|boolean \|\ *link* +
-*optional*\ \|Reference links to distribute tasks.\|string \|===
+   </div>
 
-[[\_properties\_deploy\_identityreferences]] *identityReferences*
+.. raw:: html
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *isSubcollection* + *optional*\ \|Is
-subcollection of identity reference object.\|boolean \|\ *link* +
-*optional*\ \|Reference links to identity reference object.\|string
-\|===
+   <div class="sect2">
 
-[[\_properties\_deploy\_parenttaskreference]] *parentTaskReference*
+.. rubric:: POST deployment task policy for firewall namespace.
+   :name: _deploy-configuration_objectid_post
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference links
-to deploy-configuration task.\|string \|===
+.. raw:: html
 
-[[\_properties\_deploy\_snapshotreference]] *snapshotReference*
+   <div class="literalblock">
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference links
-to snapshot object.\|string \|===
+.. raw:: html
 
-[[\_properties\_deploy\_snapshottaskreference]] *snapshotTaskReference*
+   <div class="content">
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *isSubcollection* + *optional*\ \|Is
-subcollection of snapshot tasks.\|boolean \|\ *link* +
-*optional*\ \|Reference links to snapshot task.\|string \|===
+::
 
-[[\_properties\_deploy\_userreference]] *userReference*
+    POST /deploy-configuration/{objectId}
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference links
-to user reference object.\|string \|===
+.. raw:: html
 
-[[\_properties\_deploy\_verifyconfigreference]] *verifyConfigReference*
+   </div>
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference links
-to verification reference object.\|string \|===
+.. raw:: html
 
-[[\_properties\_deploy\_verifyconfigtaskreference]]
-*verifyConfigTaskReference*
+   </div>
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference links
-to verifcation reference task.\|string \|===
+.. raw:: html
 
-[[\_properties\_deploy\_collection]] === properties\_deploy\_collection
+   <div class="sect3">
 
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *generation* + *optional* +
-*read-only*\ \|A unique integer that tracks changes to deploy collection
-object.\|integer(int64) \|\ *items* + *optional*\ \|Collection of deploy
-tasks-properties.\|< object > array \|\ *kind* + *optional* +
-*read-only*\ \|Type information for this deploy collection
-object.\|string \|\ *lastUpdateMicros* + *optional* +
-*read-only*\ \|Update time (micros) for last change made to an deploy
-task collection object-time.\|integer(int64) \|\ *selfLink* + *optional*
-+ *read-only*\ \|A reference link URI to the deploy task collection
-object.\|string \|===
+.. rubric:: Description
+   :name: _description_2
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Will POST a new deployment task within the firewall namespace.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters
+
++------------+------------------+---------------------+----------------+-----------+
+| Type       | Name             | Description         | Schema         | Default   |
++============+==================+=====================+================+===========+
+| **Path**   | | **objectId**   | Policy object id.   | string(UUID)   | None      |
+|            | | *required*     |                     |                |           |
++------------+------------------+---------------------+----------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_2
+
++-------------+---------------------------------------------------+------------------------------------------------+
+| HTTP Code   | Description                                       | Schema                                         |
++=============+===================================================+================================================+
+| **200**     | POST a deploy task to BIGIQ firewall namespace.   | `properties\_deploy <#_properties_deploy>`__   |
++-------------+---------------------------------------------------+------------------------------------------------+
+| **400**     | Error response "Bad Request"                      | `error\_collection <#_error_collection>`__     |
++-------------+---------------------------------------------------+------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Used to get a specific deployment configuration task
+   identified by id.
+   :name: _deploy-configuration_objectid_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /deploy-configuration/{objectId}
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_3
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns deployment configuration task within the firewall namespace
+identified by id.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters_2
+
++------------+------------------+---------------------+----------------+-----------+
+| Type       | Name             | Description         | Schema         | Default   |
++============+==================+=====================+================+===========+
+| **Path**   | | **objectId**   | Policy object id.   | string(UUID)   | None      |
+|            | | *required*     |                     |                |           |
++------------+------------------+---------------------+----------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_3
+
++-------------+--------------------------------+------------------------------------------------+
+| HTTP Code   | Description                    | Schema                                         |
++=============+================================+================================================+
+| **200**     | Deploy object                  | `properties\_deploy <#_properties_deploy>`__   |
++-------------+--------------------------------+------------------------------------------------+
+| **400**     | Error response "Bad Request"   | `error\_collection <#_error_collection>`__     |
++-------------+--------------------------------+------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Definitions
+   :name: _definitions
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: error\_collection
+   :name: _error_collection
+
++----------------------------+------------------------------------------------+--------------------+
+| Name                       | Description                                    | Schema             |
++============================+================================================+====================+
+| | **errorStack**           | Error stack trace returned by java.            | string             |
+| | *optional*               |                                                |                    |
+| | *read-only*              |                                                |                    |
++----------------------------+------------------------------------------------+--------------------+
+| | **items**                | Collection of deployment tasks-error.          | < object > array   |
+| | *optional*               |                                                |                    |
++----------------------------+------------------------------------------------+--------------------+
+| | **kind**                 | Type information for deployment task object.   | string             |
+| | *optional*               |                                                |                    |
+| | *read-only*              |                                                |                    |
++----------------------------+------------------------------------------------+--------------------+
+| | **message**              | Error message returned from server.            | string             |
+| | *optional*               |                                                |                    |
+| | *read-only*              |                                                |                    |
++----------------------------+------------------------------------------------+--------------------+
+| | **requestBody**          | The data in the request body. GET (None)       | string             |
+| | *optional*               |                                                |                    |
+| | *read-only*              |                                                |                    |
++----------------------------+------------------------------------------------+--------------------+
+| | **requestOperationId**   | Unique id assigned to rest operation.          | integer(int64)     |
+| | *optional*               |                                                |                    |
+| | *read-only*              |                                                |                    |
++----------------------------+------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_deploy
+   :name: _properties_deploy
+
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| Name                              | Description                                                                                                                                 | Schema                                                                                |
++===================================+=============================================================================================================================================+=======================================================================================+
+| | **childDeployTasks**            | Child state of deploy task (currentStep, deviceReference, snapshotReference, status.)                                                       | < `childDeployTasks <#_properties_deploy_childdeploytasks>`__ > array                 |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **childSnapshotReference**      | Shared namespace snapshot that was created during this deploy task.                                                                         | `childSnapshotReference <#_properties_deploy_childsnapshotreference>`__               |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **currentStep**                 | Step of task during deploy process.                                                                                                         | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **deviceDetails**               | Detail of device (deviceReference, difference count, verify error count, verify critical error count, post deploy error count, hostname).   | < `deviceDetails <#_properties_deploy_devicedetails>`__ > array                       |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **differenceReference**         | Reference link to config differences.                                                                                                       | `differenceReference <#_properties_deploy_differencereference>`__                     |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **differenceTaskReference**     | Reference link to task config differences.                                                                                                  | `differenceTaskReference <#_properties_deploy_differencetaskreference>`__             |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **discoveryTaskReferences**     | Reference link to collection of discovery tasks.                                                                                            | < `discoveryTaskReferences <#_properties_deploy_discoverytaskreferences>`__ > array   |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **distributeTaskReference**     | Deploy needed, reference link to firewall distribute rest configuration.                                                                    | `distributeTaskReference <#_properties_deploy_distributetaskreference>`__             |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **distributeTaskReferences**    | Deploy needed, reference link to shared security distribute rest configuration.                                                             | `distributeTaskReferences <#_properties_deploy_distributetaskreferences>`__           |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **endDateTime**                 | End time, in date format, the deployment task completed.                                                                                    | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **firewallIpAddress**           | Firewall IP Address                                                                                                                         | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **firewallType**                | Firewall Type (VIP, SIP, RD, Mgmt etc..)                                                                                                    | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **generation**                  | A unique integer that allows admin track change to deploy object.                                                                           | integer(int64)                                                                        |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
+| | *read-only*                     |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **id**                          | Unique id assigned to a deploy task object.                                                                                                 | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
+| | *read-only*                     |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **identityReferences**          | Reference link table to authz users.                                                                                                        | < `identityReferences <#_properties_deploy_identityreferences>`__ > array             |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **isChildTask**                 | Defines if a task is a child object noted by childDeployTasks. (True/False)                                                                 | boolean                                                                               |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **kind**                        | Identification of resource ex. cm:firewall:tasks:deploy-configuration:deployconfigtaskstate                                                 | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
+| | *read-only*                     |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **lastUpdateMicros**            | Time, in microsec, when deploy task was updated.                                                                                            | integer(int64)                                                                        |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
+| | *read-only*                     |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **name**                        | Name of deployment task                                                                                                                     | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **ownerMachineId**              | A unique id generated by software if idenftiy device object using hardware address.                                                         | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **parentTaskReference**         | Reference link to parent deploy-configuration task.                                                                                         | `parentTaskReference <#_properties_deploy_parenttaskreference>`__                     |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **partition**                   | BIGIP partition, default Common.                                                                                                            | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **selfLink**                    | URI link used to identify the deploy task object.                                                                                           | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
+| | *read-only*                     |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **skipVerifyConfig**            | Skip verification of configuration for deployment.                                                                                          | boolean                                                                               |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **snapshotReference**           | Reference to snapshot for deploy task.                                                                                                      | `snapshotReference <#_properties_deploy_snapshotreference>`__                         |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **snapshotTaskReference**       | Reference link to snapshot-config task.                                                                                                     | `snapshotTaskReference <#_properties_deploy_snapshottaskreference>`__                 |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **startDateTime**               | Start time, in date format, the depolyment task began.                                                                                      | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **status**                      | Status or actual state of task in state machine.                                                                                            | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **userReference**               | Reference link to authz user.                                                                                                               | `userReference <#_properties_deploy_userreference>`__                                 |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **username**                    | Username of user.                                                                                                                           | string                                                                                |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **verifyConfigReference**       | Reference to the verify configuration.                                                                                                      | `verifyConfigReference <#_properties_deploy_verifyconfigreference>`__                 |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **verifyConfigTaskReference**   | Reference to the verification task.                                                                                                         | `verifyConfigTaskReference <#_properties_deploy_verifyconfigtaskreference>`__         |
+| | *optional*                      |                                                                                                                                             |                                                                                       |
++-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_childdeploytasks" class="paragraph">
+
+**childDeployTasks**
+
+.. raw:: html
+
+   </div>
+
++--------------------------+---------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| Name                     | Description                                                                                 | Schema                                                                |
++==========================+=============================================================================================+=======================================================================+
+| | **deviceReference**    | Device reference link for each child task of deploy.                                        | < `deviceReference <#_properties_deploy_devicereference>`__ > array   |
+| | *optional*             |                                                                                             |                                                                       |
++--------------------------+---------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+| | **skipDistribution**   | Skip distribution of configuration during deployment.(True/False) Verfication only prior.   | boolean                                                               |
+| | *optional*             |                                                                                             |                                                                       |
++--------------------------+---------------------------------------------------------------------------------------------+-----------------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_devicereference" class="paragraph">
+
+**deviceReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+----------------------------------------------------+----------+
+| Name           | Description                                        | Schema   |
++================+====================================================+==========+
+| | **link**     | Reference link to device object for deploy task.   | string   |
+| | *optional*   |                                                    |          |
++----------------+----------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_childsnapshotreference"
+   class="paragraph">
+
+**childSnapshotReference**
+
+.. raw:: html
+
+   </div>
+
++-------------------------+--------------------------------------------------------------------------+-----------+
+| Name                    | Description                                                              | Schema    |
++=========================+==========================================================================+===========+
+| | **isSubcollection**   | Is subcollection of snapshots created by the deploy task. (True/False)   | boolean   |
+| | *optional*            |                                                                          |           |
++-------------------------+--------------------------------------------------------------------------+-----------+
+| | **link**              | Reference link to snapshot for deploy task.                              | string    |
+| | *optional*            |                                                                          |           |
++-------------------------+--------------------------------------------------------------------------+-----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_devicedetails" class="paragraph">
+
+**deviceDetails**
+
+.. raw:: html
+
+   </div>
+
++----------------------------------------+---------------------------------------------------------------+-------------------------------------------------------------+
+| Name                                   | Description                                                   | Schema                                                      |
++========================================+===============================================================+=============================================================+
+| | **deviceReference**                  | Reference link to device object for deploy task.              | `deviceReference <#_properties_deploy_devicereference>`__   |
+| | *optional*                           |                                                               |                                                             |
++----------------------------------------+---------------------------------------------------------------+-------------------------------------------------------------+
+| | **differenceCount**                  | A count of the number of difference during evaluation.        | integer                                                     |
+| | *optional*                           |                                                               |                                                             |
++----------------------------------------+---------------------------------------------------------------+-------------------------------------------------------------+
+| | **hostname**                         | Hostname of device deploying configuration to.                | string                                                      |
+| | *optional*                           |                                                               |                                                             |
++----------------------------------------+---------------------------------------------------------------+-------------------------------------------------------------+
+| | **postDeploymentErrorCount**         | A count of the errors encountered post deploy.                | integer                                                     |
+| | *optional*                           |                                                               |                                                             |
++----------------------------------------+---------------------------------------------------------------+-------------------------------------------------------------+
+| | **verificationCriticalErrorCount**   | A count of critical errors encountered during verification.   | integer                                                     |
+| | *optional*                           |                                                               |                                                             |
++----------------------------------------+---------------------------------------------------------------+-------------------------------------------------------------+
+| | **verificationErrorCount**           | A count of errors encountered during verification.            | integer                                                     |
+| | *optional*                           |                                                               |                                                             |
++----------------------------------------+---------------------------------------------------------------+-------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_devicereference" class="paragraph">
+
+**deviceReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+----------------------------------------------------+----------+
+| Name           | Description                                        | Schema   |
++================+====================================================+==========+
+| | **link**     | Reference link to device object for deploy task.   | string   |
+| | *optional*   |                                                    |          |
++----------------+----------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_differencereference" class="paragraph">
+
+**differenceReference**
+
+.. raw:: html
+
+   </div>
+
++-------------------------+------------------------------------------------+-----------+
+| Name                    | Description                                    | Schema    |
++=========================+================================================+===========+
+| | **isSubcollection**   | Is subcollection of differences (True/False)   | boolean   |
+| | *optional*            |                                                |           |
++-------------------------+------------------------------------------------+-----------+
+| | **link**              | Reference link to difference array object.     | string    |
+| | *optional*            |                                                |           |
++-------------------------+------------------------------------------------+-----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_differencetaskreference"
+   class="paragraph">
+
+**differenceTaskReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------------+----------+
+| Name           | Description                           | Schema   |
++================+=======================================+==========+
+| | **link**     | Reference link to differencer task.   | string   |
+| | *optional*   |                                       |          |
++----------------+---------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_differencetaskreferences"
+   class="paragraph">
+
+**differenceTaskReferences**
+
+.. raw:: html
+
+   </div>
+
++-------------------------+-----------------------------------------+-----------+
+| Name                    | Description                             | Schema    |
++=========================+=========================================+===========+
+| | **isSubcollection**   | Is subcollection of diffencer tasks.    | boolean   |
+| | *optional*            |                                         |           |
++-------------------------+-----------------------------------------+-----------+
+| | **link**              | Reference links to differencer tasks.   | string    |
+| | *optional*            |                                         |           |
++-------------------------+-----------------------------------------+-----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_discoverytaskreferences"
+   class="paragraph">
+
+**discoveryTaskReferences**
+
+.. raw:: html
+
+   </div>
+
++-------------------------+----------------------------------------+-----------+
+| Name                    | Description                            | Schema    |
++=========================+========================================+===========+
+| | **isSubcollection**   | Is subcollection of discovery tasks.   | boolean   |
+| | *optional*            |                                        |           |
++-------------------------+----------------------------------------+-----------+
+| | **link**              | Reference links to discovery tasks.    | string    |
+| | *optional*            |                                        |           |
++-------------------------+----------------------------------------+-----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_distributetaskreference"
+   class="paragraph">
+
+**distributeTaskReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------------+----------+
+| Name           | Description                           | Schema   |
++================+=======================================+==========+
+| | **link**     | Reference links to distribute task.   | string   |
+| | *optional*   |                                       |          |
++----------------+---------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_distributetaskreferences"
+   class="paragraph">
+
+**distributeTaskReferences**
+
+.. raw:: html
+
+   </div>
+
++-------------------------+-----------------------------------------+-----------+
+| Name                    | Description                             | Schema    |
++=========================+=========================================+===========+
+| | **isSubcollection**   | Is subcollection of distribute tasks.   | boolean   |
+| | *optional*            |                                         |           |
++-------------------------+-----------------------------------------+-----------+
+| | **link**              | Reference links to distribute tasks.    | string    |
+| | *optional*            |                                         |           |
++-------------------------+-----------------------------------------+-----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_identityreferences" class="paragraph">
+
+**identityReferences**
+
+.. raw:: html
+
+   </div>
+
++-------------------------+--------------------------------------------------+-----------+
+| Name                    | Description                                      | Schema    |
++=========================+==================================================+===========+
+| | **isSubcollection**   | Is subcollection of identity reference object.   | boolean   |
+| | *optional*            |                                                  |           |
++-------------------------+--------------------------------------------------+-----------+
+| | **link**              | Reference links to identity reference object.    | string    |
+| | *optional*            |                                                  |           |
++-------------------------+--------------------------------------------------+-----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_parenttaskreference" class="paragraph">
+
+**parentTaskReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+-------------------------------------------------+----------+
+| Name           | Description                                     | Schema   |
++================+=================================================+==========+
+| | **link**     | Reference links to deploy-configuration task.   | string   |
+| | *optional*   |                                                 |          |
++----------------+-------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_snapshotreference" class="paragraph">
+
+**snapshotReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------------+----------+
+| Name           | Description                           | Schema   |
++================+=======================================+==========+
+| | **link**     | Reference links to snapshot object.   | string   |
+| | *optional*   |                                       |          |
++----------------+---------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_snapshottaskreference" class="paragraph">
+
+**snapshotTaskReference**
+
+.. raw:: html
+
+   </div>
+
++-------------------------+---------------------------------------+-----------+
+| Name                    | Description                           | Schema    |
++=========================+=======================================+===========+
+| | **isSubcollection**   | Is subcollection of snapshot tasks.   | boolean   |
+| | *optional*            |                                       |           |
++-------------------------+---------------------------------------+-----------+
+| | **link**              | Reference links to snapshot task.     | string    |
+| | *optional*            |                                       |           |
++-------------------------+---------------------------------------+-----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_userreference" class="paragraph">
+
+**userReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------------------------------------+----------+
+| Name           | Description                                 | Schema   |
++================+=============================================+==========+
+| | **link**     | Reference links to user reference object.   | string   |
+| | *optional*   |                                             |          |
++----------------+---------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_verifyconfigreference" class="paragraph">
+
+**verifyConfigReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+-----------------------------------------------------+----------+
+| Name           | Description                                         | Schema   |
++================+=====================================================+==========+
+| | **link**     | Reference links to verification reference object.   | string   |
+| | *optional*   |                                                     |          |
++----------------+-----------------------------------------------------+----------+
+
+.. raw:: html
+
+   <div id="_properties_deploy_verifyconfigtaskreference"
+   class="paragraph">
+
+**verifyConfigTaskReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+--------------------------------------------------+----------+
+| Name           | Description                                      | Schema   |
++================+==================================================+==========+
+| | **link**     | Reference links to verifcation reference task.   | string   |
+| | *optional*   |                                                  |          |
++----------------+--------------------------------------------------+----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_deploy\_collection
+   :name: _properties_deploy_collection
+
++--------------------------+---------------------------------------------------------------------------------------+--------------------+
+| Name                     | Description                                                                           | Schema             |
++==========================+=======================================================================================+====================+
+| | **generation**         | A unique integer that tracks changes to deploy collection object.                     | integer(int64)     |
+| | *optional*             |                                                                                       |                    |
+| | *read-only*            |                                                                                       |                    |
++--------------------------+---------------------------------------------------------------------------------------+--------------------+
+| | **items**              | Collection of deploy tasks-properties.                                                | < object > array   |
+| | *optional*             |                                                                                       |                    |
++--------------------------+---------------------------------------------------------------------------------------+--------------------+
+| | **kind**               | Type information for this deploy collection object.                                   | string             |
+| | *optional*             |                                                                                       |                    |
+| | *read-only*            |                                                                                       |                    |
++--------------------------+---------------------------------------------------------------------------------------+--------------------+
+| | **lastUpdateMicros**   | Update time (micros) for last change made to an deploy task collection object-time.   | integer(int64)     |
+| | *optional*             |                                                                                       |                    |
+| | *read-only*            |                                                                                       |                    |
++--------------------------+---------------------------------------------------------------------------------------+--------------------+
+| | **selfLink**           | A reference link URI to the deploy task collection object.                            | string             |
+| | *optional*             |                                                                                       |                    |
+| | *read-only*            |                                                                                       |                    |
++--------------------------+---------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div id="footer">
+
+.. raw:: html
+
+   <div id="footer-text">
+
+Last updated 2016-11-18 10:40:00 EST
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
