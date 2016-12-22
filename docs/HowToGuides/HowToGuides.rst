@@ -8,7 +8,12 @@ central management tasks using the Big-IQ Rest API.
 .. toctree::
 	:numbered:
 	:glob:
-
-	Firewall/t_apply_deploy_firewall_policies
-	Access/t_kill_sessions_access.rst
-	Access/t_revoke_oauthtoken_access.rst
+	
+	Firewall/Firewall
+	Access/Access
+	ADC/ADC
+	ASM/ASM
+	Discover/Discover
+	Import/Import
+	License-Management/License-Management
+	Trust/Trust
