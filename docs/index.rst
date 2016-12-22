@@ -17,7 +17,7 @@ Release Version: |release|
 Introduction
 ------------
 
-This Big-IQ rest api documentation is a summary of calls nessasary to complete a workflow task when manging Big-IP device configuration for each module area.
+This documentation was developed to assist a user by providing the nessasary rest calls, with step-by-step description, to complete a workflow task when manging Big-IP device configuration for each module area. In conjunction, there is supported reference documentation decribing each API and related properties.
 
 
 Support
@@ -30,4 +30,4 @@ project is **Community Supported**.
 Getting Started
 ---------------
 
-To get started refer to :docs:`HowToGuides/HowToGuides` and supported :docs:`ApiReferences/ApiReferences`
+To get started refer to :doc:`HowToGuides/HowToGuides` and supported :doc:`ApiReferences/ApiReferences`
