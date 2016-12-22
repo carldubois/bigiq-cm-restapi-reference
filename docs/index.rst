@@ -5,10 +5,11 @@ BIG-IQ Rest API
 ###############
 
 .. toctree::
-   :maxdepth: 1
+   :hidden:
+   :maxdepth: 3
    :titlesonly:
    
-   HowToGuides
+   HowToGuides/HowToGuides
 
 Release Version: |release|
 
