@@ -8,6 +8,7 @@ central management tasks using the Rest API. These references will support the H
 .. toctree::
 	:numbered:
 	:glob:
+<<<<<<< HEAD
 
 	device-trust
 	device-discovery
@@ -28,3 +29,10 @@ central management tasks using the Rest API. These references will support the H
 	asm-attack-signatures
 	access-kill-user-sessions
 	access-revoke-oauth-token-sessions
+=======
+	
+	ApiReferences/firewalls
+	ApiReferences/firewall-policies
+	ApiReferences/access-kill-user-sessions
+	ApiReferences/access-revoke-oauth-token-sessions
+>>>>>>> 62a78acffe9922469bd4786aaa5a70ca75822bf7
