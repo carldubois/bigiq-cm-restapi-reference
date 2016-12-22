@@ -30,4 +30,4 @@ project is **Community Supported**.
 Getting Started
 ---------------
 
-To get started refer to :docs:`HowToGuides/HowToGuides` and supported :docs:`ApiReferences/ApiReferences`
+To get started refer to :doc:`HowToGuides/HowToGuides` and supported :doc:`ApiReferences/ApiReferences`
