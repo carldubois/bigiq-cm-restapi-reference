@@ -5,7 +5,9 @@ BIG-IQ Rest API
 .. toctree::
    :maxdepth: 2
    
-   HowToGuides/t_apply_deploy_firewall_policies
+   HowToGuides/HowToGuides
+   ApiReferences/ApiReferences
+   
 
 Release Version: |release|
 
