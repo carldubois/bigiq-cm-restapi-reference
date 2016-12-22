@@ -1,529 +1,1450 @@
-= BIG-IQ APM OAuth Token Revocation on BIG-IP devices.
+Access-revoke-oauth-token-sessions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-[[\_overview]] == Overview API for OAuth Token Revocation on BIG-IP
-devices using a BIG-IQ centralized management system.
+.. raw:: html
 
-=== Version information [%hardbreaks] *Version* : 5.2
+   <div id="header">
 
-=== URI scheme [%hardbreaks] *BasePath* : /mgmt/cm/access/tasks
-*Schemes* : HTTPS
+.. rubric:: BIG-IQ APM OAuth Token Revocation on BIG-IP devices.
+   :name: big-iq-apm-oauth-token-revocation-on-big-ip-devices.
 
-=== Consumes
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div id="content">
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Overview
+   :name: _overview
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="paragraph">
+
+API for OAuth Token Revocation on BIG-IP devices using a BIG-IQ
+centralized management system.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Version information
+   :name: _version_information
+
+.. raw:: html
+
+   <div class="paragraph">
+
+*Version* : 5.2
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: URI scheme
+   :name: _uri_scheme
+
+.. raw:: html
+
+   <div class="paragraph">
+
+| *BasePath* : /mgmt/cm/access/tasks
+| *Schemes* : HTTPS
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Consumes
+   :name: _consumes
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-=== Produces
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Produces
+   :name: _produces
+
+.. raw:: html
+
+   <div class="ulist">
 
 -  ``application/json``
 
-[[\_paths]] == Paths
-
-[[\_revoke-tokens\_access-groups\_post]] === Revoke all oauth token by
-access groups for a specified user. .... POST /revoke-tokens
-(access-groups) ....
-
-==== Description Revoke all active oauth tokens by access groups by a
-specified user.
-
-==== Parameters
-
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Body*\ \|\ *Json string
-for request body.* + *required*\ \|Input parameter list in json format.
-ex. {"action":"REVOKE\_TOKEN\_FOR\_USER", "userName":"user1",
-"accessGroupNames":["TestGroup1",
-"TestGroup2"]}\|<<\_post\_revoke\_oauth\_token\_by\_access\_group,post\_revoke\_oauth\_token\_by\_access\_group>>\|None
-\|===
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|POST to revoke all oauth tokens
-by access
-group.\|<<\_properties\_revoke\_oauth\_token,properties\_revoke\_oauth\_token>>
-\|\ *400*\ \|Error response Bad
-Request\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_access-groups\_get]] === List all oauth token
-revocation tasks as part of a collection. .... GET /revoke-tokens ....
-
-==== Description Returns the collection of oauth token revocation tasks.
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|GET collection of oauth token
-revocation
-tasks.\|<<\_properties\_revoke\_oauth\_token\_collection,properties\_revoke\_oauth\_token\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_bigip\_clusters\_post]] === Revoke all oauth-token
-sessions by cluster-name match for a specified user. .... POST
-/revoke-tokens (bigip clusters) ....
-
-==== Description Revoke all oauth-token sessions by cluster-name match
-for specified devices.
-
-==== Parameters
-
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Body*\ \|\ *Json string
-for request body.* + *required*\ \|Input parameter list in json format.
-ex. {"action":"REVOKE\_TOKEN\_FOR\_USER", "userName":"user1",
-"clusterNames":["BlueCluster",
-"RedCluster"]}\|<<\_post\_revoke\_oauth\_token\_by\_cluster\_name,post\_revoke\_oauth\_token\_by\_cluster\_name>>\|None
-\|===
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|POST to revoke oauth-token
-sessions within a cluster-name for a specfic
-device.\|<<\_properties\_revoke\_oauth\_token,properties\_revoke\_oauth\_token>>
-\|\ *400*\ \|Error response Bad
-Request\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_bigip\_clusters\_get]] === List all
-revoke-oauth-token tasks as part of a collection. .... GET
-/revoke-tokens ....
-
-==== Description Returns the collection of revoke-oauth-token tasks.
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|GET collection of
-revoke-oauth-token
-tasks.\|<<\_properties\_revoke\_oauth\_token\_collection,properties\_revoke\_oauth\_token\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_bigip\_clusters\_access-groups\_and\_device\_reference\_post]]
-=== Revoke all oauth-token sessions by access group, cluster name and
-device reference match for a specified user. .... POST /revoke-tokens
-(bigip clusters, access-groups and device reference) ....
-
-==== Description Revoke all oauth-token sessions by access group,
-cluster name match for specified devices.
-
-==== Parameters
-
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Body*\ \|\ *Json string
-for request body.* + *required*\ \|Input parameter list in json format.
-ex. {"action":"REVOKE\_TOKEN\_FOR\_USER", "userName":"user1",
-"accessGroupNames":["TestGroup1", "TestGroup2"],
-"clusterNames":["BlueCluster", "RedCluster"], "deviceReferences":
-[{"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"},{"link":"https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d"}]}\|<<\_post\_revoke\_oauth\_token\_by\_cluster\_name\_access\_group\_device\_reference,post\_revoke\_oauth\_token\_by\_cluster\_name\_access\_group\_device\_reference>>\|None
-\|===
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|POST to revoke oauth-token
-sessions within a access-group and cluster-name for a specfic
-device.\|<<\_properties\_revoke\_oauth\_token,properties\_revoke\_oauth\_token>>
-\|\ *400*\ \|Error response Bad
-Request\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_bigip\_clusters\_access-groups\_and\_device\_reference\_get]]
-=== List all revoke-oauth-token tasks as part of a collection. .... GET
-/revoke-tokens ....
-
-==== Description Returns the collection of revoke-oauth-token tasks.
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|GET collection of
-revoke-oauth-token
-tasks.\|<<\_properties\_revoke\_oauth\_token\_collection,properties\_revoke\_oauth\_token\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_oauth\_token\_id\_post]] === Revoke-oauth-token by
-oauth client id. .... POST /revoke-tokens (oauth client id) ....
-
-==== Description Revoke-oauth-token sessions by oauth token id for a
-device.
-
-==== Parameters
-
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Body*\ \|\ *Json string
-for request body.* + *required*\ \|Input parameter list in json format.
-ex. {"action":"REVOKE\_TOKEN\_FOR\_CLIENT\_ID",
-"clientId":"e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457",
-"deviceReferences":[{"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"}]}\|<<\_post\_revoke\_oauth\_token\_by\_oauth\_id,post\_revoke\_oauth\_token\_by\_oauth\_id>>\|None
-\|===
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|POST to revoke-oauth-token
-sessions by oauth token
-id.\|<<\_properties\_revoke\_oauth\_token,properties\_revoke\_oauth\_token>>
-\|\ *400*\ \|Error response Bad
-Request\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_oauth\_token\_id\_get]] === List all
-revoke-oauth-token tasks as part of a collection. .... GET
-/revoke-tokens ....
-
-==== Description Returns the collection of revoke-oauth-token tasks.
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|GET collection of
-revoke-oauth-token
-tasks.\|<<\_properties\_revoke\_oauth\_token\_collection,properties\_revoke\_oauth\_token\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_user\_post]] === Revoke all oauth token by user. ....
-POST /revoke-tokens (user) ....
-
-==== Description Revoke all active oauth tokens by user.
-
-==== Parameters
-
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Body*\ \|\ *Json string
-for request body.* + *required*\ \|Input parameter list in json format.
-ex. { "action":"REVOKE\_TOKEN\_FOR\_USER", "userName":"user1",
-"deviceReferences":[{"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"}]}\|<<\_post\_revoke\_oauth\_token\_by\_user\_body,post\_revoke\_oauth\_token\_by\_user\_body>>\|None
-\|===
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|POST to revoke all oauth tokens
-by
-user.\|<<\_properties\_revoke\_oauth\_token,properties\_revoke\_oauth\_token>>
-\|\ *400*\ \|Error response Bad
-Request\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_user\_get]] === List all oauth token revocation tasks
-as part of a collection. .... GET /revoke-tokens ....
-
-==== Description Returns the collection of oauth token revocation tasks.
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|GET collection of oauth token
-revocation
-tasks.\|<<\_properties\_revoke\_oauth\_token\_collection,properties\_revoke\_oauth\_token\_collection>>
-\|\ *400*\ \|Error response "Bad
-Request"\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_list\_of\_tokens\_post]] === Revoke a list oauth
-token by user. .... POST /revoke-tokens (list of tokens) ....
-
-==== Description Revoke a list of active oauth tokens for a specified
-user.
-
-==== Parameters
-
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Body*\ \|\ *Json string
-for request body.* + *required*\ \|Input parameter list in json format.
-ex. {"action":"REVOKE\_LIST\_OF\_TOKENS", "perDeviceOauthIds":
-[{"oauthIds": [{"id":
-"da6d57ffab9decbe9d75b7fdd4440ad43bedc7a475f3105b", "clientId":
-"e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457"}, {"id":
-"0df998ae62ace6fb6a82bb745b8586e7306afb94e3ca146a", "clientId":
-"e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457"}], "deviceReference":
-{"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"}},
-{ "oauthIds": [{"id":
-"e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457", "clientId":
-"bb745b8586e7306afb94"}, {"id": "8586e7306afb8586e7306afb8586e7306afb",
-"clientId": "8ad92cbb970dd500"}], "deviceReference": {
-"link":"https://localhost/mgmt/cm/system/machineid-resolver/23h4jkhk324-f405-489f-kj3434-98234"}}]}\|<<\_post\_revoke\_list\_of\_tokens\_body,post\_revoke\_list\_of\_tokens\_body>>\|None
-\|===
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|POST to revoke a list of active
-oauth tokens by
-user.\|<<\_properties\_revoke\_oauth\_token,properties\_revoke\_oauth\_token>>
-\|\ *400*\ \|Error response Bad
-Request\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_list\_of\_tokens\_get]] === Returns a list of oauth
-token by user. .... GET /revoke-tokens ....
-
-==== Description Returns a list of active oauth tokens for a specified
-user.
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|GET to revoke a list oauth tokens
-by
-user.\|<<\_properties\_revoke\_oauth\_token\_collection,properties\_revoke\_oauth\_token\_collection>>
-\|\ *400*\ \|Error response Bad
-Request\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_revoke-tokens\_objectid\_get]] === Used to get a single instance of
-a revoke-oauth-token task. .... GET /revoke-tokens/{objectId} ....
-
-==== Description Returns a object for revoke-oauth-token session task
-identified by id for an endpoint URI.
-
-==== Parameters
-
-[options="header", cols=".\ :sup:`2,.`\ 3,.\ :sup:`9,.`\ 4,.^2"] \|===
-\|Type\|Name\|Description\|Schema\|Default \|\ *Path*\ \|\ *objectId* +
-*required*\ \|Unique id refering to a token.\|string(UUID)\|None \|===
-
-==== Responses
-
-[options="header", cols=".\ :sup:`2,.`\ 14,.^4"] \|=== \|HTTP
-Code\|Description\|Schema \|\ *200*\ \|APM revoke-oauth-token task
-object.\|<<\_properties\_revoke\_oauth\_token,properties\_revoke\_oauth\_token>>
-\|\ *400*\ \|Server error response "Bad
-Request".\|<<\_400\_error\_collection,400\_error\_collection>>
-\|\ *404*\ \|Error response Public URI path not
-registered.\|<<\_404\_error\_collection,404\_error\_collection>> \|===
-
-[[\_definitions]] == Definitions
-
-[[\_400\_error\_collection]] === 400\_error\_collection
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *errorStack* + *optional* +
-*read-only*\ \|Error stack trace returned by java.\|string \|\ *items* +
-*optional*\ \|Collection or list of tokens.\|< object > array \|\ *kind*
-+ *optional* + *read-only*\ \|Type information for a collection of tasks
-used to revoke-oauth-token sessions -
-cm:access:tasks:revoke-tokens:oauthrevoketokentaskcollectionstate.\|string
-\|\ *message* + *optional* + *read-only*\ \|Error message returned from
-server.\|string \|\ *requestBody* + *optional* + *read-only*\ \|The data
-in the request body. GET (None)\|string \|\ *requestOperationId* +
-*optional* + *read-only*\ \|Unique id assigned to rest
-operation.\|integer(int64) \|===
-
-[[\_404\_error\_collection]] === 404\_error\_collection
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *errorStack* + *optional* +
-*read-only*\ \|Error stack trace returned by java.\|string \|\ *items* +
-*optional*\ \|Collection or list of tokens.\|< object > array \|\ *kind*
-+ *optional* + *read-only*\ \|Type information for a collection of tasks
-used to revoke-oauth-token sessions -
-cm:access:tasks:revoke-tokens:oauthrevoketokentaskcollectionstate.\|string
-\|\ *message* + *optional* + *read-only*\ \|Error message returned from
-server.\|string \|\ *requestBody* + *optional* + *read-only*\ \|The data
-in the request body. GET (None)\|string \|\ *requestOperationId* +
-*optional* + *read-only*\ \|Unique id assigned to rest
-operation.\|integer(int64) \|===
-
-[[\_post\_revoke\_oauth\_token\_by\_access\_group]] ===
-post\_revoke\_oauth\_token\_by\_access\_group
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *accessGroupNames* + *optional*\ \|One
-or more access group names. All oauth-token sessions in these groups
-will be revoked by invoking task.\|string \|\ *action* +
-*required*\ \|Action used to revoke-oauth-token session by
-access\_group. ex action. "REVOKE\_TOKEN\_FOR\_USER"\|string
-\|\ *userName* + *optional*\ \|User name defined for revoke-oauth-token
-sessions owned.\|string \|===
-
-[[\_post\_revoke\_oauth\_token\_by\_cluster\_name]] ===
-post\_revoke\_oauth\_token\_by\_cluster\_name
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *action* + *required*\ \|Action used to
-revoke-oauth-token session by cluster\_name. ex action.
-"REVOKE\_TOKEN\_FOR\_USER"\|string \|\ *clusterName* + *optional*\ \|One
-or more cluster names. All oauth token sessions in these bigip clusters
-will be revoked by invoking task.\|string \|\ *userName* +
-*optional*\ \|User name defined for revoke-oauth-token sessions
-owned.\|string \|===
-
-[[\_post\_revoke\_oauth\_token\_by\_cluster\_name\_access\_group\_device\_reference]]
-===
-post\_revoke\_oauth\_token\_by\_cluster\_name\_access\_group\_device\_reference
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *accessGroupNames* + *optional*\ \|One
-or more access group names. All oauth token sessions in these groups
-will be revoked by invoking task.\|string \|\ *action* +
-*required*\ \|Action used to revoke-oauth-token session by
-cluster\_name. ex action. "REVOKE\_TOKEN\_FOR\_USER"\|string
-\|\ *clusterNames* + *optional*\ \|One or more cluster names. All oauth
-token sessions in these bigip clusters will be revoked by invoking
-task.\|string \|\ *deviceReferences* + *optional*\ \|Reference link to
-one or more devices in which active revoke-oauth-token sessions
-live.\|string \|\ *userName* + *optional*\ \|User name defined to all
-revoke-oauth-token sessions owned.\|string \|===
-
-[[\_post\_revoke\_oauth\_token\_by\_oauth\_id]] ===
-post\_revoke\_oauth\_token\_by\_oauth\_id
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *action* + *required*\ \|Action used to
-revoke-oauth-token identified by a oauth token id. ex.
-"REVOKE\_TOKEN\_FOR\_CLIENT\_ID"\|string \|\ *clientId* +
-*optional*\ \|Unique id associated with the revoke-oauth-token. ex.
-e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457\|string \|===
-
-[[\_post\_revoke\_oauth\_token\_by\_user\_body]] ===
-post\_revoke\_oauth\_token\_by\_user\_body
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *action* + *required*\ \|Action used to
-revoke-oauth-token session by a user. ex.
-"REVOKE\_TOKEN\_FOR\_USER"\|string \|\ *deviceReferences* +
-*optional*\ \|Reference link to one or more devices in which active
-revoke-oauth-token sessions live.\|<
-<<\_post\_revoke\_oauth\_token\_by\_user\_body\_devicereferences,deviceReferences>>
-> array \|\ *userName* + *optional*\ \|User name defined for
-revoke-oauth-tokens owned.\|string \|===
-
-[[\_post\_revoke\_oauth\_token\_by\_user\_body\_devicereferences]]
-*deviceReferences*
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-device in resolver group.\|string \|===
-
-[[\_post\_revoke\_oauth\_token\_by\_list\_body]] ===
-post\_revoke\_oauth\_token\_by\_list\_body
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *action* + *required*\ \|Action used to
-revoke-oauth-token by a user. ex. "REVOKE\_LIST\_OF\_TOKENS"\|string
-\|\ *perDeviceOauthIds* + *optional*\ \|Device specfic oauth token
-id."\|< <<\_per\_device\_oauth\_ids,perDeviceOauthIds>> >array
-\|\ *deviceReferences* + *optional*\ \|Reference link to one or more
-devices in which active revoke-oauth-token sessions live.\|<
-<<\_post\_revoke\_oauth\_token\_by\_user\_body\_devicereferences,deviceReferences>>
-> array \|\ *userName* + *optional*\ \|User name defined for
-revoke-oauth-token sessions owned.\|string \|===
-
-[[\_post\_revoke\_oauth\_token\_by\_user\_body\_devicereferences]]
-*deviceReferences*
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-device in resolver group.\|string \|===
-
-[[\_properties\_revoke\_oauth\_token]] ===
-properties\_revoke\_oauth\_token
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *accessGroupNames* + *optional*\ \|One
-or more access group names. All revoke-oauth-tokens in these groups will
-be killed by invoking task.\|string \|\ *action* + *required*\ \|Action
-used to revoke-oauth-tokens identified by a oauth token id. ex.
-"REVOKE\_TOKEN\_FOR\_CLIENT\_ID" "REVOKE\_TOKEN\_FOR\_USER"\|string
-\|\ *clientId* + *optional* + *read-only*\ \|Unique id used as a
-reference for client session to BIGIP.\|string \|\ *currentStep* +
-*optional* + *read-only*\ \|Current internal step for revoke-oauth-token
-task.\|string \|\ *generation* + *optional* + *read-only*\ \|A integer
-that will track change made to a revoke-oauth-token task object.
-generation.\|integer(int64) \|\ *id* + *optional*\ \|Unique id
-assocaited with revoke-oauth-token task object.\|string
-\|\ *identityReference* + *optional*\ \|Reference link to the user who
-issued the rest call.\|<
-<<\_properties\_revoke\_oauth\_token\_identityreference,identityReference>>
-> array \|\ *kind* + *optional*\ \|Type information for
-revoke-oauth-token task object -
-cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate.\|string
-\|\ *lastUpdateMicros* + *optional* + *read-only*\ \|Update time
-(micros) for last change made to a revoke-oauth-token task object.
-time.\|integer(int64) \|\ *name* + *optional*\ \|Name of
-revoke-oauth-token session task object.\|string \|\ *ownerMachineId* +
-*optional*\ \|Device machine id used by revoke-oauth-token task object.
-Sessions that live on this device will be revoked.\|string
-\|\ *selfLink* + *optional* + *read-only*\ \|A reference link URI to the
-revoke-oauth-token task object.\|string \|\ *startDateTime* +
-*optional*\ \|Date / Time of when this revoke-oauth-token task
-began.\|string \|\ *status* + *optional*\ \|Status of revoke-oauth-token
-task state. - ex. STARTED, FINISHED.\|string \|\ *userName* +
-*optional*\ \|User name defined to all revoke-oauth-tokens
-owned.\|string \|\ *userReference* + *optional*\ \|Refernece link to
-user issuing the rest call to start revoke-oauth-token task.\|string
-\|\ *username* + *optional*\ \|User username.\|string \|===
-
-[[\_properties\_revoke\_oauth\_token\_identityreference]]
-*identityReference*
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *link* + *optional*\ \|Reference link to
-user indenity.\|string \|===
-
-[[\_properties\_revoke\_oauth\_token\_collection]] ===
-properties\_revoke\_oauth\_token\_collection
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *generation* + *optional* +
-*read-only*\ \|A integer that will track change made to
-revoke-oauth-tokens task collection object. generation.\|integer(int64)
-\|\ *items* + *optional*\ \|Collection of revoke oauth tokens.\|< object
-> array \|\ *kind* + *optional* + *read-only*\ \|Type information for
-revoke-oauth-token task collection object -
-cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate.\|string
-\|\ *lastUpdateMicros* + *optional* + *read-only*\ \|Update time
-(micros) for last change to revoke-oauth-token task collection object.
-time.\|integer(int64) \|\ *selfLink* + *optional* + *read-only*\ \|A
-reference link URI for revoke-oauth-token task collection
-object.\|string \|===
-
-[[\_post\_revoke\_list\_of\_tokens\_body]] ===
-post\_revoke\_list\_of\_tokens\_body
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *action* + *required*\ \|Action used to
-revoke-oauth-token by a user. ex. "REVOKE\_LIST\_OF\_TOKENS".\|string
-\|\ *deviceReference* + *optional*\ \|Reference link to device in
-resolver groups.\|object \|\ *perDeviceOauthIds* + *optional*\ \|Per
-device ids assocated with token.\|<
-<<\_post\_revoke\_list\_of\_tokens\_body\_perdeviceoauthids,perDeviceOauthIds>>
-> array \|===
-
-[[\_post\_revoke\_list\_of\_tokens\_body\_perdeviceoauthids]]
-*perDeviceOauthIds*
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *oauthIds* + *optional*\ \|Id refering
-to oauth token.\|<
-<<\_post\_revoke\_list\_of\_tokens\_body\_oauthids,oauthIds>> > array
-\|===
-
-[[\_post\_revoke\_list\_of\_tokens\_body\_oauthids]] *oauthIds*
-
-[options="header", cols=".\ :sup:`3,.`\ 11,.^4"] \|===
-\|Name\|Description\|Schema \|\ *clientId* + *optional*\ \|Unique id
-refering to a client.\|string \|\ *id* + *optional*\ \|Unique if
-referint a token.\|string \|===
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Paths
+   :name: _paths
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Revoke all oauth token by access groups.
+   :name: _revoke-tokens_access-groups_post
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    POST /revoke-tokens (access-groups)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Revoke all active oauth tokens by access groups.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters
+
++------------+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-----------+
+| Type       | Name                                  | Description                                                                                                                                           | Schema                                                                                          | Default   |
++============+=======================================+=======================================================================================================================================================+=================================================================================================+===========+
+| **Body**   | | **Json string for request body.**   | Input parameter list in json format. ex. {"action":"REVOKE\_TOKEN\_FOR\_USER", "userName":"user1", "accessGroupNames":["TestGroup1", "TestGroup2"]}   | `post\_revoke\_oauth\_token\_by\_access\_group <#_post_revoke_oauth_token_by_access_group>`__   |           |
+|            | | *required*                          |                                                                                                                                                       |                                                                                                 |           |
++------------+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses
+
++-------------+----------------------------------------------------+--------------------------------------------------------------------------+
+| HTTP Code   | Description                                        | Schema                                                                   |
++=============+====================================================+==========================================================================+
+| **200**     | POST to revoke all oauth tokens by access group.   | `properties\_revoke\_oauth\_token <#_properties_revoke_oauth_token>`__   |
++-------------+----------------------------------------------------+--------------------------------------------------------------------------+
+| **400**     | Error response Bad Request                         | `400\_error\_collection <#_400_error_collection>`__                      |
++-------------+----------------------------------------------------+--------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.     | `404\_error\_collection <#_404_error_collection>`__                      |
++-------------+----------------------------------------------------+--------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: List all oauth token revocation tasks as part of a
+   collection.
+   :name: _revoke-tokens_access-groups_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /revoke-tokens (access-groups)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_2
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the collection of oauth token revocation tasks.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_2
+
++-------------+---------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| HTTP Code   | Description                                       | Schema                                                                                          |
++=============+===================================================+=================================================================================================+
+| **200**     | GET collection of oauth token revocation tasks.   | `properties\_revoke\_oauth\_token\_collection <#_properties_revoke_oauth_token_collection>`__   |
++-------------+---------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"                      | `400\_error\_collection <#_400_error_collection>`__                                             |
++-------------+---------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.    | `404\_error\_collection <#_404_error_collection>`__                                             |
++-------------+---------------------------------------------------+-------------------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Revoke all oauth-token sessions by access group, cluster
+   name and device reference match.
+   :name: _revoke-tokens_bigip_clusters_post
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    POST /revoke-tokens (bigip clusters)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_3
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Revoke all oauth-token sessions by access group, cluster name match for
+specified devices.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters_2
+
++------------+---------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-----------+
+| Type       | Name                                  | Description                                                                                                                                        | Schema                                                                                          | Default   |
++============+=======================================+====================================================================================================================================================+=================================================================================================+===========+
+| **Body**   | | **Json string for request body.**   | Input parameter list in json format. ex. {"action":"REVOKE\_TOKEN\_FOR\_USER", "userName":"user1", "clusterNames":["BlueCluster", "RedCluster"]}   | `post\_revoke\_oauth\_token\_by\_cluster\_name <#_post_revoke_oauth_token_by_cluster_name>`__   |           |
+|            | | *required*                          |                                                                                                                                                    |                                                                                                 |           |
++------------+---------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_3
+
++-------------+-----------------------------------------------------------------------------------+--------------------------------------------------------------------------+
+| HTTP Code   | Description                                                                       | Schema                                                                   |
++=============+===================================================================================+==========================================================================+
+| **200**     | POST to revoke oauth-token sessions within a cluster-name for a specfic device.   | `properties\_revoke\_oauth\_token <#_properties_revoke_oauth_token>`__   |
++-------------+-----------------------------------------------------------------------------------+--------------------------------------------------------------------------+
+| **400**     | Error response Bad Request                                                        | `400\_error\_collection <#_400_error_collection>`__                      |
++-------------+-----------------------------------------------------------------------------------+--------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.                                    | `404\_error\_collection <#_404_error_collection>`__                      |
++-------------+-----------------------------------------------------------------------------------+--------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: List all revoke-oauth-token tasks as part of a collection.
+   :name: _revoke-tokens_bigip_clusters_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /revoke-tokens (bigip clusters)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_4
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the collection of revoke-oauth-token tasks.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_4
+
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| HTTP Code   | Description                                      | Schema                                                                                          |
++=============+==================================================+=================================================================================================+
+| **200**     | GET collection of revoke-oauth-token tasks.      | `properties\_revoke\_oauth\_token\_collection <#_properties_revoke_oauth_token_collection>`__   |
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"                     | `400\_error\_collection <#_400_error_collection>`__                                             |
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.   | `404\_error\_collection <#_404_error_collection>`__                                             |
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Revoke all oauth-token sessions by access group, cluster
+   name and device reference match.
+   :name: _revoke-tokens_bigip_clusters_access-groups_and_device_reference_post
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    POST /revoke-tokens (bigip clusters, access-groups and device reference)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_5
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Revoke all oauth-token sessions by access group, cluster name match for
+specified devices.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters_3
+
++------------+---------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+
+| Type       | Name                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Schema                                                                                                                                                          | Default   |
++============+=======================================+==================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================+=================================================================================================================================================================+===========+
+| **Body**   | | **Json string for request body.**   | Input parameter list in json format. ex. {"action":"REVOKE\_TOKEN\_FOR\_USER", "userName":"user1", "accessGroupNames":["TestGroup1", "TestGroup2"], "clusterNames":["BlueCluster", "RedCluster"], "deviceReferences": [{"link":"`https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642"},{"link":"https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d"} <https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642>`__]}   | `post\_revoke\_oauth\_token\_by\_cluster\_name\_access\_group\_device\_reference <#_post_revoke_oauth_token_by_cluster_name_access_group_device_reference>`__   |           |
+|            | | *required*                          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                                                                                                                                                                 |           |
++------------+---------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_5
+
++-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------+
+| HTTP Code   | Description                                                                                        | Schema                                                                   |
++=============+====================================================================================================+==========================================================================+
+| **200**     | POST to revoke oauth-token sessions within a access-group and cluster-name for a specfic device.   | `properties\_revoke\_oauth\_token <#_properties_revoke_oauth_token>`__   |
++-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------+
+| **400**     | Error response Bad Request                                                                         | `400\_error\_collection <#_400_error_collection>`__                      |
++-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.                                                     | `404\_error\_collection <#_404_error_collection>`__                      |
++-------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: List all revoke-oauth-token tasks as part of a collection.
+   :name: _revoke-tokens_bigip_clusters_access-groups_and_device_reference_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /revoke-tokens (bigip clusters, access-groups and device reference)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_6
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the collection of revoke-oauth-token tasks.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_6
+
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| HTTP Code   | Description                                      | Schema                                                                                          |
++=============+==================================================+=================================================================================================+
+| **200**     | GET collection of revoke-oauth-token tasks.      | `properties\_revoke\_oauth\_token\_collection <#_properties_revoke_oauth_token_collection>`__   |
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"                     | `400\_error\_collection <#_400_error_collection>`__                                             |
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.   | `404\_error\_collection <#_404_error_collection>`__                                             |
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Revoke-oauth-token by oauth token id.
+   :name: _revoke-tokens_oauth_token_id_post
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    POST /revoke-tokens (oauth token id)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_7
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Revoke-oauth-token sessions by oauth token id for a device.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters_4
+
++------------+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+-----------+
+| Type       | Name                                  | Description                                                                                                                                                                                                                                                                         | Schema                                                                                  | Default   |
++============+=======================================+=====================================================================================================================================================================================================================================================================================+=========================================================================================+===========+
+| **Body**   | | **Json string for request body.**   | Input parameter list in json format. ex. {"action":"REVOKE\_TOKEN\_FOR\_CLIENT\_ID", "clientId":"e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457", "deviceReferences":[{"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642%22%7D]}   | `post\_revoke\_oauth\_token\_by\_oauth\_id <#_post_revoke_oauth_token_by_oauth_id>`__   |           |
+|            | | *required*                          |                                                                                                                                                                                                                                                                                     |                                                                                         |           |
++------------+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_7
+
++-------------+----------------------------------------------------------+--------------------------------------------------------------------------+
+| HTTP Code   | Description                                              | Schema                                                                   |
++=============+==========================================================+==========================================================================+
+| **200**     | POST to revoke-oauth-token sessions by oauth token id.   | `properties\_revoke\_oauth\_token <#_properties_revoke_oauth_token>`__   |
++-------------+----------------------------------------------------------+--------------------------------------------------------------------------+
+| **400**     | Error response Bad Request                               | `400\_error\_collection <#_400_error_collection>`__                      |
++-------------+----------------------------------------------------------+--------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.           | `404\_error\_collection <#_404_error_collection>`__                      |
++-------------+----------------------------------------------------------+--------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: List all revoke-oauth-token tasks as part of a collection.
+   :name: _revoke-tokens_oauth_token_id_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /revoke-tokens (oauth token id)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_8
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the collection of revoke-oauth-token tasks.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_8
+
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| HTTP Code   | Description                                      | Schema                                                                                          |
++=============+==================================================+=================================================================================================+
+| **200**     | GET collection of revoke-oauth-token tasks.      | `properties\_revoke\_oauth\_token\_collection <#_properties_revoke_oauth_token_collection>`__   |
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"                     | `400\_error\_collection <#_400_error_collection>`__                                             |
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.   | `404\_error\_collection <#_404_error_collection>`__                                             |
++-------------+--------------------------------------------------+-------------------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Revoke all oauth token by user.
+   :name: _revoke-tokens_user_post
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    POST /revoke-tokens (user)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_9
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Revoke all active oauth tokens by user.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters_5
+
++------------+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+-----------+
+| Type       | Name                                  | Description                                                                                                                                                                                                                         | Schema                                                                                    | Default   |
++============+=======================================+=====================================================================================================================================================================================================================================+===========================================================================================+===========+
+| **Body**   | | **Json string for request body.**   | Input parameter list in json format. ex. { "action":"REVOKE\_TOKEN\_FOR\_USER", "userName":"user1", "deviceReferences":[{"link":"https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642%22%7D]}   | `post\_revoke\_oauth\_token\_by\_user\_body <#_post_revoke_oauth_token_by_user_body>`__   |           |
+|            | | *required*                          |                                                                                                                                                                                                                                     |                                                                                           |           |
++------------+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_9
+
++-------------+--------------------------------------------------+--------------------------------------------------------------------------+
+| HTTP Code   | Description                                      | Schema                                                                   |
++=============+==================================================+==========================================================================+
+| **200**     | POST to revoke all oauth tokens by user.         | `properties\_revoke\_oauth\_token <#_properties_revoke_oauth_token>`__   |
++-------------+--------------------------------------------------+--------------------------------------------------------------------------+
+| **400**     | Error response Bad Request                       | `400\_error\_collection <#_400_error_collection>`__                      |
++-------------+--------------------------------------------------+--------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.   | `404\_error\_collection <#_404_error_collection>`__                      |
++-------------+--------------------------------------------------+--------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: List all oauth token revocation tasks as part of a
+   collection.
+   :name: _revoke-tokens_user_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /revoke-tokens (user)
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_10
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns the collection of oauth token revocation tasks.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_10
+
++-------------+---------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| HTTP Code   | Description                                       | Schema                                                                                          |
++=============+===================================================+=================================================================================================+
+| **200**     | GET collection of oauth token revocation tasks.   | `properties\_revoke\_oauth\_token\_collection <#_properties_revoke_oauth_token_collection>`__   |
++-------------+---------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| **400**     | Error response "Bad Request"                      | `400\_error\_collection <#_400_error_collection>`__                                             |
++-------------+---------------------------------------------------+-------------------------------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.    | `404\_error\_collection <#_404_error_collection>`__                                             |
++-------------+---------------------------------------------------+-------------------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: Used to get a single instance of a revoke-oauth-token task.
+   :name: _revoke-tokens_objectid_get
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    GET /revoke-tokens/{objectId}
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_11
+
+.. raw:: html
+
+   <div class="paragraph">
+
+Returns a object for revoke-oauth-token session task identified by id
+for an endpoint URI.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters_6
+
++------------+------------------+---------------+----------------+-----------+
+| Type       | Name             | Description   | Schema         | Default   |
++============+==================+===============+================+===========+
+| **Path**   | | **objectId**   |               | string(UUID)   |           |
+|            | | *required*     |               |                |           |
++------------+------------------+---------------+----------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_11
+
++-------------+--------------------------------------------------+--------------------------------------------------------------------------+
+| HTTP Code   | Description                                      | Schema                                                                   |
++=============+==================================================+==========================================================================+
+| **200**     | APM revoke-oauth-token task object.              | `properties\_revoke\_oauth\_token <#_properties_revoke_oauth_token>`__   |
++-------------+--------------------------------------------------+--------------------------------------------------------------------------+
+| **400**     | Server error response "Bad Request".             | `400\_error\_collection <#_400_error_collection>`__                      |
++-------------+--------------------------------------------------+--------------------------------------------------------------------------+
+| **404**     | Error response Public URI path not registered.   | `404\_error\_collection <#_404_error_collection>`__                      |
++-------------+--------------------------------------------------+--------------------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect1">
+
+.. rubric:: Definitions
+   :name: _definitions
+
+.. raw:: html
+
+   <div class="sectionbody">
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: 400\_error\_collection
+   :name: _400_error_collection
+
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| Name                       | Description                                                                                                                                           | Schema             |
++============================+=======================================================================================================================================================+====================+
+| | **errorStack**           | Error stack trace returned by java.                                                                                                                   | string             |
+| | *optional*               |                                                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**                |                                                                                                                                                       | < object > array   |
+| | *optional*               |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**                 | Type information for a collection of tasks used to revoke-oauth-token sessions - cm:access:tasks:revoke-tokens:oauthrevoketokentaskcollectionstate.   | string             |
+| | *optional*               |                                                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **message**              | Error message returned from server.                                                                                                                   | string             |
+| | *optional*               |                                                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestBody**          | The data in the request body. GET (None)                                                                                                              | string             |
+| | *optional*               |                                                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestOperationId**   | Unique id assigned to rest operation.                                                                                                                 | integer(int64)     |
+| | *optional*               |                                                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: 404\_error\_collection
+   :name: _404_error_collection
+
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| Name                       | Description                                                                                                                                           | Schema             |
++============================+=======================================================================================================================================================+====================+
+| | **errorStack**           | Error stack trace returned by java.                                                                                                                   | string             |
+| | *optional*               |                                                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**                |                                                                                                                                                       | < object > array   |
+| | *optional*               |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**                 | Type information for a collection of tasks used to revoke-oauth-token sessions - cm:access:tasks:revoke-tokens:oauthrevoketokentaskcollectionstate.   | string             |
+| | *optional*               |                                                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **message**              | Error message returned from server.                                                                                                                   | string             |
+| | *optional*               |                                                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestBody**          | The data in the request body. GET (None)                                                                                                              | string             |
+| | *optional*               |                                                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **requestOperationId**   | Unique id assigned to rest operation.                                                                                                                 | integer(int64)     |
+| | *optional*               |                                                                                                                                                       |                    |
+| | *read-only*              |                                                                                                                                                       |                    |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: post\_revoke\_oauth\_token\_by\_access\_group
+   :name: _post_revoke_oauth_token_by_access_group
+
++--------------------------+--------------------------------------------------------------------------------------------------------------+----------+
+| Name                     | Description                                                                                                  | Schema   |
++==========================+==============================================================================================================+==========+
+| | **accessGroupNames**   | One or more access group names. All oauth-token sessions in these groups will be revoked by invoking task.   | string   |
+| | *optional*             |                                                                                                              |          |
++--------------------------+--------------------------------------------------------------------------------------------------------------+----------+
+| | **action**             | Action used to revoke-oauth-token session by access\_group. ex action. "REVOKE\_TOKEN\_FOR\_USER"            | string   |
+| | *optional*             |                                                                                                              |          |
++--------------------------+--------------------------------------------------------------------------------------------------------------+----------+
+| | **userName**           | User name defined for revoke-oauth-token sessions owned.                                                     | string   |
+| | *optional*             |                                                                                                              |          |
++--------------------------+--------------------------------------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: post\_revoke\_oauth\_token\_by\_cluster\_name
+   :name: _post_revoke_oauth_token_by_cluster_name
+
++---------------------+-----------------------------------------------------------------------------------------------------------------+----------+
+| Name                | Description                                                                                                     | Schema   |
++=====================+=================================================================================================================+==========+
+| | **action**        | Action used to revoke-oauth-token session by cluster\_name. ex action. "REVOKE\_TOKEN\_FOR\_USER"               | string   |
+| | *optional*        |                                                                                                                 |          |
++---------------------+-----------------------------------------------------------------------------------------------------------------+----------+
+| | **clusterName**   | One or more cluster names. All oauth token sessions in these bigip clusters will be revoked by invoking task.   | string   |
+| | *optional*        |                                                                                                                 |          |
++---------------------+-----------------------------------------------------------------------------------------------------------------+----------+
+| | **userName**      | User name defined for revoke-oauth-token sessions owned.                                                        | string   |
+| | *optional*        |                                                                                                                 |          |
++---------------------+-----------------------------------------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: post\_revoke\_oauth\_token\_by\_cluster\_name\_access\_group\_device\_reference
+   :name: _post_revoke_oauth_token_by_cluster_name_access_group_device_reference
+
++--------------------------+-----------------------------------------------------------------------------------------------------------------+----------+
+| Name                     | Description                                                                                                     | Schema   |
++==========================+=================================================================================================================+==========+
+| | **accessGroupNames**   | One or more access group names. All oauth token sessions in these groups will be revoked by invoking task.      | string   |
+| | *optional*             |                                                                                                                 |          |
++--------------------------+-----------------------------------------------------------------------------------------------------------------+----------+
+| | **action**             | Action used to revoke-oauth-token session by cluster\_name. ex action. "REVOKE\_TOKEN\_FOR\_USER"               | string   |
+| | *optional*             |                                                                                                                 |          |
++--------------------------+-----------------------------------------------------------------------------------------------------------------+----------+
+| | **clusterNames**       | One or more cluster names. All oauth token sessions in these bigip clusters will be revoked by invoking task.   | string   |
+| | *optional*             |                                                                                                                 |          |
++--------------------------+-----------------------------------------------------------------------------------------------------------------+----------+
+| | **deviceReferences**   | Reference link to one or more devices in which active revoke-oauth-token sessions live.                         | string   |
+| | *optional*             |                                                                                                                 |          |
++--------------------------+-----------------------------------------------------------------------------------------------------------------+----------+
+| | **userName**           | User name defined to all revoke-oauth-token sessions owned.                                                     | string   |
+| | *optional*             |                                                                                                                 |          |
++--------------------------+-----------------------------------------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: post\_revoke\_oauth\_token\_by\_oauth\_id
+   :name: _post_revoke_oauth_token_by_oauth_id
+
++------------------+-------------------------------------------------------------------------------------------------------------------+----------+
+| Name             | Description                                                                                                       | Schema   |
++==================+===================================================================================================================+==========+
+| | **action**     | Action used to revoke-oauth-token sessions identified by a oauth token id. ex. "REVOKE\_TOKEN\_FOR\_CLIENT\_ID"   | string   |
+| | *optional*     |                                                                                                                   |          |
++------------------+-------------------------------------------------------------------------------------------------------------------+----------+
+| | **clientId**   | Unique id associated with the revoke-oauth-token session. ex. e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457    | string   |
+| | *optional*     |                                                                                                                   |          |
++------------------+-------------------------------------------------------------------------------------------------------------------+----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: post\_revoke\_oauth\_token\_by\_user\_body
+   :name: _post_revoke_oauth_token_by_user_body
+
++--------------------------+-------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
+| Name                     | Description                                                                               | Schema                                                                                     |
++==========================+===========================================================================================+============================================================================================+
+| | **action**             | Action used to revoke-oauth-token session by a user. ex. "REVOKE\_TOKEN\_FOR\_USER"       | string                                                                                     |
+| | *optional*             |                                                                                           |                                                                                            |
++--------------------------+-------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
+| | **deviceReferences**   | Reference link to one or more devices in which active revoke-oauth-token sessions live.   | < `deviceReferences <#_post_revoke_oauth_token_by_user_body_devicereferences>`__ > array   |
+| | *optional*             |                                                                                           |                                                                                            |
++--------------------------+-------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
+| | **userName**           | User name defined for revoke-oauth-token sessions owned.                                  | string                                                                                     |
+| | *optional*             |                                                                                           |                                                                                            |
++--------------------------+-------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_post_revoke_oauth_token_by_user_body_devicereferences"
+   class="paragraph">
+
+**deviceReferences**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------+----------+
+| Name           | Description   | Schema   |
++================+===============+==========+
+| | **link**     |               | string   |
+| | *optional*   |               |          |
++----------------+---------------+----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_revoke\_oauth\_token
+   :name: _properties_revoke_oauth_token
+
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| Name                      | Description                                                                                                                                  | Schema                                                                                |
++===========================+==============================================================================================================================================+=======================================================================================+
+| | **accessGroupNames**    | One or more access group names. All revoke-oauth-token sessions in these groups will be killed by invoking task.                             | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **action**              | Action used to revoke-oauth-token sessions identified by a oauth token id. ex. "REVOKE\_TOKEN\_FOR\_CLIENT\_ID" "REVOKE\_TOKEN\_FOR\_USER"   | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **clientId**            | Unique id used as a reference for client session to BIGIP.                                                                                   | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
+| | *read-only*             |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **currentStep**         | Current status of state for revoke-oauth-token task. ex. STARTED, FINSIHED                                                                   | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
+| | *read-only*             |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **generation**          | A integer that will track change made to a revoke-oauth-token task object. generation.                                                       | integer(int64)                                                                        |
+| | *optional*              |                                                                                                                                              |                                                                                       |
+| | *read-only*             |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **id**                  | Unique id assocaited with revoke-oauth-token task object.                                                                                    | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **identityReference**   | Reference link to the user who issued the rest call.                                                                                         | < `identityReference <#_properties_revoke_oauth_token_identityreference>`__ > array   |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **kind**                | Type information for revoke-oauth-token task object - cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate.                           | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **lastUpdateMicros**    | Update time (micros) for last change made to a revoke-oauth-token task object. time.                                                         | integer(int64)                                                                        |
+| | *optional*              |                                                                                                                                              |                                                                                       |
+| | *read-only*             |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **name**                | Name of revoke-oauth-token session task object.                                                                                              | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **ownerMachineId**      | Device machine id used by revoke-oauth-token task object. Sessions that live on this device will be revoked.                                 | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **selfLink**            | A reference link URI to the revoke-oauth-token task object.                                                                                  | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
+| | *read-only*             |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **startDateTime**       | Date / Time of when this revoke-oauth-token task began.                                                                                      | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **status**              | Status of revoke-oauth-token task state. - ex. STARTED, FINISHED.                                                                            | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **userName**            | User name defined to all revoke-oauth-token sessions owned.                                                                                  | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **userReference**       | Refernece link to user issuing the rest call to start revoke-oauth-token task.                                                               | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| | **username**            |                                                                                                                                              | string                                                                                |
+| | *optional*              |                                                                                                                                              |                                                                                       |
++---------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+
+.. raw:: html
+
+   <div id="_properties_revoke_oauth_token_identityreference"
+   class="paragraph">
+
+**identityReference**
+
+.. raw:: html
+
+   </div>
+
++----------------+---------------+----------+
+| Name           | Description   | Schema   |
++================+===============+==========+
+| | **link**     |               | string   |
+| | *optional*   |               |          |
++----------------+---------------+----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect2">
+
+.. rubric:: properties\_revoke\_oauth\_token\_collection
+   :name: _properties_revoke_oauth_token_collection
+
++--------------------------+------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| Name                     | Description                                                                                                                              | Schema             |
++==========================+==========================================================================================================================================+====================+
+| | **generation**         | A integer that will track change made to revoke-oauth-token sessions task collection object. generation.                                 | integer(int64)     |
+| | *optional*             |                                                                                                                                          |                    |
+| | *read-only*            |                                                                                                                                          |                    |
++--------------------------+------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **items**              |                                                                                                                                          | < object > array   |
+| | *optional*             |                                                                                                                                          |                    |
++--------------------------+------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **kind**               | Type information for revoke-oauth-token sessions task collection object - cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate.   | string             |
+| | *optional*             |                                                                                                                                          |                    |
+| | *read-only*            |                                                                                                                                          |                    |
++--------------------------+------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **lastUpdateMicros**   | Update time (micros) for last change to revoke-oauth-token sessions task collection object. time.                                        | integer(int64)     |
+| | *optional*             |                                                                                                                                          |                    |
+| | *read-only*            |                                                                                                                                          |                    |
++--------------------------+------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+| | **selfLink**           | A reference link URI for revoke-oauth-token sessions task collection object.                                                             | string             |
+| | *optional*             |                                                                                                                                          |                    |
+| | *read-only*            |                                                                                                                                          |                    |
++--------------------------+------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div id="footer">
+
+.. raw:: html
+
+   <div id="footer-text">
+
+Last updated 2016-12-06 17:03:22 EST
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
