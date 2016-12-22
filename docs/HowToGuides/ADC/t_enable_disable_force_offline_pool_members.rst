@@ -7,7 +7,7 @@ to drain down existing traffic, or force offline pool members to stop
 serving traffic.
 
 Prerequisites
----------------
+~~~~~~~~~~~~~~
 
 The following prerequisites are required to complete this task.
 
@@ -16,8 +16,8 @@ The following prerequisites are required to complete this task.
    Local Traffic (LTM) configuration imported, and desired pool members
    exist at last import time.
 
-1. Find Pool Members
-----------------------
+Find Pool Members
+^^^^^^^^^^^^^^^^^^
 
 If already know the ``selfLink`` of pool members to operate on and
 desired state to change to, please skip Step 1 and proceed directly to
@@ -114,8 +114,8 @@ The JSON in the body of the response can look similar to the following.
 Note the value of selfLink for pools where the target pool members
 belong to, which will be used in the next step.
 
-2. Review Current State of Pool Members
------------------------------------------
+Review Current State of Pool Members
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Send a GET request to the pool member sub-collections of the specific
 pools.
@@ -187,8 +187,8 @@ used in the next step.
       "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/df237cb1-e272-3de9-8de3-a1afae6d6503/members"
     }
 
-3. Set New State for Pool Members
------------------------------------
+Set New State for Pool Members
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Send a POST request to set new state for each pool member. The pool
 member will be set to the new state regardless of the previous state.
@@ -271,15 +271,15 @@ Upon completion, the task would reach FINISHED in status.
       "username": "admin"
     }
 
-4. Result
-------
+Result
+^^^^^^^
 
 The pool members are enabled, disabled or forced offline, and the change
 is synchronized if the devices is in config sync group with either
 manual or automatic sync mode.
 
-5. API references that support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API references that support this workflow:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `Api reference - pool member
 management <../html-reference/pool-member-management.html>`__ `Api
