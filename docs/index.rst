@@ -19,3 +19,8 @@ Release Version: |release|
 
 **Api reference automation guidelines - BARFOO**
 ---------------
+
+Getting Started
+---------------
+
+To get started head over to the :doc:`HowToGuide/HowToGuide`.  
