@@ -6,8 +6,7 @@ This guide provide an index into supported BIG-IQ worklows allowing for ease of 
 central management tasks using the Big-IQ Rest API.
 
 .. toctree::
-	:numbered:
-	:glob:
+	:maxdepth: 3
 	
 	Firewall/Firewall
 	Access/Access
