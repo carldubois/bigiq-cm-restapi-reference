@@ -1,4 +1,4 @@
-Device Discover
+Device discover
 ^^^^^^^^^^^^^^^
 
 .. raw:: html
