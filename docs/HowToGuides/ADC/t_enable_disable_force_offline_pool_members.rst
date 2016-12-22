@@ -6,7 +6,7 @@ pool members to take traffic for the application, disable pool members
 to drain down existing traffic, or force offline pool members to stop
 serving traffic.
 
-1.  Prerequisites
+Prerequisites
 ---------------
 
 The following prerequisites are required to complete this task.
@@ -16,7 +16,7 @@ The following prerequisites are required to complete this task.
    Local Traffic (LTM) configuration imported, and desired pool members
    exist at last import time.
 
-2.  Find Pool Members
+1. Find Pool Members
 ----------------------
 
 If already know the ``selfLink`` of pool members to operate on and
@@ -114,7 +114,7 @@ The JSON in the body of the response can look similar to the following.
 Note the value of selfLink for pools where the target pool members
 belong to, which will be used in the next step.
 
-3.  Review Current State of Pool Members
+2. Review Current State of Pool Members
 -----------------------------------------
 
 Send a GET request to the pool member sub-collections of the specific
@@ -187,7 +187,7 @@ used in the next step.
       "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/df237cb1-e272-3de9-8de3-a1afae6d6503/members"
     }
 
-4. Set New State for Pool Members
+3. Set New State for Pool Members
 -----------------------------------
 
 Send a POST request to set new state for each pool member. The pool
@@ -271,14 +271,14 @@ Upon completion, the task would reach FINISHED in status.
       "username": "admin"
     }
 
-5. Result
+4. Result
 ------
 
 The pool members are enabled, disabled or forced offline, and the change
 is synchronized if the devices is in config sync group with either
 manual or automatic sync mode.
 
-6. API references that support this workflow:
+5. API references that support this workflow:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `Api reference - pool member

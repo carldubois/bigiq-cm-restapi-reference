@@ -3,8 +3,7 @@ ADC
 *************
 
 .. toctree::
-	:numbered:
-	:glob:
+	:maxdepth: 2
 
 	t_create_simple_application
 	t_enable_disable_force_offline_pool_members
