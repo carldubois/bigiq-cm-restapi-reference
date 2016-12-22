@@ -12,9 +12,9 @@ BIG-IQ Rest API
 
 Release Version: |release|
 
-**Api workflow automation guidelines - FOO**
+**Api workflow automation guidelines - FOOBAR**
 ------------
 
 
-**Api reference automation guidelines - BAR**
+**Api reference automation guidelines - BARFOO**
 ---------------
