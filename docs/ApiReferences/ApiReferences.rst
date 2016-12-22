@@ -8,3 +8,8 @@ central management tasks using the Rest API. These references will support the H
 .. toctree::
 	:numbered:
 	:glob:
+	
+	ApiReferences/firewalls
+	ApiReferences/firewall-policies
+	ApiReferences/access-kill-user-sessions
+	ApiReferences/access-revoke-oauth-token-sessions
