@@ -6,9 +6,7 @@ This guide provide an index into supported BIG-IQ references allowing for ease o
 central management tasks using the Rest API. These references will support the How-To-Guides.
 
 .. toctree::
-	:numbered:
-	:glob:
-
+	:maxdepth: 3
 	device-trust
 	device-discovery
 	asm-discovery_import
