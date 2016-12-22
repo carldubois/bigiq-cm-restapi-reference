@@ -1,12 +1,15 @@
-:github_url: https://github.com/carldubois/bigiq-cm-restapi-reference
+:github_url: https://github.com/carldubois/bigiq-cm-restapi-reference/docs
+
+.. _iApp: https://devcentral.f5.com/wiki/iApp.HomePage.ashx
+.. _F5 Networks: https://www.f5.com
+.. _GitHub Issues: https://github.com/0xHiteshPatel/appsvcs_integration_iapp/issues
 
 .. toctree::
 	:hidden:
 	:maxdepth: 3	
 	
-	Workflows
-	`markdown/t_apply_deploy_firewall_policies.md`
-	References
+	HowToGuides/HowToGuides
+	ApiReferences/ApiReferences
 
 BIGIQ REST API
 ==============
