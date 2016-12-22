@@ -7,6 +7,7 @@ central management tasks using the Rest API. These references will support the H
 
 .. toctree::
 	:maxdepth: 3
+	
 	device-trust
 	device-discovery
 	asm-discovery_import
