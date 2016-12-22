@@ -6,7 +6,7 @@
 
 .. toctree::
 	:hidden:
-	:maxdepth: 3	
+	:maxdepth: 3
 	
 	HowToGuides/HowToGuides
 	ApiReferences/ApiReferences
