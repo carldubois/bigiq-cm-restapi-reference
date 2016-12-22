@@ -1,4 +1,4 @@
-Deploy Configuration
+Deploy configuration
 ^^^^^^^^^^^^^^^^^^^^
 
 .. raw:: html
