@@ -45,7 +45,7 @@ Examples creating simple application
 Below are a few examples showing how a simple application can be
 created.
 
-1. Create a node:
+Create a node:
 ^^^^^^^^^^^^^^^^^
 
 ::
@@ -128,7 +128,7 @@ object created in working config. It looks like,
         "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48"
     }
 
-2. Create a pool
+Create a pool
 ^^^^^^^^^^^^^^^^
 
 ::
@@ -187,7 +187,7 @@ After a successful creation, a new pool is created and it looks like,
         "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1"
     }
 
-3. Create a pool member
+Create a pool member
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 In order to create a pool member, you must create a pool and a node
@@ -236,7 +236,7 @@ target pool. It looks like,
         "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1/members/43ef0c03-0630-379f-a652-0c2e4fbbdce0"
     }
 
-4. Create a virtual server
+Create a virtual server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -329,7 +329,7 @@ example,
            }
     }
 
-5. Attach a pool to virtual server
+Attach a pool to virtual server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Technically speaking, step 4 and step 5 can be combined into one step.
