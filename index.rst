@@ -1,7 +1,9 @@
 .. toctree::
 	:hidden:
 	:maxdepth: 3	
-
+	
+	Workflows
+	References
 
 BIGIQ REST API
 ==============
