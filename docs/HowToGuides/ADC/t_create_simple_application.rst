@@ -351,9 +351,6 @@ need to add the property "poolReference" into the POST request body.
 
 API references used to support this workflow:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-`Api reference - application node
-management <../adoc/application-server-node-management.adoc>`__ `Api
-reference - pool / member
-management <../adoc/pool-member-management.adoc>`__ `Api reference -
-virtual server management <../adoc/virtual-server-management.adoc>`__
+:doc:`ApiReferences/application-server-node-management`
+:doc:`ApiReferences/pool-member-management`
+:doc:`ApiReferences/virtual-server-management`
