@@ -161,8 +161,8 @@ Note - to determine the list of all policies that are in use, perform a
 GET operation to the policies collection and repeat the operations shown
 here for each policy.
 
-API reference
-~~~~~~~~~~~~~
+API references
+~~~~~~~~~~~~~~
 
 `Api reference - asm policy
 management <../html-reference/asm-policies.html>`__
