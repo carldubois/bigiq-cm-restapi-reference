@@ -44,7 +44,7 @@ status has a value of FINISHED, FAILED or CANCELLED.
 The following extended example show each of these REST API methods.
 
 Extended example for establishing device trust
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 | In the following example: - The BIG-IP device discovery address is
   10.255.4.124. you can substitute your BIG-IP device’s discovery
