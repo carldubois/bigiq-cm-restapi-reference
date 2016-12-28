@@ -1456,7 +1456,7 @@ Task failure when oauthIds are missing for REVOKE\_LIST\_OF\_TOKENS action
         "kind": ":resterrorresponse"
     }
 
-API reference:
+API references
 ~~~~~~~~~~~~~~
 
 `Api reference - revoke oauth authentication
