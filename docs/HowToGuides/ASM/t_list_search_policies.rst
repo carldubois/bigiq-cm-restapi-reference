@@ -87,7 +87,7 @@ The following is the JSON response from the GET operation:
         "lastUpdateMicros": 1478688837870194
     }
 
-API reference
-~~~~~~~~~~~~~
+API references
+~~~~~~~~~~~~~~
 
 `Api reference - asm policies <../html-reference/asm-policies.html>`__
