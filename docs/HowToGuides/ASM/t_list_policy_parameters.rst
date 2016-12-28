@@ -323,8 +323,8 @@ The following is the JSON response from the GET operation:
         "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef/parameters"
     }
 
-API reference
-~~~~~~~~~~~~~
+API references
+~~~~~~~~~~~~~~
 
 `Api reference - virtual server
 management <../html-reference/virtual-server-management.html>`__ `Api
