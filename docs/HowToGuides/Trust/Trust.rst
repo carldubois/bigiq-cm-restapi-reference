@@ -3,7 +3,6 @@ Device Trust
 *************
 
 .. toctree::
-	:numbered:
-	:glob:
+	:maxdepth: 2
 
 	t_establish_trust
