@@ -1,5 +1,5 @@
-Import the Advanced Firewall service into the working configuration on a BIG-IQ Centralized Management system
--------------------------------------------------------------------------------------------------------------
+Import the firewall service into the working configuration.
+-----------------------------------------------------------
 
 Overview
 ~~~~~~~~
@@ -47,7 +47,7 @@ additional GET methods on the declare management authority URI until the
 status value is FINISHED and the currentStep value is DONE.
 
 Example for Importing the Advanced Firewall service
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 | In the following example: - The BIG-IP device discovery address is
   10.255.4.124. you can substitute your BIG-IP device's discovery
@@ -1095,8 +1095,8 @@ Error generated when an incorrect URI is sent in the REST request.
       "kind": ":resterrorresponse"
     }
 
-API Reference supporting this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - Import configuration:
 AFM <../html-reference/firewall-discovery_import.html>`__
