@@ -1,8 +1,8 @@
-Purchased Pool Licenses API
-===========================
+Purchased Pool Licenses.
+------------------------
 
 Overview
---------
+~~~~~~~~
 
 The API supports activating, polling, reactivating and removing a
 purchased pool license. Pool license is different from the traditional
@@ -15,8 +15,16 @@ for the pool license. There are two fields totalDeviceLicenses and
 freeDeviceLicenses that tract the seats a purchased pool license has and
 how many have been granted respectively
 
+Prerequisites
+~~~~~~~~~~~~~
+Active license pool avabiliity. 
+
+Description
+~~~~~~~~~~~
+Actions to take for license pool type.
+
 Activate
-~~~~~~~~
+^^^^^^^^
 
 User could choose to activate a purchased pool license with the API
 directly instead of through the initial activation API. The steps are
@@ -30,7 +38,7 @@ generated license \* Patch the endpoint for the license with the license
 text
 
 Reactivate
-~~~~~~~~~~
+^^^^^^^^^^
 
 This are the process to reactivate a purchased license. The steps to
 reactivate automatically are as follow \* Do a patch with state=
@@ -44,7 +52,7 @@ RELICENSE and method = MANUAL(item 4) \* Get the license text from F5
 licensing website and patch it to the license end point(item 7).
 
 Remove
-~~~~~~
+^^^^^^
 
 -  To remove a purchase pool license, do a DELETE on the endpoint(item
    8)
@@ -225,8 +233,8 @@ Response: { "uuid":"123", "name" : "pool name" "baseRegKey" : "ABC-XYZ",
 DELETE
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
-API reference used to support this workflow:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+API references
+~~~~~~~~~~~~~~
 
 `Api reference - purchased pool
 licensing <../html-reference/license-purchased-pools.html>`__
