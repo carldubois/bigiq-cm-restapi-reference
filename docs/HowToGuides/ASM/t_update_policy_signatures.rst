@@ -14517,8 +14517,8 @@ The following is the JSON response from the POST operation:
         ]
     }
 
-API reference
-~~~~~~~~~~~~~
+API references
+~~~~~~~~~~~~~~
 
 `Api reference - asm signature
 management <../html-reference/asm-attack-signatures.html>`__ `Api
