@@ -528,5 +528,7 @@ Error generated when an incorrect URI is sent in the REST request.
       "kind": ":resterrorresponse"
     }
     
-    API references
-    ~~~~~~~~~~~~~~
+
+
+API references
+~~~~~~~~~~~~~~
