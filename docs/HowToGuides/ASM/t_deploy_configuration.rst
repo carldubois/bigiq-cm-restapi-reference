@@ -1,4 +1,4 @@
-Deploying a Web Application Security configuration.
+Deploying a application security configuration.
 ---------------------------------------------------
 
 Overview
@@ -241,8 +241,8 @@ If the status does not reach FINISHED, consult the Web Application
 Security Deployment page in the BIG-IQ Centralized Management user
 interface to determine the issue encountered with the deployment task.
 
-API reference used to support this workflow
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - ASM deploy
 configuration <../html-reference/deploy-configuration.html>`__
