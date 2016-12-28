@@ -1095,8 +1095,8 @@ Error generated when an incorrect URI is sent in the REST request.
       "kind": ":resterrorresponse"
     }
 
-API reference
-~~~~~~~~~~~~~
+API references
+~~~~~~~~~~~~~~
 
 `Api reference - Import configuration:
 AFM <../html-reference/firewall-discovery_import.html>`__
