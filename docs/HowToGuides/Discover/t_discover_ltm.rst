@@ -421,8 +421,8 @@ Discovery failure for a device that is no longer available.
         "username": "admin"
     }      
 
-API reference
-~~~~~~~~~~~~~
+API references
+~~~~~~~~~~~~~~
 
 `Api reference - global task device
 discovery <../html-reference/device-discovery.html>`__
