@@ -40,7 +40,7 @@ User could revoke a license granted to a devive by removing the end
 point from the member subcollection(item 6).
 
 1. Get all the members of a purchased pool license [GET]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 GET
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
