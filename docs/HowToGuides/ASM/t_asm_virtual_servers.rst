@@ -85,8 +85,8 @@ deploy policies to devices without using them to enforce rules on
 traffic for that device. The regular virtual servers can only have one
 policy associated with them, and are used to enforce rules on traffic.
 
-API reference
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API references
+~~~~~~~~~~~~~~
 
 `Api reference - asm virtual
 servers <../html-reference/virtual-server-management.html>`__
