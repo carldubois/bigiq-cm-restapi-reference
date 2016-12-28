@@ -1456,8 +1456,8 @@ Task failure when oauthIds are missing for REVOKE\_LIST\_OF\_TOKENS action
         "kind": ":resterrorresponse"
     }
 
-API reference used to support this workflow:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+API reference:
+~~~~~~~~~~~~~~
 
 `Api reference - revoke oauth authentication
 token <../html-reference/access-revoke-oauth-token-sessions.html>`__
