@@ -1,5 +1,5 @@
-Associating a Web Application Security policy with a virtual server.
---------------------------------------------------------------------
+Associating a application security policy with a virtual server.
+----------------------------------------------------------------
 
 Overview
 ~~~~~~~~
@@ -26,6 +26,9 @@ Prerequisites
 
 Note - to create new virtual servers, use the ADC APIs as shown in the
 ADC section.
+
+Description
+~~~~~~~~~~~
 
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a GET operation to determine the selfLink of a
@@ -135,8 +138,8 @@ The following is the JSON response from the PATCH operation:
         "selfLink": "https://localhost/mgmt/cm/asm/working-config/virtual-servers/fc4cb3cf-b2d8-378a-8a64-07a27e60316c"
     }
 
-API references used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - virtual server
 management <../html-reference/virtual-server-management.html>`__ `Api
