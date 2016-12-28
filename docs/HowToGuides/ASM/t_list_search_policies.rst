@@ -1,5 +1,5 @@
-Listing Web Application Security policies and searching for a specific policy by name.
---------------------------------------------------------------------------------------
+Listing application security policies and searching for a specific policy by name.
+----------------------------------------------------------------------------------
 
 Overview
 ~~~~~~~~
@@ -15,6 +15,9 @@ policies and to retrieve a link to an existing policy by a policy name.
 Perform the REST API actions in the following order: 1. Perform a GET
 operation to return all policies. 2. Perform a GET operation to return a
 specific policy using a filter.
+
+Description
+~~~~~~~~~~~
 
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a GET operation to return all policies. Perform
@@ -84,7 +87,7 @@ The following is the JSON response from the GET operation:
         "lastUpdateMicros": 1478688837870194
     }
 
-API reference used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - asm policies <../html-reference/asm-policies.html>`__
