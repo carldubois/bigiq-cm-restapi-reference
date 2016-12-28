@@ -21,6 +21,9 @@ selfLink of a device. 3. Perform a GET operation to the virtual-servers
 collection with a filter to find if any virtual servers on that device
 are using that policy.
 
+Description
+~~~~~~~~~~~
+
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a GET operation to determine the selfLink of a
 policy. Perform a GET operation on the policies collection, filtering
@@ -158,8 +161,8 @@ Note - to determine the list of all policies that are in use, perform a
 GET operation to the policies collection and repeat the operations shown
 here for each policy.
 
-API references used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - asm policy
 management <../html-reference/asm-policies.html>`__
