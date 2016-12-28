@@ -1,5 +1,10 @@
-.. _APIReferences/application-server-node-management.rst:
+.. toctree::
+   :hidden:
 
+   ApiReferences/application-server-node-management
+   ApiReferences/pool-member-management
+   ApiReferences/virtual-server-management
+   
 Create simple application.
 -------------------------
 
