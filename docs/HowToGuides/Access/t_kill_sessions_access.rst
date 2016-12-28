@@ -1,5 +1,5 @@
-Kill Active Access Sessions on BIG-IP devices using a BIG-IQ Centralized Management system
-------------------------------------------------------------------------------------------
+Kill active access sessions
+---------------------------
 
 Overview
 ~~~~~~~~
@@ -51,7 +51,7 @@ FINISHED and the currentStep value is DONE, the kill sessions is
 completed.
 
 Example for Kill Active Access Sessions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the following example: - The BIG-IP device address is 10.255.4.124.
 You substitute your BIG-IP device’s address for this address when you
