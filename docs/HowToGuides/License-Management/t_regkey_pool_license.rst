@@ -127,7 +127,7 @@ Note: a regkey may not be deleted if it is assigned to a BIG-IP device.
 DELETE https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}
 
 Managing registration keys for a RegKey Pool.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A collection is automatically created beneath a top-level Regkey Pool.
 Unlike a typical Offerings Collection employed by other pool license
@@ -288,7 +288,7 @@ DELETE
 https://ip/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}
 
 Manage license assignment to a BIG-IP device
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A collection is automatically created beneath each Offering Collection.
 Each entry in this collection represents a license granted to a device.
