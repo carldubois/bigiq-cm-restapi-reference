@@ -1,4 +1,4 @@
-Enable, Disable, and Force Offline Pool Members
+Enable, disable, and force offline pool members.
 ------------------------------------------------
 
 This topic describes how to control the state of pool members, to enable
