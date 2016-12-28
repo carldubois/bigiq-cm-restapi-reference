@@ -1,5 +1,5 @@
-RegKey pool licence
--------------------
+RegKey pool license.
+--------------------
 
 Overview
 ~~~~~~~~
