@@ -1,4 +1,4 @@
-View Status of LTM objects
+View Status of LTM objects.
 --------------------------
 
 Overview
@@ -27,8 +27,14 @@ You should be sure the following prerequisites have been met.
    system, you should change localhost to be the IP address of the
    BIG-IQ Centralized Management system.
 
+Description
+~~~~~~~~~~~
+
+This workflow will allow the user to view status of adc ltm objects.
+
+
 Search for application's configuration objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Search to quickly locate configuration objects of interest, by looking
 up the IP address, name or other specific property, and see the details
@@ -161,7 +167,7 @@ GET on that URL.
     of these statistics may change in the future.
 
 Walk From Virtual Server To Nodes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 There are several mechanisms for locating nodes that are used by a
 virtual server. 1. Using the referenceKind URL parameter 2. Manually
@@ -341,7 +347,7 @@ Retrieve the node using the *nodeReference* from each member
     }
 
 Searching for non-conformant configuration.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you have some company policy regarding acceptable configurations, you
 may use the $filter parameter to search for particular configuration
@@ -374,7 +380,7 @@ virtuals servers.
         "lastUpdateMicros": 1479756371933830
     }
 
-API references:
+API references
 ~~~~~~~~~~~~~~~
 
 `Api reference - application node
