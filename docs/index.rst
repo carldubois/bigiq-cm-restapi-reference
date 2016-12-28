@@ -17,7 +17,7 @@ Release Version: |release|
 Introduction
 ------------
 
-This documentation was developed to assist a user by providing the nessasary rest calls, with step-by-step description, to complete a workflow task when manging Big-IP device configuration for each module area. In conjunction, there is supported reference documentation decribing each API and related properties.
+This documentation was developed to assist providing the nessesary BIG-IQ REST API calls, step-by-step descriptive data, to complete a workflow task when manging Big-IP device configuration for each module area. In conjunction, there will be supported reference documentation describing each API and related properties.
 
 
 Support
