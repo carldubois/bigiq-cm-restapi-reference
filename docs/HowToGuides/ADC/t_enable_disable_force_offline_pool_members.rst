@@ -12,6 +12,11 @@ Overview
 Using the BIG-IQ REST API, you can review the status of applications
 across the data centers, after the BIG-IP devices are managed by BIG-IQ.
 
+Description
+~~~~~~~~~~~
+
+This will allow the user to automate enable/disable/force offline pool member.
+
 Prerequisites
 ~~~~~~~~~~~~~~
 
