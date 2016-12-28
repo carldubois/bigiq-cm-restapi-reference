@@ -14,6 +14,9 @@ Virtual-server is an entry point to a simple application. A
 virtual-server references a pool. A pool includes a list of pool member
 objects. A pool member is dependent on a node object.
 
+Description
+~~~~~~~~~~~
+
 In general, you create a simple application following the below steps: -
 step 1: create a node - step 2: create a pool - step 3: add a pool
 member to a pool - step 4: create a virtual server - step 5: attach the
@@ -40,7 +43,7 @@ You should be sure the following prerequisites have been met.
    BIG-IQ Centralized Management system.
 
 Examples creating simple application
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Below are a few examples showing how a simple application can be
 created.
