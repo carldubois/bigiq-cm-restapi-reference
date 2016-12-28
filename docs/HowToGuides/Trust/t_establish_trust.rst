@@ -1,5 +1,5 @@
-Establish trust between a BIG-IQ Centralized Management system and a BIG-IP device
-----------------------------------------------------------------------------------
+Establish trust between BIG-IQ and BIG-IP.
+------------------------------------------
 
 Overview
 ~~~~~~~~
