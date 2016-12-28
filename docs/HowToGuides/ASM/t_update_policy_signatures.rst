@@ -1,4 +1,4 @@
-Enable and enforce a specific signature in a policy by signatureId
+Enable and enforce a specific signature in a policy by signatureId.
 ------------------------------------------------------------------
 
 Overview
