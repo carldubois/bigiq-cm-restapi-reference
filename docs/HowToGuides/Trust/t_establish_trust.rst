@@ -54,7 +54,7 @@ Extended example for establishing device trust
   with the clustered BIG-IP device is established later and is not
   covered in this example.
 
-1. Determine the current status of the BIG-IP device on the BIG-IQ Centralized Management system.
+Determine the current status of the BIG-IP device on the BIG-IQ Centralized Management system.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Perform a GET method on the machineid-resolver to determine if the
@@ -78,7 +78,7 @@ The following is the response JSON from the GET method:
       "selfLink": "http://localhost:8100/cm/system/machineid-resolver?$filter=%28%27address%27+eq+%2710.255.4.124%27%29"
     }
 
-2. Perform a POST method to the trust URI to establish trust between the BIG-IQ Centralized Management system and the BIG-IP device.
+Perform a POST method to the trust URI to establish trust between the BIG-IQ Centralized Management system and the BIG-IP device.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Perform a POST method to the trust task URI. The following options must
@@ -131,7 +131,7 @@ The following is the response JSON from the POST method:
         }
     }
 
-3. Perform GET methods to the trust task returned in Step 2.
+Perform GET methods to the trust task returned in Step 2.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Perform GET methods to the 'selfLink' that is returned from the response
@@ -154,7 +154,7 @@ The following is the response JSON from the GET method:
       "status": "FINISHED"
     }
 
-4. Perform a PATCH method on the trust task to start the framework upgrade, if needed.
+Perform a PATCH method on the trust task to start the framework upgrade, if needed.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This step is only needed for BIG-IP devices lower than version 12.0.0
@@ -220,7 +220,7 @@ The following is the response JSON from the PATCH method:
         "username": "admin"
     }
 
-5. Perform additional GET methods to the trust task.
+Perform additional GET methods to the trust task.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Perform additional GET methods on the 'selfLink' that is returned from
@@ -358,6 +358,4 @@ PATCH response to the trust URI with bad authentication for root user credential
 
 API references that support this workflow:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-`Api reference - device trust
-task <../html-reference/device-trust.html>`__
+.. Api reference - Device Trust:: ApiReferences/device-trust.rst
