@@ -18,6 +18,9 @@ following order: 1. Perform a GET operation to determine the selfLink of
 a policy. 2. Perform a GET operation to the virtual-servers collection
 with a filter to find if any virtual servers are using that policy.
 
+Description
+~~~~~~~~~~~
+
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a GET operation to determine the selfLink of a
 policy. Perform a GET operation on the policies collection, filtering
@@ -124,8 +127,8 @@ Note - to determine the list of all policies that are in use, perform a
 GET operation to the policies collection and repeat the operations shown
 here for each policy.
 
-API reference used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - virtual server
 management <../html-reference/virtual-server-management.html>`__ `Api
