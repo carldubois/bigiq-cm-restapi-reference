@@ -17,6 +17,9 @@ values created by the system when the policy is created. Perform the
 REST API actions: 1. Perform a POST operation to the policies
 collection.
 
+Description
+~~~~~~~~~~~
+
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a POST operation to the policies collection.
 Perform a POST operation to the policies collection. The data being sent
@@ -232,8 +235,8 @@ The following is the JSON response from the POST operation:
         "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40"
     }
 
-API references used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - asm policy
 management <../html-reference/asm-policies.html>`__
