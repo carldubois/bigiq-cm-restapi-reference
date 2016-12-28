@@ -16,6 +16,8 @@ API to view and change the policy enforcement mode. 1. Perform a GET
 operation on the policy selfLink 1. Perform a PATCH operation on the
 policy selfLink.
 
+Description:
+
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a GET operation on the policy selfLink. Perform
 a GET operation on the policy selfLink, selecting only the
@@ -245,8 +247,8 @@ returns the updated attributes of the policy):
         "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40"
     }
 
-API reference used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - virtual server
 management <../html-reference/virtual-server-management.html>`__ `Api
