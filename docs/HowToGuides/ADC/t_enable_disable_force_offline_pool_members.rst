@@ -278,8 +278,8 @@ The pool members are enabled, disabled or forced offline, and the change
 is synchronized if the devices is in config sync group with either
 manual or automatic sync mode.
 
-API references that support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API references:
+~~~~~~~~~~~~~~~
 
 `Api reference - pool member
 management <../html-reference/pool-member-management.html>`__ `Api
