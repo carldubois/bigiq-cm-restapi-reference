@@ -1,4 +1,4 @@
-Kill active access sessions
+Kill active access sessions.
 ---------------------------
 
 Overview
