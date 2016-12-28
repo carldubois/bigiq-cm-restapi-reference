@@ -1,5 +1,5 @@
-OAuth Token Revocation on BIG-IP devices using a BIG-IQ Centralized Management system
--------------------------------------------------------------------------------------
+OAuth Token Revocation.
+-----------------------
 
 Overview
 ~~~~~~~~
@@ -48,7 +48,7 @@ status value is FINISHED and the currentStep value is DONE, the revoke
 oauth tokens is completed.
 
 Example for OAuth Token Revocation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the following example: - The BIG-IP device address is 10.255.4.124.
 You substitute your BIG-IP device’s address for this address when you
