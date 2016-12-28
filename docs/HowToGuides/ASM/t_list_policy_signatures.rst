@@ -1,4 +1,4 @@
-Listing all signatures in a Web Application Security policy.
+Listing all signatures in a application security policy.
 ------------------------------------------------------------
 
 Overview
@@ -18,6 +18,9 @@ settings. Perform the REST API actions in the following order: 1.
 Perform a GET operation using the policy selfLink to return all the
 policy attributes. 2. Perform a GET operation on the signatures sub
 collection link.
+
+Description
+~~~~~~~~~~~
 
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a GET operation using the policy selfLink to
@@ -14645,8 +14648,8 @@ The following is the JSON response from the GET operation:
         "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef/signatures"
     }
 
-API references used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - asm policy
 management <../html-reference/asm-policies.html>`__ `Api reference - asm
