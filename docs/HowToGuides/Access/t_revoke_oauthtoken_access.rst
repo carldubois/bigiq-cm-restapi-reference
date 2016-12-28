@@ -1,4 +1,4 @@
-OAuth Token Revocation.
+OAuth token revocation.
 -----------------------
 
 Overview
