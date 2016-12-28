@@ -12,10 +12,6 @@ Overview
 Using the BIG-IQ REST API, you can review the status of applications
 across the data centers, after the BIG-IP devices are managed by BIG-IQ.
 
-Description
-~~~~~~~~~~~
-
-This will allow the user to automate enable/disable/force offline pool member.
 
 Prerequisites
 ~~~~~~~~~~~~~~
@@ -26,6 +22,11 @@ The following prerequisites are required to complete this task.
 -  The BIG-IP devices are already discovered on BIG-IQ with at least
    Local Traffic (LTM) configuration imported, and desired pool members
    exist at last import time.
+
+Description
+~~~~~~~~~~~
+
+This will allow the user to automate enable/disable/force offline pool member.
 
 Find Pool Members
 ^^^^^^^^^^^^^^^^^^
@@ -289,7 +290,7 @@ The pool members are enabled, disabled or forced offline, and the change
 is synchronized if the devices is in config sync group with either
 manual or automatic sync mode.
 
-API references:
+API references
 ~~~~~~~~~~~~~~~
 
 `Api reference - pool member
