@@ -1,6 +1,7 @@
 .. toctree::
    :hidden:
-
+   :maxdepth: 2
+   
    ApiReferences/application-server-node-management
    ApiReferences/pool-member-management
    ApiReferences/virtual-server-management
@@ -361,6 +362,6 @@ need to add the property "poolReference" into the POST request body.
 
 API references
 ~~~~~~~~~~~~~~~
-:doc:`ApiReferences/application-server-node-management`
-:doc:`ApiReferences/pool-member-management`
-:doc:`ApiReferences/virtual-server-management`
+:docs:`ApiReferences/application-server-node-management`
+:docs:`ApiReferences/pool-member-management`
+:docs:`ApiReferences/virtual-server-management`
