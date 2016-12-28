@@ -3,8 +3,7 @@ ASM
 *************
 
 .. toctree::
-	:numbered:
-	:glob:
+	:maxdepth: 2
 
 	t_asm_virtual_servers_on_specific_device
 	t_asm_virtual_servers
