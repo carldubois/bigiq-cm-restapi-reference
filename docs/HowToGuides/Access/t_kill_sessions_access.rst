@@ -1220,8 +1220,8 @@ Task failure when session ids are missing for KILL\_BY\_LIST\_OF\_SESSIONS actio
         "kind": ":resterrorresponse"
     }
 
-API reference used to support this workflow:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+API reference:
+~~~~~~~~~~~~~
 
 `Api reference - Access kill user
 sessions <../html-reference/access-kill-user-sessions.html>`__
