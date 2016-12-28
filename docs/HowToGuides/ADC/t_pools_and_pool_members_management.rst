@@ -4,10 +4,6 @@ Pool and Pool Members Management Overview
 BIG-IQ allows users to progammatically enabled/disable/force offline
 pools and pool members through the use of REST API calls.
 
-Description
-~~~~~~~~~~~
-
-This workflow will allow the user to manage pools and pool members.
 
 Prerequisites
 ~~~~~~~~~~~~~
@@ -16,6 +12,11 @@ Prerequisites
    the initial setup wizard.
 -  Discovery and establishing trust with one BIG-IP with LTM Services
    enabled.
+   
+Description
+~~~~~~~~~~~
+
+This workflow will allow the user to manage pools and pool members.
 
 Pools
 ^^^^^
