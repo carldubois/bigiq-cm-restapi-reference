@@ -1,8 +1,8 @@
-RegKey Pool Licence
-===================
+RegKey pool licence
+-------------------
 
 Overview
---------
+~~~~~~~~
 
 This set of API provides a way to manage standalone registration key.
 The API provides methods to create a RegKey Pool, add/remove
@@ -10,7 +10,7 @@ registration keys to/from the pool, assign a key to a BIG-IP device and
 generate a usage report.
 
 Prerequisites
--------------
+~~~~~~~~~~~~~
 
 The user should be sure the following prerequisites have been met.
 
@@ -21,8 +21,13 @@ The user should be sure the following prerequisites have been met.
    user plans to use automatic activation
 -  A set of BIG-IP VE license keys to be managed
 
+Description
+~~~~~~~~~~~
+
+Actions to take for regkey pool management.
+
 Manage RegKey Pool
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 The API provides methods to manage the RegKey Pool collection to create,
 update, or delete an item.
@@ -430,3 +435,6 @@ https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regke
         "username" : "my_admin_username",
         "password" : "my password"
     }
+
+API references
+~~~~~~~~~~~~~~
