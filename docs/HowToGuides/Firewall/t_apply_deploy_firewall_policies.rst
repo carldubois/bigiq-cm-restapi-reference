@@ -1,5 +1,5 @@
-Applying firewall policies to contexts and deploying them to BIG-IP devices
----------------------------------------------------------------------------
+Apply and deploy firewall policies.
+-----------------------------------
 
 Overview
 ~~~~~~~~
