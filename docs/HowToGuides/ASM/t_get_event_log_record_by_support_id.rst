@@ -1,5 +1,5 @@
-Retrieving a Web Application Security Event Log record using a support\_id.
----------------------------------------------------------------------------
+Retrieving a application security event log record using a support_id.
+----------------------------------------------------------------------
 
 Overview
 ~~~~~~~~
@@ -18,6 +18,9 @@ Prerequisites
    actions in the following order:
 3. Perform a POST operation to perform a search of the logs by a given
    support\_id.
+
+Description
+~~~~~~~~~~~
 
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a POST operation to perform a search of the logs
@@ -125,7 +128,7 @@ The following is the JSON response from the POST operation:
         }
     }
 
-API reference used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 [None implemented as of yet]
