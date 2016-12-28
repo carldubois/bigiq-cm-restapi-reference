@@ -1,5 +1,5 @@
-Listing virtual servers with a Web Application Security policy associated with them.
-------------------------------------------------------------------------------------
+List virtual servers with a web application policy associated.
+--------------------------------------------------------------
 
 Overview
 ~~~~~~~~
@@ -25,6 +25,12 @@ Application Security virtual server collection, selecting only the
 virtual servers that have a security policy associated with them.
 
 ::
+
+Description
+~~~~~~~~~~~
+
+A list of virtuals associated to a web application security policy.
+
 
     GET: https://<mgmtip>/mgmt/cm/asm/working-config/virtual-servers?$select=name,address,attachedPoliciesReferences,isInactivePoliciesHolder&$filter=attachedPoliciesReferences/link eq '*'
 
@@ -79,7 +85,7 @@ deploy policies to devices without using them to enforce rules on
 traffic for that device. The regular virtual servers can only have one
 policy associated with them, and are used to enforce rules on traffic.
 
-API reference used to support this workflow:
+API reference
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `Api reference - asm virtual
