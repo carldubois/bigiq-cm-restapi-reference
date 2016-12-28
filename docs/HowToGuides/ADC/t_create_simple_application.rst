@@ -14,14 +14,6 @@ Virtual-server is an entry point to a simple application. A
 virtual-server references a pool. A pool includes a list of pool member
 objects. A pool member is dependent on a node object.
 
-Description
-~~~~~~~~~~~
-
-In general, you create a simple application following the below steps: -
-step 1: create a node - step 2: create a pool - step 3: add a pool
-member to a pool - step 4: create a virtual server - step 5: attach the
-pool to virtual server
-
 Prerequisites
 ~~~~~~~~~~~~~
 
@@ -41,6 +33,14 @@ You should be sure the following prerequisites have been met.
    example, if you are not running the script directly on the BIG-IQ
    system, you should change localhost to be the IP address of the
    BIG-IQ Centralized Management system.
+   
+Description
+~~~~~~~~~~~
+
+In general, you create a simple application following the below steps: -
+step 1: create a node - step 2: create a pool - step 3: add a pool
+member to a pool - step 4: create a virtual server - step 5: attach the
+pool to virtual server
 
 Examples creating simple application
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -352,7 +352,7 @@ need to add the property "poolReference" into the POST request body.
     }
         
 
-API references:
+API references
 ~~~~~~~~~~~~~~~
 :doc:`ApiReferences/application-server-node-management`
 :doc:`ApiReferences/pool-member-management`
