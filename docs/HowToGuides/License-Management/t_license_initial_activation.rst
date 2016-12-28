@@ -1,5 +1,5 @@
-Initial Activation of license
------------------------------
+Initial activation of license.
+------------------------------
 
 Overview
 ~~~~~~~~
@@ -37,14 +37,6 @@ and that information will be propagated to the user. In this way, for
 automatic activation, the client need not perform any additional action
 other than the initial POST, and then wait for the result.
 
-For manual activation, the process is necessarily more involved. As
-before, an item will be created in the relevant license collection based
-on the initial license text. However, for manual activation, this worker
-will be done at that point. The client must go visit that collection
-(through the provided Reference) and complete manual activation there.
-The client will need to use that license collection's specific API to
-finish manual activation
-
 Prerequisities
 ~~~~~~~~~~~~~~
 
@@ -53,6 +45,18 @@ You should be sure the following prerequisites have been met.
 -  The BIG-IQ Centralized Management system is operational, has
    completed the setup wizard, and completed any other needed
    configuration.
+
+Description
+~~~~~~~~~~~
+
+For manual activation, the process is necessarily more involved. As
+before, an item will be created in the relevant license collection based
+on the initial license text. However, for manual activation, this worker
+will be done at that point. The client must go visit that collection
+(through the provided Reference) and complete manual activation there.
+The client will need to use that license collection's specific API to
+finish manual activation
+
 
 1. Start initial activation of a license.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -130,8 +134,8 @@ name", "status" : "ACTIVATING\_AUTOMATIC" }
 DELETE
 https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
 
-API referneces used to support this workflow:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+API referneces
+~~~~~~~~~~~~~~
 
 `Api reference - inital license
 activation <../html-reference/license-initial-activation.html>`__
