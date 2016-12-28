@@ -1,5 +1,5 @@
-View Status of LTM objects.
---------------------------
+View status of LTM objects.
+---------------------------
 
 Overview
 ~~~~~~~~
