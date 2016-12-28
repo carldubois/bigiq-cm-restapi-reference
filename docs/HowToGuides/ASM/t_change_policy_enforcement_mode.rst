@@ -248,8 +248,8 @@ returns the updated attributes of the policy):
         "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40"
     }
 
-API reference
-~~~~~~~~~~~~~
+API references
+~~~~~~~~~~~~~~
 
 `Api reference - virtual server
 management <../html-reference/virtual-server-management.html>`__ `Api
