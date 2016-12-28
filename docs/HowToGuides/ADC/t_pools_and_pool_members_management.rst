@@ -4,6 +4,11 @@ Pool and Pool Members Management Overview
 BIG-IQ allows users to progammatically enabled/disable/force offline
 pools and pool members through the use of REST API calls.
 
+Description
+~~~~~~~~~~~
+
+This workflow will allow the user to manage pools and pool members.
+
 Prerequisites
 ~~~~~~~~~~~~~
 
@@ -28,7 +33,7 @@ granted permission. Permission could look like:
     GET /mgmt/cm/adc-core/working-config/ltm/pool/{id2}
 
 Viewing active Pools on BIG-IQ.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 GET ``/mgmt/cm/adc-core/working-config/ltm/pool``
 
@@ -118,7 +123,7 @@ Response: 200
     }
 
 Searching for Pools By Fields
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Users are able to search the pool collection for a value in a field
 using exact or wildcard matching by appending "?$filter=PROPERTYNAME eq
@@ -181,7 +186,7 @@ Response: 200
     }
 
 Creating A Pool Object With A Monitor
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 POST ``/mgmt/cm/adc-core/working-config/ltm/pool``
 
@@ -276,7 +281,7 @@ Response: 200
     }
 
 Deploying A Pool Object To A Device
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This requires a deviceReference and the Rest Reference for the Pool
 object to be deployed. Users can configure the task verification by
@@ -364,10 +369,10 @@ with the following body:
     {"skipDistribution": false, "status": "STARTED"}
 
 Edit A Pool Object
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 Attaching a new health monitor to the Pool.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This requires a proper monitor name and RestReference.
 
@@ -434,7 +439,7 @@ Response: 200
     }
 
 Attaching Pool Objects To Role Permissions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Role permissions can be updated to give user roles the abilty to
 view/edit/delete Pool objects and Pool Members.
@@ -463,7 +468,7 @@ Note: Provisioning a user to GET
 grant permissions to subcollections.
 
 Removing A Pool Object And Deploying Changes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 DELETE ``/mgmt/cm/adc-core/working-config/ltm/pool/{id}``
 
@@ -538,8 +543,13 @@ Prerequisites
 -  A Pool object must exist.
 -  A Node object must exist.
 
+Description
+~~~~~~~~~~~
+
+This workflow will allow the user to manage pools and pool members.
+
 Viewing Pool Members
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 GET ``/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members``
 
@@ -577,7 +587,7 @@ Response: 200
     }
 
 Creating Pool Member
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 POST ``/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members``
 
@@ -629,13 +639,13 @@ Response: 200
     }
 
 Removing Pool Member
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 DELETE
 ``/mgmt/cm/adc-core/working-config/ltm/pool/{pool-id}/members/{memmber-id}``
 
 Enabling A Pool Member Using Self Service
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 POST ``/mgmt/cm/adc-core/tasks/self-service``
 
@@ -684,7 +694,7 @@ the "status" of "STARTED". The selfLink should be polled with GETs
 checking the "status" property to report "FINISHED" or "FAILED".
 
 Disabling A Pool Member Using Self Service
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 POST ``/mgmt/cm/adc-core/tasks/self-service``
 
@@ -733,7 +743,7 @@ the "status" of "STARTED". The selfLink should be polled with GETs
 checking the "status" property to report "FINISHED" or "FAILED".
 
 Force Offline A Pool Member Using Self Service
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 POST ``/mgmt/cm/adc-core/tasks/self-service``
 
@@ -781,7 +791,7 @@ The 202 response contains details about the self service task along with
 the "status" of "STARTED". The selfLink should be polled with GETs
 checking the "status" property to report "FINISHED" or "FAILED".
 
-API references:
+API references
 ~~~~~~~~~~~~~~~
 
 `Api reference - pool member
