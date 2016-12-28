@@ -1,5 +1,5 @@
-Retrieving links to all policy sub collections and listing all parameters in the policy.
-----------------------------------------------------------------------------------------
+Retrieving links to all policy sub collections and listing all parameters for a policy.
+---------------------------------------------------------------------------------------
 
 Overview
 ~~~~~~~~
@@ -18,6 +18,9 @@ links to retrieve the list of all parameters in the policy. Perform the
 REST API actions in the following order: 1. Perform a GET operation
 using the policy selfLink to return all the policy attributes. 2.
 Perform a GET operation on the parameters sub collection link.
+
+Description
+~~~~~~~~~~~
 
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a GET operation using the policy selfLink to
@@ -320,8 +323,8 @@ The following is the JSON response from the GET operation:
         "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef/parameters"
     }
 
-API references used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - virtual server
 management <../html-reference/virtual-server-management.html>`__ `Api
