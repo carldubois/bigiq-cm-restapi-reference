@@ -13,7 +13,7 @@ Prerequisites
    enabled.
 
 Pools
------
+^^^^^
 
 A user may view and filter the Pools collection if they have the proper
 RBAC permissions to perform GETs on
@@ -781,8 +781,8 @@ The 202 response contains details about the self service task along with
 the "status" of "STARTED". The selfLink should be polled with GETs
 checking the "status" property to report "FINISHED" or "FAILED".
 
-API references that support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API references:
+~~~~~~~~~~~~~~~
 
 `Api reference - pool member
 management <../html-reference/pool-member-management.html>`__ `Api
