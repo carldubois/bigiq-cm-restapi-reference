@@ -4,6 +4,10 @@ Pool and Pool Members Management Overview
 BIG-IQ allows users to progammatically enabled/disable/force offline
 pools and pool members through the use of REST API calls.
 
+Overview
+~~~~~~~~
+Pool and pool memeber management.
+
 
 Prerequisites
 ~~~~~~~~~~~~~
@@ -535,8 +539,21 @@ The 202 response contains details about the self service task along with
 the "status" of "STARTED". The selfLink should be polled with GETs
 checking the "status" property to report "FINISHED" or "FAILED".
 
-Pool Members
-------------
+API references
+~~~~~~~~~~~~~~~
+
+`Api reference - pool member
+management <../html-reference/pool-member-management.html>`__ `Api
+reference - deploy
+configuration <../html-reference/deploy-configuration.html>`__
+
+
+Pool Member enable/disable/force offline.
+-----------------------------------------
+
+Overview
+~~~~~~~~
+Pool and pool memeber management.
 
 Prerequisites
 ~~~~~~~~~~~~~
