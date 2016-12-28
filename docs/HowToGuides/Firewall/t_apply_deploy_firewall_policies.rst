@@ -506,7 +506,9 @@ PATCH response to a deleted evaluation task
         "restOperationId": 4644482
     }
 
-API references used to support this workflow: `Api reference - firewall
+API references used to support this workflow:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`Api reference - firewall
 policies <../html/firewall-policies.html>`__ `Api reference - firewall
 contexts <../html/firewalls.html>`__ `Api reference - deploy
 configuration <../html/deploy-configuration.html>`__
