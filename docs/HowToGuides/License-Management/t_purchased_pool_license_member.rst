@@ -1,14 +1,24 @@
-API Purchased Pool License Members
-==================================
+API purchased pool license members.
+----------------------------------
 
 Overview
---------
+~~~~~~~~
 
 API to license a BIG-IP device with a seat of the purchased pool
 license, refresh the the license or revoking the license.
 
+Prerequisites
+~~~~~~~~~~~~~
+
+Active license avalibity
+
+Description
+~~~~~~~~~~~
+
+Actions for license pool member management.
+
 Grant
-~~~~~
+^^^^^
 
 User grants a license to a BIG-IP by POSTing a new item to the
 ``/members`` subcollection to grant a license to a device For a
@@ -17,14 +27,14 @@ item 3 are examples for granting a seat to managed and unmanaged device
 respectively.
 
 Refresh
-~~~~~~~
+^^^^^^^
 
 User could refresh a license granted to a device by PATCHing the end
 point in the member subcollection(item 5). Admin credential is required
 for an unmanaged device.
 
 Revoke
-~~~~~~
+^^^^^^
 
 User could revoke a license granted to a devive by removing the end
 point from the member subcollection(item 6).
@@ -133,8 +143,8 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/
 Request: { username: "username", password: "password", uuid:
 "d3b1a0d5-e63d-43b0-a959-0ae80d7e1dad" }
 
-API reference used to support this workflow:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+API references
+~~~~~~~~~~~~~~
 
 `Api reference - purchased pool
 licensing <../html-reference/license-purchased-pools.html>`__
