@@ -1,5 +1,5 @@
-Pool and Pool Members Management Overview
------------------------------------------
+LTM pool and pool members management.
+-------------------------------------
 
 BIG-IQ allows users to progammatically enabled/disable/force offline
 pools and pool members through the use of REST API calls.
