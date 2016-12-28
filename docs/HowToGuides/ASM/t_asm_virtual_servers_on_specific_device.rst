@@ -1,4 +1,4 @@
-Getting the active policy of a specific virtual server on a specific device.
+Getting the active policy of a virtual server on a device.
 ----------------------------------------------------------------------------
 
 Overview
@@ -28,6 +28,12 @@ show the device name and the device selfLink that will be used later for
 searches. In this example the name being searched for is 'device1.com'.
 
 ::
+
+Description
+~~~~~~~~~~~
+
+List an active policy for a virtual server on a device.
+
 
     GET: https://<mgmtip>/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices?$filter=hostname eq 'device1.com'&$select=hostname,selfLink
 
@@ -78,8 +84,8 @@ The following is the JSON response from the GET operation:
         "lastUpdateMicros": 1479388471928975
     }
 
-API references used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - virtual server
 management <../html-reference/virtual-server-management.html>`__
