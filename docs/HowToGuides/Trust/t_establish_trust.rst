@@ -356,6 +356,6 @@ PATCH response to the trust URI with bad authentication for root user credential
                 "username": "admin"
             }
 
-API references that support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API references:
+~~~~~~~~~~~~~~~
 .. Api reference - Device Trust:: ApiReferences/device-trust.rst
