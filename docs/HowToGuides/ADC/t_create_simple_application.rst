@@ -1,3 +1,5 @@
+.. _APIReferences/application-server-node-management.rst:
+
 Create simple application.
 -------------------------
 
