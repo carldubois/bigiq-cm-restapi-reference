@@ -24,6 +24,9 @@ Prerequisites
 5. Perform a POST operation with the new attributes to a special URI
    that updates policy signature attributes.
 
+Description
+~~~~~~~~~~~
+
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a GET operation to the signatures collection to
 retrieve a seflLink of a signature. Perform a GET operation to the
@@ -14514,8 +14517,8 @@ The following is the JSON response from the POST operation:
         ]
     }
 
-API references used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - asm signature
 management <../html-reference/asm-attack-signatures.html>`__ `Api
