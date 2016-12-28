@@ -6,7 +6,7 @@ This guide provide an index into supported BIG-IQ references allowing for ease o
 central management tasks using the Rest API. These references will support the How-To-Guides.
 
 .. toctree::
-	:maxdepth: 3
+	:maxdepth: 2
 	
 	device-trust
 	device-discovery
