@@ -1,10 +1,9 @@
-*************
-Access
-*************
+********************
+Import Configuration
+********************
 
 .. toctree::
-	:numbered:
-	:glob:
+	:maxdepth: 2
 
 	t_import_afm.rst
 	t_import_ltm.rst
