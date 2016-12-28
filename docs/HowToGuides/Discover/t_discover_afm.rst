@@ -1,5 +1,5 @@
-Discover the Advanced Firewall service on a BIG-IP device using a BIG-IQ Centralized Management system
-------------------------------------------------------------------------------------------------------
+Discover the firewall service on a BIG-IP device.
+-------------------------------------------------
 
 Overview
 ~~~~~~~~
