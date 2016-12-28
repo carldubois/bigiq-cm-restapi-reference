@@ -17,6 +17,7 @@ operation on the policy selfLink 1. Perform a PATCH operation on the
 policy selfLink.
 
 Description:
+~~~~~~~~~~~~
 
 The following extended example shows each of these REST API actions. ###
 Example #### 1. Perform a GET operation on the policy selfLink. Perform
