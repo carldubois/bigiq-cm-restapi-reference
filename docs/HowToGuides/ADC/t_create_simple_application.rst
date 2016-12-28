@@ -1,4 +1,4 @@
-Create Simple Application
+Create simple application.
 -------------------------
 
 Overview
