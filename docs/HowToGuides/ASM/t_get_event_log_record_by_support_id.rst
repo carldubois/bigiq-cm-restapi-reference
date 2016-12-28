@@ -128,7 +128,7 @@ The following is the JSON response from the POST operation:
         }
     }
 
-API reference
-~~~~~~~~~~~~~
+API references
+~~~~~~~~~~~~~~
 
 [None implemented as of yet]
