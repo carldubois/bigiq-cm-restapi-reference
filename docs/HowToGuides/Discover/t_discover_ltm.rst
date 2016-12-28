@@ -1,5 +1,5 @@
-Discover the Local Traffic service on a BIG-IP device using a BIG-IQ Centralized Management system
---------------------------------------------------------------------------------------------------
+Discover the LTM service on a BIG-IP device.
+--------------------------------------------
 
 Overview
 ~~~~~~~~
@@ -41,7 +41,7 @@ status value is FINISHED and the currentStep value is DONE, the
 discovery has completed.
 
 Example for Device Discovery
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 | In the following example: - The BIG-IP device discovery address is
   10.255.4.124. you substitute your BIG-IP device’s discovery address
@@ -421,8 +421,8 @@ Discovery failure for a device that is no longer available.
         "username": "admin"
     }      
 
-API references that support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API reference
+~~~~~~~~~~~~~
 
 `Api reference - global task device
 discovery <../html-reference/device-discovery.html>`__
