@@ -508,7 +508,6 @@ PATCH response to a deleted evaluation task
 
 API references
 ~~~~~~~~~~~~~~~
-`Api reference - firewall
-policies <../html/firewall-policies.html>`__ `Api reference - firewall
-contexts <../html/firewalls.html>`__ `Api reference - deploy
-configuration <../html/deploy-configuration.html>`__
+`Firewall policies <../ApiReferences/firewall-policies.rst>`
+`Firewall contexts <../ApiReferences/firewalls.rst>`
+`Deploy configuration <../ApiReferences/deploy-configuration.rst>`
