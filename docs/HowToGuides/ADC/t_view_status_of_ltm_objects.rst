@@ -374,11 +374,8 @@ virtuals servers.
         "lastUpdateMicros": 1479756371933830
     }
 
-API references used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-API references used to support this workflow:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API references:
+~~~~~~~~~~~~~~~
 
 `Api reference - application node
 management <../adoc/application-server-node-management.adoc>`__ `Api
