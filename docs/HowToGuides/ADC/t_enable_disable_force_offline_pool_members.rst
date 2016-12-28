@@ -6,6 +6,12 @@ pool members to take traffic for the application, disable pool members
 to drain down existing traffic, or force offline pool members to stop
 serving traffic.
 
+Overview
+~~~~~~~~
+
+Using the BIG-IQ REST API, you can review the status of applications
+across the data centers, after the BIG-IP devices are managed by BIG-IQ.
+
 Prerequisites
 ~~~~~~~~~~~~~~
 
