@@ -292,8 +292,6 @@ manual or automatic sync mode.
 
 API references
 ~~~~~~~~~~~~~~~
+:doc:`../../ApiReferences/adc-self-service`
 
-`Api reference - pool member
-management <../html-reference/pool-member-management.html>`__ `Api
-reference - adc self service
-task <../html-reference/adc-self-service.html>`__
+:doc:`../../ApiReferences/pool-member-management`
