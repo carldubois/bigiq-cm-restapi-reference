@@ -235,6 +235,4 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - purchased pool
-licensing <../html-reference/license-purchased-pools.html>`__
+:doc:`../../ApiReferences/license-purchased-pools`
