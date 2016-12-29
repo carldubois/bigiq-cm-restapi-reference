@@ -811,8 +811,6 @@ checking the "status" property to report "FINISHED" or "FAILED".
 
 API references
 ~~~~~~~~~~~~~~~
+:doc:`../../ApiReferences/deploy-configuration`
 
-`Api reference - pool member
-management <../html-reference/pool-member-management.html>`__ `Api
-reference - deploy
-configuration <../html-reference/deploy-configuration.html>`__
+:doc:`../../ApiReferences/pool-member-management`
