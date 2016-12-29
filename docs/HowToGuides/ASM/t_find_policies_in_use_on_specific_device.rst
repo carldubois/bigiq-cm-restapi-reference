@@ -163,6 +163,4 @@ here for each policy.
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - asm policy
-management <../html-reference/asm-policies.html>`__
+:doc:`../../ApiReferences/asm-policies`
