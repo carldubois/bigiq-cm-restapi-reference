@@ -532,3 +532,4 @@ Error generated when an incorrect URI is sent in the REST request.
 
 API references
 ~~~~~~~~~~~~~~
+:doc:`../../ApiReferences/adc-core-discovery_import`
