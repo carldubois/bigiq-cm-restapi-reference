@@ -26,7 +26,7 @@ Support
 -------
 
 Please use `GitHub Issues`_ to report any bugs or feature requests.  This 
-project is **Community Supported**.
+project is restricted and under guidelines defined by `F5 Networks`_.
 
 
 Getting Started
