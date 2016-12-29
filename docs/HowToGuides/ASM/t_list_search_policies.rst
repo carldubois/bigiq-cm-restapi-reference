@@ -89,5 +89,4 @@ The following is the JSON response from the GET operation:
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - asm policies <../html-reference/asm-policies.html>`__
+:doc:`../../ApiReferences/asm-policies`
