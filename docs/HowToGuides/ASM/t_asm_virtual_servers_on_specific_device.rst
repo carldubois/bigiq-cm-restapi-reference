@@ -86,6 +86,4 @@ The following is the JSON response from the GET operation:
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - virtual server
-management <../html-reference/virtual-server-management.html>`__
+:doc:`../../ApiReferences/virtual-server-management`
