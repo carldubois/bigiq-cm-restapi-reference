@@ -237,6 +237,4 @@ The following is the JSON response from the POST operation:
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - asm policy
-management <../html-reference/asm-policies.html>`__
+:doc:`../../ApiReferences/asm-policies`
