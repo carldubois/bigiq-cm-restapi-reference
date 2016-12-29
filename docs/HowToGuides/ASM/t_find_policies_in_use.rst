@@ -129,8 +129,6 @@ here for each policy.
 
 API references
 ~~~~~~~~~~~~~~
+:doc:`../../ApiReferences/virtual-server-management`
 
-`Api reference - virtual server
-management <../html-reference/virtual-server-management.html>`__ `Api
-reference - asm policy
-management <../html-reference/asm-policies.html>`__
+:doc:`../../ApiReferences/asm-policies`
