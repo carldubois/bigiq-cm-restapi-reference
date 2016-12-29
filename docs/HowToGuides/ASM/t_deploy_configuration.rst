@@ -243,6 +243,4 @@ interface to determine the issue encountered with the deployment task.
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - ASM deploy
-configuration <../html-reference/deploy-configuration.html>`__
+:doc:`../../ApiReferences/deploy-configuration`
