@@ -363,6 +363,6 @@ need to add the property "poolReference" into the POST request body.
 API references
 ~~~~~~~~~~~~~~~
 
-:doc:`docs/ApiReferences/application-server-node-management`
-:doc:`docs/ApiReferences/pool-member-management`
-:doc:`docs/ApiReferences/virtual-server-management`
+:doc:`../ApiReferences/application-server-node-management`
+:doc:`../ApiReferences/pool-member-management`
+:doc:`../ApiReferences/virtual-server-management`
