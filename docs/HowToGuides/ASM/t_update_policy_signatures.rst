@@ -14519,8 +14519,6 @@ The following is the JSON response from the POST operation:
 
 API references
 ~~~~~~~~~~~~~~
+:doc:`../../ApiReferences/asm-policies`
 
-`Api reference - asm signature
-management <../html-reference/asm-attack-signatures.html>`__ `Api
-reference - asm policy
-management <../html-reference/asm-policies.html>`__
+:doc:`../../ApiReferences/asm-attack-signatures`
