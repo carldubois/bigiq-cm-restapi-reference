@@ -14650,7 +14650,6 @@ The following is the JSON response from the GET operation:
 
 API references
 ~~~~~~~~~~~~~~
+:doc:`../../ApiReferences/asm-policies`
 
-`Api reference - asm policy
-management <../html-reference/asm-policies.html>`__ `Api reference - asm
-signature management <../html-reference/asm-attack-signatures.html>`__
+:doc:`../../ApiReferences/asm-attack-signatures`
