@@ -136,6 +136,4 @@ https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
 
 API referneces
 ~~~~~~~~~~~~~~
-
-`Api reference - inital license
-activation <../html-reference/license-initial-activation.html>`__
+:doc:`../../ApiReferences/license-initial-activation`
