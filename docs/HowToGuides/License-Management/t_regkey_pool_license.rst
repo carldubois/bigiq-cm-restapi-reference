@@ -438,3 +438,4 @@ https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regke
 
 API references
 ~~~~~~~~~~~~~~
+:doc:`../../ApiReferences/license-registration-key-pool`
