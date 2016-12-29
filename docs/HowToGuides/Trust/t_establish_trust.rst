@@ -358,4 +358,4 @@ PATCH response to the trust URI with bad authentication for root user credential
 
 API references
 ~~~~~~~~~~~~~~~
-.. Api reference - Device Trust:: ApiReferences/device-trust.rst
+:doc:`../../ApiReferences/device-trust`
