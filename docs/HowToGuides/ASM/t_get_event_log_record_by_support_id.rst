@@ -130,5 +130,4 @@ The following is the JSON response from the POST operation:
 
 API references
 ~~~~~~~~~~~~~~
-
-[None implemented as of yet]
+[Not implemented]
