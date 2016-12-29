@@ -1458,6 +1458,4 @@ Task failure when oauthIds are missing for REVOKE\_LIST\_OF\_TOKENS action
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - revoke oauth authentication
-token <../html-reference/access-revoke-oauth-token-sessions.html>`__
+:doc:`../../ApiReferences/access-revoke-oauth-token-sessions`
