@@ -382,9 +382,8 @@ virtuals servers.
 
 API references
 ~~~~~~~~~~~~~~~
+:doc:`../../ApiReferences/application-server-node-management`
 
-`Api reference - application node
-management <../adoc/application-server-node-management.adoc>`__ `Api
-reference - pool / member
-management <../adoc/pool-member-management.adoc>`__ `Api reference -
-virtual server management <../adoc/virtual-server-management.adoc>`__
+:doc:`../../ApiReferences/pool-member-management`
+
+:doc:`../../ApiReferences/virtual-server-management`
