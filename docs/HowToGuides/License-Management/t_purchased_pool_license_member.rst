@@ -145,6 +145,4 @@ Request: { username: "username", password: "password", uuid:
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - purchased pool
-licensing <../html-reference/license-purchased-pools.html>`__
+:doc:`../../ApiReferences/license-purchased-pools`
