@@ -525,6 +525,4 @@ Discovery failure for a device that is no longer available.
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - global task device
-discovery <../html-reference/device-discovery.html>`__
+:doc:`../../ApiReferences/device-discovery`
