@@ -1097,6 +1097,4 @@ Error generated when an incorrect URI is sent in the REST request.
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - Import configuration:
-AFM <../html-reference/firewall-discovery_import.html>`__
+:doc:`../../ApiReferences/firewall-discovery_import`
