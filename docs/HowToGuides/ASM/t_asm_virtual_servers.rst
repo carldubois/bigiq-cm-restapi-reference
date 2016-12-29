@@ -87,6 +87,4 @@ policy associated with them, and are used to enforce rules on traffic.
 
 API references
 ~~~~~~~~~~~~~~
-
-`Api reference - asm virtual
-servers <../html-reference/virtual-server-management.html>`__
+:doc:`../../ApiReferences/virtual-server-management`
