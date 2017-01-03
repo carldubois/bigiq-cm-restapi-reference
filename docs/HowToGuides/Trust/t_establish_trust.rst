@@ -94,7 +94,7 @@ BIG-IP device.
 
 ::
 
-    POST: https://<mgmtip>/mgmt/cm/gloal/tasks/device-trust
+    POST: https://<mgmtip>/mgmt/cm/global/tasks/device-trust
 
     {
         "address": "10.255.4.124",
