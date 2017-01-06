@@ -504,8 +504,8 @@ PATCH response to a deleted evaluation task
         "restOperationId": 4644482
     }
 
-API references: 
-^^^^^^^^^^^^^^^
+API references 
+~~~~~~~~~~~~~~
 :doc:`../../ApiReferences/firewalls`
 
 :doc:`../../ApiReferences/firewall-policies`
