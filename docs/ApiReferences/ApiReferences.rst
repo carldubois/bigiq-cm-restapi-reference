@@ -8,6 +8,8 @@ central management tasks using the Rest API. These references will support the H
 .. toctree::
 	:maxdepth: 2
 	
+	access-kill-user-sessions
+	access-revoke-oauth-token-sessions
 	device-trust
 	device-discovery
 	asm-discovery_import
@@ -25,5 +27,4 @@ central management tasks using the Rest API. These references will support the H
 	deploy-configuration
 	asm-policies
 	asm-attack-signatures
-	access-kill-user-sessions
-	access-revoke-oauth-token-sessions
+	
