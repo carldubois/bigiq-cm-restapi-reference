@@ -504,8 +504,8 @@ PATCH response to a deleted evaluation task
         "restOperationId": 4644482
     }
 
-API references used to support this workflow: 
-
+API references: 
+^^^^^^^^^^^^^^^
 :doc:`../../ApiReferences/firewalls`
 
 :doc:`../../ApiReferences/firewall-policies`
