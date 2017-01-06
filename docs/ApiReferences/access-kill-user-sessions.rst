@@ -1,3 +1,6 @@
+Access kill user sessions
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. raw:: html
 
    <div id="header">

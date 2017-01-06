@@ -1,3 +1,6 @@
+Access revoke oauth token sessions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. raw:: html
 
    <div id="header">
