@@ -467,8 +467,8 @@ Perform the REST API actions in the following order:
 </div>
 <div class="paragraph">
 <p>The following extended example show each of these REST API actions.
-Example</p>
-<mark>## 1. Retrieve the firewall policy to be applied to the firewall contexts.</mark>
+<mark># Example
+</mark>## 1. Retrieve the firewall policy to be applied to the firewall contexts.</p>
 </div>
 <div class="paragraph">
 <p>Perform a GET operation on the policies collection. In the steps in this example, the context used is a virtual server.  Use the filter and select options to narrow the returned JSON information to just the policy in which you are interested.</p>
@@ -867,7 +867,7 @@ Poll the deployment task as outlined previously, looking for the status of FINIS
 <p>###Common Errors</p>
 </div>
 <div class="paragraph">
-<p>##Error generated when an incorrect URI is sent in the REST request</p>
+<p><mark>#</mark>#Error generated when an incorrect URI is sent in the REST request</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -899,7 +899,7 @@ Poll the deployment task as outlined previously, looking for the status of FINIS
 </div>
 </div>
 <div class="paragraph">
-<p>#GET response when no objects are found based on the filter criteria</p>
+<p><mark>#</mark>#GET response when no objects are found based on the filter criteria</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -914,7 +914,7 @@ Poll the deployment task as outlined previously, looking for the status of FINIS
 </div>
 </div>
 <div class="paragraph">
-<p>#PATCH response to a deleted evaluation task</p>
+<p><mark>#</mark>#PATCH response to a deleted evaluation task</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -926,17 +926,13 @@ Poll the deployment task as outlined previously, looking for the status of FINIS
     "referer": "10.145.192.11",
     "restOperationId": 4644482
 }</code></pre>
-<style>
-a:link {background-color: cyan;}
-</style>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_api_references_used_to_support_this_workflow">API references used to support this workflow:</h3>
 <div class="paragraph">
-<p><a href="../html-reference/firewall-policies.html">Api reference - firewall policies</a></p>
-<p><a href="../html-reference/firewalls.html">Api reference - firewall contexts</a></p>
-<p><a href="../html-reference/deploy-configuration.html">Api reference - deploy-configuration</a></p>
+<p>API references used to support this workflow:
+[Api reference - firewall policies](../html/firewall-policies.html)
+[Api reference - firewall contexts](../html/firewalls.html)
+[Api reference - deploy configuration](../html/deploy-configuration.html)</p>
 </div>
 </div>
 </div>

@@ -113,10 +113,8 @@ status to determine if the deployment completed successfully.
 
    <div class="paragraph">
 
-The following extended example show each of these REST API actions.
-Example
-
-## 1. Retrieve the firewall policy to be applied to the firewall
+The following extended example show each of these REST API actions. #
+Example ## 1. Retrieve the firewall policy to be applied to the firewall
 contexts.
 
 .. raw:: html
@@ -1062,7 +1060,7 @@ determine the issue encountered with the deployment task.
 
    <div class="paragraph">
 
-#GET response when no objects are found based on the filter criteria
+##GET response when no objects are found based on the filter criteria
 
 .. raw:: html
 
@@ -1099,7 +1097,7 @@ determine the issue encountered with the deployment task.
 
    <div class="paragraph">
 
-#PATCH response to a deleted evaluation task
+##PATCH response to a deleted evaluation task
 
 .. raw:: html
 
@@ -1134,22 +1132,12 @@ determine the issue encountered with the deployment task.
 
 .. raw:: html
 
-   <div class="sect2">
-
-.. rubric:: API references used to support this workflow:
-   :name: _api_references_used_to_support_this_workflow
-
-.. raw:: html
-
    <div class="paragraph">
 
-`Api reference - firewall
-policies <../html-reference/firewall-policies.html>`__
-
-`Api reference - firewall contexts <../html-reference/firewalls.html>`__
-
-`Api reference -
-deploy-configuration <../html-reference/deploy-configuration.html>`__
+API references used to support this workflow: [Api reference - firewall
+policies](../html/firewall-policies.html) [Api reference - firewall
+contexts](../html/firewalls.html) [Api reference - deploy
+configuration](../html/deploy-configuration.html)
 
 .. raw:: html
 
@@ -1184,10 +1172,6 @@ deploy-configuration <../html-reference/deploy-configuration.html>`__
    <div id="footer-text">
 
 Last updated 2016-12-14 10:18:57 EST
-
-.. raw:: html
-
-   </div>
 
 .. raw:: html
 
