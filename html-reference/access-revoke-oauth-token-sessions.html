@@ -758,7 +758,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Body</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Json string for request body.</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format. ex. {"action":"REVOKE_TOKEN_FOR_USER", "userName":"user1", "accessGroupNames":["TestGroup1", "TestGroup2"], "clusterNames":["BlueCluster", "RedCluster"], "deviceReferences": [{"link":"https://localhost/mgmt/cm/system/machineid-resolver/device_uuid"},{"link":"https://localhost/mgmt/cm/system/machineid-resolver/device_uuid"}</a>]}</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format. ex. {"action":"REVOKE_TOKEN_FOR_USER", "userName":"user1", "accessGroupNames":["TestGroup1", "TestGroup2"], "clusterNames":["BlueCluster", "RedCluster"], "deviceReferences": [{"link":"https://localhost/mgmt/cm/system/machineid-resolver/0123456-abcd-0123-abcd-0123456789abc"}</a>]}</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_post_revoke_oauth_token_by_cluster_name_access_group_device_reference">post_revoke_oauth_token_by_cluster_name_access_group_device_reference</a></p></td>
 <td class="tableblock halign-left valign-middle"></td>
 </tr>
@@ -885,7 +885,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Body</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Json string for request body.</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format. ex. {"action":"REVOKE_TOKEN_FOR_CLIENT_ID", "clientId":"e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457", "deviceReferences":[{"link":"https://localhost/mgmt/cm/system/machineid-resolver/device_uuid}", "https://localhost/mgmt/cm/system/machineid-resolver/device_uuid"}</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format. ex. {"action":"REVOKE_TOKEN_FOR_CLIENT_ID", "clientId":"e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457", "deviceReferences":[{"link":"https://localhost/mgmt/cm/system/machineid-resolver/0123456-abcd-0123-abcd-0123456789abc}</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_post_revoke_oauth_token_by_oauth_id">post_revoke_oauth_token_by_oauth_id</a></p></td>
 <td class="tableblock halign-left valign-middle"></td>
 </tr>
@@ -1012,7 +1012,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Body</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Json string for request body.</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format. ex. { "action":"REVOKE_TOKEN_FOR_USER", "userName":"user1", "deviceReferences":[{"link":&quot;<a href="https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;}" class="bare">https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;}</a>]}</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format. ex. { "action":"REVOKE_TOKEN_FOR_USER", "userName":"user1", "deviceReferences":[{"https://localhost/mgmt/cm/system/machineid-resolver/0123456-abcd-0123-abcd-0123456789abc}</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_post_revoke_oauth_token_by_user_body">post_revoke_oauth_token_by_user_body</a></p></td>
 <td class="tableblock halign-left valign-middle"></td>
 </tr>
