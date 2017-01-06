@@ -457,18 +457,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="_description">Description</h3>
 <div class="paragraph">
 <p>Describes the steps you perform to apply one or more firewall policies to one or more firewall contexts and deploy the firewall changes to associated BIG-IP devices.
-Perform the REST API actions in the following order:
-1.	GET the firewall policies to use.
-2.	GET the firewall contexts  to use.
-3.	PATCH each firewall context with the appropriate firewall policy.
-4.	Select the BIG-IP devices to which you want to deploy these changes.
-5.	POST the deployment task JSON to the deployment task URI. If needed, PATCH the deployment task as well.
-6.	GET the deployment task status to determine if the deployment completed successfully.</p>
+Perform the REST API actions in the following order:</p>
+<p>1.	GET the firewall policies to use.</p>
+<p>2.	GET the firewall contexts  to use.</p>
+<p>3.	PATCH each firewall context with the appropriate firewall policy.</p>
+<p>4.	Select the BIG-IP devices to which you want to deploy these changes.</p>
+<p>5.	POST the deployment task JSON to the deployment task URI. If needed, PATCH the deployment task as well.</p>
+<p>6.	GET the deployment task status to determine if the deployment completed successfully.</p>
 </div>
 <div class="paragraph">
 <p>The following extended example show each of these REST API actions.
-<mark>Example
-</mark>## 1. Retrieve the firewall policy to be applied to the firewall contexts.</p>
+Example</p>
+<p>## 1. Retrieve the firewall policy to be applied to the firewall contexts.</p>
 </div>
 <div class="paragraph">
 <p>Perform a GET operation on the policies collection. In the steps in this example, the context used is a virtual server.  Use the filter and select options to narrow the returned JSON information to just the policy in which you are interested.</p>
@@ -867,7 +867,7 @@ Poll the deployment task as outlined previously, looking for the status of FINIS
 <p>###Common Errors</p>
 </div>
 <div class="paragraph">
-<p><mark>#</mark>#Error generated when an incorrect URI is sent in the REST request</p>
+<p>##Error generated when an incorrect URI is sent in the REST request</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -899,7 +899,7 @@ Poll the deployment task as outlined previously, looking for the status of FINIS
 </div>
 </div>
 <div class="paragraph">
-<p><mark></mark>#GET response when no objects are found based on the filter criteria</p>
+<p>#GET response when no objects are found based on the filter criteria</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -914,7 +914,7 @@ Poll the deployment task as outlined previously, looking for the status of FINIS
 </div>
 </div>
 <div class="paragraph">
-<p><mark></mark>#PATCH response to a deleted evaluation task</p>
+<p>#PATCH response to a deleted evaluation task</p>
 </div>
 <div class="listingblock">
 <div class="content">
