@@ -1,6 +1,3 @@
-Apply deploy firewall policies
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 .. raw:: html
 
    <div id="header">
@@ -101,21 +98,12 @@ to associated BIG-IP devices.
 Describes the steps you perform to apply one or more firewall policies
 to one or more firewall contexts and deploy the firewall changes to
 associated BIG-IP devices. Perform the REST API actions in the following
-order:
-
-1. GET the firewall policies to use.
-
-2. GET the firewall contexts to use.
-
-3. PATCH each firewall context with the appropriate firewall policy.
-
-4. Select the BIG-IP devices to which you want to deploy these changes.
-
-5. POST the deployment task JSON to the deployment task URI. If needed,
-PATCH the deployment task as well.
-
-6. GET the deployment task status to determine if the deployment
-completed successfully.
+order: 1. GET the firewall policies to use. 2. GET the firewall contexts
+to use. 3. PATCH each firewall context with the appropriate firewall
+policy. 4. Select the BIG-IP devices to which you want to deploy these
+changes. 5. POST the deployment task JSON to the deployment task URI. If
+needed, PATCH the deployment task as well. 6. GET the deployment task
+status to determine if the deployment completed successfully.
 
 .. raw:: html
 
