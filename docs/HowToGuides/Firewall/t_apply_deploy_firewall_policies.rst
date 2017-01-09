@@ -34,7 +34,6 @@ Describes the steps you perform to apply one or more firewall policies
 to one or more firewall contexts and deploy the firewall changes to
 associated BIG-IP devices. Perform the REST API actions in the following
 order: 
-<<<<<<< HEAD
 
 - 1.GET the firewall policies to use. 
 - 2.GET the firewall contexts to use. 
