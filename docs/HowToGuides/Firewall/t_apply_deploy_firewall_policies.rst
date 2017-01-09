@@ -45,7 +45,7 @@ order:
 The following extended example show each of these REST API actions. 
 ### Example #### 
 
-- 1.Retrieve the firewall policy to be applied to the firewall contexts.
+1.Retrieve the firewall policy to be applied to the firewall contexts.
 =======
 1. GET the firewall policies to use. 
 2. GET the firewall contexts to use. 
