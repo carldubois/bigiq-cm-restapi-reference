@@ -6,310 +6,93 @@ General overview of task workflow using BIGIQ REST API.
 In general, brief steps described below: 
 
 Example
-- step 1: create a node
-- step 2: create a pool 
-- step 3: add a pool member to a pool 
-- step 4: create a virtual server 
-- step 5: attach the pool to virtual server
+- step 1: description of step 1
+- step 2: description of step 2
+- step 3: description of step 3 
+- step 4: description of step 4 
 
 
 ### Prerequisites
 You should be sure the following prerequisites have been met.
 
 - All BIG-IP devices are operational.
-- The BIG-IQ Centralized Management system is operational.
+- The BIG-IQ centralized management system is operational.
 
 ### Description
 
-#### 1. Create a node:
+#### 1. Description of step 1:
 ```
-POST https://ip/mgmt/cm/adc-core/working-config/ltm/node
+OPERATION https://ip/uri
 
 Request body:
-{
-	"partition": "Common",
-   	"name": "myNode",
-   	"address": "20.20.20.20",
-   	"deviceReference": {
-       	"link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949"
-   	}
-}
+{"request":"body"}
 ```
 
-When the POST command is completed successfully, it will create a node in working config and responds with the selfLink of the object. Here is the POST response example,
+Description of what to expect after operation completes. 
+Response example.
 ```
-{
-    "address": "20.20.20.20",
-    "connectionLimit": 0,
-    "isEphemeral": false,
-    "rateLimit": "disabled",
-    "fqdn": {
-        "addressFamily": "ipv4",
-        "isAutoPopulate": false,
-        "downInterval": 5,
-        "interval": "3600"
-    },
-    "partition": "Common",
-    "deviceReference": {
-        "id": "4fcf3469-f9ca-4a51-80d0-3336f779f949",
-        "name": "bigip12-swu.f5.com",
-        "kind": "shared:resolver:device-groups:restdeviceresolverdevicestate",
-        "machineId": "4fcf3469-f9ca-4a51-80d0-3336f779f949",
-        "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949"
-    },
-    "name": "myNode",
-    "id": "17345a11-9d4d-3545-8d75-200e1fb50d10",
-    "generation": 1,
-    "lastUpdateMicros": 1481060607706179,
-    "kind": "cm:adc-core:working-config:ltm:node:adcnodestate",
-    "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48"
-}
+{"response":"example"}
+```
+Prerequisites prior to next operation if needed. Example get self-link to object for reference PATCH.
+```
+OPERATION https://ip/uri
+{"response":"example"}
 ```
 
-Take a note on the self Link. Doing a GET on the selfLink will get the object created in working config. It looks like,
-
+#### 2. Description of step 2:
 ```
-GET https://ip/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48
-{
-    "address": "20.20.20.20",
-    "connectionLimit": 0,
-    "isEphemeral": false,
-    "rateLimit": "disabled",
-    "fqdn": {
-        "addressFamily": "ipv4",
-        "isAutoPopulate": false,
-        "downInterval": 5,
-        "interval": "3600"
-    },
-    "partition": "Common",
-    "deviceReference": {
-        "id": "4fcf3469-f9ca-4a51-80d0-3336f779f949",
-        "name": "bigip12-swu.f5.com",
-        "kind": "shared:resolver:device-groups:restdeviceresolverdevicestate",
-        "machineId": "4fcf3469-f9ca-4a51-80d0-3336f779f949",
-        "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949"
-    },
-    "name": "myNode",
-    "id": "bcad3364-7481-3c1c-b4cf-093486816a48",
-    "generation": 1,
-    "lastUpdateMicros": 1481060607706179,
-    "kind": "cm:adc-core:working-config:ltm:node:adcnodestate",
-    "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48"
-}
+OPERATION https://ip/uri
+
+Request body:
+{"request":"body"}
+```
+Description of what to expect after operation completes. 
+Response example.
+```
+{"response":"example"}
+```
+Prerequisites prior to next operation if needed. Example get self-link to object for reference PATCH.
+```
+OPERATION https://ip/uri
+{"response":"example"}
 ```
 
-#### 2. Create a pool
+#### 3. Description of step 3:
 ```
-POST https://ip/mgmt/cm/adc-core/working-config/ltm/pool
+OPERATION https://ip/uri
 
-Request Body:
-{
-    "partition": "Common",
-    "name": "myPool",
-    "loadBalancingMode": "round-robin",
-    "deviceReference": {
-        "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949"
-    }
-}
+Request body:
+{"request":"body"}
 ```
-
-After a successful creation, a new pool is created and it looks like,
-
+Description of what to expect after operation completes. 
+Response example.
 ```
-
-Results:
-{
-    "allowNat": true,
-    "allowSnat": true,
-    "ignorePersistedWeight": false,
-    "ipTosToClientControl": "pass-through",
-    "ipTosToServerControl": "pass-through",
-    "linkQosToClient": 65535,
-    "linkQosToServer": 65535,
-    "loadBalancingMode": "round-robin",
-    "minActiveMembers": 0,
-    "queueDepthLimit": 0,
-    "enableQueueOnConnectionLimit": false,
-    "queueTimeLimit": 0,
-    "reselectTries": 0,
-    "serviceDownAction": "none",
-    "slowRampTime": 10,
-    "membersCollectionReference": {
-        "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1/members",
-        "isSubcollection": true
-    },
-    "partition": "Common",
-    "deviceReference": {
-        "id": "4fcf3469-f9ca-4a51-80d0-3336f779f949",
-        "name": "bigip12-swu.f5.com",
-        "kind": "shared:resolver:device-groups:restdeviceresolverdevicestate",
-        "machineId": "4fcf3469-f9ca-4a51-80d0-3336f779f949",
-        "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949"
-    },
-    "name": "myPool",
-    "id": "db935eaf-69b8-34b1-8c0c-d61d665698c1",
-    "generation": 1,
-    "lastUpdateMicros": 1481060913788697,
-    "kind": "cm:adc-core:working-config:ltm:pool:adcpoolstate",
-    "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1"
-}
-
+{"response":"example"}
+```
+Prerequisites prior to next operation if needed. Example get self-link to object for reference PATCH.
+```
+OPERATION https://ip/uri
+{"response":"example"}
 ```
 
-#### 3. Create a pool member
-In order to create a pool member, you must create a pool and a node first. Here is an example showing we create a pool member using the node created in step 1 and pool created in step 2. 
-
+#### 4. Description of step 4. 
 ```
-POST https://ip/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1/members
+OPERATION https://ip/uri
 
-Request Body:
-{
-    "partition": "Common",
-    "name": "myNode:80",
-    "port": 80,
-    "nodeReference": {
-        "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48"
-     }
-}
+Request body:
+{"request":"body"}
 ```
 
-Upon a successful pool member creation, you can find a member under the target pool. It looks like,
-
+Description of what to expect after operation completes. 
+Response example.
 ```
-GET https://ip/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1/members/43ef0c03-0630-379f-a652-0c2e4fbbdce0 
-
-Results:
-{
-    "connectionLimit": 0,
-    "port": 80,
-    "priorityGroup": 0,
-    "rateLimit": "disabled",
-    "ratio": 1,
-    "sessionConfig": "user-enabled",
-    "stateConfig": "user-up",
-    "nodeReference": {
-        "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48"
-    },
-    "partition": "Common",
-    "name": "myNode:80",
-    "id": "43ef0c03-0630-379f-a652-0c2e4fbbdce0",
-    "generation": 1,
-    "lastUpdateMicros": 1481061178891481,
-    "kind": "cm:adc-core:working-config:ltm:pool:members:adcpoolmemberstate",
-    "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1/members/43ef0c03-0630-379f-a652-0c2e4fbbdce0"
-}
+{"response":"example"}
 ```
+Description of what to expect after operation completes. 
 
-#### 4. Create a virtual server
-
-```
-POST https://ip/mgmt/cm/adc-core/working-config/ltm/virtual
-
-Request Body:
-{
-      "partition": "Common",
-      "name": "myVirtual",
-      "destinationAddress": "10.10.10.10",
-      "mask": "255.255.255.255",
-      "destinationPort": 80,
-      "sourceAddress": "0.0.0.0/0",
-      "deviceReference": {
-        "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949"
-    }
-}
-```
-Upon a successful creation, a virtual server object is created and it looks like
-```
-GET  https://ip/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8
-
-{
-    "sourceAddress": "0.0.0.0/0",
-    "sourceAddressTranslation": {
-        "type": "none"
-    },
-    "destinationAddress": "10.10.10.10",
-    "destinationPort": 80,
-    "mask": "255.255.255.255",
-    "state": "enabled",
-    "mirror": "disabled",
-    "ipProtocol": "any",
-    "profilesCollectionReference": {
-        "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8/profiles",
-        "isSubcollection": true
-    },
-    "vlansEnabled": "disabled",
-    "addressStatus": "yes",
-    "autoLasthop": "default",
-    "connectionLimit": 0,
-    "gtmScore": 0,
-    "nat64": "disabled",
-    "rateLimit": "disabled",
-    "rateLimitMode": "object",
-    "translateAddress": "enabled",
-    "translatePort": "enabled",
-    "sourcePort": "preserve",
-    "partition": "Common",
-    "deviceReference": {
-        "id": "4fcf3469-f9ca-4a51-80d0-3336f779f949",
-        "name": "bigip12-swu.f5.com",
-        "kind": "shared:resolver:device-groups:restdeviceresolverdevicestate",
-        "machineId": "4fcf3469-f9ca-4a51-80d0-3336f779f949",
-        "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949"
-    },
-    "name": "myVirtual",
-    "id": "b4469b6f-f18f-3978-8372-4fbd562f31b8",
-    "generation": 1,
-    "lastUpdateMicros": 1481062132296433,
-    "kind": "cm:adc-core:working-config:ltm:virtual:adcvirtualstate",
-    "selfLink": "https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8"
-}
-```
-
-If you want to create a virtual server with pool attached. You need to include property "poolReference" into the POST request body.
-For example,
-```
-POST https://ip/mgmt/cm/adc-core/working-config/ltm/virtual
-
-Request Body:
-{
-      "partition": "Common",
-      "name": "myVirtual",
-      "destinationAddress": "10.10.10.10",
-      "mask": "255.255.255.255",
-      "destinationPort": 80,
-      "sourceAddress": "0.0.0.0/0",
-      "poolReference": {
-        "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1"
-      },
-      "deviceReference": {
-        "link": "https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949"
-       }
-}
-
-```
-
-#### 5. Attach a pool to virtual server
-Technically speaking, step 4 and step 5 can be combined into one step. Since attach and detach a pool is a significant step, we call it out as a separate step. If you like to combine step 5 with step 4, you just need to add the property "poolReference" into the POST request body. 
-
-```
-PATCH https://ip/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8
-
-Request Body:
-{
-    "poolReference": {
-        "link": "https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1"
-    }
-}
-    
-```
+### Conclusion
+General conclusion descrition of completed workflow.
 
 ### API references:
-These are links to reference documentation. 
-
-If None is avalible please use" 
-"Not Implemented"
-Else:
-[Api reference - application node management](../adoc/application-server-node-management.adoc)
-[Api reference - pool / member management](../adoc/pool-member-management.adoc)
-[Api reference - virtual server management](../adoc/virtual-server-management.adoc)
-
+These are links to reference documentation. If None is avalible please use "Not Implemented"
+else: [Api reference - name](../location/of/reference)
