@@ -43,7 +43,6 @@ order:
 6. GET the deployment task status to determine if the deployment completed successfully.
 
 The following extended example show each of these REST API actions. 
-### Example #### 
 
 1.Retrieve the firewall policy to be applied to the firewall contexts.
 =======
@@ -57,7 +56,6 @@ needed, PATCH the deployment task as well.
 
 The following extended example show each of these REST API actions.
 
-Example -
 1. Retrieve the firewall policy to be applied to the firewall contexts.
 >>>>>>> 8169efe853bc55133ffc6cf006d17a06d9d87739
 
