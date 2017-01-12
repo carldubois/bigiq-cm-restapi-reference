@@ -40,11 +40,12 @@ Response:
         individual license
     }
 }
+```
 
 #### 2. Start activation of a license.
 
 POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
-
+```
 Request:
 
 {
@@ -60,12 +61,13 @@ Response:
     "status" : "ACTIVATING_AUTOMATIC",
     "message" : "Activation in progress",
 }
+```
 
 #### 3. Poll to get purchased pool license status
 The desired state of a license should have a status equals to LICENSED
 
 GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
-
+```
 Response:
 {
     "uuid": "858ecc73-ddb8-45d5-893b-c4f1b9b9fcbf",
@@ -185,12 +187,13 @@ Response:
     "selfLink": "https://localhost/mgmt/cm/shared/licensing/pools/858ecc73-ddb8-45d5-893b-c4f1b9b9fcbf"
     },
 }
+```
 
 #### 4. Reactivate a purchased pool license:
 During the process, user could poll the license to check for status of reactivation process
 
 PATCH https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
-
+```
 Request:
 {
     state: "RELICENSE",
@@ -316,11 +319,13 @@ Response:
     "selfLink": "https://localhost/mgmt/cm/shared/licensing/pools/858ecc73-ddb8-45d5-893b-c4f1b9b9fcbf"
     },
 }
+```
 
 #### 6 Patch to accept EULA
 
 PATCH https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
+```
 Request: Automatic Activation Step 3 - Agree to the EULA and proceed with the licensing activation
 {
     "eulaText": "...",
@@ -337,11 +342,12 @@ Response:
     "kind": "shared:authz:users:usersworkerstate",
     "selfLink": "https://localhost/mgmt/shared/authz/users/user1"
 }
+```
 
 #### 7 Patch to provide license text
 
 PATCH https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
-
+```
 Request: Manual Activation Step 3 - Copy the license text from activate.f5.com and submit it
 {
     "licenseText": "..."
@@ -358,6 +364,7 @@ Response:
     "licenseText":"...",
     "selfLink":"https://localhost/mgmt/cm/shared/licensing/pools/123"
 }
+```
 
 #### 8. Delete a purchased pool license
 

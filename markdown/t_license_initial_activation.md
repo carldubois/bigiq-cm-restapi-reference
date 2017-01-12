@@ -37,12 +37,13 @@ Response:
     "status" : "ACTIVATING_AUTOMATIC",
     "message" : "Activation in progress",
 }
+```
 
 #### 2. Poll to get status.
 After posting the license, user should poll to check the activation status
 
 GET https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
-
+```
 Response:
 {
     "regKey" : "MY-REGISTRATION-KEY",
@@ -51,12 +52,13 @@ Response:
     "message" : "Need EULA acceptance in order to continue",
     "eulaText" : "The exact EULA text goes here..."
 }
+```
 
 #### 3. Patch to accept EULA.
 After user accepts the EULA, subsequent poll shows status of the activation process.  Eventually the activation should have a status of either ACTIVATION_FAILED or READY
 
 PATCH https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
-
+```
 Request:
 {
     "status" : "ACTIVATING_AUTOMATIC_EULA_ACCEPTED",
@@ -70,12 +72,13 @@ Response:
 	"status" : "ACTIVATING_AUTOMATIC_EULA_ACCEPTED",
 	"eulaText" : "The exact EULA text goes here..."
 }
+```
 
 #### 4. Patch to provide license text for manual activation
 For manually activation, the license text is submitted to finish the activation process
 
 PATCH https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
-
+```
 Request:
 {
 	"status" : "ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED",
@@ -88,12 +91,13 @@ Response:
 	"status" : "ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED",
 	"licenseText" : "The exact license text goes here..."
 }
+```
 
 #### 5. Patch to re-try a failed activation
 Before re-try activation, user should check the log and error message to find the root cause of the failure.  Some of the reasons are, wrong registration key, connection error to licensing server, etc.
 
 PATCH https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
-
+```
 Request:
 {
 	"status" : "ACTIVATING_AUTOMATIC",
@@ -105,7 +109,7 @@ Response:
 	"name" : "my own freeform name",
 	"status" : "ACTIVATING_AUTOMATIC"
 }
-
+```
 #### 6. Remove a failed activation
 
 DELETE https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
