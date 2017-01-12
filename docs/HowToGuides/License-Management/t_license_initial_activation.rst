@@ -62,6 +62,8 @@ finish manual activation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 POST https://ip/mgmt/cm/device/licensing/pool/initial-activation \`\`\`
+
+::
 Request:
 
 { "regKey" : "MY-REGISTRATION-KEY", "name" : "my own freeform name",
@@ -79,6 +81,7 @@ status
 
 GET https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
 
+::
 Response: { "regKey" : "MY-REGISTRATION-KEY", "name" : "my own freeform
 name", "status" : "ACTIVATING\_AUTOMATIC\_NEED\_EULA\_ACCEPT", "message"
 : "Need EULA acceptance in order to continue", "eulaText" : "The exact
@@ -93,6 +96,7 @@ either ACTIVATION\_FAILED or READY
 
 PATCH https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
 
+::
 Request: { "status" : "ACTIVATING\_AUTOMATIC\_EULA\_ACCEPTED",
 "eulaText" : "The exact EULA text goes here..." }
 
@@ -108,6 +112,7 @@ activation process
 
 PATCH https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
 
+::
 Request: { "status" : "ACTIVATING\_MANUAL\_LICENSE\_TEXT\_PROVIDED",
 "licenseText" : "The exact license text goes here..." } Response: {
 "regKey" : "MY-REGISTRATION-KEY", "name" : "my own freeform name",
@@ -123,6 +128,8 @@ registration key, connection error to licensing server, etc.
 
 PATCH https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
 
+
+::
 Request: { "status" : "ACTIVATING\_AUTOMATIC", }
 
 Response: { "regKey" : "MY-REGISTRATION-KEY", "name" : "my own freeform
@@ -130,6 +137,7 @@ name", "status" : "ACTIVATING\_AUTOMATIC" }
 
 6. Remove a failed activation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 DELETE
 https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
