@@ -3,7 +3,7 @@
 
 [[_overview]]
 == Overview
-API used for discovery task management of BIGIP for the AFM (Firewall) namespace by BIGIQ. Re import will use this task as well.
+API used by discovery task management of BIGIP for the AFM (Firewall) namespace by BIGIQ. Re-import will use this task as well.
 
 
 === Version information
@@ -145,7 +145,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 |*childTaskReference* +
 _optional_|Reference link to child task. shared-object security discovery.|< <<_properties_declare-mgmt-authority_childtaskreference,childTaskReference>> > array
 |*childTaskStates* +
-_optional_|Description of child task state properties using by declare-mgmt-authority task object.|< <<_properties_declare-mgmt-authority_childtaskstates,childTaskStates>> > array
+_optional_|Description of child task state properties used by declare-mgmt-authority task object.|< <<_properties_declare-mgmt-authority_childtaskstates,childTaskStates>> > array
 |*copyTaskReference* +
 _optional_|Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).|<<_properties_declare-mgmt-authority_copytaskreference,copyTaskReference>>
 |*createChildTasks* +
@@ -162,7 +162,7 @@ _optional_|Reference link to differencer task. Used to manage difference between
 _optional_|Date/Time when device discovery task declare-mgmt-authority firewall ended. 2016-10-11T10:30:17.834-0400|string
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device discovery declare-mgmt-authority task object. (AFM) generation.|integer(int64)
+_read-only_|An integer that will track change made to a device discovery declare-mgmt-authority task object. (AFM) generation.|integer(int64)
 |*id* +
 _optional_ +
 _read-only_|Unique id assigned to a device declare-mgmt-authority firewall task object.|string
@@ -173,18 +173,18 @@ _optional_ +
 _read-only_|Type information for this device discovery declare-mgmt-authority firewall task object. cm:firewall:tasks:declare-mgmt-authority:dmataskitemstate|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device discovery firewall task object. time (1476742109026835).|integer(int64)
+_read-only_|Update time (micros) for last change made to a device discovery firewall task object. time (1476742109026835).|integer(int64)
 |*name* +
 _optional_|Name of device declare-mgmt-authority task.|string
 |*ownerMachineId* +
 _optional_|A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority. (AFM)|string
 |*reImport* +
-_optional_|Flag to enable / disable re import configuration.|boolean
+_optional_|Flag to enable / disable re-import configuration.|boolean
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the device discovery declare-mgmt-authority task object. (AFM)|string
 |*skipDiscovery* +
-_optional_|Skip discovery for re import configuration.|boolean
+_optional_|Skip discovery for re-import configuration.|boolean
 |*snapshotWorkingConfig* +
 _optional_|To snapshot the working-configuration (BIGIQ) during firewall module discovery.|boolean
 |*startDateTime* +
@@ -235,7 +235,7 @@ _optional_|Reference link to differencer task. Used to manage difference between
 _optional_|Date/Time when device discovery task declare-mgmt-authority firewall ended. 2016-10-11T10:30:17.834-0400|string
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device discovery declare-mgmt-authority firewall task object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a device discovery declare-mgmt-authority firewall task object. generation.|integer(int64)
 |*id* +
 _optional_|Unique id for child task.|string
 |*identityReference* +
@@ -247,19 +247,19 @@ _optional_ +
 _read-only_|Type information for this device discovery declare-mgmt-authority firewall task object. cm:security-shared:tasks:declare-mgmt-authority:dmataskitemstate|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device discovery firewall task object. time (1476742109026835).|integer(int64)
+_read-only_|Update time (micros) for last change made to a device discovery firewall task object. time (1476742109026835).|integer(int64)
 |*ownerMachineId* +
 _optional_|A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority firewall. (Firewall)|string
 |*parentTaskReference* +
-_optional_|	
+_optional_|
 Reference link to parent process. The declare-mgmt-authority task.|<<_properties_declare-mgmt-authority_parenttaskreference,parentTaskReference>>
 |*reImport* +
-_optional_|Flag to enable / disable re import configuration.|boolean
+_optional_|Flag to enable / disable re-import configuration.|boolean
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the device discovery declare-mgmt-authority firewall task object.|string
 |*skipDiscovery* +
-_optional_|Skip discovery for re import configuration.|boolean
+_optional_|Skip discovery for re-import configuration.|boolean
 |*startDateTime* +
 _optional_|Date/Time when device discovery declare-mgmt-authority firewall task began. 2016-10-11T10:30:17.834-0400|string
 |*status* +
@@ -417,7 +417,7 @@ _optional_|Reference links to user. mgmt/shared/authz/user|string
 |Name|Description|Schema
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device discovery firewall task collection object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a device discovery firewall task collection object. generation.|integer(int64)
 |*items* +
 _optional_|Array of device discovery firewall task object.|< object > array
 |*kind* +
@@ -425,7 +425,7 @@ _optional_ +
 _read-only_|Type information for this device discover firewall task collection object. cm:firewall:tasks:declare-mgmt-authority:dmataskcollectionstate|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device discovery firewall task collection object. time.|integer(int64)
+_read-only_|Update time (micros) for last change made to a device discovery firewall task collection object. time.|integer(int64)
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the device discovery firewall task collection object.|string

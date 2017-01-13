@@ -291,8 +291,40 @@ _required_|Unique id assigned to a member device licensed to a registration key 
 |*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
 |===
 
+[[_licenses_objectid_offerings_registrationkey_members_objectid_del]]
+=== Used to DEL license pool members.
+....
+DEL /licenses/{objectId}/offerings/{registrationKey}/members/{memberObjectId}
+....
 
 
+==== Description
+DELETES a member (BIGIP) device that is part of a license pool identified by id/members/memberObjectId for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to licensed registration key pool object.|string(UUID)|None
+|*Path*|*registrationKey* +
+_required_|Generated registration key used when licensing BIGIP.|string(string)|None
+|*Path*|*memberObjectId* +
+_required_|Unique id assigned to a member device licensed to a registration key pool.|string(string)|None
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|License pool member object deleted returned.|<<_properties_regkey_member,properties_regkey_member>>
+|*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
 
 [[_definitions]]
 == Definitions

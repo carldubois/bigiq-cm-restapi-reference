@@ -3,7 +3,7 @@
 
 [[_overview]]
 == Overview
-API used to deploy configuration changes made on BIG-IQ or BIG-IP devices.
+API used to deploy configuration changes made on BIG-IQ to BIG-IP devices.
 
 
 === Version information
@@ -102,6 +102,8 @@ Returns deployment configuration task within the firewall namespace identified b
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
 _required_|Policy object id.|string(UUID)|None
+|*Body*|*Json string request body.* +
+_required_|Input parameter list in json format. Ex. {"createChildTasks": true, "description": "Policy Deploy", "deviceReferences": [{"link": "https://localhost/mgmt/shared/resolver/device-groups/cm-firewall-allFirewallDevices/devices/6e932e01-7b5e-431d-b1d3-8ca5e3eb891d"}], "name": "Policy Deploy", "skipDistribution": false}|<<_post_deploy_configuration_firewall_body,post_deploy_configuration_firewall_body>>|None
 |===
 
 
@@ -172,10 +174,6 @@ _optional_|Deploy needed, reference link to firewall distribute rest configurati
 _optional_|Deploy needed, reference link to shared security distribute rest configuration.|<<_properties_deploy_distributetaskreferences,distributeTaskReferences>>
 |*endDateTime* +
 _optional_|End time, in date format, the deployment task completed.|string
-|*firewallIpAddress* +
-_optional_|Firewall IP Address|string
-|*firewallType* +
-_optional_|Firewall Type (VIP, SIP, RD, Mgmt etc..)|string
 |*generation* +
 _optional_ +
 _read-only_|A unique integer that allows admin track change to deploy object.|integer(int64)
@@ -452,7 +450,26 @@ _optional_ +
 _read-only_|A reference link URI to the deploy task collection object.|string
 |===
 
+[[_post_deploy_configuration_firewall_body]]
+=== post_device_trust_body
 
-
-
-
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*createChildTasks* +
+_optional_|This deployment with create child tasks as part of process.|boolean
+|*skipVerifyConfig* +
+_optional_|Boolean to allow user to disable verifiation of configuration.|boolean
+|*skipDistribution* +
+_optional_|Boolean to allow user to disable distribution of configuration to a BIGIP device.|boolean
+|*snapshotReference* +
+_optional_|Reference to device snapshot. default: null|string
+|*objectsToDeployReferences* +
+_optional_|Reference to adc objects to be distributed.|string
+|*name* +
+_required_|Name of ADC deployment task.|string
+|*deviceReference* +
+_required_|Reference link to device object.|string
+|*description* +
+_optional_|Description of deployment task.|string
+|===

@@ -1,9 +1,9 @@
-= BIG-IQ Discovery for Web Application Firewall (ASM) Management.
+= BIG-IQ Discovery for Web Application Security (ASM) Management.
 
 
 [[_overview]]
 == Overview
-API used for discovery task management of BIGIP for the ASM (Web Application Firewall) namespace by BIGIQ. Re import will use this task as well.
+API used for discovery task management of BIGIP for the ASM (Web Application Security) namespace by BIGIQ. Re-import will use this task as well.
 
 
 === Version information
@@ -91,7 +91,7 @@ Returns the device discovery declare-mgmt-authority task identified by a endpoin
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_|Unique id assinged to declare-mgmt-authority asm task object.|string(UUID)|None
+_required_|Unique id assinged to declare-mgmt-authority ASM task object.|string(UUID)|None
 |===
 
 
@@ -120,10 +120,10 @@ _required_|Unique id assinged to declare-mgmt-authority asm task object.|string(
 _optional_ +
 _read-only_|Error stack trace returned by java.|string
 |*items* +
-_optional_|Collection of device discovery asm task objects.|< object > array
+_optional_|Collection of device discovery ASM task objects.|< object > array
 |*kind* +
 _optional_ +
-_read-only_|Type information for this device discovery asm task collection object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate|string
+_read-only_|Type information for this device discovery ASM task collection object. cm:ASM:tasks:declare-mgmt-authority:dmataskitemstate|string
 |*message* +
 _optional_ +
 _read-only_|Error message returned from server.|string
@@ -145,13 +145,13 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 |*childTaskReference* +
 _optional_|Reference link to child task. shared-object security discovery.|< <<_properties_declare-mgmt-authority_childtaskreference,childTaskReference>> > array
 |*childTaskStates* +
-_optional_|Description of child task state properties using by declare-mgmt-authority task object.|< <<_properties_declare-mgmt-authority_childtaskstates,childTaskStates>> > array
+_optional_|Description of child task state properties used by declare-mgmt-authority task object.|< <<_properties_declare-mgmt-authority_childtaskstates,childTaskStates>> > array
 |*copyTaskReference* +
-_optional_|Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).|<<_properties_declare-mgmt-authority_copytaskreference,copyTaskReference>>
+_optional_|Enable / Disable declare-mgmt-authority ASM copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).|<<_properties_declare-mgmt-authority_copytaskreference,copyTaskReference>>
 |*createChildTasks* +
-_optional_|To create a child task as part of this declare-mgmt-authority for firewall.|boolean
+_optional_|To create a child task as part of this declare-mgmt-authority for ASM.|boolean
 |*currentStep* +
-_optional_|The current step of device declare-mgmt-authority firewall task as predicated by state.|string
+_optional_|The current step of device declare-mgmt-authority ASM task as predicated by state.|string
 |*deviceReference* +
 _optional_|Reference link to resolver for device to be managed by BIGIQ. (ASM)|<<_properties_declare-mgmt-authority_devicereference,deviceReference>>
 |*differenceReference* +
@@ -159,40 +159,40 @@ _optional_|Reference link to differences object containing differences between w
 |*differencerTaskReference* +
 _optional_|Reference link to differencer task. Used to manage difference between working-configuration (BIGIQ) and current-configuration (BIGIP)|<<_properties_declare-mgmt-authority_differencertaskreference,differencerTaskReference>>
 |*endDateTime* +
-_optional_|Date/Time when device discovery task declare-mgmt-authority firewall ended. 2016-10-11T10:30:17.834-0400|string
+_optional_|Date/Time when device discovery task declare-mgmt-authority ASM ended. 2016-10-11T10:30:17.834-0400|string
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device discovery declare-mgmt-authority task object. (ASM) generation.|integer(int64)
+_read-only_|An integer that will track change made to a device discovery declare-mgmt-authority task object. (ASM) generation.|integer(int64)
 |*id* +
 _optional_ +
-_read-only_|Unique id assigned to a device declare-mgmt-authority asm task object.|string
+_read-only_|Unique id assigned to a device declare-mgmt-authority ASM task object.|string
 |*identityReference* +
-_optional_|Array of reference links to user used to discover device declare-mgmt-authority firewall. mgmt/shared/authz/users/admin|< <<_properties_declare-mgmt-authority_identityreference,identityReference>> > array
+_optional_|Array of reference links to user used to discover device declare-mgmt-authority ASM. mgmt/shared/authz/users/admin|< <<_properties_declare-mgmt-authority_identityreference,identityReference>> > array
 |*kind* +
 _optional_ +
-_read-only_|Type information for this device discovery declare-mgmt-authority firewall task object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate|string
+_read-only_|Type information for this device discovery declare-mgmt-authority ASM task object. cm:ASM:tasks:declare-mgmt-authority:dmataskitemstate|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device discovery firewall task object. time (1476742109026835).|integer(int64)
+_read-only_|Update time (micros) for last change made to a device discovery ASM task object. time (1476742109026835).|integer(int64)
 |*name* +
 _optional_|Name of device declare-mgmt-authority task.|string
 |*ownerMachineId* +
 _optional_|A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority. (ASM)|string
 |*reImport* +
-_optional_|Flag to enable / disable re import configuration.|boolean
+_optional_|Flag to enable / disable re-import configuration.|boolean
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the device discovery declare-mgmt-authority task object. (ASM)|string
 |*snapshotWorkingConfig* +
-_optional_|To snapshot the working-configuration (BIGIQ) during asm module discovery.|boolean
+_optional_|To snapshot the working-configuration (BIGIQ) during ASM module discovery.|boolean
 |*startDateTime* +
-_optional_|Date/Time when device discovery declare-mgmt-authority firewall task began. 2016-10-11T10:30:17.834-0400|string
+_optional_|Date/Time when device discovery declare-mgmt-authority ASM task began. 2016-10-11T10:30:17.834-0400|string
 |*status* +
 _optional_|Status of device declare-mgmt-authority task predicated on state.|string
 |*userReference* +
-_optional_|Reference link to user used to discover device declare-mgmt-authority firewall. mgmt/shared/authz/users/admin|<<_properties_declare-mgmt-authority_userreference,userReference>>
+_optional_|Reference link to user used to discover device declare-mgmt-authority ASM. mgmt/shared/authz/users/admin|<<_properties_declare-mgmt-authority_userreference,userReference>>
 |*username* +
-_optional_|User name of device firewall object to be managed. (Firewall)|string
+_optional_|User name of device ASM object to be managed. (ASM)|string
 |*validationBypassMode* +
 _optional_|Enable / Disable validation check when importing configuration device. BYPASS_NONE - no bypass (default), BYPASS_FINAL - skip final validation phase, BYPASS_ALL - skip all validation phases.|string
 |===
@@ -214,11 +214,11 @@ _optional_|Reference link to child task object.|string
 |===
 |Name|Description|Schema
 |*copyTaskReference* +
-_optional_|Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).|<<_properties_declare-mgmt-authority_copytaskreference,copyTaskReference>>
+_optional_|Enable / Disable declare-mgmt-authority ASM copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).|<<_properties_declare-mgmt-authority_copytaskreference,copyTaskReference>>
 |*createChildTasks* +
 _optional_|To create a child task as part of this declare-mgmt-authority for ASM module.|boolean
 |*currentStep* +
-_optional_|The current step of device declare-mgmt-authority asm task as predicated by state.|string
+_optional_|The current step of device declare-mgmt-authority ASM task as predicated by state.|string
 |*deviceIp* +
 _optional_|Device ip address this task is running on.|string
 |*deviceReference* +
@@ -231,7 +231,7 @@ _optional_|Reference link to differencer task. Used to manage difference between
 _optional_|Date/Time when device discovery task declare-mgmt-authority ended. 2016-10-11T10:30:17.834-0400|string
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device discovery declare-mgmt-authority task object. (ASM) generation.|integer(int64)
+_read-only_|An integer that will track change made to a device discovery declare-mgmt-authority task object. (ASM) generation.|integer(int64)
 |*id* +
 _optional_|Unique id for child task.|string
 |*identityReference* +
@@ -240,21 +240,21 @@ _optional_|Array of reference links to user used to discover device declare-mgmt
 _optional_|Identify if task is a child of this declare-mgmt-authority for ASM module.|boolean
 |*kind* +
 _optional_ +
-_read-only_|Type information for this device discovery declare-mgmt-authority firewall task object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate|string
+_read-only_|Type information for this device discovery declare-mgmt-authority ASM task object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device discovery firewall task object. time (1476742109026835).|integer(int64)
+_read-only_|Update time (micros) for last change made to a device discovery ASM task object. time (1476742109026835).|integer(int64)
 |*ownerMachineId* +
 _optional_|A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority. (ASM)|string
 |*parentTaskReference* +
 _optional_|Reference link to parent process.|<<_properties_declare-mgmt-authority_parenttaskreference,parentTaskReference>>
 |*reImport* +
-_optional_|Flag to enable / disable re import configuration.|boolean
+_optional_|Flag to enable / disable re-import configuration.|boolean
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the device discovery declare-mgmt-authority task object. (ASM)|string
 |*skipDiscovery* +
-_optional_|Skip discovery for re import configuration.|boolean
+_optional_|Skip discovery for re-import configuration.|boolean
 |*startDateTime* +
 _optional_|Date/Time when device discovery declare-mgmt-authority task began. 2016-10-11T10:30:17.834-0400|string
 |*status* +
@@ -264,7 +264,7 @@ _optional_|Flag to sync BIGIP cluster management (True / False)|boolean
 |*userReference* +
 _optional_|Reference link to user used to discover device declare-mgmt-authority. mgmt/shared/authz/users/admin|<<_properties_declare-mgmt-authority_userreference,userReference>>
 |*username* +
-_optional_|User name of device firewall object to be managed. (ASM)|string
+_optional_|User name of device ASM object to be managed. (ASM)|string
 |*validationBypassMode* +
 _optional_|Enable / Disable validation check when importing configuration device. BYPASS_NONE - no bypass (default), BYPASS_FINAL - skip final validation phase, BYPASS_ALL - skip all validation phases.|string
 |===
@@ -408,18 +408,18 @@ _optional_|Reference link to users. /mgmt/shared/authz/users/admin|string
 |Name|Description|Schema
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device discovery asm task collection object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a device discovery ASM task collection object. generation.|integer(int64)
 |*items* +
-_optional_|Array of device discovery asm task objects.|< object > array
+_optional_|Array of device discovery ASM task objects.|< object > array
 |*kind* +
 _optional_ +
-_read-only_|Type information for this device discover asm task collection object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate|string
+_read-only_|Type information for this device discover ASM task collection object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device discovery asm task collection object. time.|integer(int64)
+_read-only_|Update time (micros) for last change made to a device discovery ASM task collection object. time.|integer(int64)
 |*selfLink* +
 _optional_ +
-_read-only_|A reference link URI to the device discovery asm task collection object.|string
+_read-only_|A reference link URI to the device discovery ASM task collection object.|string
 |===
 
 

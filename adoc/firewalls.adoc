@@ -155,19 +155,39 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 |*firewallIpAddress* +
 _optional_|Firewall IP Address|string
 |*firewallType* +
-_optional_|Firewall Type (VIP, SIP, RD, Mgmt etc..)|string
+_optional_|Firewall Type (vip, self-ip, route-domain, global, and management-ip)|string
+|*floating* +
+_optional_|Is this a floating ip interfaces are part of a shared vlan in a cluster.|boolean
+|*enforcedPolicyReference* +
+_optional_|Reference to a firewall policy of enforced type.|string
+|*servicePolicyReference* +
+_optional_|Reference to a firewall service policy used by BIG-IP.|string
+|*stagedPolicyReference* +
+_optional_|Reference to a firewall policy of staged type.|string
+|*natPolicyReference* +
+_optional_|Reference to a firewall NAT policy used by BIG-IP.|string
+|*deviceReference* +
+_required_|Reference properties for device BIGIP. (id, name, kind, machineId, link)|string
+|*subPath* +
+_optional_|Name of virtual used as part of path. ex. Full Path /Partition/virtual.app|string
+|*useDevicePolicy* +
+_optional_|Use device policy. yes/no|string
+|*useRouteDomainPolicy* +
+_optional_|Use Route Domain policy. yes/no|string
+|*description* +
+_optional_|Description of security firewall context.|string
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a firewall object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a firewall object. generation.|integer(int64)
 |*id* +
 _optional_ +
 _read-only_|Unique id assigned to a firewall object.|string
 |*kind* +
 _optional_ +
-_read-only_|Type information for this firewall object.|string
+_read-only_|Type information for a firewall object.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an firewall object. time.|integer(int64)
+_read-only_|Update time (micros) for last change made to a firewall object. time.|integer(int64)
 |*name* +
 _optional_|Name of object.|string
 |*partition* +
@@ -186,7 +206,7 @@ _read-only_|A reference link URI to the firewall object.|string
 |===
 |Name|Description|Schema
 |*isSubcollection* +
-_optional_|	
+_optional_|
 Is a subcollection (True/False)|boolean
 |*link* +
 _optional_|Reference link to rules collection object. (In-line rules for firewalls not supported.)|string
@@ -201,7 +221,7 @@ _optional_|Reference link to rules collection object. (In-line rules for firewal
 |Name|Description|Schema
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a firewall collection object-generation.|integer(int64)
+_read-only_|An integer that will track change made to a firewall collection object-generation.|integer(int64)
 |*items* +
 _optional_|Collection of firewall-properties.|< object > array
 |*kind* +
@@ -209,7 +229,7 @@ _optional_ +
 _read-only_|Type information for this firewall collection object.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an firewall collection object-time.|integer(int64)
+_read-only_|Update time (micros) for last change made to a firewall collection object-time.|integer(int64)
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the firewall collection object.|string

@@ -3,7 +3,7 @@
 
 [[_overview]]
 == Overview
-API used for discovery task management of BIGIP for the ADC namespace by BIGIQ. This task will be used for import as well.
+API used for discovery task management of a BIGIP ADC namespace by BIGIQ. Re-import will use this task as well.
 
 
 === Version information
@@ -50,7 +50,7 @@ Create a device discovery declare-mgmt-authority task and add to collection.
 |*Path*|*objectId* +
 _required_|Unique id assigned to device discovery task object.|string(UUID)|None
 |*Body*|*Json string request body.* +
-_required_|Input parameter list in json format. Ex. {} |<<_post_discovery_body,post_discovery_body>>|None
+_required_|Input parameter list in json format. Ex. {} |<<_post_declare-mgmt-auth_body,post_declare-mgmt-auth_body>>|None
 |===
 
 ==== Responses
@@ -177,11 +177,11 @@ _optional_ +
 _read-only_|Type information for this device discovery declare-mgmt-authority task object. cm:adc-core:tasks:declare-mgmt-authority:dmataskitemstate|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device discovery task object. time (1476742109026835).|integer(int64)
+_read-only_|Update time (micros) for last change made to a device discovery task object. time (1476742109026835).|integer(int64)
 |*ownerMachineId* +
 _optional_|A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority. (LTM / ADC)|string
 |*reImport* +
-_optional_|Flag to enable / disable re import configuration.|boolean
+_optional_|Flag to enable / disable re-import configuration.|boolean
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the device discovery declare-mgmt-authority task object.|string
@@ -266,7 +266,7 @@ _optional_|Reference link to users. /mgmt/shared/authz/users/admin|string
 |Name|Description|Schema
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device discovery declare-mgmt-authority task collection object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a device discovery declare-mgmt-authority task collection object. generation.|integer(int64)
 |*items* +
 _optional_|Array of device discovery task object.|< object > array
 |*kind* +
@@ -274,14 +274,14 @@ _optional_ +
 _read-only_|Type information for this device discovery declare-mgmt-authority task collection object. cm:adc-core:tasks:declare-mgmt-authority:dmataskcollectionstate|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device discovery declare-mgmt-authority task collection object. time.|integer(int64)
+_read-only_|Update time (micros) for last change made to a device discovery declare-mgmt-authority task collection object. time.|integer(int64)
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the device discovery declare-mgmt-authority task collection object.|string
 |===
 
-[[_post_discovery_body]]
-=== post_discovery_body
+[[_post_declare-mgmt-auth_body]]
+=== post_declare-mgmt-auth_body
 
 [options="header", cols=".^3,.^11,.^4"]
 |===

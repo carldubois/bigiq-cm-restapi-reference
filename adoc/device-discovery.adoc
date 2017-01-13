@@ -161,7 +161,7 @@ _optional_|Reference link to resolver for device to be managed by BIGIQ.|<<_prop
 _optional_|Date/Time when device discovery task ended. 2016-10-11T10:30:17.834-0400|string
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device discovery task object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a device discovery task object. generation.|integer(int64)
 |*id* +
 _optional_ +
 _read-only_|Unique id assigned to a device discovery task object.|string
@@ -172,7 +172,7 @@ _optional_ +
 _read-only_|Type information for this device discovery task object.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device discovery task object. time (1476742109026835).|integer(int64)
+_read-only_|Update time (micros) for last change made to a device discovery task object. time (1476742109026835).|integer(int64)
 |*name* +
 _optional_|Name of device discovery task.|string
 |*ownerMachineId* +
@@ -243,7 +243,7 @@ _optional_|Reference link to a user used to discover devices.|string
 |Name|Description|Schema
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device discovery task collection object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a device discovery task collection object. generation.|integer(int64)
 |*items* +
 _optional_|Array of device discovery task object.|< object > array
 |*kind* +
@@ -251,7 +251,7 @@ _optional_ +
 _read-only_|Type information for this device discovery task collection object. cm:global:tasks:device-discovery:discoverysupertaskcollectionstate|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device discovery task collection object. time.|integer(int64)
+_read-only_|Update time (micros) for last change made to a device discovery task collection object. time.|integer(int64)
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the device discovery task collection object.|string

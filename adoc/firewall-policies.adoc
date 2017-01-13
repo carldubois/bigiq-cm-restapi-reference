@@ -185,7 +185,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 |Name|Description|Schema
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a policy object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a policy object. generation.|integer(int64)
 |*items* +
 _optional_|Collection of policies-properties.|< object > array
 |*kind* +
@@ -193,7 +193,7 @@ _optional_ +
 _read-only_|Type information for this policy object.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an policy object. time.|integer(int64)
+_read-only_|Update time (micros) for last change made to a policy object. time.|integer(int64)
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the policy object.|string
@@ -219,7 +219,7 @@ _optional_ +
 _read-only_|Type information for this policy object.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an policy object. time.|integer(int64)
+_read-only_|Update time (micros) for last change made to a policy object. time.|integer(int64)
 |*name* +
 _optional_|Name of object.|string
 |*partition* +
@@ -253,12 +253,12 @@ _optional_|Reference link to rules collection object.|string
 |*action* +
 _optional_|Action taken for rule match (accept, accept-decisively, drop, reject).|string
 |*destination* +
-_optional_|Destination object used by rule, usually specified by (address-list, address, address-range, domain-name, country/region).|object
+_optional_|Destination object used by a rule, usually specified by (port-list, port-range, port, address-list, address-range, address, domain-name, country/region).|object
 |*evalOrder* +
 _optional_|Order in which server evaluates rules referenced in a policy object.|integer
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a policy rule object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a policy rule object. generation.|integer(int64)
 |*hitCountStatReference* +
 _optional_|Reference link to a object that maintains an interger for rule hit counts.|object
 |*iRule* +
@@ -273,7 +273,7 @@ _optional_ +
 _read-only_|Type information for this policy rule object.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|pdate time (micros) for last change made to an policy rule object. time.|integer(int64)
+_read-only_|pdate time (micros) for last change made to a policy rule object. time.|integer(int64)
 |*log* +
 _optional_|Boolean used to enable / disable server logging for actions taken on packets.|boolean
 |*name* +
@@ -290,7 +290,7 @@ _read-only_|A reference link URI to the policy rule object.|string
 |*servicePolicyReference* +
 _optional_|Reference link to a service-policy object (used as a container for network idle timers and/or port misuse policies).|object
 |*source* +
-_optional_|Source object used by rule, usually specified by (address-list, address, address-range, domain-name, country/region).|object
+_optional_|Source object used by rule, usually specified by (port-list, port-range, port, address-list, address-range, address, domain-name, country/region, VLAN).|object
 |*state* +
 _optional_|State of rule. (disabled, enabled, scheduled)|string
 |===

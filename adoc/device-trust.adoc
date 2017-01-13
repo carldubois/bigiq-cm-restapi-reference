@@ -183,7 +183,7 @@ _read-only_|Unique id assigned to rest operation.|integer(int64)
 |Name|Description|Schema
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device trust collection object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a device trust collection object. generation.|integer(int64)
 |*items* +
 _optional_|Collection of device-trust task objects.|< object > array
 |*kind* +
@@ -191,7 +191,7 @@ _optional_ +
 _read-only_|Type information for this device trust collection object.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an device trust collection object. time.|integer(int64)
+_read-only_|Update time (micros) for last change made to a device trust collection object. time.|integer(int64)
 |*selfLink* +
 _optional_ +
 _read-only_|A reference link URI to the device trust collection object.|string
@@ -214,7 +214,7 @@ _optional_|State machine current step for device trust task.|string
 _optional_|Date/Time when device trust task end. 2016-10-11T10:30:17.834-0400|string
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to a device-trust object. generation.|integer(int64)
+_read-only_|An integer that will track change made to a device-trust object. generation.|integer(int64)
 |*id* +
 _optional_ +
 _read-only_|Unique id assigned to a device trust task object.|string
@@ -227,7 +227,7 @@ _optional_ +
 _read-only_|Type information for this device trust object.|string
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to an policy object. time.|integer(int64)
+_read-only_|Update time (micros) for last change made to a policy object. time.|integer(int64)
 |*machineId* +
 _optional_|A unique id string for the BIGIP device.|string
 |*ownerMachineId* +
@@ -282,7 +282,7 @@ _optional_|Reference link to a user used to discover devices.|string
 |*address* +
 _required_|IP address of device object.|string
 |*userName* +
-_required_|Username of BIGIQ device object.|string
+_required_|Username of device object.|string
 |*password* +
 _required_|Password of device object to be managed.|string
 |*clusterName* +
