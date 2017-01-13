@@ -505,7 +505,7 @@ PATCH response to a deleted evaluation task
     }
 
 API references:
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
 :doc:`../../ApiReferences/firewalls`
 
 :doc:`../../ApiReferences/firewall-policies`
