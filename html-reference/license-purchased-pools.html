@@ -636,11 +636,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock">None</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Body</strong></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Json string request body.</strong><br>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Body-Unmanaged</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Json string request body - unmanaged device.</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format. Ex. {"deviceAddress": "bigip_address","username": "admin","password": "admin"}</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_post_purchased_pool_body">post_purchased_pool_body</a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format for an unmanaged device. Ex. {"deviceAddress": "bigip_address","username": "admin","password": "admin"}</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_post_purchased_pool_body_unmanaged">post_purchased_pool_body_unmanaged</a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Body-Managed</strong></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Json string request body - managed device.</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format for an managed device. Ex. {"deviceReference":{"link":"https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/2a2baaf0-b22f-49dc-81c6-4711fa189820"}}</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_post_purchased_pool_body_managed">post_purchased_pool_body_managed</a></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">None</p></td>
 </tr>
 </tbody>
@@ -886,7 +894,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="sect2">
-<h3 id="_post_purchased_pool_body">post_purchased_pool_body</h3>
+<h3 id="_post_purchased_pool_body_unmanaged">post_purchased_pool_body_unmanaged</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 16.6666%;">
@@ -917,6 +925,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>password</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Password of BIGIP you wish to license.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_post_purchased_pool_body_managed">post_purchased_pool_body_managed</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 61.1111%;">
+<col style="width: 22.2223%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-middle">Name</th>
+<th class="tableblock halign-left valign-middle">Description</th>
+<th class="tableblock halign-left valign-middle">Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>deviceReference</strong><br>
+<em>required</em></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Reference link to BIGIP device under management by BIGIQ.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
@@ -1277,7 +1310,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-12-07 10:14:58 EST
+Last updated 2017-01-13 16:49:14 EST
 </div>
 </div>
 </body>
