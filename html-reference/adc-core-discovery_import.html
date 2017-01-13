@@ -427,7 +427,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>API used for discovery task management of BIGIP for the ADC namespace by BIGIQ. This task will be used for import as well.</p>
+<p>API used for discovery task management of a BIGIP ADC namespace by BIGIQ. Re-import will use this task as well.</p>
 </div>
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
@@ -513,7 +513,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Json string request body.</strong><br>
 <em>required</em></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">Input parameter list in json format. Ex. {}</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_post_discovery_body">post_discovery_body</a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_post_declare-mgmt-auth_body">post_declare-mgmt-auth_body</a></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">None</p></td>
 </tr>
 </tbody>
@@ -814,7 +814,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>lastUpdateMicros</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to an device discovery task object. time (1476742109026835).</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to a device discovery task object. time (1476742109026835).</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
@@ -826,7 +826,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>reImport</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Flag to enable / disable re import configuration.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Flag to enable / disable re-import configuration.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
 </tr>
 <tr>
@@ -1039,7 +1039,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>generation</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A integer that will track change made to a device discovery declare-mgmt-authority task collection object. generation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">An integer that will track change made to a device discovery declare-mgmt-authority task collection object. generation.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
@@ -1059,7 +1059,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>lastUpdateMicros</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to an device discovery declare-mgmt-authority task collection object. time.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to a device discovery declare-mgmt-authority task collection object. time.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
@@ -1073,7 +1073,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="sect2">
-<h3 id="_post_discovery_body">post_discovery_body</h3>
+<h3 id="_post_declare-mgmt-auth_body">post_declare-mgmt-auth_body</h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 16.6666%;">
@@ -1138,7 +1138,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-11-21 16:07:22 EST
+Last updated 2017-01-13 13:13:45 EST
 </div>
 </div>
 </body>

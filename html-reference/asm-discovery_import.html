@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<title>BIG-IQ Discovery for Web Application Firewall (ASM) Management.</title>
+<title>BIG-IQ Discovery for Web Application Security (ASM) Management.</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,14 +420,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>BIG-IQ Discovery for Web Application Firewall (ASM) Management.</h1>
+<h1>BIG-IQ Discovery for Web Application Security (ASM) Management.</h1>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>API used for discovery task management of BIGIP for the ASM (Web Application Firewall) namespace by BIGIQ. Re import will use this task as well.</p>
+<p>API used for discovery task management of BIGIP for the ASM (Web Application Security) namespace by BIGIQ. Re-import will use this task as well.</p>
 </div>
 <div class="sect2">
 <h3 id="_version_information">Version information</h3>
@@ -590,7 +590,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>Path</strong></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>objectId</strong><br>
 <em>required</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Unique id assinged to declare-mgmt-authority asm task object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Unique id assinged to declare-mgmt-authority ASM task object.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string(UUID)</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">None</p></td>
 </tr>
@@ -658,14 +658,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>items</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Collection of device discovery asm task objects.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Collection of device discovery ASM task objects.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; object &gt; array</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>kind</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this device discovery asm task collection object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this device discovery ASM task collection object. cm:ASM:tasks:declare-mgmt-authority:dmataskitemstate</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
@@ -717,25 +717,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>childTaskStates</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Description of child task state properties using by declare-mgmt-authority task object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Description of child task state properties used by declare-mgmt-authority task object.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; <a href="#_properties_declare-mgmt-authority_childtaskstates">childTaskStates</a> &gt; array</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>copyTaskReference</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Enable / Disable declare-mgmt-authority ASM copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_declare-mgmt-authority_copytaskreference">copyTaskReference</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>createChildTasks</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">To create a child task as part of this declare-mgmt-authority for firewall.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">To create a child task as part of this declare-mgmt-authority for ASM.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>currentStep</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The current step of device declare-mgmt-authority firewall task as predicated by state.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The current step of device declare-mgmt-authority ASM task as predicated by state.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
@@ -759,41 +759,41 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>endDateTime</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Date/Time when device discovery task declare-mgmt-authority firewall ended. 2016-10-11T10:30:17.834-0400</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Date/Time when device discovery task declare-mgmt-authority ASM ended. 2016-10-11T10:30:17.834-0400</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>generation</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A integer that will track change made to a device discovery declare-mgmt-authority task object. (ASM) generation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">An integer that will track change made to a device discovery declare-mgmt-authority task object. (ASM) generation.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>id</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Unique id assigned to a device declare-mgmt-authority asm task object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Unique id assigned to a device declare-mgmt-authority ASM task object.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>identityReference</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Array of reference links to user used to discover device declare-mgmt-authority firewall. mgmt/shared/authz/users/admin</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Array of reference links to user used to discover device declare-mgmt-authority ASM. mgmt/shared/authz/users/admin</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; <a href="#_properties_declare-mgmt-authority_identityreference">identityReference</a> &gt; array</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>kind</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this device discovery declare-mgmt-authority firewall task object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this device discovery declare-mgmt-authority ASM task object. cm:ASM:tasks:declare-mgmt-authority:dmataskitemstate</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>lastUpdateMicros</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to an device discovery firewall task object. time (1476742109026835).</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to a device discovery ASM task object. time (1476742109026835).</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
@@ -811,7 +811,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>reImport</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Flag to enable / disable re import configuration.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Flag to enable / disable re-import configuration.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
 </tr>
 <tr>
@@ -824,13 +824,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>snapshotWorkingConfig</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">To snapshot the working-configuration (BIGIQ) during asm module discovery.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">To snapshot the working-configuration (BIGIQ) during ASM module discovery.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>startDateTime</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Date/Time when device discovery declare-mgmt-authority firewall task began. 2016-10-11T10:30:17.834-0400</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Date/Time when device discovery declare-mgmt-authority ASM task began. 2016-10-11T10:30:17.834-0400</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
@@ -842,13 +842,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>userReference</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Reference link to user used to discover device declare-mgmt-authority firewall. mgmt/shared/authz/users/admin</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Reference link to user used to discover device declare-mgmt-authority ASM. mgmt/shared/authz/users/admin</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_declare-mgmt-authority_userreference">userReference</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>username</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">User name of device firewall object to be managed. (Firewall)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">User name of device ASM object to be managed. (ASM)</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
@@ -904,7 +904,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>copyTaskReference</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Enable / Disable declare-mgmt-authority firewall copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Enable / Disable declare-mgmt-authority ASM copy difference between working-configuration (BIGIQ) and current-configuration (BIGIP).</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="#_properties_declare-mgmt-authority_copytaskreference">copyTaskReference</a></p></td>
 </tr>
 <tr>
@@ -916,7 +916,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>currentStep</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The current step of device declare-mgmt-authority asm task as predicated by state.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The current step of device declare-mgmt-authority ASM task as predicated by state.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
@@ -953,7 +953,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>generation</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A integer that will track change made to a device discovery declare-mgmt-authority task object. (ASM) generation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">An integer that will track change made to a device discovery declare-mgmt-authority task object. (ASM) generation.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
@@ -978,14 +978,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>kind</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this device discovery declare-mgmt-authority firewall task object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this device discovery declare-mgmt-authority ASM task object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>lastUpdateMicros</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to an device discovery firewall task object. time (1476742109026835).</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to a device discovery ASM task object. time (1476742109026835).</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
@@ -1003,7 +1003,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>reImport</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Flag to enable / disable re import configuration.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Flag to enable / disable re-import configuration.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
 </tr>
 <tr>
@@ -1016,7 +1016,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>skipDiscovery</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Skip discovery for re import configuration.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Skip discovery for re-import configuration.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
 </tr>
 <tr>
@@ -1046,7 +1046,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>username</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">User name of device firewall object to be managed. (ASM)</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">User name of device ASM object to be managed. (ASM)</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
@@ -1403,34 +1403,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>generation</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A integer that will track change made to a device discovery asm task collection object. generation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">An integer that will track change made to a device discovery ASM task collection object. generation.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>items</strong><br>
 <em>optional</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Array of device discovery asm task objects.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Array of device discovery ASM task objects.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">&lt; object &gt; array</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>kind</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this device discover asm task collection object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Type information for this device discover ASM task collection object. cm:asm:tasks:declare-mgmt-authority:dmataskitemstate</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>lastUpdateMicros</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to an device discovery asm task collection object. time.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Update time (micros) for last change made to a device discovery ASM task collection object. time.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">integer(int64)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><strong>selfLink</strong><br>
 <em>optional</em><br>
 <em>read-only</em></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A reference link URI to the device discovery asm task collection object.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A reference link URI to the device discovery ASM task collection object.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
 </tr>
 </tbody>
@@ -1441,7 +1441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-11-18 10:40:00 EST
+Last updated 2017-01-13 13:13:45 EST
 </div>
 </div>
 </body>
