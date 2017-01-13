@@ -1,3 +1,6 @@
+License registration key pool
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. raw:: html
 
    <div id="header">
