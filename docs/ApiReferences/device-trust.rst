@@ -1,6 +1,3 @@
-Device trust
-^^^^^^^^^^^^
-
 .. raw:: html
 
    <div id="header">
@@ -501,28 +498,28 @@ Returns the device-trust identified by id for an endpoint URI.
 .. rubric:: properties\_collection
    :name: _properties_collection
 
-+--------------------------+------------------------------------------------------------------------------------------+--------------------+
-| Name                     | Description                                                                              | Schema             |
-+==========================+==========================================================================================+====================+
-| | **generation**         | A integer that will track change made to a device trust collection object. generation.   | integer(int64)     |
-| | *optional*             |                                                                                          |                    |
-| | *read-only*            |                                                                                          |                    |
-+--------------------------+------------------------------------------------------------------------------------------+--------------------+
-| | **items**              | Collection of device-trust task objects.                                                 | < object > array   |
-| | *optional*             |                                                                                          |                    |
-+--------------------------+------------------------------------------------------------------------------------------+--------------------+
-| | **kind**               | Type information for this device trust collection object.                                | string             |
-| | *optional*             |                                                                                          |                    |
-| | *read-only*            |                                                                                          |                    |
-+--------------------------+------------------------------------------------------------------------------------------+--------------------+
-| | **lastUpdateMicros**   | Update time (micros) for last change made to an device trust collection object. time.    | integer(int64)     |
-| | *optional*             |                                                                                          |                    |
-| | *read-only*            |                                                                                          |                    |
-+--------------------------+------------------------------------------------------------------------------------------+--------------------+
-| | **selfLink**           | A reference link URI to the device trust collection object.                              | string             |
-| | *optional*             |                                                                                          |                    |
-| | *read-only*            |                                                                                          |                    |
-+--------------------------+------------------------------------------------------------------------------------------+--------------------+
++--------------------------+-------------------------------------------------------------------------------------------+--------------------+
+| Name                     | Description                                                                               | Schema             |
++==========================+===========================================================================================+====================+
+| | **generation**         | An integer that will track change made to a device trust collection object. generation.   | integer(int64)     |
+| | *optional*             |                                                                                           |                    |
+| | *read-only*            |                                                                                           |                    |
++--------------------------+-------------------------------------------------------------------------------------------+--------------------+
+| | **items**              | Collection of device-trust task objects.                                                  | < object > array   |
+| | *optional*             |                                                                                           |                    |
++--------------------------+-------------------------------------------------------------------------------------------+--------------------+
+| | **kind**               | Type information for this device trust collection object.                                 | string             |
+| | *optional*             |                                                                                           |                    |
+| | *read-only*            |                                                                                           |                    |
++--------------------------+-------------------------------------------------------------------------------------------+--------------------+
+| | **lastUpdateMicros**   | Update time (micros) for last change made to a device trust collection object. time.      | integer(int64)     |
+| | *optional*             |                                                                                           |                    |
+| | *read-only*            |                                                                                           |                    |
++--------------------------+-------------------------------------------------------------------------------------------+--------------------+
+| | **selfLink**           | A reference link URI to the device trust collection object.                               | string             |
+| | *optional*             |                                                                                           |                    |
+| | *read-only*            |                                                                                           |                    |
++--------------------------+-------------------------------------------------------------------------------------------+--------------------+
 
 .. raw:: html
 
@@ -550,7 +547,7 @@ Returns the device-trust identified by id for an endpoint URI.
 | | **endDateTime**         | Date/Time when device trust task end. 2016-10-11T10:30:17.834-0400                                                                                          | string                                                                          |
 | | *optional*              |                                                                                                                                                             |                                                                                 |
 +---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------+
-| | **generation**          | A integer that will track change made to a device-trust object. generation.                                                                                 | integer(int64)                                                                  |
+| | **generation**          | An integer that will track change made to a device-trust object. generation.                                                                                | integer(int64)                                                                  |
 | | *optional*              |                                                                                                                                                             |                                                                                 |
 | | *read-only*             |                                                                                                                                                             |                                                                                 |
 +---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------+
@@ -568,7 +565,7 @@ Returns the device-trust identified by id for an endpoint URI.
 | | *optional*              |                                                                                                                                                             |                                                                                 |
 | | *read-only*             |                                                                                                                                                             |                                                                                 |
 +---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------+
-| | **lastUpdateMicros**    | Update time (micros) for last change made to an policy object. time.                                                                                        | integer(int64)                                                                  |
+| | **lastUpdateMicros**    | Update time (micros) for last change made to a policy object. time.                                                                                         | integer(int64)                                                                  |
 | | *optional*              |                                                                                                                                                             |                                                                                 |
 | | *read-only*             |                                                                                                                                                             |                                                                                 |
 +---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------+
@@ -657,7 +654,7 @@ Returns the device-trust identified by id for an endpoint URI.
 | | **address**        | IP address of device object.                                                            | string    |
 | | *required*         |                                                                                         |           |
 +----------------------+-----------------------------------------------------------------------------------------+-----------+
-| | **userName**       | Username of BIGIQ device object.                                                        | string    |
+| | **userName**       | Username of device object.                                                              | string    |
 | | *required*         |                                                                                         |           |
 +----------------------+-----------------------------------------------------------------------------------------+-----------+
 | | **password**       | Password of device object to be managed.                                                | string    |
@@ -694,7 +691,7 @@ Returns the device-trust identified by id for an endpoint URI.
 
    <div id="footer-text">
 
-Last updated 2016-11-22 12:29:30 EST
+Last updated 2017-01-13 13:13:45 EST
 
 .. raw:: html
 

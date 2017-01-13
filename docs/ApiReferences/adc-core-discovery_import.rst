@@ -1,6 +1,3 @@
-Adc-core-discovery import
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
 .. raw:: html
 
    <div id="header">
@@ -31,8 +28,8 @@ Adc-core-discovery import
 
    <div class="paragraph">
 
-API used for discovery task management of BIGIP for the ADC namespace by
-BIGIQ. This task will be used for import as well.
+API used for discovery task management of a BIGIP ADC namespace by
+BIGIQ. Re-import will use this task as well.
 
 .. raw:: html
 
@@ -199,15 +196,15 @@ collection.
 .. rubric:: Parameters
    :name: _parameters
 
-+------------+-----------------------------------+-------------------------------------------------------+-----------------------------------------------------+-----------+
-| Type       | Name                              | Description                                           | Schema                                              | Default   |
-+============+===================================+=======================================================+=====================================================+===========+
-| **Path**   | | **objectId**                    | Unique id assigned to device discovery task object.   | string(UUID)                                        | None      |
-|            | | *required*                      |                                                       |                                                     |           |
-+------------+-----------------------------------+-------------------------------------------------------+-----------------------------------------------------+-----------+
-| **Body**   | | **Json string request body.**   | Input parameter list in json format. Ex. {}           | `post\_discovery\_body <#_post_discovery_body>`__   | None      |
-|            | | *required*                      |                                                       |                                                     |           |
-+------------+-----------------------------------+-------------------------------------------------------+-----------------------------------------------------+-----------+
++------------+-----------------------------------+-------------------------------------------------------+---------------------------------------------------------------------+-----------+
+| Type       | Name                              | Description                                           | Schema                                                              | Default   |
++============+===================================+=======================================================+=====================================================================+===========+
+| **Path**   | | **objectId**                    | Unique id assigned to device discovery task object.   | string(UUID)                                                        | None      |
+|            | | *required*                      |                                                       |                                                                     |           |
++------------+-----------------------------------+-------------------------------------------------------+---------------------------------------------------------------------+-----------+
+| **Body**   | | **Json string request body.**   | Input parameter list in json format. Ex. {}           | `post\_declare-mgmt-auth\_body <#_post_declare-mgmt-auth_body>`__   | None      |
+|            | | *required*                      |                                                       |                                                                     |           |
++------------+-----------------------------------+-------------------------------------------------------+---------------------------------------------------------------------+-----------+
 
 .. raw:: html
 
@@ -499,14 +496,14 @@ endpoint URI (LTM/ADC).
 | | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
 | | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
 +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
-| | **lastUpdateMicros**           | Update time (micros) for last change made to an device discovery task object. time (1476742109026835).                                                                                              | integer(int64)                                                                                |
+| | **lastUpdateMicros**           | Update time (micros) for last change made to a device discovery task object. time (1476742109026835).                                                                                               | integer(int64)                                                                                |
 | | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
 | | *read-only*                    |                                                                                                                                                                                                     |                                                                                               |
 +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
 | | **ownerMachineId**             | A unique id string for the BIGIQ acting as a device owner for declare-mgmt-authority. (LTM / ADC)                                                                                                   | string                                                                                        |
 | | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
 +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
-| | **reImport**                   | Flag to enable / disable re import configuration.                                                                                                                                                   | boolean                                                                                       |
+| | **reImport**                   | Flag to enable / disable re-import configuration.                                                                                                                                                   | boolean                                                                                       |
 | | *optional*                     |                                                                                                                                                                                                     |                                                                                               |
 +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+
 | | **selfLink**                   | A reference link URI to the device discovery declare-mgmt-authority task object.                                                                                                                    | string                                                                                        |
@@ -651,7 +648,7 @@ endpoint URI (LTM/ADC).
 +--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
 | Name                     | Description                                                                                                                                                 | Schema             |
 +==========================+=============================================================================================================================================================+====================+
-| | **generation**         | A integer that will track change made to a device discovery declare-mgmt-authority task collection object. generation.                                      | integer(int64)     |
+| | **generation**         | An integer that will track change made to a device discovery declare-mgmt-authority task collection object. generation.                                     | integer(int64)     |
 | | *optional*             |                                                                                                                                                             |                    |
 | | *read-only*            |                                                                                                                                                             |                    |
 +--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
@@ -662,7 +659,7 @@ endpoint URI (LTM/ADC).
 | | *optional*             |                                                                                                                                                             |                    |
 | | *read-only*            |                                                                                                                                                             |                    |
 +--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
-| | **lastUpdateMicros**   | Update time (micros) for last change made to an device discovery declare-mgmt-authority task collection object. time.                                       | integer(int64)     |
+| | **lastUpdateMicros**   | Update time (micros) for last change made to a device discovery declare-mgmt-authority task collection object. time.                                        | integer(int64)     |
 | | *optional*             |                                                                                                                                                             |                    |
 | | *read-only*            |                                                                                                                                                             |                    |
 +--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+
@@ -679,8 +676,8 @@ endpoint URI (LTM/ADC).
 
    <div class="sect2">
 
-.. rubric:: post\_discovery\_body
-   :name: _post_discovery_body
+.. rubric:: post\_declare-mgmt-auth\_body
+   :name: _post_declare-mgmt-auth_body
 
 +--------------------------------------+-----------------------------------------------------------------------------------------+-----------+
 | Name                                 | Description                                                                             | Schema    |
@@ -731,7 +728,7 @@ endpoint URI (LTM/ADC).
 
    <div id="footer-text">
 
-Last updated 2016-11-21 16:07:22 EST
+Last updated 2017-01-13 13:13:45 EST
 
 .. raw:: html
 

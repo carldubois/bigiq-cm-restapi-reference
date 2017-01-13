@@ -1,6 +1,3 @@
-License - registration key
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 .. raw:: html
 
    <div id="header">
@@ -883,6 +880,104 @@ identified by id/members for an endpoint URI.
 
 .. raw:: html
 
+   <div class="sect2">
+
+.. rubric:: Used to DEL license pool members.
+   :name: _licenses_objectid_offerings_registrationkey_members_objectid_del
+
+.. raw:: html
+
+   <div class="literalblock">
+
+.. raw:: html
+
+   <div class="content">
+
+::
+
+    DEL /licenses/{objectId}/offerings/{registrationKey}/members/{memberObjectId}
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Description
+   :name: _description_9
+
+.. raw:: html
+
+   <div class="paragraph">
+
+DELETES a member (BIGIP) device that is part of a license pool
+identified by id/members/memberObjectId for an endpoint URI.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Parameters
+   :name: _parameters_8
+
++------------+-------------------------+------------------------------------------------------------------------------+------------------+-----------+
+| Type       | Name                    | Description                                                                  | Schema           | Default   |
++============+=========================+==============================================================================+==================+===========+
+| **Path**   | | **objectId**          | Unique id assigned to licensed registration key pool object.                 | string(UUID)     | None      |
+|            | | *required*            |                                                                              |                  |           |
++------------+-------------------------+------------------------------------------------------------------------------+------------------+-----------+
+| **Path**   | | **registrationKey**   | Generated registration key used when licensing BIGIP.                        | string(string)   | None      |
+|            | | *required*            |                                                                              |                  |           |
++------------+-------------------------+------------------------------------------------------------------------------+------------------+-----------+
+| **Path**   | | **memberObjectId**    | Unique id assigned to a member device licensed to a registration key pool.   | string(string)   | None      |
+|            | | *required*            |                                                                              |                  |           |
++------------+-------------------------+------------------------------------------------------------------------------+------------------+-----------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div class="sect3">
+
+.. rubric:: Responses
+   :name: _responses_9
+
++-------------+----------------------------------------------------+---------------------------------------------------------------+
+| HTTP Code   | Description                                        | Schema                                                        |
++=============+====================================================+===============================================================+
+| **200**     | License pool member object deleted returned.       | `properties\_regkey\_member <#_properties_regkey_member>`__   |
++-------------+----------------------------------------------------+---------------------------------------------------------------+
+| **400**     | Server error response "Bad Request".               | `400\_error\_collection <#_400_error_collection>`__           |
++-------------+----------------------------------------------------+---------------------------------------------------------------+
+| **404**     | Error response "Public URI path not registered."   | `404\_error\_collection <#_404_error_collection>`__           |
++-------------+----------------------------------------------------+---------------------------------------------------------------+
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
    </div>
 
 .. raw:: html
@@ -1326,7 +1421,7 @@ identified by id/members for an endpoint URI.
 
    <div id="footer-text">
 
-Last updated 2016-12-07 16:37:03 EST
+Last updated 2017-01-13 13:13:45 EST
 
 .. raw:: html
 
