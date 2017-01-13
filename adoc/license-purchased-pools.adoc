@@ -103,8 +103,11 @@ Invoke a task to license a BIG-IP and add to this specific purchased license poo
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
 _required_|Unique id assigned to license purchased pool object.|string(UUID)|None
-|*Body*|*Json string request body.* +
-_required_|Input parameter list in json format. Ex. {"deviceAddress": "bigip_address","username": "admin","password": "admin"} |<<_post_purchased_pool_body,post_purchased_pool_body>>|None
+|*Body-Unmanaged*|*Json string request body - unmanaged device.* +
+_required_|Input parameter list in json format for an unmanaged device. Ex. {"deviceAddress": "bigip_address","username": "admin","password": "admin"} |<<_post_purchased_pool_body_unmanaged,post_purchased_pool_body_unmanaged>>|None
+|*Body-Managed*|*Json string request body - managed device.* +
+_required_|Input parameter list in json format for an managed device. Ex. {"deviceReference":{"link":"https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/2a2baaf0-b22f-49dc-81c6-4711fa189820"}} |<<_post_purchased_pool_body_managed,post_purchased_pool_body_managed>>|None
+
 |===
 
 
@@ -207,8 +210,8 @@ _optional_ +
 _read-only_|Unique id assigned to rest operation.|integer(int64)
 |===
 
-[[_post_purchased_pool_body]]
-=== post_purchased_pool_body
+[[_post_purchased_pool_body_unmanaged]]
+=== post_purchased_pool_body_unmanaged
 
 [options="header", cols=".^3,.^11,.^4"]
 |===
@@ -220,6 +223,17 @@ _required_|Username of BIGIP you wish to license.|string
 |*password* +
 _required_|Password of BIGIP you wish to license.|string
 |===
+
+[[_post_purchased_pool_body_managed]]
+=== post_purchased_pool_body_managed
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*deviceReference* +
+_required_|Reference link to BIGIP device under management by BIGIQ.|string
+|===
+
 
 [[_properties_collection]]
 === properties_collection
