@@ -21,7 +21,7 @@ Perform the REST API actions in the following order:
 6. GET the deployment task status to determine if the deployment completed successfully.
 
 The following extended example show each of these REST API actions.
-### Workflow
+### Example
 #### 1. Retrieve the firewall policy to be applied to the firewall contexts.
 
 Perform a GET operation on the policies collection. In the steps in this example, the context used is a virtual server.  Use the filter and select options to narrow the returned JSON information to just the policy in which you are interested.
