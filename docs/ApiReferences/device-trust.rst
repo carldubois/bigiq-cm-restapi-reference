@@ -1,3 +1,6 @@
+Device trust
+^^^^^^^^^^^^
+
 .. raw:: html
 
    <div id="header">
