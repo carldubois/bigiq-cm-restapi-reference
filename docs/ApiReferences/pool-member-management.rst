@@ -544,7 +544,7 @@ Returns a collection of pool members.
 +------------+------------------+-----------------------------------------+----------------+-----------+
 | Type       | Name             | Description                             | Schema         | Default   |
 +============+==================+=========================================+================+===========+
-| **Path**   | | **objectId**   | Unique id assigned to a virtual pool.   | string(UUID)   |           |
+| **Path**   | | **objectId**   | Unique id assigned to a virtual pool.   | string(UUID)   |  None     |
 |            | | *required*     |                                         |                |           |
 +------------+------------------+-----------------------------------------+----------------+-----------+
 
@@ -633,7 +633,7 @@ Returns the pool memeber object identified by id for an endpoint URI.
 +------------+------------------+------------------------------------------------+----------------+-----------+
 | Type       | Name             | Description                                    | Schema         | Default   |
 +============+==================+================================================+================+===========+
-| **Path**   | | **objectId**   | Unique id assigned to a virtual pool member.   | string(UUID)   |           |
+| **Path**   | | **objectId**   | Unique id assigned to a virtual pool member.   | string(UUID)   |  None     |
 |            | | *required*     |                                                |                |           |
 +------------+------------------+------------------------------------------------+----------------+-----------+
 
