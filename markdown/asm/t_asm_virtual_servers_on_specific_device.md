@@ -61,5 +61,5 @@ The following is the JSON response from the GET operation:
 }
 ```
 
-### API references:
+### API reference:
 [Api reference - virtual server management](../html-reference/virtual-server-management.html)
