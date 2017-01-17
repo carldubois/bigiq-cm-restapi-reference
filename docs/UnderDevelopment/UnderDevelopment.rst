@@ -3,7 +3,7 @@ Under-Development
 *****************
 
 This guide provide an index of workflow tasks under development. 
-These are unsopported and untested until transistion to How-To-Guides.
+These are un-supported and un-tested until transistion to How-To-Guides.
 
 .. toctree::
 	:maxdepth: 2
