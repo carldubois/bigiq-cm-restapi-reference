@@ -5,13 +5,16 @@ Describes how you use the REST API to list all virtual servers with a Web Applic
 
 ### Prerequisites
 Device configuration discovered and imported to Web Application Security.
+
 ### Description
 Describes how you use the REST API to list all virtual servers with a Web Application Security policy associated with them.
 Perform the REST API actions:
 1. Perform a GET operation to the Web Application Security virtual server collection.
 
 The following extended example shows each of these REST API actions.
+
 ### Example
+
 #### 1. Perform a GET operation to the Web Application Security virtual server collection.
 Perform a GET operation to the Web Application Security virtual server collection, selecting only the 'name', 'attachedPolicyReferences', 'address' and 'isInactivePoliciesHolder' fields, and filtering the results to include virtual servers that have a security policy associated with them.
 ```
@@ -61,5 +64,5 @@ The following is the JSON response from the GET operation:
 ```
 Note: that there are two types of virtual servers in Web Application Security: inactive policies holder, and regular. The inactive policies holder can have multiple policies associated with it, and is used to deploy policies to devices without using them to enforce rules on traffic for that device. The regular virtual servers can only have one policy associated with them, and are used to enforce rules on traffic.
 
-### API reference used to support this workflow:
+### API reference:
 [Api reference - asm virtual servers](../html-reference/virtual-server-management.html)

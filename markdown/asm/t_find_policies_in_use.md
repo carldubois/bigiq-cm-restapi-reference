@@ -5,6 +5,7 @@ Describes how you use the REST API to determine if a policy is in use.
 
 ### Prerequisites
 None.
+
 ### Description
 Describes how you use the REST API to determine if a policy is in use.
 A policy is in use if a virtual server of specific device has the policy attached to it.
@@ -14,7 +15,9 @@ Perform the REST API actions in the following order:
 2. Perform a GET operation to the virtual-servers collection with a filter to find if any virtual servers are using that policy.
 
 The following extended example shows each of these REST API actions.
+
 ### Example
+
 #### 1. Perform a GET operation to determine the selfLink of a policy.
 Perform a GET operation on the policies collection, filtering the results by a name and limiting the result to show specific fields that are defining the resource, together with a link to retrieve all the policy properties (selfLink). In this example the name being searched for is 'Policy_1'.
 ```
@@ -37,6 +40,7 @@ The following is the JSON response from the GET operation:
     "lastUpdateMicros": 1478688837870194
 }
 ```
+
 #### 2. Perform a GET operation to the virtual-servers collection with a filter to find if any virtual servers are using that policy.
 Perform a GET operation on the virtual-servers collection, filtering the results by attachedPoliciesReferences field to retrieve virtual servers that are using the policy that was retrieved above in step #1 of the example.
 ```
@@ -98,6 +102,7 @@ When no such virtual servers exist, the response would be:
 ```
 Note - to determine the list of all policies that are in use, perform a GET operation to the policies collection and repeat the operations shown here for each policy.
 
-### API reference used to support this workflow:
+### API reference:
 [Api reference - virtual server management](../html-reference/virtual-server-management.html)
+
 [Api reference - asm policy management](../html-reference/asm-policies.html)

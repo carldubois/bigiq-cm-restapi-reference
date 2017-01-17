@@ -143,5 +143,5 @@ Request:
 }
 ```
 
-#### API reference used to support this workflow:
+#### API reference:
 [Api reference - purchased pool licensing](../html-reference/license-purchased-pools.html)

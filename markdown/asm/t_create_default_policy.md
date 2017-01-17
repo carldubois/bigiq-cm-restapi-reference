@@ -12,7 +12,9 @@ Perform the REST API actions:
 1. Perform a POST operation to the policies collection.
 
 The following extended example shows each of these REST API actions.
+
 ### Example
+
 #### 1. Perform a POST operation to the policies collection.
 Perform a POST operation to the policies collection. The data being sent to the server includes the name of the policy, the partition, the fullPath and the application language.
 Note - the fullPath is usually determined by the partition and name, separated by the '/' character.
@@ -222,5 +224,5 @@ The following is the JSON response from the POST operation:
 }
 ```
 
-### API references used to support this workflow:
+### API reference:
 [Api reference - asm policy management](../html-reference/asm-policies.html)

@@ -14,7 +14,9 @@ Perform the REST API actions in the following order:
 3. Check the status of the deployment of the Web Application Security configuration changes to the network.
 
 The following extended example shows each of these REST API actions.
+
 ### Example
+
 #### 1. Perform a GET operation to determine the selfLink of a device.
 Perform a GET operation on the Web Application Security devices collection, filtering the results by a name and limiting the result to show the device name and the device selfLink that will be used later for searches. In this example the name being searched for is 'device1.com'.
 ```
@@ -36,6 +38,7 @@ The following is the JSON response from the GET operation:
     "lastUpdateMicros": 1479388471935401
 }
 ```
+
 #### 2. Evaluate the configuration changes created by the Web Application Security configuration modifications to determine if there are errors.
 
 A deployment task must be created that includes the required BIG-IP devices.
@@ -158,6 +161,7 @@ PATCH:  https://<mgmtip>//mgmt/cm/asm/tasks/deploy-configuration/e58bb493-3fb4-4
     "status": "STARTED"
 }
 ```
+
 #### 3. Check the status of the deployment of the Web Application Security configuration changes to the network.
 
 Check that the deployment task has completed without errors. 
@@ -174,5 +178,5 @@ The final task response JSON should look similar to the following:
 ```
 If the status does not reach FINISHED, consult the Web Application Security Deployment page in the BIG-IQ Centralized Management user interface to determine the issue encountered with the deployment task.
 
-### API reference used to support this workflow
+### API reference:
 [Api reference - ASM deploy configuration](../html-reference/deploy-configuration.html)

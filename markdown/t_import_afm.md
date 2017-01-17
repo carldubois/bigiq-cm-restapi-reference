@@ -976,5 +976,5 @@ When an error occurs, use the BIG-IQ Centralized Management user interface for d
 }
 ```
 
-### API Reference supporting this workflow:
+### API reference:
 [Api reference - Import configuration: AFM](../html-reference/firewall-discovery_import.html)

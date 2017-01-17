@@ -702,6 +702,7 @@ Response: 202
 The 202 response contains details about the self service task along with the "status" of "STARTED". The selfLink should be polled with GETs checking the "status" property to report "FINISHED" or "FAILED".
 
 
-### API references that support this workflow:
+### API reference:
 [Api reference - pool member management](../html-reference/pool-member-management.html)
+
 [Api reference - deploy configuration](../html-reference/deploy-configuration.html)

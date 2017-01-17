@@ -1023,5 +1023,5 @@ Task creation will not happen, when required data is missing in the input JSON d
 }
 ```
 
-#### API reference used to support this workflow:
+#### API reference:
 [Api reference - Access kill user sessions](../html-reference/access-kill-user-sessions.html)

@@ -1,6 +1,3 @@
-
-
-
 ## Import the Local Traffic service into the working configuration on a BIG-IQ Centralized Management system
 
 ### Overview
@@ -423,3 +420,6 @@ When an error occurs, use the BIG-IQ Centralized Management user interface for d
   "kind": ":resterrorresponse"
 }
 ```
+
+###API reference:
+Not implemented

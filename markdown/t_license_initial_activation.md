@@ -19,7 +19,6 @@ You should be sure the following prerequisites have been met.
 - The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration.
 
 #### 1. Start initial activation of a license.
-
 POST https://ip/mgmt/cm/device/licensing/pool/initial-activation
 ```
 Request:
@@ -115,7 +114,7 @@ Response:
 DELETE https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
 
 
-#### API referneces used to support this workflow:
+#### API refernece:
 [Api reference - inital license activation](../html-reference/license-initial-activation.html)
 
 

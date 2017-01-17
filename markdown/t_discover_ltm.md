@@ -1,5 +1,3 @@
-
-
 ## Discover the Local Traffic service on a BIG-IP device using a BIG-IQ Centralized Management system
 
 ### Overview

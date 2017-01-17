@@ -204,7 +204,6 @@ Results:
 ```
 
 #### 4. Create a virtual server
-
 ```
 POST https://ip/mgmt/cm/adc-core/working-config/ltm/virtual
 

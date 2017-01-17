@@ -1,6 +1,3 @@
-
-
-
 ## Establish trust between a BIG-IQ Centralized Management system and a BIG-IP device
 
 ### Overview
@@ -274,5 +271,5 @@ On a failure condition, review the BIG-IQ Centralized Management Devices user in
         }
 ```
 
-### API references that support this workflow:
+### API reference:
 [Api reference - device trust task](../html-reference/device-trust.html)

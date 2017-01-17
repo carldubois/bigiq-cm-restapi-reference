@@ -1,4 +1,3 @@
-
 ## OAuth Token Revocation on BIG-IP devices using a BIG-IQ Centralized Management system
 
 ### Overview
@@ -1244,5 +1243,5 @@ Even for valid request, you can sometimes see failures, because currently API wi
 }
 ```
 
-#### API reference used to support this workflow:
+#### API reference:
 [Api reference - revoke oauth authentication token](../html-reference/access-revoke-oauth-token-sessions.html)

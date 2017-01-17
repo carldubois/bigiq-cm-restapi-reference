@@ -370,6 +370,6 @@ Response:
 
 DELETE https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
-#### API reference used to support this workflow:
+#### API reference:
 [Api reference - purchased pool licensing](../html-reference/license-purchased-pools.html)
 

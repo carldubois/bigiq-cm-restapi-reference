@@ -5,6 +5,7 @@ Describes how you use the REST API to list all policies and to retrieve a link t
 
 ### Prerequisites
 None.
+
 ### Description
 Describes how you use the REST API to list all policies and to retrieve a link to an existing policy by a policy name.
 Perform the REST API actions in the following order:
@@ -12,7 +13,9 @@ Perform the REST API actions in the following order:
 2. Perform a GET operation to return a specific policy using a filter.
 
 The following extended example shows each of these REST API actions.
+
 ### Example
+
 #### 1. Perform a GET operation to return all policies.
 Perform a GET operation on the policies collection, limiting the result to show specific fields that are defining those resources, together with a link to retrieve all the policy properties (selfLink). In this example two policies are retrieved named name Policy_1 and Policy_2. Both exist in the Common partition, as can be seen in the fullPath field value in the example).
 ```
@@ -39,6 +42,7 @@ The following is the JSON response from the GET operation:
     "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies"
 }
 ```
+
 #### 2. Perform a GET operation to return a specific policy using a filter.
 Perform a GET operation on the policies collection, filtering the results by a name and limiting the result to show specific fields that are defining the resource, together with a link to retrieve all the policy properties (selfLink). In this example the name being searched for is 'Policy_1'.
 ```
@@ -62,5 +66,5 @@ The following is the JSON response from the GET operation:
 }
 ```
 
-### API reference used to support this workflow:
+### API reference:
 [Api reference - asm policies](../html-reference/asm-policies.html)

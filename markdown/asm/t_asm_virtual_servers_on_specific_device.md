@@ -6,6 +6,7 @@ Describes how you use the REST API to get the active policy of a specific virtua
 ### Prerequisites
 1. Device configuration discovered and imported to Web Application Security.
 2. The name and partition of the virtual server should be known.
+
 ### Description
 Describes how you use the REST API to get the active policy of a specific virtual server on a specific device.
 Perform the REST API actions in the following order:
@@ -13,7 +14,9 @@ Perform the REST API actions in the following order:
 2. Perform a GET operation to determine the active policy of the virtual server.
 
 The following extended example shows each of these REST API actions.
+
 ### Example
+
 #### 1. Perform a GET operation to determine the selfLink of a device.
 Perform a GET operation on the Web Application Security devices collection, filtering the results by a name and limiting the result to show the device name and the device selfLink that will be used later for searches. In this example the name being searched for is 'device1.com'.
 ```
@@ -35,6 +38,7 @@ The following is the JSON response from the GET operation:
     "lastUpdateMicros": 1479388471935401
 }
 ```
+
 #### 2. Perform a GET operation to determine the active policy of the virtual server.
 Perform a GET operation to determine the active policy of the virtual server, filtering the results using the deviceReference that was retrieved in step #1 and by the virtual server properties.
 ```
@@ -57,5 +61,5 @@ The following is the JSON response from the GET operation:
 }
 ```
 
-### API references used to support this workflow:
+### API references:
 [Api reference - virtual server management](../html-reference/virtual-server-management.html)

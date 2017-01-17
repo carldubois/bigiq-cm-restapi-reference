@@ -450,5 +450,5 @@ When an error occurs, review the BIG-IQ Centralized Management user interface fo
 }
 ```
 
-### API references that support this workflow:
+### API reference:
 [Api reference - global task device discovery](../html-reference/device-discovery.html)

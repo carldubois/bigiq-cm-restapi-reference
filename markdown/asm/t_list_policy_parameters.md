@@ -5,6 +5,7 @@ Describes how you use the REST API to retrieve links to all policy sub collectio
 
 ### Prerequisites
 Retrieve a policy selfLink using the policy name, as shown on other examples in this chapter.
+
 ### Description
 Describes how you use the REST API to retrieve links to all policy sub collections and use of those links to retrieve the list of all parameters in the policy.
 Perform the REST API actions in the following order:
@@ -12,7 +13,9 @@ Perform the REST API actions in the following order:
 2. Perform a GET operation on the parameters sub collection link.
 
 The following extended example shows each of these REST API actions.
+
 ### Example
+
 #### 1. Perform a GET operation using the policy selfLink to return all the policy attributes.
 Perform a GET operation on a policy resource using the selfLink obtained from the policies collection. Note that the "localhost" host name is the link will need to be replaced with the management IP address or the DNS record of the BIG-IQ device.
 ```
@@ -214,6 +217,7 @@ The following is the JSON response from the GET operation:
     "selfLink": "https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef"
 }
 ```
+
 #### 2. Perform a GET operation on the parameters sub collection link.
 Perform a GET operation on the parameters sub collection link. The parameters sub collection link can be found in the 'parameterReference' reference structure (link attribute) in the policy above. The link can also be determined by the policy selfLink - add '/parameters' to the policy selfLink. The same logic applies to all other sub collections as listed above.
 
@@ -299,4 +303,5 @@ The following is the JSON response from the GET operation:
 
 ### API references used to support this workflow:
 [Api reference - virtual server management](../html-reference/virtual-server-management.html)
+
 [Api reference - asm policy management](../html-reference/asm-policies.html)

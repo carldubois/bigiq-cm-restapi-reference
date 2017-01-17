@@ -21,9 +21,10 @@ Perform the REST API actions in the following order:
 6. GET the deployment task status to determine if the deployment completed successfully.
 
 The following extended example show each of these REST API actions.
-### Example
-#### 1. Retrieve the firewall policy to be applied to the firewall contexts.
 
+### Example
+
+#### 1. Retrieve the firewall policy to be applied to the firewall contexts.
 Perform a GET operation on the policies collection. In the steps in this example, the context used is a virtual server.  Use the filter and select options to narrow the returned JSON information to just the policy in which you are interested.
 ```
 GET: https://<mgmtip>/mgmt/cm/firewall/working-config/policies?$filter=('name'+eq+'Policy_1')&$select=name,selfLink
@@ -128,6 +129,7 @@ The device references needed for the deployment are found in the firewall contex
         "name": "bigip25.f5.com"
     }
 ```
+
 #### 5. Evaluate the configuration changes created by the firewall configuration modifications to determine if there are errors.
 
 A deployment task must be created that includes each BIG-IP device that had an associated firewall context updated.
@@ -330,6 +332,7 @@ PATCH:  https://<mgmtip>/mgmt/cm/firewall/tasks/deploy-configuration/70e8c87d-ce
     "status": "STARTED"
 }
 ```
+
 #### 6. Check the status of the deployment of the firewall configuration changes to the network.
 
 Check that the deployment task has completed without errors. 
@@ -376,6 +379,7 @@ If the status does not reach FINISHED, consult the Network Security Deployment p
   "kind": ":resterrorresponse"
 }
 ```
+
 ####GET response when no objects are found based on the filter criteria
 ```
 {
@@ -387,6 +391,7 @@ If the status does not reach FINISHED, consult the Network Security Deployment p
   "lastUpdateMicros": 1474033768399515
 }
 ```
+
 ####PATCH response to a deleted evaluation task
 ```
 {
@@ -399,8 +404,10 @@ If the status does not reach FINISHED, consult the Network Security Deployment p
 }
 ```
 
+###API reference:
 
-API references used to support this workflow:
 [Api reference - firewall policies](../html/firewall-policies.html)
+
 [Api reference - firewall contexts](../html/firewalls.html)
+
 [Api reference - deploy configuration](../html/deploy-configuration.html)
