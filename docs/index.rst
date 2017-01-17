@@ -34,5 +34,5 @@ Getting Started
 ---------------
 
 To get started refer to :doc:`HowToGuides/HowToGuides` and supported :doc:`ApiReferences/ApiReferences`.
-:doc:`UnderDevelopment/UnderDevelopment` will be used for workflows in-complete. 
-Please use the template markdown if you choose to develop your own for collaboration. 
+
+:doc:`UnderDevelopment/UnderDevelopment` will be used for workflows in-complete. Please use the template markdown if you choose to develop your own for collaboration. 
