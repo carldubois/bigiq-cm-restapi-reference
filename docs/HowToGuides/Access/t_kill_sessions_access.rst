@@ -10,32 +10,40 @@ or more BIG-IP devices on a BIG-IQ Centralized Management system.
 Prerequisites
 ~~~~~~~~~~~~~
 
-You should be sure the following prerequisites have been met. - All
-BIG-IP devices are operational and have the services provisioned that
-will be managed by the BIG-IQ Centralized Management system. - The
-BIG-IQ Centralized Management system is operational, has completed the
-setup wizard, and completed any other needed configuration. - Trust has
-been established between the BIG-IP device and the BIG-IQ Centralized
-Management system. - APM Service is discovered for the BIG-IP device in
-BIG-IQ Centralized Management system. - APM Configuration is imported,
-if access group name needs to be used as input criteria. - To kill
-sessions using device reference of an BIG-IP device that is part of
-cluster, except for kill selected sessions action, it is recommended to
-use cluster name instead of device references. If you have to use device
-reference, then device reference of the ACTIVE device of cluster should
-be used for the kill session API to work. If device reference of PASSIVE
-device is passed as input, the task may finish, but API will not be able
-to send additional warning or error in the response. ACTIVE device has
-to only manually identified by the user, as currently there is no way to
-determine this information through API. One way to find the ACTIVE
-device for the session in BIG IQ UI, go to Monitoring tab and select
-Dashboards & Reports->Access->Sessions. The hostname field corresponds
-to the ACTIVE device. Then you can use the filter query to find the
-corresponding deviceReference. - When performing the tasks in this
-example, review the listed IP addresses and change them as appropriate
-for your environment. For example, if you are not running the script
-directly on the BIG-IQ system, you should change localhost to be the IP
+You should be sure the following prerequisites have been met. 
+
+1. All BIG-IP devices are operational and have the services provisioned that
+   will be managed by the BIG-IQ Centralized Management system.
+
+2. The BIG-IQ Centralized Management system is operational, has completed the
+   setup wizard, and completed any other needed configuration. 
+
+3. Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system. 
+
+4. APM Service is discovered for the BIG-IP device in BIG-IQ Centralized Management system. 
+
+5. APM Configuration is imported, if access group name needs to be used as input criteria. 
+
+Note: 
+
+1. To kill sessions using device reference of an BIG-IP device that is part of
+   cluster, except for kill selected sessions action, it is recommended to
+   use cluster name instead of device references. 
+
+2. If you have to use device reference, then device reference of the ACTIVE device of cluster should
+   be used for the kill session API to work. If device reference of PASSIVE device is passed as input, 
+   the task may finish, but API will not be able to send additional warning or error in the response. ACTIVE device has
+   to only manually identified by the user, as currently there is no way to determine this information through API. 
+
+3. One way to find the ACTIVE device for the session in BIG IQ UI, go to Monitoring tab and select
+
+4. Dashboards & Reports->Access->Sessions. The hostname field corresponds to the ACTIVE device. 
+Then you can use the filter query to find the corresponding deviceReference. - When performing the tasks in this
+example, review the listed IP addresses and change them as appropriate for your environment. 
+
+5. For example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP
 address of the BIG-IQ Centralized Management system.
+
 
 Description
 ~~~~~~~~~~~
