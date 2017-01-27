@@ -24,7 +24,7 @@ You should be sure the following prerequisites have been met.
 
 5. APM Configuration is imported, if access group name needs to be used as input criteria. 
 
-Note: 
+Notes: 
 
 1. To kill sessions using device reference of an BIG-IP device that is part of
    cluster, except for kill selected sessions action, it is recommended to
@@ -37,12 +37,14 @@ Note:
 
 3. One way to find the ACTIVE device for the session in BIG IQ UI, go to Monitoring tab and select
 
-4. Dashboards & Reports->Access->Sessions. The hostname field corresponds to the ACTIVE device. 
-Then you can use the filter query to find the corresponding deviceReference. - When performing the tasks in this
-example, review the listed IP addresses and change them as appropriate for your environment. 
+Dashboards & Reports->Access->Sessions. 
 
-5. For example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP
-address of the BIG-IQ Centralized Management system.
+4. The hostname field corresponds to the ACTIVE device. Then you can use the filter query to find the corresponding deviceReference. 
+
+5. When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. 
+
+6. For example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP
+   address of the BIG-IQ Centralized Management system.
 
 
 Description
