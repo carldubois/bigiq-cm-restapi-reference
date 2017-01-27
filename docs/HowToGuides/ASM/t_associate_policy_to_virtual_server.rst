@@ -30,12 +30,13 @@ ADC section.
 Description
 ~~~~~~~~~~~
 
-The following extended example shows each of these REST API actions. ###
-Example #### 1. Perform a GET operation to determine the selfLink of a
-device. Perform a GET operation on the Web Application Security devices
-collection, filtering the results by a name and limiting the result to
-show the device name and the device selfLink that will be used later for
-searches. In this example the name being searched for is 'device1.com'.
+The following extended example shows each of these REST API actions.
+
+1. Perform a GET operation to determine the selfLink of a device. 
+2. Perform a GET operation on the Web Application Security devices collection, 
+   filtering the results by a name and limiting the result to
+   show the device name and the device selfLink that will be used later for
+   searches. In this example the name being searched for is 'device1.com'.
 
 ::
 
