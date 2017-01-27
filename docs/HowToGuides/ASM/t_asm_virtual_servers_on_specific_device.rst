@@ -38,6 +38,7 @@ Description
 
 List an active policy for a virtual server on a device.
 
+::
 
     GET: https://<mgmtip>/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices?$filter=hostname eq 'device1.com'&$select=hostname,selfLink
 

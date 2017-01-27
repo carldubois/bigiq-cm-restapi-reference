@@ -11,26 +11,29 @@ Prerequisites
 ~~~~~~~~~~~~~
 
 Device configuration discovered and imported to Web Application
-Security. ### Description Describes how you use the REST API to list all
+Security. Description describes how you use the REST API to list all
 virtual servers with a Web Application Security policy associated with
-them. Perform the REST API actions: 1. Perform a GET operation to the
-Web Application Security virtual server collection.
+them. 
 
-The following extended example shows each of these REST API actions. ###
-Example #### 1. Perform a GET operation to the Web Application Security
-virtual server collection. Perform a GET operation to the Web
-Application Security virtual server collection, selecting only the
-'name', 'attachedPolicyReferences', 'address' and
-'isInactivePoliciesHolder' fields, and filtering the results to include
-virtual servers that have a security policy associated with them.
+Perform the REST API actions: 
 
-::
+1. Perform a GET operation to the Web Application Security virtual server collection.
+
+The following extended example shows each of these REST API actions.
+
+1. Perform a GET operation to the Web Application Security virtual server collection. 
+2. Perform a GET operation to the Web Application Security virtual server collection, 
+   selecting only the 'name', 'attachedPolicyReferences', 'address' and 'isInactivePoliciesHolder' 
+   fields, and filtering the results to include virtual servers that have a security 
+   policy associated with them.
+
 
 Description
 ~~~~~~~~~~~
 
 A list of virtuals associated to a web application security policy.
 
+::
 
     GET: https://<mgmtip>/mgmt/cm/asm/working-config/virtual-servers?$select=name,address,attachedPoliciesReferences,isInactivePoliciesHolder&$filter=attachedPoliciesReferences/link eq '*'
 
@@ -78,7 +81,7 @@ The following is the JSON response from the GET operation:
         "lastUpdateMicros": 1479388471928975
     }
 
-Note: that there are two types of virtual servers in Web Application
+Note: There are two types of virtual servers in Web Application
 Security: inactive policies holder, and regular. The inactive policies
 holder can have multiple policies associated with it, and is used to
 deploy policies to devices without using them to enforce rules on
