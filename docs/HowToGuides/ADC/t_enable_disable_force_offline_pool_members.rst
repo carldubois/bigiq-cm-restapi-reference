@@ -36,6 +36,8 @@ desired state to change to, please skip Step 1 and proceed directly to
 Step 3. Otherwise send a GET request to pool collection to read pools
 that are in the BIG-IQ repository.
 
+Step 1:
+
 ::
 
     GET https://ip_address/mgmt/cm/adc-core/working-config/ltm/pool
@@ -129,6 +131,8 @@ belong to, which will be used in the next step.
 Review Current State of Pool Members
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Step 2:
+
 Send a GET request to the pool member sub-collections of the specific
 pools.
 
@@ -201,6 +205,8 @@ used in the next step.
 
 Set New State for Pool Members
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Step 3:
 
 Send a POST request to set new state for each pool member. The pool
 member will be set to the new state regardless of the previous state.

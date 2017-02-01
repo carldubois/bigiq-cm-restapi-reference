@@ -21,13 +21,16 @@ You should be sure the following prerequisites have been met.
 
 -  All BIG-IP devices are operational and have the services provisioned
    that will be managed by the BIG-IQ Centralized Management system.
+
 -  The BIG-IQ Centralized Management system is operational, has
    completed the setup wizard, and completed any other needed
    configuration.
+
 -  Trust has been established between the BIG-IP device and the BIG-IQ
    Centralized Management system and the current configuration of the
    BIG-IP device has been discovered on the BIG-IQ Centralized
    Management system.
+
 -  When performing the tasks in this example, review the listed IP
    addresses and change them as appropriate for your environment. For
    example, if you are not running the script directly on the BIG-IQ
@@ -37,10 +40,17 @@ You should be sure the following prerequisites have been met.
 Description
 ~~~~~~~~~~~
 
-In general, you create a simple application following the below steps: -
-step 1: create a node - step 2: create a pool - step 3: add a pool
-member to a pool - step 4: create a virtual server - step 5: attach the
-pool to virtual server
+In general, you create a simple application following the below steps: 
+
+1. Create a node 
+
+2. Create a pool
+
+3. Add a pool member to a pool 
+
+4. Create a virtual server 
+
+5. Attach the pool to virtual server
 
 Examples creating simple application
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
