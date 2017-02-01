@@ -10,64 +10,59 @@ devices on a BIG-IQ Centralized Management system.
 Prerequisites
 ~~~~~~~~~~~~~
 
-You should be sure the following prerequisites have been met. - All
-BIG-IP devices are operational and have the services provisioned that
-will be managed by the BIG-IQ Centralized Management system. - The
-BIG-IQ Centralized Management system is operational, has completed the
-setup wizard, and completed any other needed configuration. - Trust has
-been established between the BIG-IP device and the BIG-IQ Centralized
-Management system. - APM Service is discovered for the BIG-IP device in
-BIG-IQ Centralized Management system. - APM Configuration is imported,
-if access group name needs to be used as input criteria. - To revoke
-oauth tokens using device reference of an BIG-IP device that is part of
-cluster, except for revoke list of tokens action, it is recommended to
-use cluster name instead of device references. If you have to use device
-reference, then device reference of the ACTIVE device of cluster should
-be used for the token revocation API to work. If device reference of
-PASSIVE device is passed as input, the task may finish, but API will not
-be able to send additional warning or error in the response. ACTIVE
-device has to only manually identified by the user, as currently there
-is no way to determine this information through API and BIG-IQ UI. -
-When performing the tasks in this example, review the listed IP
-addresses and change them as appropriate for your environment. For
-example, if you are not running the script directly on the BIG-IQ
-system, you should change localhost to be the IP address of the BIG-IQ
-Centralized Management system.
+You should be sure the following prerequisites have been met. 
+- All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system. 
+
+- The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration. 
+
+- Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system. 
+
+- APM Service is discovered for the BIG-IP device in BIG-IQ Centralized Management system. 
+
+- APM Configuration is imported, if access group name needs to be used as input criteria. 
+
+- To revoke oauth tokens using device reference of an BIG-IP device that is part of cluster, except for revoke list of tokens action, it is recommended to
+  use cluster name instead of device references. 
+
+- If you have to use device reference, then device reference of the ACTIVE device of cluster should be used for the token revocation API to work. If device reference of
+  PASSIVE device is passed as input, the task may finish, but API will not be able to send additional warning or error in the response. ACTIVE
+  device has to only manually identified by the user, as currently there is no way to determine this information through API and BIG-IQ UI. 
+
+- When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For
+  example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ
+  Centralized Management system.
 
 Description
 ~~~~~~~~~~~
 
-You use the following process to Revoke OAuth Tokens on BIG-IP devices
-on the BIG-IQ Centralized Management system. 1. Perform a GET method on
-the machineid-resolver URI to determine the current state of the BIG-IP
-device and get other inputs parameters to revoke oauth tokens. 2.
-Perform a POST method on the revoke oauth tokens task URI to revoke
-oauth tokens. 3. Monitor the task using GET methods until the status has
-reached a value of FINISHED, FAILED or CANCELLED. When the GET method
-status value is FINISHED and the currentStep value is DONE, the revoke
-oauth tokens is completed.
+You use the following process to Revoke OAuth Tokens on BIG-IP devices on the BIG-IQ Centralized Management system. 
+
+1. Perform a GET method on the machineid-resolver URI to determine the current state of the BIG-IP device and get other inputs parameters to revoke oauth tokens. 
+
+2. Perform a POST method on the revoke oauth tokens task URI to revoke oauth tokens. 
+
+3. Monitor the task using GET methods until the status has reached a value of FINISHED, FAILED or CANCELLED. When the GET method
+   status value is FINISHED and the currentStep value is DONE, the revoke oauth tokens is completed.
 
 Example for OAuth Token Revocation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In the following example: - The BIG-IP device address is 10.255.4.124.
-You substitute your BIG-IP device’s address for this address when you
-implement the example. If the device that you want to use is part of
-cluster, refer to prerequisites section for more details. - The Access
-Config Group names are TestGroup,TestGroup1,TestGroup2. You substitute
-your access group name when you implement the example. - The BIG-IP
-cluster name is BlueCluster,RedCluster. You substitute your cluster name
-when you implement the example.
+In the following example: 
+
+- The BIG-IP device address is 10.255.4.124. You substitute your BIG-IP device’s address for this address when you
+implement the example. If the device that you want to use is part of cluster, refer to prerequisites section for more details. 
+
+- The Access Config Group names are TestGroup,TestGroup1,TestGroup2. You substitute your access group name when you implement the example. 
+
+- The BIG-IP cluster name is BlueCluster,RedCluster. You substitute your cluster name when you implement the example.
 
 1. Determine the current status of the BIG-IP device and other input parameters on the BIG-IQ Centralized Management system.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Perform a GET method on the machineid-resolver URI to determine if the
-BIG-IP device already has trust established. You will want to use the
-filter option to narrow the returned JSON information to just this
-particular BIG-IP device. If the value of the items element is not an
-empty list [], then the trust has already been established. If the value
-of the items element is an empty list, you must establish trust before
+Perform a GET method on the machineid-resolver URI to determine if the BIG-IP device already has trust established. 
+
+You will want to use the filter option to narrow the returned JSON information to just this particular BIG-IP device. If the value of the items element is not an
+empty list [], then the trust has already been established. If the value of the items element is an empty list, you must establish trust before
 you can attempt to discover the device.
 
 ::
