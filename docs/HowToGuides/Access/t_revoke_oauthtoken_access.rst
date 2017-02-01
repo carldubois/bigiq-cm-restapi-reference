@@ -49,8 +49,8 @@ Example for OAuth Token Revocation
 
 In the following example: 
 
-- The BIG-IP device address is 10.255.4.124. You substitute your BIG-IP device’s address for this address when you
-implement the example. If the device that you want to use is part of cluster, refer to prerequisites section for more details. 
+- The BIG-IP device address is 10.255.4.124. You substitute your BIG-IP device’s address for this address when you implement the example. 
+  If the device that you want to use is part of cluster, refer to prerequisites section for more details. 
 
 - The Access Config Group names are TestGroup,TestGroup1,TestGroup2. You substitute your access group name when you implement the example. 
 
