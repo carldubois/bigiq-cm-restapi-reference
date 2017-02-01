@@ -1,7 +1,7 @@
-## To create a default firewall policy to use when referenced by a firewall context (virtual)
+## To create a firewall policy to use when referenced by a firewall context (virtual)
 
 ### Overview
-This task workflow will dwscribe the steps nessasaey to create and manage a firewall policy and its components (address-lists, port-lists).
+This task workflow will describe the steps nessasaey to create and manage a firewall policy and its components (address-lists, port-lists).
 
 In general, brief steps described below: 
 
