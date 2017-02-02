@@ -10,21 +10,20 @@ policy.
 Prerequisites
 ~~~~~~~~~~~~~
 
-None. ### Description Describes how you use the REST API to create a Web
-Application Security policy. The Web Application Security policy is a
-complex object with multiple sub collections, some of them have default
-values created by the system when the policy is created. Perform the
-REST API actions: 1. Perform a POST operation to the policies
-collection.
+None. 
+
 
 Description
 ~~~~~~~~~~~
 
-The following extended example shows each of these REST API actions. ###
-Example #### 1. Perform a POST operation to the policies collection.
-Perform a POST operation to the policies collection. The data being sent
-to the server includes the name of the policy, the partition, the
-fullPath and the application language. Note - the fullPath is usually
+Describes how you use the REST API to create a Web Application Security policy. The Web Application Security policy is a
+complex object with multiple sub collections, some of them have default values created by the system when the policy is created. Perform the
+REST API actions: Perform a POST operation to the policies collection.
+
+The following extended example shows each of these REST API actions.
+
+1. Perform a POST operation to the policies collection. Perform a POST operation to the policies collection. The data being sent
+to the server includes the name of the policy, the partition, the fullPath and the application language. Note - the fullPath is usually
 determined by the partition and name, separated by the '/' character.
 
 ::

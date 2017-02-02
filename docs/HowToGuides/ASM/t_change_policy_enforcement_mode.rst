@@ -21,6 +21,7 @@ Description:
 The following extended example shows each of these REST API actions.
 
 Step 1
+
 Perform a GET operation on the policy selfLink. Perform a GET operation on the policy selfLink, selecting only the 'enforcementMode' field to be retrieved.
 
 ::
@@ -39,6 +40,7 @@ The following is the JSON response from the GET operation:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Step 2
+
 Perform a PATCH operation on the policy selfLink. The data being sent to the server includes the new enforcementMode ('blocking').
 
 ::
