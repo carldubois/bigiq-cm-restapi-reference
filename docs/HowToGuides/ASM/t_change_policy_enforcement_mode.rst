@@ -10,19 +10,18 @@ enforcement mode.
 Prerequisites
 ~~~~~~~~~~~~~
 
-Retrieve a policy selfLink using the policy name, as shown on other
-examples in this chapter. ### Description Describes how you use the REST
-API to view and change the policy enforcement mode. 1. Perform a GET
-operation on the policy selfLink 1. Perform a PATCH operation on the
-policy selfLink.
+Retrieve a policy selfLink using the policy name, as shown on other examples in this chapter. 
+Description describes how you use the REST API to view and change the policy enforcement mode. 
+
+1. Perform a GET operation on the policy selfLink 1. Perform a PATCH operation on the policy selfLink.
 
 Description:
 ~~~~~~~~~~~~
 
-The following extended example shows each of these REST API actions. ###
-Example #### 1. Perform a GET operation on the policy selfLink. Perform
-a GET operation on the policy selfLink, selecting only the
-'enforcementMode' field to be retrieved.
+The following extended example shows each of these REST API actions.
+
+Step 1
+Perform a GET operation on the policy selfLink. Perform a GET operation on the policy selfLink, selecting only the 'enforcementMode' field to be retrieved.
 
 ::
 
@@ -39,8 +38,8 @@ The following is the JSON response from the GET operation:
 2. Perform a PATCH operation on the policy selfLink.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Perform a PATCH operation on the policy selfLink. The data being sent to
-the server includes the new enforcementMode ('blocking').
+Step 2
+Perform a PATCH operation on the policy selfLink. The data being sent to the server includes the new enforcementMode ('blocking').
 
 ::
 
