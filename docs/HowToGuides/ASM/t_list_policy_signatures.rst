@@ -12,22 +12,25 @@ Prerequisites
 ~~~~~~~~~~~~~
 
 Retrieve a policy selfLink using the policy name, as shown on other
-examples in this chapter. ### Description Describes how you use the REST
-API to retrieve all the signatures for a specific policy, with their
-settings. Perform the REST API actions in the following order: 1.
-Perform a GET operation using the policy selfLink to return all the
-policy attributes. 2. Perform a GET operation on the signatures sub
-collection link.
+examples in this chapter. 
+
 
 Description
 ~~~~~~~~~~~
 
-The following extended example shows each of these REST API actions. ###
-Example #### 1. Perform a GET operation using the policy selfLink to
-return all the policy attributes. Perform a GET operation on a policy
-resource using the selfLink obtained from the policies collection. Note
-that the "localhost" host name is the link will need to be replaced with
-the management IP address or the DNS record of the BIG-IQ device.
+Description describes how you use the REST API to retrieve all the signatures for a specific policy, with their
+settings. Perform the REST API actions in the following order: 
+
+1. Perform a GET operation using the policy selfLink to return all the policy attributes. 
+
+2. Perform a GET operation on the signatures sub collection link.
+
+The following extended example shows each of these REST API actions.
+
+1. Perform a GET operation using the policy selfLink to return all the policy attributes. Perform a GET operation on a policy
+resource using the selfLink obtained from the policies collection. 
+
+Note that the "localhost" host name is the link will need to be replaced with the management IP address or the DNS record of the BIG-IQ device.
 
 ::
 

@@ -12,24 +12,29 @@ Prerequisites
 
 1. Retrieve a policy selfLink using the policy name, as shown on other
    examples in this chapter.
+
 2. Find the signatureId that needs to be updated. The signatureId is
    shown on the BIG-IP and BIG-IQ UI and is reported in violation logs.
    ### Description Describes how you use the REST API to update the
    attributes of a specific signature in a policy. Perform the REST API
    actions in the following order:
+
 3. Perform a GET operation to the signatures collection to retrieve a
    seflLink of a signature.
+
 4. Perform a GET operation to the policy signatures to validate that the
    signature is listed within the security policy signatures.
+
 5. Perform a POST operation with the new attributes to a special URI
    that updates policy signature attributes.
 
 Description
 ~~~~~~~~~~~
 
-The following extended example shows each of these REST API actions. ###
-Example #### 1. Perform a GET operation to the signatures collection to
-retrieve a seflLink of a signature. Perform a GET operation to the
+The following extended example shows each of these REST API actions.
+
+
+ 1. Perform a GET operation to the signatures collection to retrieve a seflLink of a signature. Perform a GET operation to the
 signatures collection to retrieve a seflLink of a signature.
 
 ::

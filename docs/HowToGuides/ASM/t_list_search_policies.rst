@@ -10,22 +10,25 @@ a link to an existing policy by a policy name.
 Prerequisites
 ~~~~~~~~~~~~~
 
-None. ### Description Describes how you use the REST API to list all
-policies and to retrieve a link to an existing policy by a policy name.
-Perform the REST API actions in the following order: 1. Perform a GET
-operation to return all policies. 2. Perform a GET operation to return a
-specific policy using a filter.
+None. 
+
 
 Description
 ~~~~~~~~~~~
 
-The following extended example shows each of these REST API actions. ###
-Example #### 1. Perform a GET operation to return all policies. Perform
-a GET operation on the policies collection, limiting the result to show
-specific fields that are defining those resources, together with a link
-to retrieve all the policy properties (selfLink). In this example two
-policies are retrieved named name Policy\_1 and Policy\_2. Both exist in
-the Common partition, as can be seen in the fullPath field value in the
+Description describes how you use the REST API to list all
+policies and to retrieve a link to an existing policy by a policy name.
+Perform the REST API actions in the following order: 
+
+1. Perform a GET operation to return all policies. 
+
+2. Perform a GET operation to return a specific policy using a filter.
+
+The following extended example shows each of these REST API actions.
+
+1. Perform a GET operation to return all policies. Perform a GET operation on the policies collection, limiting the result to show
+specific fields that are defining those resources, together with a link to retrieve all the policy properties (selfLink). In this example two
+policies are retrieved named name Policy\_1 and Policy\_2. Both exist in the Common partition, as can be seen in the fullPath field value in the
 example).
 
 ::

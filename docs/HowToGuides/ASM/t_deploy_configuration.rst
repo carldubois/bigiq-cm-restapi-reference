@@ -10,27 +10,31 @@ Security configuration changes as saved on BIG-IQ to BIG-IP devices.
 Prerequisites
 ~~~~~~~~~~~~~
 
-Device configuration discovered and imported to Web Application
-Security.
+Device configuration discovered and imported to Web Application Security.
 
 Description
 ~~~~~~~~~~~
 
 The document describes how to use the REST API to deploy Web Application
 Security configuration changes as saved on BIG-IQ to BIG-IP devices.
-Perform the REST API actions in the following order: 1. Perform a GET
-operation to determine the selfLink of a device. 2. Evaluate the
-configuration changes created by the Web Application Security
-configuration modifications to determine if there are errors. 3. Check
-the status of the deployment of the Web Application Security
-configuration changes to the network.
 
-The following extended example shows each of these REST API actions. ###
-Example #### 1. Perform a GET operation to determine the selfLink of a
-device. Perform a GET operation on the Web Application Security devices
-collection, filtering the results by a name and limiting the result to
-show the device name and the device selfLink that will be used later for
-searches. In this example the name being searched for is 'device1.com'.
+Perform the REST API actions in the following order: 
+
+1. Perform a GET operation to determine the selfLink of a device. 
+
+2. Evaluate the configuration changes created by the Web Application Security
+configuration modifications to determine if there are errors. 
+
+3. Check the status of the deployment of the Web Application Security configuration changes to the network.
+
+
+The following extended example shows each of these REST API actions.
+
+1. Perform a GET operation to determine the selfLink of a
+device. 
+
+2. Perform a GET operation on the Web Application Security devices collection, filtering the results by a name and limiting the result to
+show the device name and the device selfLink that will be used later for searches. In this example the name being searched for is 'device1.com'.
 
 ::
 

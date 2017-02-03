@@ -10,26 +10,34 @@ a specific device.
 Prerequisites
 ~~~~~~~~~~~~~
 
-None. ### Description Describes how you use the REST API to determine if
-a policy is in use by a specific device. A policy is in use if a virtual
-server of specific device has the policy attached to it. A special
-virtual server called 'inactive' can be used to associate a policy to a
-device without actually using it to secure traffic. Perform the REST API
-actions in the following order: 1. Perform a GET operation to determine
-the selfLink of a policy. 2. Perform a GET operation to determine the
-selfLink of a device. 3. Perform a GET operation to the virtual-servers
-collection with a filter to find if any virtual servers on that device
-are using that policy.
+None. 
+
 
 Description
 ~~~~~~~~~~~
 
-The following extended example shows each of these REST API actions. ###
-Example #### 1. Perform a GET operation to determine the selfLink of a
-policy. Perform a GET operation on the policies collection, filtering
-the results by a name and limiting the result to show specific fields
-that are defining the resource, together with a link to retrieve all the
-policy properties (selfLink). In this example the name being searched
+Description describes how you use the REST API to determine if
+a policy is in use by a specific device. A policy is in use if a virtual
+server of specific device has the policy attached to it. 
+
+A special virtual server called 'inactive' can be used to associate a policy to a
+device without actually using it to secure traffic. Perform the REST API
+actions in the following order: 
+
+1. Perform a GET operation to determine the selfLink of a policy. 
+
+2. Perform a GET operation to determine the selfLink of a device. 
+
+3. Perform a GET operation to the virtual-servers collection with a filter to find if any virtual servers on that device
+are using that policy.
+
+
+The following extended example shows each of these REST API actions. 
+
+1. Perform a GET operation to determine the selfLink of a policy. 
+
+2. Perform a GET operation on the policies collection, filtering the results by a name and limiting the result to show specific fields
+that are defining the resource, together with a link to retrieve all the policy properties (selfLink). In this example the name being searched
 for is 'Policy\_1'.
 
 ::
