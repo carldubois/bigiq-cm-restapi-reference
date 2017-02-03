@@ -38,8 +38,7 @@ point from the member subcollection(item 6).
 
 ::
 
-Response:
-
+    Response:
     {
         items: {
             individual member
