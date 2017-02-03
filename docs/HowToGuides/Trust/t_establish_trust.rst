@@ -13,46 +13,43 @@ upgrade the REST framework for a BIG-IP device version 12.0.0 or lower.
 Prerequisites
 ~~~~~~~~~~~~~
 
-This example assumes the following about the configuration: - All BIG-IP
-devices are operational and have the services provisioned that will be
-managed by the BIG-IQ Centralized Management system. - The BIG-IQ
-Centralized Management system is operational, has completed the setup
-wizard and has all system-level configuration in place. - When
-performing the tasks in this example, review the listed IP addresses and
-change them as appropriate for your environment. For example, if you are
-not running the script directly on the BIG-IQ system, you should change
-localhost to be the IP address of the BIG-IQ Centralized Management
-system.
+This example assumes the following about the configuration: 
+
+- All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system. 
+
+- The BIG-IQ Centralized Management system is operational, has completed the setup wizard and has all system-level configuration in place. 
+
+- When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are
+  not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.
 
 Description
 ~~~~~~~~~~~
 
 You establish the trust between the BIG-IQ Centralized Management system
-and the BIG-IP device as follows: 1. Perform a GET method on the
-machineid-resolver URI to determine the current state of the BIG-IP
-device. Using this information, you can determine the management status
-of the BIG-IP device. 2. Perform a POST method on the trust URI to
-create the trust between the BIG-IQ Centralized Management system and
-the BIG-IP device. 3. Monitor the task via GET methods until the status
-has a value of FINISHED, FAILED or CANCELLED. 4. If needed, perform a
-PATCH method to the task with the necessary root credentials to support
-a framework upgrade. You perform the patch when the status has a value
-of FINISHED and the currentStep value indicates a framework upgrade is
-required. 5. Perform GET methods to monitor the trust task until the
-status has a value of FINISHED, FAILED or CANCELLED.
+and the BIG-IP device as follows: 
+
+1. Perform a GET method on the machineid-resolver URI to determine the current state of the BIG-IP device. Using this information, you can determine the management status of the BIG-IP device. 
+
+2. Perform a POST method on the trust URI to create the trust between the BIG-IQ Centralized Management system and the BIG-IP device. 
+
+3. Monitor the task via GET methods until the status has a value of FINISHED, FAILED or CANCELLED. 
+
+4. If needed, perform a PATCH method to the task with the necessary root credentials to support a framework upgrade. You perform the patch when the status has a value of FINISHED and the currentStep value indicates a framework upgrade is required. 
+
+5. Perform GET methods to monitor the trust task until the status has a value of FINISHED, FAILED or CANCELLED.
 
 The following extended example show each of these REST API methods.
 
 Extended example for establishing device trust
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-| In the following example: - The BIG-IP device discovery address is
-  10.255.4.124. you can substitute your BIG-IP device’s discovery
+In the following example: 
+
+- The BIG-IP device discovery address is 10.255.4.124. you can substitute your BIG-IP device’s discovery
   address for this address when you implement the example.
-| - The BIG-IP device is in a DSC cluster with another BIG-IP device
-  which has a discovery address of 10.255.4.125. The trust relationship
-  with the clustered BIG-IP device is established later and is not
-  covered in this example.
+
+- The BIG-IP device is in a DSC cluster with another BIG-IP device which has a discovery address of 10.255.4.125. The trust relationship
+  with the clustered BIG-IP device is established later and is not covered in this example.
 
 Determine the current status of the BIG-IP device on the BIG-IQ Centralized Management system.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
