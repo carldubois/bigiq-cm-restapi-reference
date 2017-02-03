@@ -277,6 +277,8 @@ Request Response
 
 
 ### API references:
-[Api reference - firewall policy](../doc/firewall-policies.doc)
-[Api reference - firewalls](../doc/firewalls.doc)
+
+:doc:`../../ApiReferences/firewalls`
+
+:doc:`../../ApiReferences/firewall-policies`
 

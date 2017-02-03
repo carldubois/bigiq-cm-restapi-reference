@@ -15,13 +15,6 @@ Retrieve a policy selfLink using the policy name, as shown on other
 examples in this chapter.
 
 
-Description Describes how you use the REST
-API to retrieve links to all policy sub collections and use of those
-links to retrieve the list of all parameters in the policy. Perform the
-REST API actions in the following order: 1. Perform a GET operation
-using the policy selfLink to return all the policy attributes. 2.
-Perform a GET operation on the parameters sub collection link.
-
 Description
 ~~~~~~~~~~~
 

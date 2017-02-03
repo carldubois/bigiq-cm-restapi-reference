@@ -26,7 +26,7 @@ in the appropriate specific license collection. For instance, a
 purchased pool License regkey would result in an entry being created in
 /cm/device/licensing/pool/purchased-pool/licenses.
 
-A Reference to the item in that collection will be stored, and made
+A reference to the item in that collection will be stored, and made
 available to the client.
 
 For the case of automatic activation, this worker will wait for the

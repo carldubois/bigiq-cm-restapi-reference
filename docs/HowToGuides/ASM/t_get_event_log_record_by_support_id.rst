@@ -12,18 +12,21 @@ Prerequisites
 
 1. A Logging Node is configured with the Web Application Security
    service enabled.
+
 2. Events are sent from BIG-IP to the Logging Node. ### Description
    Describes how you use the REST API to retrieve a Web Application
    Security Event Log record using a support\_id. Perform the REST API
    actions in the following order:
+
 3. Perform a POST operation to perform a search of the logs by a given
    support\_id.
 
 Description
 ~~~~~~~~~~~
 
-The following extended example shows each of these REST API actions. ###
-Example #### 1. Perform a POST operation to perform a search of the logs
+The following extended example shows each of these REST API actions.
+
+1. Perform a POST operation to perform a search of the logs
 by a given support\_id. Perform a POST operation to perform a search of
 the logs by a given support\_id.
 

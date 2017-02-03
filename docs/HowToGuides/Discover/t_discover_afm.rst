@@ -13,20 +13,15 @@ Prerequisites
 
 You should be sure the following prerequisites have been met. 
 
-- All BIG-IP devices are operational and have the services provisioned that
-will be managed by the BIG-IQ Centralized Management system. 
+- All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system. 
 
-- The BIG-IQ Centralized Management system is operational, has completed the
-setup wizard, and completed any other needed configuration. 
+- The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration. 
 
-- Trust has been established between the BIG-IP device and the BIG-IQ Centralized
-Management system and the current configuration of the BIG-IP device has
-been discovered on the BIG-IQ Centralized Management system for the
-Local Traffic service. 
+- Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system and the current configuration of the BIG-IP device has
+  been discovered on the BIG-IQ Centralized Management system for the Local Traffic service. 
 
-- When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your
-environment. For example, if you are not running the script directly on
-the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.
+- When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on
+  the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.
 
 Description
 ~~~~~~~~~~~
@@ -36,13 +31,13 @@ You use the following process to discover the Advanced Firewall service for a BI
 1. Perform a GET method on the machineid-resolver URI to determine the current state of the BIG-IP device. 
 
 2. Perform a GET method on the discovery URI using a filter of the machineId found in Step 1. The
-content of the response determines whether a PATCH or POST method will be used. You use either a POST method to create the discovery task or a
-PATCH method to update an existing task. In this case, a task will be found if the associated Local Traffic discovery task was not deleted. 
+   content of the response determines whether a PATCH or POST method will be used. You use either a POST method to create the discovery task or a
+   PATCH method to update an existing task. In this case, a task will be found if the associated Local Traffic discovery task was not deleted. 
 
 3. Perform a PATCH method on the discovery URI to discover the current configuration of the BIG-IP device. 
 
 4. Monitor the task using GET methods until the status has reached a value of FINISHED, FAILED or
-CANCELLED. When the GET method status value is FINISHED and the currentStep value is DONE, the discovery has completed.
+   CANCELLED. When the GET method status value is FINISHED and the currentStep value is DONE, the discovery has completed.
 
 Example for Advanced Firewall Device Discovery
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
