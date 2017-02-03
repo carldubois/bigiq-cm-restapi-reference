@@ -11,17 +11,21 @@ configuration on the BIG-IQ Centralized Management system.
 Prerequisites
 ~~~~~~~~~~~~~
 
-You should be sure the following prerequisites have been met. - All
-BIG-IP devices are operational and have the services provisioned that
-will be managed by the BIG-IQ Centralized Management system. - The
-BIG-IQ Centralized Management system is operational, has completed the
-setup wizard, and completed any other needed configuration. - Trust has
-been established between the BIG-IP device and the BIG-IQ Centralized
+You should be sure the following prerequisites have been met. 
+
+- All BIG-IP devices are operational and have the services provisioned that
+will be managed by the BIG-IQ Centralized Management system. 
+
+- The BIG-IQ Centralized Management system is operational, has completed the
+setup wizard, and completed any other needed configuration. 
+
+- Trust has been established between the BIG-IP device and the BIG-IQ Centralized
 Management system and the Local Traffic service of the BIG-IP has been
 discovered and imported on the BIG-IQ Centralized Management system. In
 addition, the Advanced Firewall service of the BIG-IP has been
-discovered on the BIG-IQ Centralized Management system. - When
-performing the tasks in this example, review the listed IP addresses and
+discovered on the BIG-IQ Centralized Management system. 
+
+- When performing the tasks in this example, review the listed IP addresses and
 change them as appropriate for your environment. For example, if you are
 not running the script directly on the BIG-IQ system, you should change
 localhost to be the IP address of the BIG-IQ Centralized Management
@@ -32,29 +36,25 @@ Description
 
 You use the following process to import the current configuration for
 the Advanced Firewall service of a BIG-IP device into the BIG-IQ
-Centralized Management system working configuration. 1. Determine the
-current state of the BIG-IP device by performing a GET method on the
-machineid-resolver URI. Using this information, the trust and discovery
-status of the BIG-IP device can be determined. 2. Perform a POST method
-to the declare management authority URI to import the current
-configuration of the BIG-IP device. 3. Monitor the task in the previous
-step using GET methods until the status reaches a value of FINISHED,
-FAILED, or CANCELLED. 4. If pending conflicts are detected (when the
-value of currentStep is PENDING\_CONFLICTS or
-PENDING\_CHILD\_CONFLICTS), perform a PATCH method on the declare
-management authority URI, with the appropriate conflict JSON. 5. Perform
-additional GET methods on the declare management authority URI until the
-status value is FINISHED and the currentStep value is DONE.
+Centralized Management system working configuration. 
+
+1. Determine the current state of the BIG-IP device by performing a GET method on the machineid-resolver URI. Using this information, the trust and discovery status of the BIG-IP device can be determined. 
+
+2. Perform a POST method to the declare management authority URI to import the current configuration of the BIG-IP device. 
+
+3. Monitor the task in the previous step using GET methods until the status reaches a value of FINISHED, FAILED, or CANCELLED. 
+
+4. If pending conflicts are detected (when the value of currentStep is PENDING\_CONFLICTS or PENDING\_CHILD\_CONFLICTS), perform a PATCH method on the declare management authority URI, with the appropriate conflict JSON. 
+
+5. Perform additional GET methods on the declare management authority URI until the status value is FINISHED and the currentStep value is DONE.
 
 Example for Importing the Advanced Firewall service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-| In the following example: - The BIG-IP device discovery address is
-  10.255.4.124. you can substitute your BIG-IP device's discovery
-  address for this address when you implement the example.
-| - The BIG-IP device is in a DSC cluster with another BIG-IP device
-  which has a discovery address of 10.255.4.125. The trust relationship
-  with the clustered BIG-IP device is established later and is not
+In the following example: 
+
+- The BIG-IP device discovery address is 10.255.4.124. you can substitute your BIG-IP device's discovery address for this address when you implement the example.
+- The BIG-IP device is in a DSC cluster with another BIG-IP device which has a discovery address of 10.255.4.125. The trust relationship with the clustered BIG-IP device is established later and is not
   covered in this example.
 
 1. Determine the current status of the BIG-IP device on the BIG-IQ Centralized Management system.
