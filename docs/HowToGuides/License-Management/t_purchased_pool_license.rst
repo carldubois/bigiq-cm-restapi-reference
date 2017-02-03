@@ -46,8 +46,7 @@ licensing website and patch it to the license end point(item 7).
 Remove
 ~~~~~~
 
--  To remove a purchase pool license, do a DELETE on the endpoint(item
-   8)
+-  To remove a purchase pool license, do a DELETE on the endpoint(item 8)
 
 1. Poll to get purchased pool license collection
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -409,8 +408,7 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 DELETE
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
-API reference used to support this workflow:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+API references:
+~~~~~~~~~~~~~~~
 
-`Api reference - purchased pool
-licensing <../html-reference/license-purchased-pools.html>`__
+:doc:`../../ApiReferences/license-purchased-pools`

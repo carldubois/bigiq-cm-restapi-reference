@@ -54,6 +54,10 @@ You should be sure the following prerequisites have been met.
    completed the setup wizard, and completed any other needed
    configuration.
 
+Description
+~~~~~~~~~~~
+
+
 1. Start initial activation of a license.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -173,8 +177,7 @@ PATCH https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
 DELETE
 https://ip/mgmt/cm/device/licensing/pool/initial-activation/{uuid}
 
-API referneces used to support this workflow:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+API referneces:
+~~~~~~~~~~~~~~~
 
-`Api reference - inital license
-activation <../html-reference/license-initial-activation.html>`__
+:doc:`../../ApiReferences/license-initial-activation`

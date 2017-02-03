@@ -185,8 +185,7 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/
         uuid: "d3b1a0d5-e63d-43b0-a959-0ae80d7e1dad"
     }
 
-API reference used to support this workflow:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+API references:
+~~~~~~~~~~~~~~~
 
-`Api reference - purchased pool
-licensing <../html-reference/license-purchased-pools.html>`__
+:doc:`../../ApiReferences/license-purchased-pools`
