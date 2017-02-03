@@ -53,7 +53,9 @@ Remove
 
 ::
 
-GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
+    GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
+
+::
 
     Response:
     {
@@ -66,8 +68,8 @@ GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
-
-POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
+ 
+    POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
 
     Request:
 
@@ -76,6 +78,8 @@ POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
         "name" : "my own freeform name",
         "status" : "ACTIVATING_AUTOMATIC",
     }
+
+::
 
     Response:
     {
@@ -92,7 +96,9 @@ The desired state of a license should have a status equals to LICENSED
 
 ::
 
-GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
+    GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
+
+::
 
     Response:
     {
@@ -222,14 +228,15 @@ reactivation process
 
 ::
 
-PATCH
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
+    PATCH https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
     Request:
     {
         state: "RELICENSE",
         method: "AUTOMATIC"
     }
+
+::
 
     Response:
     {
@@ -356,14 +363,15 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
 ::
 
-PATCH
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
+    PATCH https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
     Request: Automatic Activation Step 3 - Agree to the EULA and proceed with the licensing activation
     {
         "eulaText": "...",
         "state":"ACCEPTED_EULA"
     }
+
+::
 
     Response:
     {
@@ -381,13 +389,14 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
 ::
 
-PATCH
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
+    PATCH https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
     Request: Manual Activation Step 3 - Copy the license text from activate.f5.com and submit it
     {
         "licenseText": "..."
     }
+
+::
 
     Response:
     {
@@ -406,8 +415,7 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
 ::
 
-DELETE
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
+    DELETE https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
 API references:
 ~~~~~~~~~~~~~~~

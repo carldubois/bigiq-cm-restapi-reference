@@ -34,10 +34,11 @@ point from the member subcollection(item 6).
 
 ::
 
-GET
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
+    GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
 
-    Response:
+Response:
+
+::
     {
         items: {
             individual member
@@ -54,8 +55,7 @@ status
 
 ::
 
-POST
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
+    POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
 
     Request:
     {
@@ -64,7 +64,9 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
         }
     }
 
-    Response:
+Response:
+
+::
     {
         "uuid": "1c353141-3738-4bd1-9daa-48450e88cf63",
         "deviceReference": {
@@ -90,8 +92,7 @@ status
 
 ::
 
-POST
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
+    POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
 
     Request:
     {
@@ -100,7 +101,8 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
         password: "password"
     }
 
-    Response:
+Response:
+::
     {
         uuid:"d3b1a0d5-e63d-43b0-a959-0ae80d7e1dad",
         deviceName:"mgmtadc2.olympus.f5net.com",
@@ -118,10 +120,11 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
 
 ::
 
-GET
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
+    GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
 
-    Response:
+
+Response:
+::
     {
         "uuid": "1c353141-3738-4bd1-9daa-48450e88cf63",
         "deviceReference": {
@@ -142,8 +145,7 @@ will become LICENSED if the process is successful.
 
 ::
 
-PATCH
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
+    PATCH https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
 
     Request:
     {
@@ -157,7 +159,8 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/
         state: "INSTALL"
     }
 
-    Response:
+Response:
+::
     {
         "uuid": "1c353141-3738-4bd1-9daa-48450e88cf63",
         "deviceReference": {
@@ -175,15 +178,16 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/
 
 ::
 
-DELETE
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
+    DELETE https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
 
-    Request:
+Request:
+::
     {
         username: "username",
         password: "password",
         uuid: "d3b1a0d5-e63d-43b0-a959-0ae80d7e1dad"
     }
+
 
 API references
 ~~~~~~~~~~~~~~
