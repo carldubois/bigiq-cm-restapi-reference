@@ -11,45 +11,52 @@ Management system.
 Prerequisites
 ~~~~~~~~~~~~~
 
-You should be sure the following prerequisites have been met. - All
-BIG-IP devices are operational and have the services provisioned that
-will be managed by the BIG-IQ Centralized Management system. - The
-BIG-IQ Centralized Management system is operational, has completed the
-setup wizard, and completed any other needed configuration. - Trust has
-been established between the BIG-IP device and the BIG-IQ Centralized
-Management system. - When performing the tasks in this example, review
-the listed IP addresses and change them as appropriate for your
-environment. For example, if you are not running the script directly on
-the BIG-IQ system, you should change localhost to be the IP address of
+You should be sure the following prerequisites have been met. 
+
+- All BIG-IP devices are operational and have the services provisioned that
+will be managed by the BIG-IQ Centralized Management system. 
+
+- The BIG-IQ Centralized Management system is operational, has completed the
+setup wizard, and completed any other needed configuration. 
+
+- Trust has been established between the BIG-IP device and the BIG-IQ Centralized
+Management system. 
+
+- When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your
+environment. 
+
+For example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of
 the BIG-IQ Centralized Management system.
 
 Description
 ~~~~~~~~~~~
 
 You use the following process to discover the Local Traffic service for
-a BIG-IP device on the BIG-IQ Centralized Management system. 1. Perform
-a GET method on the machineid-resolver URI to determine the current
-state of the BIG-IP device. 2. Perform a GET method on the discovery URI
-using a filter of the machineId found in Step 1. The content of the
-response determines whether a PATCH or POST method will be used. You use
-either a POST method to create the discovery task or a PATCH method to
-update an existing task. 3. Perform a POST method (or PATCH method) on
-the discovery URI to discover the current configuration of the BIG-IP
-device. 4. Monitor the task using GET methods until the status has
-reached a value of FINISHED, FAILED or CANCELLED. When the GET method
-status value is FINISHED and the currentStep value is DONE, the
-discovery has completed.
+a BIG-IP device on the BIG-IQ Centralized Management system. 
+
+1. Perform a GET method on the machineid-resolver URI to determine the current
+state of the BIG-IP device. 
+
+2. Perform a GET method on the discovery URI using a filter of the machineId found in Step 1. 
+
+The content of the response determines whether a PATCH or POST method will be used. You use
+either a POST method to create the discovery task or a PATCH method to update an existing task. 
+
+3. Perform a POST method (or PATCH method) on the discovery URI to discover the current configuration of the BIG-IP
+device. 
+
+4. Monitor the task using GET methods until the status has reached a value of FINISHED, FAILED or CANCELLED. When the GET method
+status value is FINISHED and the currentStep value is DONE, the discovery has completed.
 
 Example for Device Discovery
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-| In the following example: - The BIG-IP device discovery address is
-  10.255.4.124. you substitute your BIG-IP device’s discovery address
-  for this address when you implement the example.
-| - The BIG-IP device is in a DSC cluster with another BIG-IP device
-  which has a discovery address of 10.255.4.125. The trust relationship
-  with the clustered BIG-IP device is established later and is not
-  covered in this example.
+In the following example: 
+
+- The BIG-IP device discovery address is 10.255.4.124. you substitute your BIG-IP device’s discovery address for this address when you implement the example. 
+
+- The BIG-IP device is in a DSC cluster with another BIG-IP device which has a discovery address of 10.255.4.125. The trust relationship
+  with the clustered BIG-IP device is established later and is not covered in this example.
 
 1. Determine the current status of the BIG-IP device on the BIG-IQ Centralized Management system.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -166,9 +173,12 @@ The following is the response JSON from the GET method:
 The content of the response determines whether a PATCH or POST method
 will be used. You use either a POST method to create the discovery task
 or a PATCH method to update an existing task. An existing task would be
-found if: - A previous discovery of the device was performed (and you
-may now want to perform a rediscovery of the device). - A previous
-discovery task for this device was not deleted. Finding existing
+found if: 
+
+
+- A previous discovery of the device was performed (and you may now want to perform a rediscovery of the device). 
+
+- A previous discovery task for this device was not deleted. Finding existing
 discovery tasks should be rare.
 
 ::
@@ -193,9 +203,11 @@ task is found:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use a POST method with the following JSON on the discovery task to start
-the discovery. - deviceReference: The BIG-IP device selfLink reference
-from Step 1 - moduleList: The module to discover, adc\_core - status:
-The status of the task, STARTED
+the discovery. 
+
+- deviceReference: The BIG-IP device selfLink reference from Step 1 
+
+- moduleList: The module to discover, adc\_core - status: The status of the task, STARTED
 
 ::
 
@@ -248,9 +260,11 @@ The following is the response JSON from the previous POST method:
 
 This operation reuses a task for the same device that exists either
 because the device is already discovered or the device was removed and
-the task was never deleted. The PATCH JSON data should include: -
-moduleList: The module to discover, adc\_core - status: The status of
-the task, STARTED
+the task was never deleted. The PATCH JSON data should include: 
+
+- moduleList: The module to discover, adc\_core 
+
+- status: The status of the task, STARTED
 
 ::
 
