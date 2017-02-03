@@ -51,9 +51,9 @@ Remove
 1. Poll to get purchased pool license collection
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
-
 ::
+
+GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
 
     Response:
     {
@@ -65,9 +65,9 @@ GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
 2. Start activation of a license.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
-
 ::
+
+POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
 
     Request:
 
@@ -90,10 +90,9 @@ POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses
 
 The desired state of a license should have a status equals to LICENSED
 
-GET
-https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
-
 ::
+
+GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
     Response:
     {
@@ -221,10 +220,10 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 During the process, user could poll the license to check for status of
 reactivation process
 
+::
+
 PATCH
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
-
-::
 
     Request:
     {
@@ -355,10 +354,10 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 6 Patch to accept EULA
 ^^^^^^^^^^^^^^^^^^^^^^
 
+::
+
 PATCH
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
-
-::
 
     Request: Automatic Activation Step 3 - Agree to the EULA and proceed with the licensing activation
     {
@@ -380,10 +379,10 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 7 Patch to provide license text
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+::
+
 PATCH
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
-
-::
 
     Request: Manual Activation Step 3 - Copy the license text from activate.f5.com and submit it
     {
@@ -404,6 +403,8 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}
 
 8. Delete a purchased pool license
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
 
 DELETE
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}

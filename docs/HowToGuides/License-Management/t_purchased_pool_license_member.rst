@@ -30,12 +30,12 @@ User could revoke a license granted to a devive by removing the end
 point from the member subcollection(item 6).
 
 1. Get all the members of a purchased pool license [GET]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
 
 GET
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
-
-::
 
     Response:
     {
@@ -52,10 +52,10 @@ is a relatively simple process, since trust is already established with
 the device. User should poll the individual member to check licensing
 status
 
+::
+
 POST
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
-
-::
 
     Request:
     {
@@ -88,10 +88,10 @@ deviceReference, expected fields are an IP address, username and
 password. User should poll the individual member to check licensing
 status
 
+::
+
 POST
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
-
-::
 
     Request:
     {
@@ -116,10 +116,10 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
 4. Poll purchased pool license memeber status
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+::
+
 GET
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
-
-::
 
     Response:
     {
@@ -140,10 +140,10 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/
 User should poll the individual member to check licensing status. Status
 will become LICENSED if the process is successful.
 
+::
+
 PATCH
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
-
-::
 
     Request:
     {
@@ -173,10 +173,10 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/
 6. Revoke license from a device with a purchased pool license
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+::
+
 DELETE
 https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
-
-::
 
     Request:
     {
