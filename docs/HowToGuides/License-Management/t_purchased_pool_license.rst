@@ -1,5 +1,5 @@
-Purchased Pool Licenses API
----------------------------
+Purchased Pool Licenses
+-----------------------
 
 Overview
 ~~~~~~~~
