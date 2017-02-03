@@ -1,5 +1,5 @@
-API Purchased Pool License Members
-==================================
+Purchased Pool License Members
+==============================
 
 Overview
 ~~~~~~~~
