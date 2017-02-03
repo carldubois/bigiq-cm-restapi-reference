@@ -12,17 +12,17 @@ Prerequisites
 
 You should be sure the following prerequisites have been met. 
 
-1. All BIG-IP devices are operational and have the services provisioned that
-   will be managed by the BIG-IQ Centralized Management system.
+- All BIG-IP devices are operational and have the services provisioned that
+  will be managed by the BIG-IQ Centralized Management system.
 
-2. The BIG-IQ Centralized Management system is operational, has completed the
-   setup wizard, and completed any other needed configuration. 
+- The BIG-IQ Centralized Management system is operational, has completed the
+  setup wizard, and completed any other needed configuration. 
 
-3. Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system. 
+- Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system. 
 
-4. APM Service is discovered for the BIG-IP device in BIG-IQ Centralized Management system. 
+- APM Service is discovered for the BIG-IP device in BIG-IQ Centralized Management system. 
 
-5. APM Configuration is imported, if access group name needs to be used as input criteria. 
+- APM Configuration is imported, if access group name needs to be used as input criteria. 
 
 Notes: 
 
@@ -35,9 +35,7 @@ Notes:
    the task may finish, but API will not be able to send additional warning or error in the response. ACTIVE device has
    to only manually identified by the user, as currently there is no way to determine this information through API. 
 
-3. One way to find the ACTIVE device for the session in BIG IQ UI, go to Monitoring tab and select
-
-Dashboards & Reports->Access->Sessions. 
+3. One way to find the ACTIVE device for the session in BIG IQ UI, go to Monitoring tab and select Dashboards & Reports->Access->Sessions:
 
 4. The hostname field corresponds to the ACTIVE device. Then you can use the filter query to find the corresponding deviceReference. 
 
