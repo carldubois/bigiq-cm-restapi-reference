@@ -2,7 +2,7 @@ API Purchased Pool License Members
 ==================================
 
 Overview
---------
+~~~~~~~~
 
 API to license a BIG-IP device with a seat of the purchased pool
 license, refresh the the license or revoking the license.
@@ -185,7 +185,6 @@ https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/
         uuid: "d3b1a0d5-e63d-43b0-a959-0ae80d7e1dad"
     }
 
-API references:
-~~~~~~~~~~~~~~~
-
+API references
+~~~~~~~~~~~~~~
 :doc:`../../ApiReferences/license-purchased-pools`

@@ -1,8 +1,8 @@
 Purchased Pool Licenses API
-===========================
+---------------------------
 
 Overview
---------
+~~~~~~~~
 
 The API supports activating, polling, reactivating and removing a
 purchased pool license. Pool license is different from the traditional
