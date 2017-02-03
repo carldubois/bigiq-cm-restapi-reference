@@ -36,9 +36,10 @@ point from the member subcollection(item 6).
 
     GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members
 
+::
+
 Response:
 
-::
     {
         items: {
             individual member
@@ -64,9 +65,9 @@ status
         }
     }
 
-Response:
-
 ::
+
+    Response:
     {
         "uuid": "1c353141-3738-4bd1-9daa-48450e88cf63",
         "deviceReference": {
@@ -101,8 +102,9 @@ status
         password: "password"
     }
 
-Response:
 ::
+
+    Response:
     {
         uuid:"d3b1a0d5-e63d-43b0-a959-0ae80d7e1dad",
         deviceName:"mgmtadc2.olympus.f5net.com",
@@ -123,8 +125,9 @@ Response:
     GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
 
 
-Response:
 ::
+
+    Response:
     {
         "uuid": "1c353141-3738-4bd1-9daa-48450e88cf63",
         "deviceReference": {
@@ -159,8 +162,9 @@ will become LICENSED if the process is successful.
         state: "INSTALL"
     }
 
-Response:
 ::
+
+    Response:
     {
         "uuid": "1c353141-3738-4bd1-9daa-48450e88cf63",
         "deviceReference": {
@@ -180,8 +184,9 @@ Response:
 
     DELETE https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member\_uuid}
 
-Request:
 ::
+
+    Request:
     {
         username: "username",
         password: "password",
