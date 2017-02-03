@@ -13,23 +13,17 @@ Prerequisites
 
 You should be sure the following prerequisites have been met. 
 
-- All BIG-IP devices are operational and have the services provisioned that
-will be managed by the BIG-IQ Centralized Management system. 
+- All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system. 
 
-- The BIG-IQ Centralized Management system is operational, has completed the
-setup wizard, and completed any other needed configuration. 
+- The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration. 
 
-- Trust has been established between the BIG-IP device and the BIG-IQ Centralized
-Management system and the Local Traffic service of the BIG-IP has been
-discovered and imported on the BIG-IQ Centralized Management system. In
-addition, the Advanced Firewall service of the BIG-IP has been
-discovered on the BIG-IQ Centralized Management system. 
+- Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system and the Local Traffic service of the BIG-IP has been
+  discovered and imported on the BIG-IQ Centralized Management system. In addition, the Advanced Firewall service of the BIG-IP has been
+  discovered on the BIG-IQ Centralized Management system. 
 
-- When performing the tasks in this example, review the listed IP addresses and
-change them as appropriate for your environment. For example, if you are
-not running the script directly on the BIG-IQ system, you should change
-localhost to be the IP address of the BIG-IQ Centralized Management
-system.
+- When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are
+  not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management
+  system.
 
 Description
 ~~~~~~~~~~~

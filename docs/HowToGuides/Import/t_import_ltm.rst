@@ -18,7 +18,7 @@ You should be sure the following prerequisites have been met.
 - The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration. 
 
 - Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system and the current configuration of the BIG-IP device has
-been discovered on the BIG-IQ Centralized Management system. 
+  been discovered on the BIG-IQ Centralized Management system. 
 
 - When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are
   not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.
