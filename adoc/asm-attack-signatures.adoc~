@@ -50,7 +50,6 @@ Returns the collection of ASM signatures.
 |HTTP Code|Description|Schema
 |*200*|GET collection of ASM signatures.|<<_properties_signature_collection,properties_signature_collection>>
 |*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
-|*401*|Error response "Unauthorized"|<<_401_error_collection,401_error_collection>>
 |*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
 |===
 
@@ -63,7 +62,7 @@ GET /signatures/{objectId}
 
 
 ==== Description
-Returns an ASM signature object identified by id for an endpoint URI.
+Returns a ASM signature object identified by id for an endpoint URI.
 
 
 ==== Parameters
@@ -72,7 +71,7 @@ Returns an ASM signature object identified by id for an endpoint URI.
 |===
 |Type|Name|Description|Schema|Default
 |*Path*|*objectId* +
-_required_|Unique system generated ID associated with the signature.|string(UUID)|None
+_required_|Unique id associated with the signature.|string(UUID)|None
 |===
 
 
@@ -83,7 +82,6 @@ _required_|Unique system generated ID associated with the signature.|string(UUID
 |HTTP Code|Description|Schema
 |*200*|ASM signature object.|<<_properties_signature,properties_signature>>
 |*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
-|*401*|Error response "Unauthorized"|<<_401_error_collection,401_error_collection>>
 |*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
 |===
 
@@ -109,7 +107,7 @@ _optional_ +
 _read-only_|Type information for ASM web application security signatures - cm:asm:working-config:signatures:signaturecollectionstate.|string
 |*message* +
 _optional_ +
-_read-only_|Error message returned from server. Bad Request|string
+_read-only_|Error message returned from server.|string
 |*requestBody* +
 _optional_ +
 _read-only_|The data in the request body. GET (None)|string
@@ -118,30 +116,6 @@ _optional_ +
 _read-only_|Unique id assigned to rest operation.|integer(int64)
 |===
 
-[[_401_error_collection]]
-=== 401_error_collection
-
-[options="header", cols=".^3,.^11,.^4"]
-|===
-|Name|Description|Schema
-|*errorStack* +
-_optional_ +
-_read-only_|Error stack trace returned by java.|string
-|*items* +
-_optional_|Collection if attack signatures.|< object > array
-|*kind* +
-_optional_ +
-_read-only_|Type information for ASM web application security signatures - cm:asm:working-config:signatures:signaturecollectionstate.|string
-|*message* +
-_optional_ +
-_read-only_|Error message returned from server. Unauthorized|string
-|*requestBody* +
-_optional_ +
-_read-only_|The data in the request body. GET (None)|string
-|*requestOperationId* +
-_optional_ +
-_read-only_|Unique id assigned to rest operation.|integer(int64)
-|===
 
 [[_404_error_collection]]
 === 404_error_collection
@@ -159,7 +133,7 @@ _optional_ +
 _read-only_|Type information for ASM web application security signatures - cm:asm:working-config:signatures:signaturecollectionstate.|string
 |*message* +
 _optional_ +
-_read-only_|Error message returned from server. URI registration|string
+_read-only_|Error message returned from server.|string
 |*requestBody* +
 _optional_ +
 _read-only_|The data in the request body. GET (None)|string
@@ -192,25 +166,25 @@ _optional_|Unique id assocaited with ASM attack signature.|string
 _optional_|Is this ASM signature created by a user or pre packaged by the system.|boolean
 |*lastUpdateMicros* +
 _optional_ +
-_read-only_|Update time (micros) for last change made to a ASM attack signature object.|integer(int64)
+_read-only_|Update time (micros) for last change made to a ASM attack signature object. time.|integer(int64)
 |*matchesWihtinJson* +
-_optional_|A boolean value which indicates whether the signature will be matched within the scope of this policy object type. (JSON Profiles).|boolean
+_optional_|A unique id string for the BIGIQ acting as a device owner.|boolean
 |*matchesWithinCookie* +
-_optional_|A boolean value which indicates whether the signature will be matched withing the scope of this policy object type (Cookies).|boolean
+_optional_|Array of reference links to user used to create self-service task. mgmt/shared/authz/users/admin|boolean
 |*matchesWithinGwt* +
-_optional_|A boolean value which indicates whether the signature will be matched withing the scope of this policy object type (GWT profiles).|boolean(kind)
+_optional_|Type information for this self-service task object.|boolean(kind)
 |*matchesWithinParameter* +
-_optional_|A boolean value which indicates whether the signature will be matched withing the scope of this policy object type (Parameters).|boolean
+_optional_|Use this built-in filter to display only signatures that match the attack type that you select.|boolean
 |*matchesWithinPlainText* +
-_optional_|A boolean value which indicates whether the signature will be matched withing the scope of this policy object type (Plain Text Profiles).|boolean(kind)
+_optional_|Type information for this self-service task object.|boolean(kind)
 |*matchesWithinRequest* +
-_optional_|A boolean value which indicates whether the signature will be matched withing the scope of this policy object type (Request Headers).|boolean(kind)
+_optional_|Type information for this self-service task object.|boolean(kind)
 |*matchesWithinUri* +
-_optional_|A boolean value which indicates whether the signature will be matched withing the scope of this policy object type (URLs).|boolean(kind)
+_optional_|Type information for this self-service task object.|boolean(kind)
 |*matchesWithinXml* +
-_optional_|A boolean value which indicates whether the signature will be matched withing the scope of this policy object type (XML Profiles).|boolean(kind)
+_optional_|Type information for this self-service task object.|boolean(kind)
 |*modificationDateMicros* +
-_optional_|Value of the last modified time in micros.|integer
+_optional_|Type information for this self-service task object.|integer
 |*name* +
 _optional_|Name of ASM attack signature.|string
 |*partition* +
@@ -226,9 +200,9 @@ _read-only_|A reference link URI to the ASM attack signature object.|string
 _optional_ +
 _read-only_|Unique id assigned to a ASM signature object.|string
 |*signatureType* +
-_optional_|Used to identify the category of web application attack type associated with the signature. Table 11.1 lists types.|string
+_optional_|Attack types describes common web application attacks that signatures can detect. Table 11.1 lists types - https://support.f5.com/kb/en-us/products/big-ip_asm/manuals/product/config_guide_asm_10_2_0/asm_attack_sigs.html|string
 |*systems* +
-_optional_|Displays which systems (for example web applications, web servers databases, and application frameworks) where the signature is relevant. |< <<_properties_signature_systems,systems>> > array
+_optional_|Displays which systems (for example web applications, web servers databases, and application frameworks) the signature protects.|< <<_properties_signature_systems,systems>> > array
 |===
 
 [[_properties_signature_attacktypereference]]
@@ -270,7 +244,7 @@ _optional_|Reference link to ASM system.|string
 |Name|Description|Schema
 |*generation* +
 _optional_ +
-_read-only_|A integer that will track change made to web application security signatures collection object.|integer(int64)
+_read-only_|A integer that will track change made to web application security signatures collection object. generation.|integer(int64)
 |*items* +
 _optional_|Collection of ASM attack signatures.|< object > array
 |*kind* +
