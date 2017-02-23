@@ -1,0 +1,371 @@
+<h2 id="import-the-local-traffic-service-into-the-working-configuration-on-a-big-iq-centralized-management-system">Import the Local Traffic service into the working configuration on a BIG-IQ Centralized Management system</h2>
+<h3 id="overview">Overview</h3>
+<p>You can use the REST API to import the current configuration for the Local Traffic service on a BIG-IP device into the working configuration on the BIG-IQ Centralized Management system.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>You should be sure the following prerequisites have been met.</p>
+<ul>
+<li>All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system.</li>
+<li>The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system and the current configuration of the BIG-IP device has been discovered on the BIG-IQ Centralized Management system.</li>
+<li>When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.</li>
+</ul>
+<h3 id="description">Description</h3>
+<p>You use the following process to import the current configuration for the Local Traffic service of a BIG-IP device into the BIG-IQ Centralized Management system working configuration.</p>
+<ol style="list-style-type: decimal">
+<li>Determine the current state of the BIG-IP device by performing a GET method on the machineid-resolver URI. Using this information, the trust and discovery status of the BIG-IP device can be determined.</li>
+<li>Perform a POST method to the declare management authority URI to import the current configuration of the BIG-IP device.</li>
+<li>Monitor the task in the previous step using GET methods until the status reaches a value of FINISHED, FAILED, or CANCELLED.</li>
+<li>If pending conflicts are detected (when the value of currentStep is PENDING_CONFLICTS), perform a PATCH method on the declare management authority URI, with the appropriate conflict JSON.</li>
+<li>Perform additional GET methods on the declare management authority URI until the status value is FINISHED and the currentStep value is DONE.</li>
+</ol>
+<h3 id="importing-the-local-traffic-service">Importing the Local Traffic service</h3>
+<p>In the following example:</p>
+<ul>
+<li>The BIG-IP device discovery address is 10.255.4.124. you can substitute your BIG-IP device’s discovery address for this address when you implement the example.<br />
+</li>
+<li>The BIG-IP device is in a DSC cluster with another BIG-IP device which has a discovery address of 10.255.4.125. The trust relationship with the clustered BIG-IP device is established later and is not covered in this example.</li>
+</ul>
+<h4 id="determine-the-current-status-of-the-big-ip-device-on-the-big-iq-centralized-management-system.">1. Determine the current status of the BIG-IP device on the BIG-IQ Centralized Management system.</h4>
+<p>Perform a GET method on the machineid-resolver URI to determine if the BIG-IP device already has trust established. You should use the filter option to narrow the returned JSON information to just this particular BIG-IP device. If the value of the items element is not an empty list [], then the trust has already been established.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/system/machineid-resolver?$filter=(&#39;address&#39;+eq+&#39;10.255.4.124&#39;)</code></pre>
+<p>In the following response JSON from the GET method, the adc value is returned. Having the adc value returned indicates that the Local Traffic service has been discovered, and that trust already exists between the BIG-IP device and the BIG-IQ Centralized Management system.</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm:gui:module&quot;: [
+        &quot;BigIPDevice&quot;
+        &quot;adc&quot;
+    ]
+}</code></pre>
+<p>The Local Traffic service is discovered before any other service. If the adc value is not found in the list, the Local Traffic service has not been discovered and discovery must be performed. The machineId found in the response JSON will be used in Step 2.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/system/machineid-resolver?$filter=(&#39;address&#39;+eq+&#39;10.255.4.124&#39;)</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;generation&quot;: 0,
+    &quot;items&quot;: [
+        {
+            &quot;address&quot;: &quot;10.255.4.124&quot;,
+            &quot;build&quot;: &quot;0.0.141&quot;,
+            &quot;deviceUri&quot;: &quot;https://10.255.4.124:443&quot;,
+            &quot;edition&quot;: &quot;Final&quot;,
+            &quot;generation&quot;: 3,
+            &quot;hostname&quot;: &quot;bigip124.f5.com&quot;,
+            &quot;httpsPort&quot;: 443,
+            &quot;isClustered&quot;: false,
+            &quot;isVirtual&quot;: true,
+            &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+            &quot;lastUpdateMicros&quot;: 1478009254692241,
+            &quot;machineId&quot;: &quot;9f320100-2177-42e0-8a46-2e33cd3366da&quot;,
+            &quot;managementAddress&quot;: &quot;10.255.4.124&quot;,
+            &quot;mcpDeviceName&quot;: &quot;/Common/bigip124.f5.com&quot;,
+            &quot;product&quot;: &quot;BIG-IP&quot;,
+            &quot;properties&quot;: {
+                &quot;cm-bigip-allBigIpDevices&quot;: {
+                    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [
+                        &quot;BigIPDevice&quot;
+                    ],
+                    &quot;modules&quot;: [],
+                    &quot;shared:resolver:device-groups:discoverer&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;
+                },
+                &quot;cm-bigip-allDevices&quot;: {
+                    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [],
+                    &quot;modules&quot;: [],
+                    &quot;shared:resolver:device-groups:discoverer&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;
+                },
+                &quot;cm-bigip-cluster_Cluster-124-125&quot;: {
+                    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [],
+                    &quot;modules&quot;: [],
+                    &quot;shared:resolver:device-groups:discoverer&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;
+                },
+                &quot;cm:gui:module&quot;: [
+                    &quot;BigIPDevice&quot;
+                ],
+                &quot;modules&quot;: []
+            },
+            &quot;restFrameworkVersion&quot;: &quot;12.0.0-0.0.4211&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;,
+            &quot;slots&quot;: [
+                {
+                    &quot;build&quot;: &quot;0.0.141&quot;,
+                    &quot;isActive&quot;: false,
+                    &quot;product&quot;: &quot;BIG-IP&quot;,
+                    &quot;version&quot;: &quot;11.5.2&quot;,
+                    &quot;volume&quot;: &quot;HD1.1&quot;
+                },
+                {
+                    &quot;build&quot;: &quot;0.0.141&quot;,
+                    &quot;isActive&quot;: true,
+                    &quot;product&quot;: &quot;BIG-IP&quot;,
+                    &quot;version&quot;: &quot;11.5.2&quot;,
+                    &quot;volume&quot;: &quot;HD1.2&quot;
+                }
+            ],
+            &quot;state&quot;: &quot;ACTIVE&quot;,
+            &quot;trustDomainGuid&quot;: &quot;91bd712a-ad8f-4570-ab540050560145f3&quot;,
+            &quot;uuid&quot;: &quot;9f320100-2177-42e0-8a46-2e33cd3366da&quot;,
+            &quot;version&quot;: &quot;11.5.2&quot;
+        }
+    ],
+    &quot;lastUpdateMicros&quot;: 0,
+    &quot;selfLink&quot;: &quot;http://localhost:8100/cm/system/machineid-resolver?$filter=%28%27address%27+eq+%2710.255.4.124%27%29&quot;
+}</code></pre>
+<p>Before you import the Local Traffic service, verify that it has not already been imported. Perform a GET method on the cm-adccore-allbigipDevices device group, using the machine-id from the previous response to determine if the Local Traffic service on the BIG-IP device is already imported. Use the select filter to reduce the response JSON content. Review the indicated information in the response JSON:</p>
+<pre><code>    &quot;properties&quot;: {
+        &quot;discovered&quot;: true,
+        &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+        &quot;importStatus&quot;: &quot;FINISHED&quot;,     &lt;-- Should be missing
+        &quot;imported&quot;: true                &lt;-- Should be false
+     }</code></pre>
+<p>If the Local Traffic service is already imported, continuing with the example will re-import the existing current configuration into the working configuration.</p>
+<pre><code>GET: https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da?$select=address,properties</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;address&quot;: &quot;10.255.4.124&quot;,
+    &quot;properties&quot;: {
+        &quot;discovered&quot;: true,
+        &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+        &quot;imported&quot;: false,
+        &quot;lastDiscoveredDateTime&quot;: &quot;2016-11-01T20:07:23.690Z&quot;,
+        &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-11-01T20:07:23.690Z&quot;,
+        &quot;requiresDhcpProfileInDhcpVirtualServer&quot;: false,
+        &quot;restrictsPortTranslationStatelessVirtual&quot;: false,
+        &quot;supportsAlpineEnhs&quot;: false,
+        &quot;supportsBadgerEnhs&quot;: false,
+        &quot;supportsClassification&quot;: false,
+        &quot;supportsRest&quot;: true
+    }
+}</code></pre>
+<h4 id="perform-a-post-method-to-the-declare-management-authority-uri.">2. Perform a POST method to the declare management authority URI.</h4>
+<p>Perform a POST method containing the following JSON to the declare management authority discovery task URI. This POST starts the import. The following are the items that must be sent in the POST JSON:</p>
+<ul>
+<li>clusterName: Indicates the name of the cluster used when trust was established.</li>
+<li>createChildTask: Indicates whether there is a child import associated with the main import task. Set to false for Local Traffic.</li>
+<li>deviceReference: The BIG-IP device selfLink reference from Step 1.</li>
+<li>skipDiscovery: Indicates whether discovery should be skipped. Set to true since discovery is performed in another example.</li>
+<li>snapshotWorkingConfig: Indicates whether the working configuration on the BIG-IQ Centralized Management system should be captured in a snapshot prior to the import. Set to false for this example.</li>
+<li><p>useBigiqSync: Indicates whether the BIG-IQ Centralized Management system should synchronize objects for the cluster or whether the BIG-IP device should handle the synchronization. Set to the value that was set during trust establishment, false in this example.</p>
+<pre><code>POST: https://localhost/mgmt/cm/global/tasks/declare-mgmt-authority
+{
+&quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+&quot;createChildTasks&quot;: false,
+&quot;deviceReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+},
+&quot;skipDiscovery&quot;: true,
+&quot;snapshotWorkingConfig&quot;: false,
+&quot;useBigiqSync&quot;: false
+}</code></pre>
+<p>The following is the response JSON from the POST method:</p>
+<pre><code>{
+&quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+&quot;createChildTasks&quot;: false,
+&quot;deviceReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+},
+&quot;generation&quot;: 1,
+&quot;id&quot;: &quot;58dec475-b55d-40d9-a40c-64422d1a7374&quot;,
+&quot;identityReferences&quot;: [
+    {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+],
+&quot;kind&quot;: &quot;cm:adc-core:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+&quot;lastUpdateMicros&quot;: 1478009277993664,
+&quot;ownerMachineId&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;,
+&quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/tasks/declare-mgmt-authority/58dec475-b55d-40d9-a40c-64422d1a7374&quot;,
+&quot;skipDiscovery&quot;: true,
+&quot;snapshotWorkingConfig&quot;: false,
+&quot;status&quot;: &quot;STARTED&quot;,
+&quot;taskWorkerGeneration&quot;: 1,
+&quot;useBigiqSync&quot;: false,
+&quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+}
+}</code></pre></li>
+</ul>
+<h4 id="perform-additional-get-methods-to-the-import-task-created-in-step-2.">3. Perform additional GET methods to the import task created in Step 2.</h4>
+<p>Perform additional GET methods on the selfLink that is returned from the response JSON in Step 2. Perform them in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED. In addition to the status, currentStep should have the value of DONE or PENDING_CONFLICTS. In the following example, the currentStep value is PENDING_CONFLICTS, indicating that a conflict was detected, and so you need to perform Steps 4 and 5. If the currentStep value is DONE, then the import is complete and Steps 4 and 5 would not be performed.</p>
+<pre><code>GET: https://localhost/mgmt/cm/adc-core/tasks/declare-mgmt-authority/58dec475-b55d-40d9-a40c-64422d1a7374</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+    &quot;conflicts&quot;: [
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/persistence/source-addr/35d67560-c1f4-3c23-83e2-b3fdde826df4&quot;
+            },
+            &quot;resolution&quot;: &quot;NONE&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/current-config/ltm/persistence/source-addr/f144e386-b746-3944-bd01-714246db83c6&quot;
+            }
+        },
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/profile/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26&quot;
+            },
+            &quot;resolution&quot;: &quot;NONE&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/current-config/ltm/profile/http/712da21c-353e-31b3-94bc-751c09347c7c&quot;
+            }
+        }
+    ],
+    &quot;createChildTasks&quot;: false,
+    &quot;currentStep&quot;: &quot;PENDING_CONFLICTS&quot;,
+    &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;differenceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/reports/config-differences/93fccd5f-6c32-4004-8d40-77a7d1a3cea8&quot;
+    },
+    &quot;differencerTaskReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/tasks/difference-config/b7e4c971-d424-4b75-853a-3466865cee8b&quot;
+    },
+    &quot;endDateTime&quot;: &quot;2016-11-01T10:07:59.663-0400&quot;,
+    &quot;generation&quot;: 13,
+    &quot;id&quot;: &quot;58dec475-b55d-40d9-a40c-64422d1a7374&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:adc-core:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1478009279713746,
+    &quot;ownerMachineId&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;,
+    &quot;reimport&quot;: false,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/tasks/declare-mgmt-authority/58dec475-b55d-40d9-a40c-64422d1a7374&quot;,
+    &quot;skipDiscovery&quot;: true,
+    &quot;snapshotWorkingConfig&quot;: false,
+    &quot;startDateTime&quot;: &quot;2016-11-01T10:07:58.011-0400&quot;,
+    &quot;status&quot;: &quot;FINISHED&quot;,
+    &quot;useBigiqSync&quot;: false,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;,
+    &quot;validationBypassMode&quot;: &quot;BYPASS_FINAL&quot;
+}</code></pre>
+<h4 id="use-a-patch-method-to-the-import-task-returned-in-step-2-to-resolve-the-conflict-and-restart-the-import-task.">4. Use a PATCH method to the import task returned in Step 2 to resolve the conflict and restart the import task.</h4>
+<p>You resolve conflicts by selecting one of following options: - Select USE_BIGIQ to indicate that the existing working configuration on the BIG-IQ Centralized Management system will be maintained where any conflict exists. - Select USE_BIGIP to indicate that the current configuration on the BIG-IP device will be used to update the working configuration on the BIG-IQ Centralized Management system where any conflict exists. In this example, USE_BIGIQ is selected.</p>
+<p>You perform conflict resolution by using the PATCH method and looping through each of the listed conflicts and setting the resolution element as shown in the following example. In addition, the status must be set to STARTED.</p>
+<pre><code>PATCH: https://localhost/mgmt/cm/adc-core/tasks/declare-mgmt-authority/58dec475-b55d-40d9-a40c-64422d1a7374
+{
+    &quot;conflicts&quot;: [
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/persistence/source-addr/35d67560-c1f4-3c23-83e2-b3fdde826df4&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/current-config/ltm/persistence/source-addr/f144e386-b746-3944-bd01-714246db83c6&quot;
+            }
+        },
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/profile/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/current-config/ltm/profile/http/712da21c-353e-31b3-94bc-751c09347c7c&quot;
+            }
+        }
+    ],
+    &quot;status&quot;: &quot;STARTED&quot;
+}</code></pre>
+<p>The following is the response JSON from the PATCH method:</p>
+<pre><code>{
+    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+    &quot;conflicts&quot;: [
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/persistence/source-addr/35d67560-c1f4-3c23-83e2-b3fdde826df4&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/current-config/ltm/persistence/source-addr/f144e386-b746-3944-bd01-714246db83c6&quot;
+            }
+        },
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/profile/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/current-config/ltm/profile/http/712da21c-353e-31b3-94bc-751c09347c7c&quot;
+            }
+        }
+    ],
+    &quot;createChildTasks&quot;: false,
+    &quot;currentStep&quot;: &quot;COPY_CONFIG&quot;,
+    &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;differenceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/reports/config-differences/93fccd5f-6c32-4004-8d40-77a7d1a3cea8&quot;
+    },
+    &quot;differencerTaskReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/tasks/difference-config/b7e4c971-d424-4b75-853a-3466865cee8b&quot;
+    },
+    &quot;generation&quot;: 23,
+    &quot;id&quot;: &quot;58dec475-b55d-40d9-a40c-64422d1a7374&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:adc-core:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1478009283751175,
+    &quot;ownerMachineId&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;,
+    &quot;reimport&quot;: false,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/tasks/declare-mgmt-authority/58dec475-b55d-40d9-a40c-64422d1a7374&quot;,
+    &quot;skipDiscovery&quot;: true,
+    &quot;snapshotWorkingConfig&quot;: false,
+    &quot;startDateTime&quot;: &quot;2016-11-01T10:08:01.156-0400&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;useBigiqSync&quot;: false,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;,
+    &quot;validationBypassMode&quot;: &quot;BYPASS_FINAL&quot;
+}</code></pre>
+<h4 id="perform-additional-get-methods-on-the-import-task-created-in-step-2.">5. Perform additional GET methods on the import task created in Step 2.</h4>
+<p>Perform additional GET methods on the selfLink returned from either the Step 3 or Step 4 response. Perform the methods in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED, and currentStep has a value of DONE. Use a select option to reduce the content of the returned JSON to a manageable amount.</p>
+<pre><code>GET: https://localhost/mgmt/cm/adc-core/tasks/declare-mgmt-authority/58dec475-b55d-40d9-a40c-64422d1a7374?$select=deviceIp,status,currentStep</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+    &quot;status&quot;: &quot;FINISHED&quot;,
+    &quot;currentStep&quot;: &quot;DONE&quot;
+}</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<p>When an error occurs, use the BIG-IQ Centralized Management user interface for device management to determine the details of the failure. In addition to using the user interface, some error information can be determined from the REST API response JSON as shown in the following error.</p>
+<h4 id="error-generated-when-an-incorrect-uri-is-sent-in-the-rest-request.">Error generated when an incorrect URI is sent in the REST request.</h4>
+<pre><code>{
+  &quot;code&quot;: 404,
+  &quot;message&quot;: &quot;Public URI path not registered&quot;,
+  &quot;referer&quot;: &quot;192.168.101.130&quot;,
+  &quot;restOperationId&quot;: 19541801,
+  &quot;errorStack&quot;: [
+    &quot;com.f5.rest.common.RestWorkerUriNotFoundException: Public URI path not registered&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.cloneAndForwardRequest(ForwarderPassThroughWorker.java:250)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onForward(ForwarderPassThroughWorker.java:106)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onQuery(ForwarderPassThroughWorker.java:409)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callDerivedRestMethod(RestWorker.java:1071)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callRestMethodHandler(RestWorker.java:1040)&quot;,
+    &quot;at com.f5.rest.common.RestServer.processQueuedRequests(RestServer.java:1467)&quot;,
+    &quot;at com.f5.rest.common.RestServer.access$000(RestServer.java:53)&quot;,
+    &quot;at com.f5.rest.common.RestServer$1.run(RestServer.java:333)&quot;,
+    &quot;at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)&quot;,
+    &quot;at java.util.concurrent.FutureTask.run(FutureTask.java:262)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)&quot;,
+    &quot;at java.lang.Thread.run(Thread.java:745)\n&quot;
+  ],
+  &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>

@@ -1,0 +1,372 @@
+= BIG-IQ licensing - Purchased Pools.
+
+
+[[_overview]]
+== Overview
+API used to license BIG-IP devices via a purchased licensed pool.
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/device/licensing/pool/purchased-pool
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_pools_get]]
+=== GET the BIG-IQ purchased license pools.
+....
+GET /licenses
+....
+
+
+==== Description
+Returns a BIG-IQ purchaced license pools allowing an administrator to license BIG-IP devices.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET BIG-IQ purchased license pools.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_pools_objectid_get]]
+=== Used to GET a purchased license pool.
+....
+GET /licenses/{objectId}
+....
+
+
+==== Description
+Returns a purchased licensed pool object identified by id for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to purchased licensed pool object.|string(UUID)|None
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Purchased license pool object returned.|<<_properties_purchased_pool,properties_purchased_pool>>
+|*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_pools_objectid_members_post]]
+=== License a BIG-IP device and add to purchased license pool members.
+....
+POST /licenses/{objectId}/members
+....
+
+
+==== Description
+Invoke a task to license a BIG-IP and add to this specific purchased license pool as a member to the pool.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to license purchased pool object.|string(UUID)|None
+|*Body-Unmanaged*|*Json string request body - unmanaged device.* +
+_required_|Input parameter list in json format for an unmanaged device. Ex. {"deviceAddress": "bigip_address","username": "admin","password": "admin"} |<<_post_purchased_pool_body_unmanaged,post_purchased_pool_body_unmanaged>>|None
+|*Body-Managed*|*Json string request body - managed device.* +
+_required_|Input parameter list in json format for an managed device. Ex. {"deviceReference":{"link":"https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/2a2baaf0-b22f-49dc-81c6-4711fa189820"}} |<<_post_purchased_pool_body_managed,post_purchased_pool_body_managed>>|None
+
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST a device level task to license a BIG-IP device.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_pools_objectid_members_get]]
+=== Used to GET purchased license pool members.
+....
+GET /pools/{objectId}/members
+....
+
+
+==== Description
+Returns all members (BIG-IP) devices that are assingned to this purchased license pool. Each are identified by id/members for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to purchased license pool object.|string(UUID)|None
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Purchased license pool members object returned.|<<_properties_purchased_pool,properties_purchased_pool>>
+|*400*|Server error response "Bad Request".|<<_400_error_collection,400_error_collection>>
+|*404*|Error response "Public URI path not registered."|<<_404_error_collection,404_error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_400_error_collection]]
+=== 400_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection of purchased license pool objects.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for purchased license pools - cm:shared:licensing:pools:licensepoolworkerstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_404_error_collection]]
+=== 404_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection of purchased license pool objects.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for purchased license pools - cm:shared:licensing:pools:licensepoolworkerstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+[[_post_purchased_pool_body_unmanaged]]
+=== post_purchased_pool_body_unmanaged
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*deviceAddress* +
+_required_|IP Address of BIGIP you wish to license.|string
+|*username* +
+_required_|Username of BIGIP you wish to license.|string
+|*password* +
+_required_|Password of BIGIP you wish to license.|string
+|===
+
+[[_post_purchased_pool_body_managed]]
+=== post_purchased_pool_body_managed
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*deviceReference* +
+_required_|Reference link to BIGIP device under management by BIGIQ.|string
+|===
+
+
+[[_properties_collection]]
+=== properties_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a purchased license pool collection object. generation.|integer(int64)
+|*items* +
+_optional_|Collection of purchased license pool objects.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for a purchased license pool collection object.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an purchaced license pool collection object. time.|integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to a purchased license pool collection object.|string
+|===
+
+
+[[_properties_purchased_pool]]
+=== properties_purchased_pool
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*baseRegKey* +
+_optional_|Based Registration Key used to (re) activate purchased license pool.|string
+|*freeDeviceLicenses* +
+_read-only_|Total number of free device licenses for this purchased license pool.|integer
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a purchased license pool object. generation.|integer(int64)
+|*isInternal* +
+_BIG-IQ use only_|Is this purchased licensed pool internal to BIG-IQ.|boolean
+|*kind* +
+_optional_ +
+_read-only_|Type information for this purchased license pool object.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an purchased license pool object. time.|integer(int64)
+|*licenseState* +
+_read-only_|State representation of what is returned from the license server.|<<_properties_purchased_pool_licensestate,licenseState>>
+|*licenseText* +
+_optional_ +
+_read-only_|Contents of licensed purchased pool. Spefices for purchased license pool such as Auth version, Tech support info, license tokens, keys etc..|string
+|*method* +
+_optional_|Activation method used. (Example - MANUAL / AUTOMATIC)|string
+|*name* +
+_optional_|Name of purchased license pool object.|string
+|*privateKey* +
+_optional_|Private key cryptography keys which are known only to the owner.|string
+|*publicKey* +
+_optional_|Public key cryptography which may be disseminated widely.|< integer > array
+|*registeredKey* +
+_optional_|Registered key post cryptography response from server.|< integer > array
+|*selfLink* +
+_optional_ +
+_read-only_|Reference link to ppurchased licensed pool.|string
+|*sortName* +
+_optional_|Sort string based on BIG-IQ licensing type. (Purchased Pool)|string
+|*state* +
+_optional_|State of license for purchaced license pool. (Example - LICENSED)|string
+|*totalDeviceLicenses* +
+_optional_|Total number of device licenses for this purchased license pool.|integer
+|*uuid* +
+_optional_ +
+_read-only_|Unique id assigned to a purchased license pool object.|string
+|===
+
+[[_properties_purchased_pool_licensestate]]
+*licenseState*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*activeModules* +
+_optional_|Modules activivated for purchased license pool. (Example - VEP1, LTM, 1G, 4 Instances\|V092327-5105381\|IPV6 Gateway\|Rate Shaping\|Ram Cache)|< string > array
+|*authVers* +
+_optional_|Version of authentication used by BIG-IQ. (Example - 5b)|string
+|*authorization* +
+_optional_|Authorization string used by purchased license pool. Response from license server.|string
+|*dossier* +
+_optional_|Dossier generated for this purchased license pool. Response from license server.|string
+|*evaluationEndDateTime* +
+_optional_|End date and time a license server evaluate took place (Format - 2016-10-26T00:00:00-04:00)|string
+|*evaluationStartDateTime* +
+_optional_|Start date and time a license server evaluate took place (Format - 2016-10-26T00:00:00-04:00)|string
+|*exclusivePlatform* +
+_optional_|Platfrom description response from server. (Example - BIG-IQ Pool, Z100, Z100H, Z100K, Z100x)|< string > array
+|*featureFlags* +
+_optional_|Descritive flags avalible to purchased license pools.|< <<_properties_purchased_pool_featureflags,featureFlags>> > array
+|*licenseDateTime* +
+_optional_|Date and time license was generated. (Format - 2016-10-26T00:00:00-04:00)|string
+|*licenseEndDateTime* +
+_optional_|End date and time a license was instatiated on BIG-IQ (Format - 2016-10-26T00:00:00-04:00)|string
+|*licenseStartDateTime* +
+_optional_|Start date and time a license was instatiated on BIG-IQ (Format - 2016-10-26T00:00:00-04:00)|string
+|*licenseVersion* +
+_optional_|Version of BIG-IQ this license is generated for. (Example - 5.1.0)|string
+|*optionalModules* +
+_optional_|Modules that are optional for purchased license pool. (Example - VEP1, LTM, 1G, Add 25 Instances)|< string > array
+|*platformId* +
+_optional_|Type of BIG-IQ platform information. (Example - BIG-IQ Pool)|string
+|*registrationKey* +
+_optional_|Registration Key used by this purchased license pool. Response from license server.|string
+|*serviceCheckDateTime* +
+_optional_|Data and time the last service check status request / respose occur from server. (Format - 2016-10-26T00:00:00-04:00)|string
+|*serviceStatus* +
+_optional_|Server response describing service status. (Example - As of 2016-10-26 this system has an active service contract.)|string
+|*usage* +
+_optional_|Organization usage data. Example - F5 Internal Product Development|string
+|*vendor* +
+_optional_|Company Name. Example F5 Networks, Inc.|string
+|===
+
+[[_properties_purchased_pool_featureflags]]
+*featureFlags*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*featureName* +
+_optional_|Name of feature. (Example - purchased_license_pool_count, apm_urlf_limited_session, apm_web_applications)|string
+|*featureValue* +
+_optional_|Weighted value for each feature. (Example - 10)|string
+|===
+
+
+
+
+

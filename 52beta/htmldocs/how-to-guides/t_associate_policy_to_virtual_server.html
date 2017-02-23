@@ -1,0 +1,93 @@
+<h2 id="associating-a-web-application-security-policy-with-a-virtual-server.">Associating a Web Application Security policy with a virtual server.</h2>
+<h3 id="overview">Overview</h3>
+<p>Describes how you use the REST API to associate a Web Application Security policy with a virtual server.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ol style="list-style-type: decimal">
+<li>Device configuration discovered and imported to Web Application Security.</li>
+<li>The name, partition and device name of the virtual server should be known.</li>
+<li>The selfLink of the policy should be retrieved as explained in policy specific examples.</li>
+</ol>
+<h3 id="description">Description</h3>
+<p>Describes how you use the REST API to get the active policy of a specific virtual server on a specific device.</p>
+<p>Perform the REST API actions in the following order:</p>
+<ol style="list-style-type: decimal">
+<li>Perform a GET operation to determine the selfLink of a device.</li>
+<li>Perform a GET operation to determine the selfLink of a virtual server.</li>
+<li>Perform a PATCH operation to associate the policy to the virtual server.</li>
+</ol>
+<p>Note - to create new virtual servers, use the ADC APIs as shown in the ADC section.</p>
+<h3 id="rest-api-actions.">REST API actions.</h3>
+<h4 id="perform-a-get-operation-to-determine-the-selflink-of-a-device.">1. Perform a GET operation to determine the selfLink of a device.</h4>
+<p>Perform a GET operation on the Web Application Security devices collection, filtering the results by a name and limiting the result to show the device name and the device selfLink that will be used later for searches. In this example the name being searched for is 'device1.com'.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices?$filter=hostname eq &#39;device1.com&#39;&amp;$select=hostname,selfLink</code></pre>
+<p>The following is the JSON response from the GET operation:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;hostname&quot;: &quot;device1.com&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/c1444144-11e7-47e6-8e91-eaa913826a7f&quot;
+        }
+    ],
+    &quot;generation&quot;: 18,
+    &quot;kind&quot;: &quot;shared:resolver:device-groups:devicegroupdevicecollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479388471935401
+}</code></pre>
+<h4 id="perform-a-get-operation-to-determine-the-selflink-of-the-virtual-server.">2. Perform a GET operation to determine the selfLink of the virtual server.</h4>
+<p>Perform a GET operation to determine the selfLink of the virtual server, filtering the results by the device reference, name and partition fields.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/virtual-servers?$select=selfLink,name,fullPath,attachedPoliciesReferences&amp;$filter=deviceReference/link eq &#39;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/c1444144-11e7-47e6-8e91-eaa913826a7f&#39; and name eq &#39;Virtual_1&#39; and partition eq &#39;Common&#39;</code></pre>
+<p>The following is the JSON response from the GET operation:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/virtual-servers&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;attachedPoliciesReferences&quot;: [],
+            &quot;name&quot;: &quot;Virtual_1&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/virtual-servers/fc4cb3cf-b2d8-378a-8a64-07a27e60316c&quot;
+        }
+    ],
+    &quot;generation&quot;: 9,
+    &quot;kind&quot;: &quot;cm:asm:working-config:virtual-servers:asmvirtualservercollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479648626962187
+}</code></pre>
+<h4 id="perform-a-patch-operation-to-associate-the-policy-to-the-virtual-server.">3. Perform a PATCH operation to associate the policy to the virtual server.</h4>
+<p>Perform a PATCH operation to associate the policy to the virtual server. Use the selfLink retrieved in step #2.</p>
+<pre><code>PATCH: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/virtual-servers/&lt;virtual server id&gt;
+{  
+   &quot;attachedPoliciesReferences&quot;:[  
+      {  
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef&quot;
+      }
+   ]
+}</code></pre>
+<p>The following is the JSON response from the PATCH operation:</p>
+<pre><code>{
+    &quot;address&quot;: &quot;1.1.1.1:80&quot;,
+    &quot;asmEnabled&quot;: true,
+    &quot;isInactivePoliciesHolder&quot;: false,
+    &quot;hasAttachedPolicies&quot;: true,
+    &quot;mirror&quot;: &quot;disabled&quot;,
+    &quot;attachedPoliciesReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef&quot;
+        }
+    ],
+    &quot;isAdvanced&quot;: false,
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;id&quot;: &quot;c1444144-11e7-47e6-8e91-eaa913826a7f&quot;,
+        &quot;name&quot;: &quot;bubbles.olympus.f5net.com&quot;,
+        &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+        &quot;machineId&quot;: &quot;c1444144-11e7-47e6-8e91-eaa913826a7f&quot;,
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/c1444144-11e7-47e6-8e91-eaa913826a7f&quot;
+    },
+    &quot;name&quot;: &quot;Virtual_1&quot;,
+    &quot;id&quot;: &quot;fc4cb3cf-b2d8-378a-8a64-07a27e60316c&quot;,
+    &quot;generation&quot;: 5,
+    &quot;lastUpdateMicros&quot;: 1479648826263985,
+    &quot;kind&quot;: &quot;cm:asm:working-config:virtual-servers:asmvirtualserverstate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/virtual-servers/fc4cb3cf-b2d8-378a-8a64-07a27e60316c&quot;
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>

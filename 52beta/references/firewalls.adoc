@@ -1,0 +1,241 @@
+= BIG-IQ Firewall Contexts API
+
+
+[[_overview]]
+== Overview
+API used to create and modify firewall contexts on BIG-IQ
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/firewalls/working-config
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_firewalls_get]]
+=== List of firewall collections.
+....
+GET /firewalls
+....
+
+
+==== Description
+Returns the collection of firewalls.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Collection of firewalls.|<<_properties_firewall_collection,properties_firewall_collection>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+[[_firewalls_objectid_get]]
+=== Used to get a single firewall context.
+....
+GET /firewalls/{objectId}
+....
+
+
+==== Description
+Returns the firewall context identified by a endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Firewall object id|string(UUID)|None
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Firewall context object|<<_properties_firewall,properties_firewall>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+[[_firewalls_objectid_patch]]
+=== PATCH firewall context into firewall context.
+....
+PATCH /firewalls/{objectId}
+....
+
+
+==== Description
+Will patch enforced policy reference link into firewall context.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Firewall object id|string(UUID)|None
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Patch firewall policies to firewalls success.|<<_properties_firewall,properties_firewall>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_error_collection]]
+=== error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection of firewalls-error.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for firewalls object.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_properties_firewall]]
+=== properties_firewall
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*firewallIpAddress* +
+_optional_|Firewall IP Address|string
+|*firewallType* +
+_optional_|Firewall Type (vip, self-ip, route-domain, global, and management-ip)|string
+|*floating* +
+_optional_|Is this a floating ip interfaces are part of a shared vlan in a cluster.|boolean
+|*enforcedPolicyReference* +
+_optional_|Reference to a firewall policy of enforced type.|string
+|*servicePolicyReference* +
+_optional_|Reference to a firewall service policy used by BIG-IP.|string
+|*stagedPolicyReference* +
+_optional_|Reference to a firewall policy of staged type.|string
+|*natPolicyReference* +
+_optional_|Reference to a firewall NAT policy used by BIG-IP.|string
+|*deviceReference* +
+_required_|Reference properties for device BIGIP. (id, name, kind, machineId, link)|string
+|*subPath* +
+_optional_|Name of virtual used as part of path. ex. Full Path /Partition/virtual.app|string
+|*useDevicePolicy* +
+_optional_|Use device policy. yes/no|string
+|*useRouteDomainPolicy* +
+_optional_|Use Route Domain policy. yes/no|string
+|*description* +
+_optional_|Description of security firewall context.|string
+|*generation* +
+_optional_ +
+_read-only_|An integer that will track change made to a firewall object. generation.|integer(int64)
+|*id* +
+_optional_ +
+_read-only_|Unique id assigned to a firewall object.|string
+|*kind* +
+_optional_ +
+_read-only_|Type information for a firewall object.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to a firewall object. time.|integer(int64)
+|*name* +
+_optional_|Name of object.|string
+|*partition* +
+_optional_|BIGIP partition this object exists.|string
+|*rulesCollectionReference* +
+_optional_|Reference link to firewall rules assigned to this firewall object.|<<_properties_firewall_rulescollectionreference,rulesCollectionReference>>
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the firewall object.|string
+|===
+
+[[_properties_firewall_rulescollectionreference]]
+*rulesCollectionReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|
+Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to rules collection object. (In-line rules for firewalls not supported.)|string
+|===
+
+
+[[_properties_firewall_collection]]
+=== properties_firewall_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_|An integer that will track change made to a firewall collection object-generation.|integer(int64)
+|*items* +
+_optional_|Collection of firewall-properties.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for this firewall collection object.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to a firewall collection object-time.|integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the firewall collection object.|string
+|===
+
+
+
+
+

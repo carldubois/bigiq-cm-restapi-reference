@@ -1,0 +1,52 @@
+<h2 id="listing-virtual-servers-with-a-web-application-security-policy-associated-with-them.">Listing virtual servers with a Web Application Security policy associated with them.</h2>
+<h3 id="overview">Overview</h3>
+<p>Describes how you use the REST API to list all virtual servers with a Web Application Security policy associated with them.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Device configuration discovered and imported to Web Application Security.</p>
+<h3 id="description">Description</h3>
+<p>Describes how you use the REST API to list all virtual servers with a Web Application Security policy associated with them.</p>
+<h3 id="rest-api-actions">REST API actions</h3>
+<h4 id="perform-a-get-operation-to-the-web-application-security-virtual-server-collection-selecting-only-the-name-attachedpolicyreferences-address-and-isinactivepoliciesholder-fields-and-filtering-the-results-to-include-virtual-servers-that-have-a-security-policy-associated-with-them.">1. Perform a GET operation to the Web Application Security virtual server collection, selecting only the 'name', 'attachedPolicyReferences', 'address' and 'isInactivePoliciesHolder' fields, and filtering the results to include virtual servers that have a security policy associated with them.</h4>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/virtual-servers?$select=name,address,attachedPoliciesReferences,isInactivePoliciesHolder&amp;$filter=attachedPoliciesReferences/link eq &#39;*&#39;</code></pre>
+<p>The following is the JSON response from the GET operation:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/virtual-servers&quot;,
+    &quot;totalItems&quot;: 2,
+    &quot;items&quot;: [
+        {
+            &quot;address&quot;: &quot;0.0.0.0&quot;,
+            &quot;isInactivePoliciesHolder&quot;: true,
+            &quot;attachedPoliciesReferences&quot;: [
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/68981f45-00a0-35d8-947b-4741ead42012&quot;
+                },
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/034e195d-5267-3c6c-bf1d-28a117f3fc87&quot;
+                },
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/95d37173-5c5d-32de-b6a3-59094e0b99cd&quot;
+                }
+            ],
+            &quot;name&quot;: &quot;inactive&quot;
+        },
+        {
+            &quot;address&quot;: &quot;1.1.1.1:80&quot;,
+            &quot;attachedPoliciesReferences&quot;: [
+                {
+                    &quot;id&quot;: &quot;1005831c-7e40-30ed-bd0d-f8068526d7ef&quot;,
+                    &quot;name&quot;: &quot;Policy_1&quot;,
+                    &quot;kind&quot;: &quot;cm:asm:working-config:policies:policystate&quot;,
+                    &quot;partition&quot;: &quot;Common&quot;,
+                    &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef&quot;
+                }
+            ],
+            &quot;isInactivePoliciesHolder&quot;: false,
+            &quot;name&quot;: &quot;Virtual_1&quot;
+        }
+    ],
+    &quot;generation&quot;: 8,
+    &quot;kind&quot;: &quot;cm:asm:working-config:virtual-servers:asmvirtualservercollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479388471928975
+}</code></pre>
+<p>Note: that there are two types of virtual servers in Web Application Security: inactive policies holder, and regular. The inactive policies holder can have multiple policies associated with it, and is used to deploy policies to devices without using them to enforce rules on traffic for that device. The regular virtual servers can only have one policy associated with them, and are used to enforce rules on traffic.</p>
+<h3 id="api-references">API References</h3>

@@ -1,0 +1,105 @@
+<h2 id="checking-whether-a-policy-is-in-use-by-a-specific-device.">Checking whether a policy is in use by a specific device.</h2>
+<h3 id="overview">Overview</h3>
+<p>Describes how you use the REST API to determine if a policy is in use by a specific device.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>None.</p>
+<h3 id="description">Description</h3>
+<p>Describes how you use the REST API to determine if a policy is in use by a specific device.</p>
+<p>A policy is in use if a virtual server of specific device has the policy attached to it. A special virtual server called 'inactive' can be used to associate a policy to a device without actually using it to secure traffic.</p>
+<p>Perform the REST API actions in the following order:</p>
+<ol style="list-style-type: decimal">
+<li>Perform a GET operation to determine the selfLink of a policy.</li>
+<li>Perform a GET operation to determine the selfLink of a device.</li>
+<li>Perform a GET operation to the virtual-servers collection with a filter to find if any virtual servers on that device are using that policy.</li>
+</ol>
+<p>The following extended example shows each of these REST API actions.</p>
+<h4 id="perform-a-get-operation-to-determine-the-selflink-of-a-policy.">1. Perform a GET operation to determine the selfLink of a policy.</h4>
+<p>Perform a GET operation on the policies collection, filtering the results by a name and limiting the result to show specific fields that are defining the resource, together with a link to retrieve all the policy properties (selfLink). In this example the name being searched for is 'Policy_1'.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/policies?$filter=name eq &#39;Policy_1&#39;&amp;$select=name,fullPath,selfLink</code></pre>
+<p>The following is the JSON response from the GET operation:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;fullPath&quot;: &quot;/Common/Policy_1&quot;,
+            &quot;name&quot;: &quot;Policy_1&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef&quot;
+        }
+    ],
+    &quot;generation&quot;: 9,
+    &quot;kind&quot;: &quot;cm:asm:working-config:policies:policycollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1478688837870194
+}</code></pre>
+<h4 id="perform-a-get-operation-to-determine-the-selflink-of-a-device.">2. Perform a GET operation to determine the selfLink of a device.</h4>
+<p>Perform a GET operation on the Web Application Security devices collection, filtering the results by a name and limiting the result to show the device name and the device selfLink that will be used later for searches. In this example the name being searched for is 'device1.com'.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices?$filter=hostname eq &#39;device1.com&#39;&amp;$select=hostname,selfLink</code></pre>
+<p>The following is the JSON response from the GET operation:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;hostname&quot;: &quot;device1.com&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/c1444144-11e7-47e6-8e91-eaa913826a7f&quot;
+        }
+    ],
+    &quot;generation&quot;: 18,
+    &quot;kind&quot;: &quot;shared:resolver:device-groups:devicegroupdevicecollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479388471935401
+}</code></pre>
+<h4 id="perform-a-get-operation-to-the-virtual-servers-collection-with-a-filter-to-find-if-any-virtual-servers-on-that-device-are-using-that-policy.">3. Perform a GET operation to the virtual-servers collection with a filter to find if any virtual servers on that device are using that policy.</h4>
+<p>Perform a GET operation on the virtual-servers collection, filtering the results by the attachedPoliciesReferences field to retrieve virtual servers that are using the policy that was retrieved above in step #1 of the example, and by the deviceReference that was retrieved above in step #2 of the example.</p>
+<pre><code>GET https://mgmtip/mgmt/cm/asm/working-config/virtual-servers?$filter=attachedPoliciesReferences/link eq &#39;https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef&#39; and deviceReference/link eq &#39;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/c1444144-11e7-47e6-8e91-eaa913826a7f&#39;</code></pre>
+<p>The following is the JSON response from the GET operation when one virtual server is using it:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/virtual-servers&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;address&quot;: &quot;1.1.1.1:80&quot;,
+            &quot;asmEnabled&quot;: true,
+            &quot;attachedPoliciesReferences&quot;: [
+                {
+                    &quot;id&quot;: &quot;1005831c-7e40-30ed-bd0d-f8068526d7ef&quot;,
+                    &quot;name&quot;: &quot;Policy_1&quot;,
+                    &quot;kind&quot;: &quot;cm:asm:working-config:policies:policystate&quot;,
+                    &quot;partition&quot;: &quot;Common&quot;,
+                    &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef&quot;
+                }
+            ],
+            &quot;deviceReference&quot;: {
+                &quot;id&quot;: &quot;c1444144-11e7-47e6-8e91-eaa913826a7f&quot;,
+                &quot;name&quot;: &quot;device1.com&quot;,
+                &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+                &quot;machineId&quot;: &quot;c1444144-11e7-47e6-8e91-eaa913826a7f&quot;,
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/c1444144-11e7-47e6-8e91-eaa913826a7f&quot;
+            },
+            &quot;generation&quot;: 3,
+            &quot;hasAttachedPolicies&quot;: true,
+            &quot;id&quot;: &quot;fc4cb3cf-b2d8-378a-8a64-07a27e60316c&quot;,
+            &quot;isAdvanced&quot;: false,
+            &quot;isInactivePoliciesHolder&quot;: false,
+            &quot;kind&quot;: &quot;cm:asm:working-config:virtual-servers:asmvirtualserverstate&quot;,
+            &quot;lastUpdateMicros&quot;: 1479388471920145,
+            &quot;mirror&quot;: &quot;disabled&quot;,
+            &quot;name&quot;: &quot;Virtual_1&quot;,
+            &quot;partition&quot;: &quot;Common&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/virtual-servers/fc4cb3cf-b2d8-378a-8a64-07a27e60316c&quot;
+        }
+    ],
+    &quot;generation&quot;: 8,
+    &quot;kind&quot;: &quot;cm:asm:working-config:virtual-servers:asmvirtualservercollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479388471928975
+}</code></pre>
+<p>When no such virtual servers exist, the response would be:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/virtual-servers&quot;,
+    &quot;totalItems&quot;: 0,
+    &quot;items&quot;: [],
+    &quot;generation&quot;: 8,
+    &quot;kind&quot;: &quot;cm:asm:working-config:virtual-servers:asmvirtualservercollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479388471928975
+}</code></pre>
+<p>Note - to determine the list of all policies that are in use, perform a GET operation to the policies collection and repeat the operations shown here for each policy.</p>
+<h3 id="api-reference">API Reference</h3>

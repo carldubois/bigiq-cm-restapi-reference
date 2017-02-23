@@ -1,0 +1,143 @@
+<h2 id="deploying-a-web-application-security-configuration.">Deploying a Web Application Security configuration.</h2>
+<h3 id="overview">Overview</h3>
+<p>The document describes how to use the REST API to deploy Web Application Security configuration changes as saved on BIG-IQ to BIG-IP devices.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Device configuration discovered and imported to Web Application Security.</p>
+<h3 id="description">Description</h3>
+<p>The document describes how to use the REST API to deploy Web Application Security configuration changes as saved on BIG-IQ to BIG-IP devices.</p>
+<p>Perform the REST API actions in the following order:</p>
+<ol style="list-style-type: decimal">
+<li>Perform a GET operation to determine the selfLink of a device.</li>
+<li>Evaluate the configuration changes created by the Web Application Security configuration modifications to determine if there are errors.</li>
+<li>Check the status of the deployment of the Web Application Security configuration changes to the network.</li>
+</ol>
+<p>The following extended example shows each of these REST API actions.</p>
+<h4 id="perform-a-get-operation-to-determine-the-selflink-of-a-device.">1. Perform a GET operation to determine the selfLink of a device.</h4>
+<p>Perform a GET operation on the Web Application Security devices collection, filtering the results by a name and limiting the result to show the device name and the device selfLink that will be used later for searches. In this example the name being searched for is 'device1.com'.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices?$filter=hostname eq &#39;device1.com&#39;&amp;$select=hostname,selfLink</code></pre>
+<p>The following is the JSON response from the GET operation:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;hostname&quot;: &quot;device1.com&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/c1444144-11e7-47e6-8e91-eaa913826a7f&quot;
+        }
+    ],
+    &quot;generation&quot;: 18,
+    &quot;kind&quot;: &quot;shared:resolver:device-groups:devicegroupdevicecollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479388471935401
+}</code></pre>
+<h4 id="evaluate-the-configuration-changes-created-by-the-web-application-security-configuration-modifications-to-determine-if-there-are-errors.">2. Evaluate the configuration changes created by the Web Application Security configuration modifications to determine if there are errors.</h4>
+<p>A deployment task must be created that includes the required BIG-IP devices.</p>
+<p>Perform a POST operation to the following URL to create the deployment task:</p>
+<pre><code>POST: https://&lt;mgmtip&gt;/mgmt/cm/asm/tasks/deploy-configuration</code></pre>
+<p>The deployment can also be created in the deploy-immediately mode (where <code>skipDistribution</code> is set to false) as follows. This type of deployment is only recommended if no warnings or errors are expected.</p>
+<pre><code>{
+    &quot;createChildTasks&quot;: true,
+    &quot;description&quot;: &quot;Deploy and distribute&quot;,
+    &quot;deviceReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/d22358b7-2124-48f6-8fc0-3cf69fb4728b&quot;
+        }
+    ],
+    &quot;name&quot;: &quot;Deploy_1&quot;,
+    &quot;skipDistribution&quot;: false
+}</code></pre>
+<p>After creating the deployment task in either of these ways, continue to the next step to determine when the deployment completes and its final status. The <code>deviceReferences</code> will be a list of device references determined from the previous step. The name and description fields should be modified to allow unique tracking of each deployment.</p>
+<p>If there is a concern that there may be issues with the configuration, the deployment can be done in stages. The first stage is the evaluation stage. If no errors or warnings are detected during evaluation, the configuration can then be deployed to the BIG-IP device in the second stage.</p>
+<p>The deployment evaluation is created by performing a POST of the following to the deployment task URI defined above. Once again, the name and description fields should be modified to allow unique tracking of each deployment.</p>
+<pre><code>{
+    &quot;createChildTasks&quot;: true,
+    &quot;description&quot;: &quot;Deploy without distribution to BIG-IP&quot;,
+    &quot;deviceReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/c1444144-11e7-47e6-8e91-eaa913826a7f&quot;
+        }
+    ],
+    &quot;name&quot;: &quot;Deploy_2&quot;
+    &quot;skipDistribution&quot;: true
+}</code></pre>
+<p>In either deployment case, the response JSON for the POST is as follows:</p>
+<pre><code>{
+    &quot;skipDistribution&quot;: false,
+    &quot;deviceReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/d22358b7-2124-48f6-8fc0-3cf69fb4728b&quot;
+        }
+    ],
+    &quot;createChildTasks&quot;: true,
+    &quot;id&quot;: &quot;e58bb493-3fb4-4661-bee3-5e6c1cbec531&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;name&quot;: &quot;Deploy_1&quot;,
+    &quot;description&quot;: &quot;Deploy and distribute&quot;,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;ownerMachineId&quot;: &quot;415334a7-c1d7-44d4-af1a-b11fad4d9d85&quot;,
+    &quot;taskWorkerGeneration&quot;: 1,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1480338832043019,
+    &quot;kind&quot;: &quot;cm:asm:tasks:deploy-configuration:deployconfigtaskstate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/tasks/deploy-configuration/e58bb493-3fb4-4661-bee3-5e6c1cbec531&quot;
+}</code></pre>
+<p>If the deploy-immediately option was not used, the following URL should be queried approximately every 10 seconds, waiting for the status value to be FINISHED, FAILED or CANCELED:</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/asm/tasks/deploy-configuration/e58bb493-3fb4-4661-bee3-5e6c1cbec531</code></pre>
+<p>If the task reaches the FINISHED status, the <code>deviceDetails</code> for the main task and <code>childDeployTasks</code> should be checked for the <code>verificationCriticalErrorCount</code> and <code>verificationErrorCount</code> as shown in the following.</p>
+<p>If however, the status does not reach FINISHED or either count is not 0, consult the BIG-IQ Centralized Management Web Application Security Deployment page to determine the issue encountered with the deployment evaluation task.</p>
+<pre><code>    “childDeployTasks”: [
+        .
+        .
+        &quot;deviceDetails&quot;: [
+            {
+                &quot;deviceReference&quot;: {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-security-shared-allSharedDevices/devices/d22358b7-2124-48f6-8fc0-3cf69fb4728b&quot;
+                },
+                &quot;differenceCount&quot;: 4,
+                &quot;hostname&quot;: &quot;device1.com&quot;,
+                &quot;postDeploymentErrorCount&quot;: 0,
+                &quot;verificationCriticalErrorCount&quot;: 0,
+                &quot;verificationErrorCount&quot;: 1
+            }
+        ],
+        .
+        .
+    ],
+    .
+    .
+    &quot;deviceDetails&quot;: [
+        {
+            &quot;status&quot;: &quot;SUCCESS&quot;,
+            &quot;deviceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-asm-allAsmDevices/devices/d22358b7-2124-48f6-8fc0-3cf69fb4728b&quot;
+            },
+            &quot;differenceCount&quot;: 4,
+            &quot;verificationErrorCount&quot;: 0,
+            &quot;verificationCriticalErrorCount&quot;: 0,
+            &quot;postDeploymentErrorCount&quot;: 0,
+            &quot;hostname&quot;: &quot;device1.com&quot;
+        }
+    ],</code></pre>
+<p>If the verification counts are all 0, then the deployment evaluation phase did not find any issues and the deployment can continue.</p>
+<p>Perform a PATCH operation on the existing deployment task as follows and then continue to the next step.</p>
+<pre><code>PATCH:  https://&lt;mgmtip&gt;//mgmt/cm/asm/tasks/deploy-configuration/e58bb493-3fb4-4661-bee3-5e6c1cbec531
+{
+    &quot;skipDistribution&quot;: false,
+    &quot;status&quot;: &quot;STARTED&quot;
+}</code></pre>
+<h4 id="check-the-status-of-the-deployment-of-the-web-application-security-configuration-changes-to-the-network.">3. Check the status of the deployment of the Web Application Security configuration changes to the network.</h4>
+<p>Check that the deployment task has completed without errors. Poll the deployment task as outlined previously, looking for the status of FINISHED, FAILED or CANCELED. The optional select is used to limit the return JSON content to the elements interested.</p>
+<pre><code>GET:  https://&lt;mgmtip&gt;//mgmt/cm/asm/tasks/deploy-configuration/e58bb493-3fb4-4661-bee3-5e6c1cbec531?$select=name,status</code></pre>
+<p>The final task response JSON should look similar to the following:</p>
+<pre><code>{
+    &quot;name&quot;: &quot;Deploy_1&quot;,
+    &quot;status&quot;: &quot;FINISHED&quot;,
+}</code></pre>
+<p>If the status does not reach FINISHED, consult the Web Application Security Deployment page in the BIG-IQ Centralized Management user interface to determine the issue encountered with the deployment task.</p>
+<h3 id="api-reference">API Reference</h3>

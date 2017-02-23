@@ -1,0 +1,305 @@
+<h1 id="regkey-pool-licence">RegKey Pool Licence</h1>
+<h2 id="overview">Overview</h2>
+<p>This set of APIs provides a way to manage a standalone registration key. These APIs provide methods to create a RegKey Pool, add/remove registration keys to or from the pool, assign a key to a BIG-IP device, and generate a usage report.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Make certain that the following prerequisites have been met.</p>
+<ul>
+<li>The BIG-IQ Centralized Management device is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>The BIG-IQ has an internet connection to F5 licensing server if the user plans to use automatic activation</li>
+<li>You have set of BIG-IP VE license keys to be managed</li>
+<li>You have either the administrator or device manager role.</li>
+</ul>
+<p>Note: When you perform these tasks using the example code provided, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ device, change localhost to be the IP address of the BIG-IQ Centralized Management device.</p>
+<h3 id="manage-regkey-pool">Manage RegKey pool</h3>
+<p>This API provides methods to manage the RegKey Pool collection by creating, updating, or deleting an item.</p>
+<h4 id="create-a-regkey-pool.">1. Create a RegKey pool.</h4>
+<p>A typical post looks like this:</p>
+<p>POST https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses</p>
+<pre><code>Request
+    {
+        &quot;name&quot; : &quot;Primary RegKey Pool&quot;,
+        &quot;description&quot; : &quot;This is the main pool to use&quot;
+    }
+
+Response
+    {
+        &quot;id&quot;: &quot;cae1479c-39da-4cc3-989f-cabee61a630d&quot;,
+        &quot;name&quot;: &quot;Primary RegKey Pool&quot;,
+        &quot;description&quot;: &quot;This is the main pool to use&quot;,
+        &quot;sortName&quot;: &quot;Registration Key Pool&quot;,
+        &quot;generation&quot;: 1,
+        &quot;lastUpdateMicros&quot;: 1469047687414241,
+        &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:regkeypoollicensestate&quot;,
+        &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/cae1479c-39da-4cc3-989f-cabee61a630d&quot;
+    }</code></pre>
+<h4 id="view-regkey-pool-data.">2. View RegKey pool data.</h4>
+<p>A typical post looks like this:</p>
+<p>GET https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses</p>
+<pre><code>Response
+    {
+        &quot;items&quot;: [
+        {
+          &quot;id&quot;: &quot;01b6b9db-4e8a-4dd0-90c7-69f61aa33869&quot;,
+          &quot;name&quot;: &quot;Pool A&quot;,
+          &quot;description&quot;: &quot;My first RegKey Pool&quot;,
+          &quot;sortName&quot;: &quot;Registration Key Pool&quot;,
+          &quot;generation&quot;: 3,
+          &quot;lastUpdateMicros&quot;: 1469047312780414,
+          &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:regkeypoollicensestate&quot;,
+          &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/01b6b9db-4e8a-4dd0-90c7-69f61aa33869&quot;
+        },
+        {
+          &quot;id&quot;: &quot;996c7d63-78af-44be-969f-e50c67bb34f0&quot;,
+          &quot;name&quot;: &quot;Pool B&quot;,
+          &quot;description&quot;: &quot;My second RegKey Pool&quot;,
+          &quot;sortName&quot;: &quot;Registration Key Pool&quot;,
+          &quot;generation&quot;: 1,
+          &quot;lastUpdateMicros&quot;: 1469047340095990,
+          &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:regkeypoollicensestate&quot;,
+          &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/996c7d63-78af-44be-969f-e50c67bb34f0&quot;
+        }
+        ],
+        &quot;generation&quot;: 4,
+        &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:regkeypoollicensecollectionstate&quot;,
+        &quot;lastUpdateMicros&quot;: 1469047340099287,
+        &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses&quot;
+    }</code></pre>
+<h4 id="update-individual-regkey-pool-to-change-name-andor-description.">3. Update individual RegKey pool to change name and/or description.</h4>
+<p>A typical post looks like this:</p>
+<p>PATCH https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}</p>
+<pre><code>Request
+    {
+        &quot;name&quot; : &quot;new name&quot;,
+        &quot;description&quot; : &quot;new description&quot;
+    }
+
+Response
+    {
+        &quot;id&quot;: &quot;cae1479c-39da-4cc3-989f-cabee61a630d&quot;,
+        &quot;name&quot;: &quot;new name&quot;,
+        &quot;description&quot;: &quot;new description&quot;,
+        &quot;sortName&quot;: &quot;Registration Key Pool&quot;,
+        &quot;generation&quot;: 1,
+        &quot;lastUpdateMicros&quot;: 1469047687414241,
+        &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:regkeypoollicensestate&quot;,
+        &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/cae1479c-39da-4cc3-989f-cabee61a630d&quot;
+    }</code></pre>
+<h4 id="remove-a-regkey-pool.">4. Remove a RegKey pool.</h4>
+<p>Note: You can not delete a regkey if it is assigned to a BIG-IP device.</p>
+<p>A typical post looks like this:</p>
+<p>DELETE https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}</p>
+<h3 id="managing-registration-keys-for-a-regkey-pool.">Managing registration keys for a RegKey pool.</h3>
+<p>A collection is automatically created beneath a top-level Regkey Pool. Unlike a typical Offerings Collection used by other pool license types, you need to interact directly with this collection to activate the regkeys in it.</p>
+<p>The activation process exposed by this collection's API is very similar to that of the top-level collections for other pool license types.</p>
+<h4 id="add-a-license-key-with-automatic-activation.">1. Add a license key with automatic activation.</h4>
+<p>A typical post looks like this:</p>
+<p>POST https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings</p>
+<pre><code>Request:
+
+{
+    &quot;regKey&quot;: &quot;AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE&quot;,
+    &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;,
+    &quot;name&quot; : &quot;my own freeform name&quot;,
+}
+
+Response:
+{
+    &quot;regKey&quot; : &quot;MY-REGISTRATION-KEY&quot;,
+    &quot;name&quot; : &quot;my own freeform name&quot;,
+    &quot;status&quot; : &quot;ACTIVATING_AUTOMATIC&quot;,
+    &quot;message&quot; : &quot;Activation in progress&quot;,
+}</code></pre>
+<h4 id="poll-to-get-status.">2. Poll to get status.</h4>
+<p>After posting the license, you should poll to check the activation status.</p>
+<p>A typical post looks like this:</p>
+<p>GET https://ip/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</p>
+<pre><code>Response:
+{
+    &quot;regKey&quot; : &quot;MY-REGISTRATION-KEY&quot;,
+    &quot;name&quot; : &quot;my own freeform name&quot;,
+    &quot;status&quot; : &quot;ACTIVATING_AUTOMATIC_NEED_EULA_ACCEPT&quot;,
+    &quot;message&quot; : &quot;Need EULA acceptance in order to continue&quot;,
+    &quot;eulaText&quot; : &quot;The exact EULA text goes here...&quot;
+}</code></pre>
+<h4 id="patch-to-accept-eula.">3. Patch to accept EULA.</h4>
+<p>After you accept the EULA, subsequent polls show the activation process status. Eventually, the activation returns a status of either ACTIVATION_FAILED or READY.</p>
+<p>A typical post looks like this:</p>
+<p>PATCH https://ip/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</p>
+<pre><code>Request:
+{
+    &quot;status&quot; : &quot;ACTIVATING_AUTOMATIC_EULA_ACCEPTED&quot;,
+    &quot;eulaText&quot; : &quot;The exact EULA text goes here...&quot;
+}
+
+Response:
+{
+    &quot;regKey&quot; : &quot;MY-REGISTRATION-KEY&quot;,
+    &quot;name&quot; : &quot;my own freeform name&quot;,
+    &quot;status&quot; : &quot;ACTIVATING_AUTOMATIC_EULA_ACCEPTED&quot;,
+    &quot;eulaText&quot; : &quot;The exact EULA text goes here...&quot;
+}</code></pre>
+<h4 id="for-manual-activation-patch-to-provide-license-text-to-activate-the-license.">4. For manual activation, patch to provide license text to activate the license.</h4>
+<p>For manual activation, you submit the license text to finish the activation process.</p>
+<p>A typical post looks like this:</p>
+<p>PATCH https://ip/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</p>
+<pre><code>Request:
+{
+    &quot;status&quot; : &quot;ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED&quot;,
+    &quot;licenseText&quot; : &quot;The exact license text goes here...&quot;
+}
+Response:
+{
+    &quot;regKey&quot; : &quot;MY-REGISTRATION-KEY&quot;,
+    &quot;name&quot; : &quot;my own freeform name&quot;,
+    &quot;status&quot; : &quot;ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED&quot;,
+    &quot;licenseText&quot; : &quot;The exact license text goes here...&quot;
+}</code></pre>
+<h4 id="patch-to-retry-a-failed-activation-or-reactivate-an-existing-license.">5. Patch to retry a failed activation or reactivate an existing license.</h4>
+<p>Before retrying the activation, you should check the logs and error messages to find the root cause of the failure. Possible causes might be an incorrect registration key or a connection error to licensing server, or something similar.</p>
+<p>A typical post looks like this:</p>
+<p>PATCH https://ip/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</p>
+<pre><code>Request:
+{
+    &quot;status&quot; : &quot;ACTIVATING_AUTOMATIC&quot;,
+}
+
+Response:
+{
+    &quot;regKey&quot; : &quot;MY-REGISTRATION-KEY&quot;,
+    &quot;name&quot; : &quot;my own freeform name&quot;,
+    &quot;status&quot; : &quot;ACTIVATING_AUTOMATIC&quot;
+}</code></pre>
+<h4 id="reactivate-a-license-with-add-on-keys.">6 Reactivate a license with add-on keys.</h4>
+<p>For automatic activation, you do not need to accept the EULA again.</p>
+<p>A typical post looks like this:</p>
+<p>PATCH https://ip/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</p>
+<pre><code>Request:
+{
+    &quot;status&quot; : &quot;ACTIVATING_AUTOMATIC&quot;,
+    &quot;addOnKeys&quot;: [&quot;adfasdfasdfasdf&quot;]
+}
+
+Response:
+{
+    &quot;regKey&quot; : &quot;MY-REGISTRATION-KEY&quot;,
+    &quot;addOnKeys&quot;: [&quot;adfasdfasdfasdf&quot;]
+    &quot;name&quot; : &quot;my own freeform name&quot;,
+    &quot;status&quot; : &quot;ACTIVATING_AUTOMATIC&quot;
+}</code></pre>
+<h4 id="delete.">7 Delete.</h4>
+<p>Note: you can not delete a regkey if it is assigned to a BIG-IP device.</p>
+<p>A typical post looks like this:</p>
+<p>DELETE https://ip/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</p>
+<h3 id="manage-license-assignment-to-a-big-ip-device.">Manage license assignment to a BIG-IP device.</h3>
+<p>A collection is automatically created beneath each offering collection. Each entry in this collection represents a license granted to a device.</p>
+<p>Note that for RegKey Pools, each offering can only have one grant. This is in contrast to other pool-style licenses, where multiple devices can be licensed under a given offering.</p>
+<p>POSTing a new entry to this collection pushes a new license to the device. Granting a new license to a BIG-IP device could cause a temporary interruption of operation.</p>
+<h4 id="get-the-assignment-for-a-regkey-in-a-regkey-pool.">1. Get the assignment for a regkey in a regkey pool.</h4>
+<p>A typical post looks like this:</p>
+<p>GET https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members</p>
+<pre><code>Response
+{
+    &quot;items&quot; : [ {
+        &quot;id&quot; : &quot;fb5090c9-6214-4874-a55b-2524fa38e48d&quot;,
+        &quot;status&quot; : &quot;LICENSED&quot;,
+        &quot;generation&quot; : 9,
+        &quot;message&quot; : &quot;Device is licensed&quot;,
+        &quot;deviceReference&quot; : {
+            &quot;link&quot; : &quot;https://localhost/mgmt/shared/resolver/device-groups/cmallDevices/devices/a8a813db-922a-49fd-ba6b-6c3c66420831&quot;
+        },
+        &quot;lastUpdateMicros&quot; : 1694552994873217,
+        &quot;kind&quot; : &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkey:members:regkeypoollicensememberstate&quot;,
+        &quot;selfLink&quot; : &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/xxxx1479c-39da-4cc3-989f-cabee61a630d/offerings/W3227-46114-50761-84901-0566329/members/fb5090c9-6214-4874-a55b-2524fa38e48d&quot;
+    }],
+    &quot;generation&quot; : 6,
+    &quot;kind&quot; : &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkey:members:regkeypoollicensemembercollectionstate&quot;,
+    &quot;lastUpdateMicros&quot; : 1694552994873217,
+    &quot;selfLink&quot; : &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/cae1479c-39da-4cc3-989f-cabee61a630d/offerings/W3227-46114-50761-84901-0566329/members&quot;
+}</code></pre>
+<h4 id="assign-a-license-to-a-managed-device.">2. Assign a license to a managed device.</h4>
+<p>A typical post looks like this:</p>
+<p>POST https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members</p>
+<pre><code>Request
+{
+    &quot;deviceReference&quot; : {
+        &quot;link&quot; : &quot;https://localhost/mgmt/shared/resolver/device-groups/cmallDevices/devices/a8a813db-922a-49fd-ba6b-6c3c66420831&quot;
+    }
+}
+
+Response
+{
+    &quot;id&quot;: &quot;56f2d346-67e5-4000-af0d-5ff6cdf596c9&quot;,
+    &quot;deviceMachineId&quot;: &quot;a8a813db-922a-49fd-ba6b-6c3c66420831&quot;,
+    &quot;deviceReference&quot;: {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cmallDevices/devices/a8a813db-922a-49fd-ba6b-6c3c66420831&quot;
+    },
+    &quot;deviceAddress&quot;: &quot;10.0.2.100&quot;,
+    &quot;deviceName&quot;: &quot;my.device.hostname&quot;,
+    &quot;status&quot;: &quot;INSTALLING&quot;,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1469127986668382,
+    &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkey:members:regkeypoollicensememberstate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/563076fa-1fe8-4203-96ae-4cb943382153/offerings/Z6527-79773-64853-38712-6298060/members/56f2d346-67e5-4000-af0d-5ff6cdf596c9&quot;
+}</code></pre>
+<h4 id="grant-a-license-to-an-unmanaged-device.">3. Grant a license to an unmanaged device.</h4>
+<p>A typical post looks like this:</p>
+<p>POST https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members</p>
+<pre><code>Request
+{
+    &quot;deviceAddress&quot; : &quot;11.22.33.44&quot;,
+    &quot;username&quot; : &quot;my_admin_username&quot;,
+    &quot;password&quot; : &quot;my password&quot;
+}
+
+Response
+{
+    &quot;id&quot;: &quot;56f2d346-67e5-4000-af0d-5ff6cdf596c9&quot;,
+    &quot;deviceMachineId&quot;: &quot;a8a813db-922a-49fd-ba6b-6c3c66420831&quot;,
+    &quot;deviceReference&quot;: {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allDevices/devices/a8a813db-922a-49fd-ba6b-6c3c66420831&quot;
+    },
+    &quot;deviceAddress&quot;: &quot;10.0.2.100&quot;,
+    &quot;deviceName&quot;: &quot;my.device.hostname&quot;,
+    &quot;status&quot;: &quot;INSTALLING&quot;,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1469127986668382,
+    &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkey:members:regkeypoollicensememberstate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/563076fa-1fe8-4203-96ae-4cb943382153/offerings/Z6527-79773-64853-38712-6298060/members/56f2d346-67e5-4000-af0d-5ff6cdf596c9&quot;
+}</code></pre>
+<h4 id="get-status-for-individual-assignment.">4. Get status for individual assignment.</h4>
+<p>Use this query to check the licensing progress.</p>
+<p>A typical post looks like this:</p>
+<p>GET https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members/{uuid}</p>
+<pre><code>Response
+{
+    &quot;id&quot; : &quot;fb5090c9-6214-4874-a55b-2524fa38e48d&quot;,
+    &quot;status&quot; : &quot;LICENSED&quot;,
+    &quot;deviceName&quot;: &quot;my.device.hostname&quot;,
+    &quot;generation&quot; : 9,
+    &quot;message&quot; : &quot;Device is licensed&quot;,
+    &quot;deviceReference&quot; : {
+        &quot;link&quot; : &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allDevices/devices/a8a813db-922a-49fd-ba6b-6c3c66420831&quot;
+    },
+    &quot;deviceAddress&quot; : &quot;11.22.33.44&quot;,
+    &quot;deviceName&quot;: &quot;my.device.hostname&quot;,
+    &quot;lastUpdateMicros&quot; : 1694552994873217,
+    &quot;kind&quot; : &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkey:members:regkeypoollicensememberstate&quot;,
+    &quot;selfLink&quot; : &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/cae1479c-39da-4cc3-989f-cabee61a630d/offerings/W3227-46114-50761-84901-0566329/members/fb5090c9-6214-4874-a55b-2524fa38e48d&quot;
+}</code></pre>
+<h4 id="revoke-a-license.">5. Revoke a license.</h4>
+<p>A typical post looks like this:</p>
+<p>DELETE https://{ip}/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members/{uuid}</p>
+<pre><code>For managed devices:
+Request
+{
+    For managed devices, no request body is required.
+}
+
+For unmanaged devices:
+Request
+{
+    &quot;id&quot; : &quot;fb5090c9-6214-4874-a55b-2524fa38e48d&quot;,
+    &quot;username&quot; : &quot;my_admin_username&quot;,
+    &quot;password&quot; : &quot;my password&quot;
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>

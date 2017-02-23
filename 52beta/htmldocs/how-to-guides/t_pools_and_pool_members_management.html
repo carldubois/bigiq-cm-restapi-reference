@@ -1,0 +1,590 @@
+<h2 id="pool-and-pool-members-management-overview">Pool and Pool Members Management Overview</h2>
+<p>The BIG-IQ system allows users to progammatically enable/disable/force offline pools and pool members using REST API calls.</p>
+<h4 id="prerequisites">Prerequisites</h4>
+<ul>
+<li>Complete the initial setup using the setup wizard so that the BIG-IQ Centralized Management system is operational.</li>
+<li>Discover and establish trust with at least one BIG-IP device provisioned with LTM services.</li>
+</ul>
+<h2 id="pools">Pools</h2>
+<p>A user can view and filter the pools collection if they have the proper RBAC permissions to perform GET polls on '/mgmt/cm/adc-core/working-config/ltm/pool'.</p>
+<h4 id="viewing-active-pools-on-a-big-iq-device">Viewing active pools on a BIG-IQ device</h4>
+<p>GET <code>/mgmt/cm/adc-core/working-config/ltm/pool</code></p>
+<p>Response: 200</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;allowNat&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+      <span class="dt">&quot;allowSnat&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+      <span class="dt">&quot;ignorePersistedWeight&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+      <span class="dt">&quot;ipTosToClientControl&quot;</span><span class="fu">:</span> <span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;ipTosToServerControl&quot;</span><span class="fu">:</span> <span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;linkQosToClient&quot;</span><span class="fu">:</span> <span class="dv">65535</span><span class="fu">,</span>
+      <span class="dt">&quot;linkQosToServer&quot;</span><span class="fu">:</span> <span class="dv">65535</span><span class="fu">,</span>
+      <span class="dt">&quot;loadBalancingMode&quot;</span><span class="fu">:</span> <span class="st">&quot;round-robin&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;minActiveMembers&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;queueDepthLimit&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;enableQueueOnConnectionLimit&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+      <span class="dt">&quot;queueTimeLimit&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;reselectTries&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;serviceDownAction&quot;</span><span class="fu">:</span> <span class="st">&quot;none&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;slowRampTime&quot;</span><span class="fu">:</span> <span class="dv">10</span><span class="fu">,</span>
+      <span class="dt">&quot;membersCollectionReference&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;link&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a/members&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;isSubcollection&quot;</span><span class="fu">:</span> <span class="kw">true</span>
+      <span class="fu">},</span>
+      <span class="dt">&quot;partition&quot;</span><span class="fu">:</span> <span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;deviceReference&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;eb0f77b6-ee63-449c-8e90-ce5498926a1c&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;ip65.f5.pd.com&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;machineId&quot;</span><span class="fu">:</span> <span class="st">&quot;eb0f77b6-ee63-449c-8e90-ce5498926a1c&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;link&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/eb0f77b6-ee63-449c-8e90-ce5498926a1c&quot;</span>
+      <span class="fu">},</span>
+      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;pool-east&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;LAB&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;b045388c-a454-3b53-a190-940d665d0a1a&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;generation&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span>
+      <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span> <span class="dv">1480628497415304</span><span class="fu">,</span>
+      <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;cm:adc-core:working-config:ltm:pool:adcpoolstate&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a&quot;</span>
+    <span class="fu">}</span><span class="ot">,</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;allowNat&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+      <span class="dt">&quot;allowSnat&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+      <span class="dt">&quot;ignorePersistedWeight&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+      <span class="dt">&quot;ipTosToClientControl&quot;</span><span class="fu">:</span> <span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;ipTosToServerControl&quot;</span><span class="fu">:</span> <span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;linkQosToClient&quot;</span><span class="fu">:</span> <span class="dv">65535</span><span class="fu">,</span>
+      <span class="dt">&quot;linkQosToServer&quot;</span><span class="fu">:</span> <span class="dv">65535</span><span class="fu">,</span>
+      <span class="dt">&quot;loadBalancingMode&quot;</span><span class="fu">:</span> <span class="st">&quot;round-robin&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;minActiveMembers&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;queueDepthLimit&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;enableQueueOnConnectionLimit&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+      <span class="dt">&quot;queueTimeLimit&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;reselectTries&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;serviceDownAction&quot;</span><span class="fu">:</span> <span class="st">&quot;none&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;slowRampTime&quot;</span><span class="fu">:</span> <span class="dv">10</span><span class="fu">,</span>
+      <span class="dt">&quot;membersCollectionReference&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;link&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;isSubcollection&quot;</span><span class="fu">:</span> <span class="kw">true</span>
+      <span class="fu">},</span>
+      <span class="dt">&quot;partition&quot;</span><span class="fu">:</span> <span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;deviceReference&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;ip223.f5.pd.com&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;machineId&quot;</span><span class="fu">:</span> <span class="st">&quot;00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;link&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9&quot;</span>
+      <span class="fu">},</span>
+      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;pool-west&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;RESERVE&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;dcf33ae3-ac2e-3984-95cf-6afd341e90e7&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;generation&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span>
+      <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span> <span class="dv">1480628465441408</span><span class="fu">,</span>
+      <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;cm:adc-core:working-config:ltm:pool:adcpoolstate&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7&quot;</span>
+    <span class="fu">}</span>
+  <span class="ot">]</span><span class="fu">,</span>
+  <span class="dt">&quot;generation&quot;</span><span class="fu">:</span> <span class="dv">7</span><span class="fu">,</span>
+  <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;cm:adc-core:working-config:ltm:pool:adcpoolcollectionstate&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span> <span class="dv">1480628497456842</span><span class="fu">,</span>
+  <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<h4 id="searching-for-pools-by-fields">Searching for pools by fields</h4>
+<p>Users can search the pool collection for a value in a field using exact or wild card matching by appending &quot;?$filter=PROPERTYNAME eq 'searchValue'&quot;.</p>
+<p>Searching for any pool objects that contain &quot;LAB&quot; in the description would look like:</p>
+<p>GET <code>/mgmt/cm/adc-core/working-config/ltm/pool?$filter=description eq '*LAB*'</code></p>
+<p>Response: 200</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;totalItems&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span>
+  <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;ignorePersistedWeight&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+      <span class="dt">&quot;membersCollectionReference&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;link&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a/members&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;isSubcollection&quot;</span><span class="fu">:</span> <span class="kw">true</span>
+      <span class="fu">},</span>
+      <span class="dt">&quot;linkQosToServer&quot;</span><span class="fu">:</span> <span class="dv">65535</span><span class="fu">,</span>
+      <span class="dt">&quot;slowRampTime&quot;</span><span class="fu">:</span> <span class="dv">10</span><span class="fu">,</span>
+      <span class="dt">&quot;reselectTries&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;ipTosToServerControl&quot;</span><span class="fu">:</span> <span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;cm:adc-core:working-config:ltm:pool:adcpoolstate&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;deviceReference&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;eb0f77b6-ee63-449c-8e90-ce5498926a1c&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;ip65.f5.pd.com&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;link&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/eb0f77b6-ee63-449c-8e90-ce5498926a1c&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;machineId&quot;</span><span class="fu">:</span> <span class="st">&quot;eb0f77b6-ee63-449c-8e90-ce5498926a1c&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;</span>
+      <span class="fu">},</span>
+      <span class="dt">&quot;minActiveMembers&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;b045388c-a454-3b53-a190-940d665d0a1a&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;loadBalancingMode&quot;</span><span class="fu">:</span> <span class="st">&quot;round-robin&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;partition&quot;</span><span class="fu">:</span> <span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span> <span class="dv">1480628497415304</span><span class="fu">,</span>
+      <span class="dt">&quot;allowSnat&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+      <span class="dt">&quot;enableQueueOnConnectionLimit&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+      <span class="dt">&quot;ipTosToClientControl&quot;</span><span class="fu">:</span> <span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;LAB&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;pool-east&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;serviceDownAction&quot;</span><span class="fu">:</span> <span class="st">&quot;none&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;queueTimeLimit&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;linkQosToClient&quot;</span><span class="fu">:</span> <span class="dv">65535</span><span class="fu">,</span>
+      <span class="dt">&quot;allowNat&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+      <span class="dt">&quot;generation&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span>
+      <span class="dt">&quot;queueDepthLimit&quot;</span><span class="fu">:</span> <span class="dv">0</span>
+    <span class="fu">}</span>
+  <span class="ot">]</span><span class="fu">,</span>
+  <span class="dt">&quot;generation&quot;</span><span class="fu">:</span> <span class="dv">7</span><span class="fu">,</span>
+  <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;cm:adc-core:working-config:ltm:pool:adcpoolcollectionstate&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span> <span class="dv">1480628497456842</span><span class="fu">,</span>
+  <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<h4 id="creating-a-pool-object-with-a-monitor">Creating a pool object with a monitor</h4>
+<p>POST <code>/mgmt/cm/adc-core/working-config/ltm/pool</code></p>
+<p>BODY</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;allowNat&quot;</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span>
+   <span class="dt">&quot;allowSnat&quot;</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span>
+   <span class="dt">&quot;description&quot;</span><span class="fu">:</span><span class="st">&quot;&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;ignorePersistedWeight&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;ipTosToClient&quot;</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span>
+   <span class="dt">&quot;ipTosToServer&quot;</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span>
+   <span class="dt">&quot;linkQosToClient&quot;</span><span class="fu">:</span><span class="dv">65535</span><span class="fu">,</span>
+   <span class="dt">&quot;linkQosToServer&quot;</span><span class="fu">:</span><span class="dv">65535</span><span class="fu">,</span>
+   <span class="dt">&quot;loadBalancingMode&quot;</span><span class="fu">:</span><span class="st">&quot;round-robin&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;monitorReferences&quot;</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span>
+   <span class="dt">&quot;minActiveMembers&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;minUpMembers&quot;</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span>
+   <span class="dt">&quot;queueDepthLimit&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;enableQueueOnConnectionLimit&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;queueTimeLimit&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;serviceDownAction&quot;</span><span class="fu">:</span><span class="st">&quot;none&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;slowRampTime&quot;</span><span class="fu">:</span><span class="dv">10</span><span class="fu">,</span>
+   <span class="dt">&quot;reselectTries&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;membersReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;profiles&quot;</span><span class="fu">:</span><span class="ot">[]</span><span class="fu">,</span>
+   <span class="dt">&quot;requestQueueTimeLimit&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;deviceReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/465b8fe0-4441-4ece-a8b6-04fcd613ff83&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;partition&quot;</span><span class="fu">:</span><span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;kind&quot;</span><span class="fu">:</span><span class="st">&quot;cm:adc-core:working-config:ltm:pool:adcpoolstate&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;new-pool-with-http-monitor&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;monitorHttpReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;http&quot;</span><span class="fu">,</span>
+         <span class="dt">&quot;partition&quot;</span><span class="fu">:</span><span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/monitor/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;ipTosToClientControl&quot;</span><span class="fu">:</span><span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;ipTosToServerControl&quot;</span><span class="fu">:</span><span class="st">&quot;pass-through&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>Response: 200</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;allowNat&quot;</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span>
+   <span class="dt">&quot;allowSnat&quot;</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span>
+   <span class="dt">&quot;ignorePersistedWeight&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;ipTosToClientControl&quot;</span><span class="fu">:</span><span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;ipTosToServerControl&quot;</span><span class="fu">:</span><span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;linkQosToClient&quot;</span><span class="fu">:</span><span class="dv">65535</span><span class="fu">,</span>
+   <span class="dt">&quot;linkQosToServer&quot;</span><span class="fu">:</span><span class="dv">65535</span><span class="fu">,</span>
+   <span class="dt">&quot;loadBalancingMode&quot;</span><span class="fu">:</span><span class="st">&quot;round-robin&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;minActiveMembers&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;queueDepthLimit&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;enableQueueOnConnectionLimit&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;queueTimeLimit&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;reselectTries&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;serviceDownAction&quot;</span><span class="fu">:</span><span class="st">&quot;none&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;slowRampTime&quot;</span><span class="fu">:</span><span class="dv">10</span><span class="fu">,</span>
+   <span class="dt">&quot;membersCollectionReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/56e0bcd8-b3e7-358b-bf0f-965fc798e507/members&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;isSubcollection&quot;</span><span class="fu">:</span><span class="kw">true</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;monitorHttpReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/monitor/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;partition&quot;</span><span class="fu">:</span><span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;deviceReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="st">&quot;465b8fe0-4441-4ece-a8b6-04fcd613ff83&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;ip66.f5.pd.com&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;kind&quot;</span><span class="fu">:</span><span class="st">&quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;machineId&quot;</span><span class="fu">:</span><span class="st">&quot;465b8fe0-4441-4ece-a8b6-04fcd613ff83&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/465b8fe0-4441-4ece-a8b6-04fcd613ff83&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;new-pool-with-http-monitor&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="st">&quot;56e0bcd8-b3e7-358b-bf0f-965fc798e507&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;generation&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span><span class="dv">1480549590312880</span><span class="fu">,</span>
+   <span class="dt">&quot;kind&quot;</span><span class="fu">:</span><span class="st">&quot;cm:adc-core:working-config:ltm:pool:adcpoolstate&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/56e0bcd8-b3e7-358b-bf0f-965fc798e507&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<h4 id="deploying-a-pool-object-to-a-device">Deploying a pool object to a device</h4>
+<p>This task requires a deviceReference and the REST reference for the pool object to be deployed. Users can configure the task verification by toggling the boolean attribute &quot;skipVerifyConfig&quot;. Users can also pause the deployment after evaluation by setting the property &quot;skipDistribution&quot; to &quot;true&quot;.</p>
+<p>POST <code>/mgmt/cm/adc-core/tasks/deploy-configuration</code></p>
+<p>BODY</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;skipVerifyConfig&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;skipDistribution&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;snapshotReference&quot;</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span>
+   <span class="dt">&quot;objectsToDeployReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/e80bf7e0-41ac-3056-a114-4a1b2ddc0b6c&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;add&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;deploySpecifiedObjectsOnly&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;deviceReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span>
+<span class="fu">}</span></code></pre></div>
+<p>Response: 202</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;skipDistribution&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;deviceReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;skipVerifyConfig&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;objectsToDeployReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/e80bf7e0-41ac-3056-a114-4a1b2ddc0b6c&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;deploySpecifiedObjectsOnly&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="st">&quot;2120a0bc-b311-407e-844f-f89e151f0bb5&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;status&quot;</span><span class="fu">:</span><span class="st">&quot;STARTED&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;add&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;userReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;identityReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;ownerMachineId&quot;</span><span class="fu">:</span><span class="st">&quot;3b786166-8069-45ae-b633-60e7416ef7a0&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;taskWorkerGeneration&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;generation&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span><span class="dv">1480703520843810</span><span class="fu">,</span>
+   <span class="dt">&quot;kind&quot;</span><span class="fu">:</span><span class="st">&quot;cm:adc-core:tasks:deploy-configuration:deployconfigtaskstate&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/tasks/deploy-configuration/2120a0bc-b311-407e-844f-f89e151f0bb5&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>The 202 response contains details about the self service task along with the &quot;status&quot; of &quot;STARTED&quot;. Post GET polls to the selfLink to check the &quot;status&quot; property to report &quot;FINISHED&quot; or &quot;FAILED&quot;. If the task was configured to have &quot;skipVerifyConfig&quot; to &quot;false&quot;, the self service task will eventually be populated with a &quot;verifyConfigReference&quot;. Performing a GET on the &quot;verifyConfigReference.link&quot; will provide any warnings and errors found during verification. Only critical errors will prevent users from deploying the objects to the BIG-IP. If the task was configured to have &quot;skipDistribution&quot; set to &quot;true&quot;, the task will pause after an evaluation has been created. This allows users to review their changes before deployment. Users can resume the deployment by posting a PATCH to the task with the following body:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span><span class="dt">&quot;skipDistribution&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span> <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="st">&quot;STARTED&quot;</span><span class="fu">}</span></code></pre></div>
+<h4 id="edit-a-pool-object">Edit a pool object</h4>
+<h5 id="attaching-a-new-health-monitor-to-the-pool.">Attaching a new health monitor to the pool.</h5>
+<p>This requires a proper monitor name and REST reference.</p>
+<p>PATCH <code>/mgmt/cm/adc-core/working-config/ltm/pool/{id}</code></p>
+<p>BODY</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;monitorHttpReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;http&quot;</span><span class="fu">,</span>
+         <span class="dt">&quot;partition&quot;</span><span class="fu">:</span><span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/monitor/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span>
+<span class="fu">}</span></code></pre></div>
+<p>Response: 200</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;allowNat&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+  <span class="dt">&quot;allowSnat&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span>
+  <span class="dt">&quot;ignorePersistedWeight&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+  <span class="dt">&quot;ipTosToClientControl&quot;</span><span class="fu">:</span> <span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;ipTosToServerControl&quot;</span><span class="fu">:</span> <span class="st">&quot;pass-through&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;linkQosToClient&quot;</span><span class="fu">:</span> <span class="dv">65535</span><span class="fu">,</span>
+  <span class="dt">&quot;linkQosToServer&quot;</span><span class="fu">:</span> <span class="dv">65535</span><span class="fu">,</span>
+  <span class="dt">&quot;loadBalancingMode&quot;</span><span class="fu">:</span> <span class="st">&quot;round-robin&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;minActiveMembers&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+  <span class="dt">&quot;queueDepthLimit&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+  <span class="dt">&quot;enableQueueOnConnectionLimit&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span>
+  <span class="dt">&quot;queueTimeLimit&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+  <span class="dt">&quot;reselectTries&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+  <span class="dt">&quot;serviceDownAction&quot;</span><span class="fu">:</span> <span class="st">&quot;none&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;slowRampTime&quot;</span><span class="fu">:</span> <span class="dv">10</span><span class="fu">,</span>
+  <span class="dt">&quot;membersCollectionReference&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;link&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a/members&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;isSubcollection&quot;</span><span class="fu">:</span> <span class="kw">true</span>
+  <span class="fu">},</span>
+  <span class="dt">&quot;monitorHttpReferences&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/monitor/http/ad348aed-0309-36d5-b5cd-c5b9e00cbb26&quot;</span>
+    <span class="fu">}</span>
+  <span class="ot">]</span><span class="fu">,</span>
+  <span class="dt">&quot;partition&quot;</span><span class="fu">:</span> <span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;deviceReference&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;eb0f77b6-ee63-449c-8e90-ce5498926a1c&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;ip65.f5.pd.com&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;machineId&quot;</span><span class="fu">:</span> <span class="st">&quot;eb0f77b6-ee63-449c-8e90-ce5498926a1c&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;link&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/eb0f77b6-ee63-449c-8e90-ce5498926a1c&quot;</span>
+  <span class="fu">},</span>
+  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;pool-east&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;LAB&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;b045388c-a454-3b53-a190-940d665d0a1a&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;generation&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span>
+  <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span> <span class="dv">1480630096304382</span><span class="fu">,</span>
+  <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;cm:adc-core:working-config:ltm:pool:adcpoolstate&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/b045388c-a454-3b53-a190-940d665d0a1a&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<h4 id="attaching-pool-objects-to-role-permissions">Attaching pool objects to role permissions</h4>
+<p>Role permissions can be updated to give user roles the ability to view/edit/delete pool objects and pool members.</p>
+<h5 id="prerequisites-1">Prerequisites</h5>
+<p>User must be associated with a &quot;Pool Member Operator&quot; role.</p>
+<p>PUT <code>/mgmt/shared/authz/users/{user role name}</code></p>
+<p>BODY</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+<span class="er">...</span>
+    <span class="er">resources</span><span class="fu">:</span> <span class="ot">[</span>
+        <span class="er">...</span>
+        <span class="fu">{</span><span class="er">resourceMask</span><span class="fu">:</span> <span class="st">&quot;/mgmt/cm/adc-core/working-config/ltm/pool/{id}&quot;</span><span class="fu">,</span> <span class="er">restMethod</span><span class="fu">:</span> <span class="st">&quot;GET&quot;</span><span class="fu">}</span><span class="ot">,</span>
+        <span class="fu">{</span><span class="er">resourceMask</span><span class="fu">:</span> <span class="st">&quot;/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members&quot;</span><span class="fu">,</span> <span class="er">restMethod</span><span class="fu">:</span> <span class="st">&quot;GET&quot;</span><span class="fu">}</span><span class="ot">,</span>
+        <span class="fu">{</span><span class="er">resourceMask</span><span class="fu">:</span> <span class="st">&quot;/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members/*&quot;</span><span class="fu">,</span> <span class="er">restMethod</span><span class="fu">:</span> <span class="st">&quot;GET&quot;</span><span class="fu">}</span><span class="ot">,</span>
+        <span class="fu">{</span><span class="er">resourceMask</span><span class="fu">:</span> <span class="st">&quot;/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members/*/*&quot;</span><span class="fu">,</span> <span class="er">restMethod</span><span class="fu">:</span> <span class="st">&quot;POST&quot;</span><span class="fu">}</span><span class="ot">,</span>
+        <span class="er">...</span>
+    <span class="ot">]</span>
+<span class="er">...</span>
+<span class="fu">}</span></code></pre></div>
+<p>Note: Provisioning a user to GET &quot;/mgmt/cm/adc-core/working-config/ltm/pool/{id}&quot; does not automatically grant permissions to subcollections.</p>
+<h4 id="removing-a-pool-object-and-deploying-changes">Removing a pool object and deploying changes</h4>
+<p>DELETE <code>/mgmt/cm/adc-core/working-config/ltm/pool/{id}</code></p>
+<p>The pool object will no longer exist in the working config of the BIG-IQ. To deploy these changes to a device, the device reference is needed.</p>
+<p>POST <code>/mgmt/cm/adc-core/tasks/deploy-configuration</code></p>
+<p>BODY</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>  
+   <span class="dt">&quot;skipVerifyConfig&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;skipDistribution&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;snapshotReference&quot;</span><span class="fu">:</span><span class="kw">null</span><span class="fu">,</span>
+   <span class="dt">&quot;objectsToDeployReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>  
+
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;removedPool&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;deviceReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>  
+      <span class="fu">{</span>  
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span>
+<span class="fu">}</span></code></pre></div>
+<p>Response: 202</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>  
+   <span class="dt">&quot;skipDistribution&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;deviceReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/00b1ece7-c700-47ab-8ce0-4bcea4b3b9e9&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;skipVerifyConfig&quot;</span><span class="fu">:</span><span class="kw">false</span><span class="fu">,</span>
+   <span class="dt">&quot;objectsToDeployReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="st">&quot;c1a3501f-293f-45e4-b3a0-29ff6c59203b&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;status&quot;</span><span class="fu">:</span><span class="st">&quot;STARTED&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;removedPool&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;userReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;identityReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;ownerMachineId&quot;</span><span class="fu">:</span><span class="st">&quot;3b786166-8069-45ae-b633-60e7416ef7a0&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;taskWorkerGeneration&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;generation&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span><span class="dv">1480705617532917</span><span class="fu">,</span>
+   <span class="dt">&quot;kind&quot;</span><span class="fu">:</span><span class="st">&quot;cm:adc-core:tasks:deploy-configuration:deployconfigtaskstate&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/tasks/deploy-configuration/c1a3501f-293f-45e4-b3a0-29ff6c59203b&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>Note: Partial deployment for removing pools from the BIG-IP is not supported.</p>
+<p>The 202 response contains details about the self service task along with the &quot;status&quot; of &quot;STARTED&quot;. Post GET polls to the selfLink to check the &quot;status&quot; property to report &quot;FINISHED&quot; or &quot;FAILED&quot;.</p>
+<h2 id="pool-members">Pool Members</h2>
+<h4 id="prerequisites-2">Prerequisites</h4>
+<ul>
+<li>A pool object must exist.</li>
+<li>A node object must exist.</li>
+</ul>
+<h4 id="viewing-pool-members">Viewing pool members</h4>
+<p>GET <code>/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members</code></p>
+<p>Response: 200</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="ot">[</span>
+    <span class="fu">{</span>
+      <span class="dt">&quot;connectionLimit&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;port&quot;</span><span class="fu">:</span> <span class="dv">80</span><span class="fu">,</span>
+      <span class="dt">&quot;priorityGroup&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span>
+      <span class="dt">&quot;rateLimit&quot;</span><span class="fu">:</span> <span class="st">&quot;disabled&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;ratio&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span>
+      <span class="dt">&quot;sessionConfig&quot;</span><span class="fu">:</span> <span class="st">&quot;user-enabled&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;stateConfig&quot;</span><span class="fu">:</span> <span class="st">&quot;user-up&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;nodeReference&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;link&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/36d49760-3d0e-3368-a679-52e79ff44227&quot;</span>
+      <span class="fu">},</span>
+      <span class="dt">&quot;partition&quot;</span><span class="fu">:</span> <span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;testNode:80&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;a test member&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;e93af93a-c397-39ba-853f-c2808b818ef3&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;generation&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span>
+      <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span> <span class="dv">1480551570546280</span><span class="fu">,</span>
+      <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;cm:adc-core:working-config:ltm:pool:members:adcpoolmemberstate&quot;</span><span class="fu">,</span>
+      <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/56e0bcd8-b3e7-358b-bf0f-965fc798e507/members/e93af93a-c397-39ba-853f-c2808b818ef3&quot;</span>
+    <span class="fu">}</span>
+  <span class="ot">]</span><span class="fu">,</span>
+  <span class="dt">&quot;generation&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span>
+  <span class="dt">&quot;kind&quot;</span><span class="fu">:</span> <span class="st">&quot;cm:adc-core:working-config:ltm:pool:members:adcpoolmembercollectionstate&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span> <span class="dv">1480551570582031</span><span class="fu">,</span>
+  <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span> <span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/56e0bcd8-b3e7-358b-bf0f-965fc798e507/members&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<h4 id="creating-a-pool-member">Creating a pool member</h4>
+<p>POST <code>/mgmt/cm/adc-core/working-config/ltm/pool/{id}/members</code></p>
+<p>BODY</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;nodeReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/36d49760-3d0e-3368-a679-52e79ff44227&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;ratio&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;priorityGroup&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;connectionLimit&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;rateLimit&quot;</span><span class="fu">:</span><span class="st">&quot;disabled&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;testNode:80&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;description&quot;</span><span class="fu">:</span><span class="st">&quot;a test member&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;partition&quot;</span><span class="fu">:</span><span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;port&quot;</span><span class="fu">:</span><span class="st">&quot;80&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>Note: Pool names must be in the format &quot;{node reference name}:{port}&quot;</p>
+<p>Response: 200</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;connectionLimit&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;port&quot;</span><span class="fu">:</span><span class="dv">80</span><span class="fu">,</span>
+   <span class="dt">&quot;priorityGroup&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span>
+   <span class="dt">&quot;rateLimit&quot;</span><span class="fu">:</span><span class="st">&quot;disabled&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;ratio&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;sessionConfig&quot;</span><span class="fu">:</span><span class="st">&quot;user-enabled&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;stateConfig&quot;</span><span class="fu">:</span><span class="st">&quot;user-up&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;nodeReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/36d49760-3d0e-3368-a679-52e79ff44227&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;partition&quot;</span><span class="fu">:</span><span class="st">&quot;Common&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;testNode:80&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;description&quot;</span><span class="fu">:</span><span class="st">&quot;a test member&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="st">&quot;e93af93a-c397-39ba-853f-c2808b818ef3&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;generation&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span><span class="dv">1480551570546280</span><span class="fu">,</span>
+   <span class="dt">&quot;kind&quot;</span><span class="fu">:</span><span class="st">&quot;cm:adc-core:working-config:ltm:pool:members:adcpoolmemberstate&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/56e0bcd8-b3e7-358b-bf0f-965fc798e507/members/e93af93a-c397-39ba-853f-c2808b818ef3&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<h4 id="removing-a-pool-member">Removing a pool member</h4>
+<p>DELETE <code>/mgmt/cm/adc-core/working-config/ltm/pool/{pool-id}/members/{member-id}</code></p>
+<h4 id="enabling-a-pool-member-using-self-service">Enabling a pool member using self service</h4>
+<p>POST <code>/mgmt/cm/adc-core/tasks/self-service</code></p>
+<p>BODY</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Self-Service_someNode:80&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;resourceReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;operation&quot;</span><span class="fu">:</span><span class="st">&quot;enable&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>Response: 202</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;resourceReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;operation&quot;</span><span class="fu">:</span><span class="st">&quot;enable&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="st">&quot;865ec76a-02a2-47f1-a007-f07010b18177&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;status&quot;</span><span class="fu">:</span><span class="st">&quot;STARTED&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Self-Service_someNode:80&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;userReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;identityReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;ownerMachineId&quot;</span><span class="fu">:</span><span class="st">&quot;3b786166-8069-45ae-b633-60e7416ef7a0&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;taskWorkerGeneration&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;generation&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span><span class="dv">1480632847604821</span><span class="fu">,</span>
+   <span class="dt">&quot;kind&quot;</span><span class="fu">:</span><span class="st">&quot;cm:adc-core:tasks:self-service:selfservicetaskitemstate&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/tasks/self-service/865ec76a-02a2-47f1-a007-f07010b18177&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>The 202 response contains details about the self service task along with the &quot;status&quot; of &quot;STARTED&quot;. Post GET polls to the selfLink to check the &quot;status&quot; property to report &quot;FINISHED&quot; or &quot;FAILED&quot;.</p>
+<h4 id="disabling-a-pool-member-using-self-service">Disabling a pool member using self service</h4>
+<p>POST <code>/mgmt/cm/adc-core/tasks/self-service</code></p>
+<p>BODY</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Self-Service_someNode:80&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;resourceReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;operation&quot;</span><span class="fu">:</span><span class="st">&quot;disable&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>Response: 202</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;resourceReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;operation&quot;</span><span class="fu">:</span><span class="st">&quot;disable&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="st">&quot;40f8385a-9f76-4377-9b9e-dccfd1c0d089&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;status&quot;</span><span class="fu">:</span><span class="st">&quot;STARTED&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Self-Service_someNode:80&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;userReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;identityReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;ownerMachineId&quot;</span><span class="fu">:</span><span class="st">&quot;3b786166-8069-45ae-b633-60e7416ef7a0&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;taskWorkerGeneration&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;generation&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span><span class="dv">1480632998507447</span><span class="fu">,</span>
+   <span class="dt">&quot;kind&quot;</span><span class="fu">:</span><span class="st">&quot;cm:adc-core:tasks:self-service:selfservicetaskitemstate&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/tasks/self-service/40f8385a-9f76-4377-9b9e-dccfd1c0d089&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>The 202 response contains details about the self service task along with the &quot;status&quot; of &quot;STARTED&quot;. Post GET polls to the selfLink to check the &quot;status&quot; property to report &quot;FINISHED&quot; or &quot;FAILED&quot;.</p>
+<h4 id="force-offline-a-pool-member-using-self-service">Force offline a pool member using self service</h4>
+<p>POST <code>/mgmt/cm/adc-core/tasks/self-service</code></p>
+<p>BODY</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Self-Service_someNode:80&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;resourceReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;operation&quot;</span><span class="fu">:</span><span class="st">&quot;force-offline&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>Response: 202</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+   <span class="dt">&quot;resourceReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/dcf33ae3-ac2e-3984-95cf-6afd341e90e7/members/a8aedfee-722c-39e1-a464-e8a2d352d8f2&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;operation&quot;</span><span class="fu">:</span><span class="st">&quot;force-offline&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="st">&quot;bfccaa9d-7add-4ed6-82a3-5e5026ee98a6&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;status&quot;</span><span class="fu">:</span><span class="st">&quot;STARTED&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Self-Service_someNode:80&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;userReference&quot;</span><span class="fu">:{</span>
+      <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+   <span class="fu">},</span>
+   <span class="dt">&quot;identityReferences&quot;</span><span class="fu">:</span><span class="ot">[</span>
+      <span class="fu">{</span>
+         <span class="dt">&quot;link&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/shared/authz/users/admin&quot;</span>
+      <span class="fu">}</span>
+   <span class="ot">]</span><span class="fu">,</span>
+   <span class="dt">&quot;ownerMachineId&quot;</span><span class="fu">:</span><span class="st">&quot;3b786166-8069-45ae-b633-60e7416ef7a0&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;taskWorkerGeneration&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;generation&quot;</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span>
+   <span class="dt">&quot;lastUpdateMicros&quot;</span><span class="fu">:</span><span class="dv">1480633122692313</span><span class="fu">,</span>
+   <span class="dt">&quot;kind&quot;</span><span class="fu">:</span><span class="st">&quot;cm:adc-core:tasks:self-service:selfservicetaskitemstate&quot;</span><span class="fu">,</span>
+   <span class="dt">&quot;selfLink&quot;</span><span class="fu">:</span><span class="st">&quot;https://localhost/mgmt/cm/adc-core/tasks/self-service/bfccaa9d-7add-4ed6-82a3-5e5026ee98a6&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>The 202 response contains details about the self service task along with the &quot;status&quot; of &quot;STARTED&quot;. Post GET polls to the selfLink to check the &quot;status&quot; property to report &quot;FINISHED&quot; or &quot;FAILED&quot;.</p>
+<h3 id="api-reference">API Reference</h3>

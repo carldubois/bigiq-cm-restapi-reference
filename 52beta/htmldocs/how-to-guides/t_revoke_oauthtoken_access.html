@@ -1,0 +1,1136 @@
+<h2 id="oauth-token-revocation-on-big-ip-devices-using-a-big-iq-centralized-management-system">OAuth Token Revocation on BIG-IP devices using a BIG-IQ Centralized Management system</h2>
+<h3 id="overview">Overview</h3>
+<p>You can use the REST API to revoke OAuth Tokens on one or more BIG-IP devices on a BIG-IQ Centralized Management system.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>You should be sure the following prerequisites have been met.</p>
+<ul>
+<li>All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system.</li>
+<li>The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system.</li>
+<li>APM Service is discovered for the BIG-IP device in BIG-IQ Centralized Management system.</li>
+<li>APM Configuration is imported, if access group name needs to be used as input criteria.</li>
+<li>To revoke oauth tokens using device reference of an BIG-IP device that is part of cluster, except for revoke list of tokens action, use cluster name instead of device references.</li>
+<li>If you have to use device reference, then the device reference of the ACTIVE device of cluster should be used for the token revocation API to work.</li>
+<li>If device reference of STANDBY device is passed as input, the task might finish, but the API will not be able to send additional warnings or errors in the response. ACTIVE device has to be only manually identified by the user, as currently there is no way to determine this information through API and BIG-IQ UI.</li>
+<li>When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.</li>
+</ul>
+<h3 id="description">Description</h3>
+<p>You use the following process to Revoke OAuth Tokens on BIG-IP devices on the BIG-IQ Centralized Management system.</p>
+<ol style="list-style-type: decimal">
+<li>Perform a GET method on the machineid-resolver URI to determine the current state of the BIG-IP device and get other inputs parameters to revoke oauth tokens.</li>
+<li>Perform a POST method on the revoke oauth tokens task URI to revoke oauth tokens.</li>
+<li>Monitor the task using GET methods until the status has reached a value of FINISHED, FAILED, or CANCELLED. When the GET method status value is FINISHED and the currentStep value is DONE, the revoke oauth tokens is complete.</li>
+</ol>
+<h3 id="example-for-oauth-token-revocation">Example for OAuth Token Revocation</h3>
+<p>In the following example:</p>
+<ul>
+<li>The BIG-IP device address is 10.255.4.124. You substitute your BIG-IP device address for this address when you implement this example. If the device that you want to use is part of cluster, refer to prerequisites section for more details.</li>
+<li>The Access Config Group names are TestGroup,TestGroup1,TestGroup2. You substitute your access group name when you implement this example.</li>
+<li>The BIG-IP cluster name is BlueCluster,RedCluster. You substitute your cluster name when you implement this example.</li>
+</ul>
+<h4 id="determine-the-current-status-of-the-big-ip-device-and-other-input-parameters-on-the-big-iq-centralized-management-system.">1. Determine the current status of the BIG-IP device and other input parameters on the BIG-IQ Centralized Management system.</h4>
+<p>Perform a GET method on the machineid-resolver URI to determine if the BIG-IP device already has trust established. You will want to use the filter option to narrow the returned JSON information to just this particular BIG-IP device. If the value of the items element is not an empty list [], then the trust has already been established. If the value of the items element is an empty list, you must establish trust before you can attempt to discover the device.</p>
+<h5 id="find-big-ip-device-info">1.1. Find BIG-IP device Info</h5>
+<h6 id="find-big-ip-devices-info-by-one-or-more-device-ip-address">1.1. Find BIG-IP devices info by one or more Device IP Address</h6>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/system/machineid-resolver?$filter=(&#39;address&#39;+eq+&#39;10.255.4.124&#39;)</code></pre>
+<p>To filter more than one address, you can use the kind of filter below with multiple checks on the URI</p>
+<pre><code>$filter=(&#39;address&#39; eq &#39;10.255.4.124&#39; or &#39;address&#39; eq &#39;10.255.4.125&#39; )</code></pre>
+<h6 id="find-all-big-ip-devices">1.2. Find All BIG-IP devices</h6>
+<p>This query will display all BIG-IP devices for which trust is established. Some of these devices may not be managed by BIG-IQ Access.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/system/machineid-resolver</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;uuid&quot;: &quot;98901455-6384-47cd-bc41-00a39dfe338f&quot;,
+    &quot;deviceUri&quot;: &quot;https://10.192.123.69:443&quot;,
+    &quot;machineId&quot;: &quot;98901455-6384-47cd-bc41-00a39dfe338f&quot;,
+    &quot;state&quot;: &quot;ACTIVE&quot;,
+    &quot;address&quot;: &quot;10.255.4.124&quot;,
+    &quot;httpsPort&quot;: 443,
+    &quot;hostname&quot;: &quot;bluebigipveha1.labf.com&quot;,
+    &quot;version&quot;: &quot;12.1.0&quot;,
+    &quot;product&quot;: &quot;BIG-IP&quot;,
+    &quot;edition&quot;: &quot;Final&quot;,
+    &quot;build&quot;: &quot;0.0.1354&quot;,
+    &quot;restFrameworkVersion&quot;: &quot;12.1.0-0.0.1354&quot;,
+    &quot;managementAddress&quot;: &quot;10.192.123.69&quot;,
+    &quot;mcpDeviceName&quot;: &quot;/Common/bluebigipveha1&quot;,
+    &quot;trustDomainGuid&quot;: &quot;5189f81c-96be-4449-b4110050560102e7&quot;,
+    &quot;properties&quot;: {
+        &quot;cm:gui:module&quot;: [
+            &quot;Access&quot;,
+            &quot;BigIPDevice&quot;,
+            &quot;adc&quot;
+        ],
+        &quot;modules&quot;: [
+            &quot;All Access managed BIG-IP devices&quot;
+        ],
+        &quot;cm-adccore-allbigipDevices&quot;: {
+            &quot;supportsBadgerEnhs&quot;: true,
+            &quot;supportsRest&quot;: true,
+            &quot;supportsAlpineEnhs&quot;: true,
+            &quot;lastDiscoveredDateTime&quot;: &quot;2016-11-10T19:06:14.804Z&quot;,
+            &quot;imported&quot;: true,
+            &quot;clusterName&quot;: &quot;BlueCluster&quot;,
+            &quot;restrictsPortTranslationStatelessVirtual&quot;: true,
+            &quot;requiresDhcpProfileInDhcpVirtualServer&quot;: true,
+            &quot;importStatus&quot;: &quot;FINISHED&quot;,
+            &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+            &quot;importedDateTime&quot;: &quot;2016-11-10T19:14:39.003Z&quot;,
+            &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-11-10T19:06:14.804Z&quot;,
+            &quot;modules&quot;: [
+                &quot;All Access managed BIG-IP devices&quot;
+            ],
+            &quot;cm:gui:module&quot;: [
+                &quot;Access&quot;,
+                &quot;BigIPDevice&quot;,
+                &quot;adc&quot;
+            ],
+            &quot;discovered&quot;: true,
+            &quot;supportsClassification&quot;: true
+        },
+        &quot;cm-bigip-allBigIpDevices&quot;: {
+            &quot;shared:resolver:device-groups:discoverer&quot;: &quot;d5d58cdd-f5b5-4379-9d12-08e28253a16f&quot;,
+            &quot;cm:gui:module&quot;: [
+                &quot;BigIPDevice&quot;
+            ],
+            &quot;modules&quot;: []
+        },
+        &quot;cm-bigip-allDevices&quot;: {
+            &quot;shared:resolver:device-groups:discoverer&quot;: &quot;d5d58cdd-f5b5-4379-9d12-08e28253a16f&quot;,
+            &quot;cm:gui:module&quot;: [],
+            &quot;modules&quot;: []
+        },
+        &quot;cm-access-allBigIpDevices&quot;: {
+            &quot;discovered&quot;: true,
+            &quot;imported&quot;: true,
+            &quot;clusterName&quot;: &quot;BlueCluster&quot;,
+            &quot;supportsRest&quot;: true,
+            &quot;supports_13_0_Enhs&quot;: false,
+            &quot;supportsCascadeEnhs&quot;: true,
+            &quot;lastDiscoveredDateTime&quot;: &quot;2016-11-10T19:15:18.963Z&quot;,
+            &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-11-10T19:15:18.963Z&quot;,
+            &quot;cm:access:access-group-name&quot;: &quot;TestGroup&quot;,
+            &quot;cm:access:source-device&quot;: true,
+            &quot;cm:access:access-group-device-link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/CA/devices/98901455-6384-47cd-bc41-00a39dfe338f&quot;,
+            &quot;cm:access:import-version&quot;: &quot;12.1.0&quot;,
+            &quot;cm:access:access-group-link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/TestGroup&quot;,
+            &quot;importedDateTime&quot;: &quot;2016-11-10T19:17:04.459Z&quot;,
+            &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+            &quot;importStatus&quot;: &quot;FINISHED&quot;,
+            &quot;cm:gui:module&quot;: [
+                &quot;Access&quot;
+            ],
+            &quot;modules&quot;: [
+                &quot;All Access managed BIG-IP devices&quot;
+            ]
+        },
+        &quot;cm-bigip-cluster_BlueCluster&quot;: {
+            &quot;clusterName&quot;: &quot;BlueCluster&quot;,
+            &quot;shared:resolver:device-groups:discoverer&quot;: &quot;da4a4ca7-19f9-4a31-a1c2-004d5557ff10&quot;,
+            &quot;cm:gui:module&quot;: [],
+            &quot;modules&quot;: []
+        },
+        &quot;cm-access-allDevices&quot;: {
+            &quot;clusterName&quot;: &quot;BlueCluster&quot;,
+            &quot;cm:gui:module&quot;: [
+                &quot;Access&quot;
+            ],
+            &quot;modules&quot;: [
+                &quot;All Access managed BIG-IP devices&quot;
+            ]
+        },
+        &quot;TestGroup&quot;: {
+            &quot;discovered&quot;: true,
+            &quot;imported&quot;: false,
+            &quot;supportsRest&quot;: true,
+            &quot;supports_13_0_Enhs&quot;: false,
+            &quot;supportsCascadeEnhs&quot;: true,
+            &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+            &quot;lastDiscoveredDateTime&quot;: &quot;2016-10-26T04:15:56.356Z&quot;,
+            &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-10-26T04:15:56.356Z&quot;,
+            &quot;cm:access:all-bigip-device-link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-access-allBigIpDevices/devices/98901455-6384-47cd-bc41-00a39dfe338f&quot;,
+            &quot;cm:access:import-version&quot;: &quot;12.1.0&quot;,
+            &quot;cm:access:source-device&quot;: true,
+            &quot;cm:gui:module&quot;: [
+                &quot;Access&quot;
+            ],
+            &quot;modules&quot;: [
+                &quot;All Access managed BIG-IP devices&quot;
+            ]
+        },
+        &quot;cm-adccore-allDevices&quot;: {
+            &quot;cm:gui:module&quot;: [],
+            &quot;modules&quot;: []
+        }
+    },
+    &quot;isClustered&quot;: false,
+    &quot;isVirtual&quot;: true,
+    &quot;isLicenseExpired&quot;: false,
+    &quot;slots&quot;: [
+        {
+            &quot;volume&quot;: &quot;HD1.1&quot;,
+            &quot;product&quot;: &quot;BIG-IP&quot;,
+            &quot;version&quot;: &quot;12.1.0&quot;,
+            &quot;build&quot;: &quot;0.0.1354&quot;,
+            &quot;isActive&quot;: true
+        },
+        {
+            &quot;volume&quot;: &quot;HD1.3&quot;,
+            &quot;product&quot;: &quot;BIG-IP&quot;,
+            &quot;version&quot;: &quot;12.0.0&quot;,
+            &quot;build&quot;: &quot;0.0.606&quot;,
+            &quot;isActive&quot;: false
+        }
+    ],
+    &quot;generation&quot;: 67,
+    &quot;lastUpdateMicros&quot;: 1479332833705505,
+    &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/98901455-6384-47cd-bc41-00a39dfe338f&quot;
+}</code></pre>
+<h5 id="check-if-trust-is-established.">1.1. Check if Trust is established.</h5>
+<p>In the response to the GET method, you see trust is established since the following data is found in the list:</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm:gui:module&quot;: [
+        &quot;BigIPDevice&quot;
+    ]</code></pre>
+<h5 id="check-if-access-discovery-is-done.">1.2. Check if Access Discovery is done.</h5>
+<p>In the response to the GET method, if the Access value is found in the list, the Access Policy Manager service has already been discovered; the adc value represents the Local Traffic service and this must be found in order to continue with the Access Policy Manager discovery workflow.</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm:gui:module&quot;: [
+        &quot;BigIPDevice&quot;,
+        &quot;adc&quot;,
+        &quot;Access&quot;
+    ]</code></pre>
+<h5 id="check-if-access-configuration-is-imported">1.3. Check if Access Configuration is Imported</h5>
+<p>In the response to the GET method, you see access import is done if the value of the imported property is true in cm-access-allBigIpDevices:</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm-access-allBigIpDevices&quot;: {
+        &quot;imported&quot;: true
+    }
+}</code></pre>
+<h5 id="find-access-config-group-name-of-the-device">1.4. Find Access Config Group Name of the device:</h5>
+<p>This is applicable only if the device is imported. In the response to the GET method, value of cm:access:access-group-name property contains the access group name. This property is present in cm-access-allBigIpDevices, which is present inside properties field value. In this example, access group name is TestGroup:</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm-access-allBigIpDevices&quot;: {
+        &quot;cm:access:access-group-name&quot;: &quot;TestGroup&quot;
+    }
+}</code></pre>
+<h5 id="find-cluster-name-of-an-device-that-is-part-of-cluster">1.5. Find Cluster Name of an device that is part of Cluster:</h5>
+<p>This is applicable only if the device is discovered and part of cluster. To token revocation in an device which is part of cluster, it is recommended to use cluster name instead of device reference.</p>
+<p>In the response to the GET method, the value of clusterName property contains the cluster name. This property is present in cm-access-allBigIpDevices, which is present inside the properties field value. In this example, cluster name is BlueCluster:</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm-access-allBigIpDevices&quot;: {
+        &quot;clusterName&quot;: &quot;BlueCluster&quot;
+    }
+}</code></pre>
+<h5 id="find-machine-id-and-device-reference-of-an-device">1.6. Find machine id and device reference of an device:</h5>
+<p>In the response to the GET method, the value of machineId and selfLink is the machine id and device reference of the device.</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/98901455-6384-47cd-bc41-00a39dfe338f&quot;
+}</code></pre>
+<h5 id="list-all-client-ids-of-oauth-client-app-for-given-machine-id">1.7. List All Client Id's of OAuth Client App for given machine id:</h5>
+<p>To get a list of all oauth client app info containing client id, perform the following GET on oauth client app API with a filter to retrieve only client apps for the machine id of the given device (refer to section 1.6 to get the machine id of an device). In the response, clientId refers to client id of the oauth client app.</p>
+<p>When using the URI below, replace 26a65814-a2f4-4e91-9853-13e2e14d921a with your machine id value. The query could be modified to add or remove the required fields in the response.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/access/working-config/apm/oauth/oauth-client-app?$filter=&#39;lsoDeviceReference/machineId&#39; eq &#39;26a65814-a2f4-4e91-9853-13e2e14d921a&#39;&amp;$select=appName,name,clientId</code></pre>
+<p>The following is the response JSON containing a list of client apps from the GET method:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/working-config/apm/oauth/oauth-client-app&quot;,
+    &quot;totalItems&quot;: 2,
+    &quot;items&quot;: [
+        {
+            &quot;appName&quot;: &quot;Shutterfly&quot;,
+            &quot;clientId&quot;: &quot;89923892aed8eb142a8871058da9005056b09ae221df6a57&quot;,
+            &quot;name&quot;: &quot;shutterfly-client&quot;
+        },
+        {
+            &quot;appName&quot;: &quot;Maps&quot;,
+            &quot;clientId&quot;: &quot;5b3e8851b1d872feed3086484141005056b09ae2d5277c57&quot;,
+            &quot;name&quot;: &quot;maps-client&quot;
+        }
+    ],
+    &quot;generation&quot;: 7,
+    &quot;kind&quot;: &quot;cm:access:working-config:apm:oauth:oauth-client-app:oauthclientappcollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1478208069057233
+}</code></pre>
+<h5 id="list-all-access-config-groups">1.8. List All Access Config Groups:</h5>
+<p>To get a list of all access config group names, perform the following GET on the device groups resolver API with filter to retrieve only the access config group. In the response, groupName refers to the access config group name.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/shared/resolver/device-groups/?$filter=&#39;properties/cm:access:access_group&#39;+eq+&#39;true&#39;&amp;$select=groupName,displayName</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;displayName&quot;: &quot;TestGroup&quot;,
+            &quot;groupName&quot;: &quot;TestGroup&quot;
+        },
+        {
+            &quot;displayName&quot;: &quot;TestGroup2&quot;,
+            &quot;groupName&quot;: &quot;TestGroup2&quot;
+        }
+    ],
+    &quot;generation&quot;: 23,
+    &quot;kind&quot;: &quot;shared:resolver:device-groups:devicegroupcollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479942921954266
+}</code></pre>
+<p>Repeat steps in Section 1.1 to 1.7 for all the devices you want to use. The device reference, access group name, and cluster name from the response JSON in this step is used in Step 2.</p>
+<h4 id="perform-a-post-method-on-the-revoke-oauth-tokens-task-uri-to-revoke-oauth-tokens.">2. Perform a POST method on the revoke oauth tokens task URI to revoke oauth tokens.</h4>
+<p>Different ways to revoke oauth tokens is listed below.</p>
+<p>Use a POST method with the following JSON on the revoke oauth tokens task to start the task.</p>
+<table>
+<colgroup>
+<col width="44%" />
+<col width="55%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>action</td>
+<td>action value has to be REVOKE_TOKEN_FOR_USER, REVOKE_TOKEN_FOR_CLIENT_ID, or REVOKE_LIST_OF_TOKENS</td>
+</tr>
+<tr class="even">
+<td>deviceReferences</td>
+<td>list of device references</td>
+</tr>
+<tr class="odd">
+<td>accessGroupNames</td>
+<td>list of access config group names</td>
+</tr>
+<tr class="even">
+<td>clusterNames</td>
+<td>list of cluster names</td>
+</tr>
+<tr class="odd">
+<td>userName</td>
+<td>Case sensitive field name. user name of user whose tokens needs to be revoked.</td>
+</tr>
+<tr class="even">
+<td>perDeviceOauthIds</td>
+<td>list of one or more oauth id info object, with each object containing device reference and list of pair of id(oauth id) and clientId</td>
+</tr>
+<tr class="odd">
+<td>status</td>
+<td>As part of response, status denotes the status of the task. It can be STARTED, FINISHED, FAILED, CANCELLED, or CANCEL_REQUESTED</td>
+</tr>
+<tr class="even">
+<td>result</td>
+<td>As part of response, result denotes whether oauth tokens revocation action was COMPLETE, or FAILED</td>
+</tr>
+<tr class="odd">
+<td>resultDetails</td>
+<td>As part of response, on some cases during failure, this is populated with list of device level failure info containing oauth id info</td>
+</tr>
+<tr class="even">
+<td>errorMessage</td>
+<td>This can contain error message during failure</td>
+</tr>
+</tbody>
+</table>
+<h5 id="revoke-all-oauth-tokens-for-a-user">2.1 Revoke All OAuth Tokens for a User</h5>
+<p>You can revoke all oauth tokens of a user on one or more BIG-IP devices that matches one or more input criteria specified below.</p>
+<h6 id="revoke-all-oauth-tokens-for-a-user-in-big-ip-devices-matching-one-or-more-device-reference">2.1.1 Revoke All OAuth Tokens for a User in BIG-IP devices matching one or more Device Reference</h6>
+<p>To use this action, you need to manually determine the username of the user.</p>
+<p>Note: To revoke oauth tokens in an device that is part of cluster, then it is recommended to use cluster name instead of device references. Refer to prerequisites section for more details.</p>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens
+{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_USER&quot;,
+   &quot;userName&quot;:&quot;user1&quot;,
+   &quot;deviceReferences&quot;:[
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      }
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;REVOKE_TOKEN_FOR_USER&quot;,
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+  &quot;deviceReferences&quot;: [
+    {
+      &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+    }
+  ],
+  &quot;generation&quot;: 7,
+  &quot;id&quot;: &quot;5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733104269292,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:18:23.451-0700&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userName&quot;: &quot;user1&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h6 id="revoke-all-oauth-tokens-for-a-user-in-big-ip-devices-matching-one-or-more-access-config-groups">2.1.2 Revoke All OAuth Tokens for a User in BIG-IP devices matching one or more Access config groups</h6>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens
+{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_USER&quot;,
+   &quot;userName&quot;:&quot;user1&quot;,
+   &quot;accessGroupNames&quot;:[
+      &quot;TestGroup1&quot;,
+      &quot;TestGroup2&quot;
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;REVOKE_TOKEN_FOR_USER&quot;,
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+   &quot;accessGroupNames&quot;:[
+      &quot;TestGroup1&quot;,
+      &quot;TestGroup2&quot;
+   ],
+  &quot;generation&quot;: 7,
+  &quot;id&quot;: &quot;5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733104269292,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:18:23.451-0700&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userName&quot;: &quot;user1&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h6 id="revoke-all-oauth-tokens-for-a-user-in-big-ip-devices-matching-one-or-more-big-ip-clusters">2.1.3 Revoke All OAuth Tokens for a User in BIG-IP devices matching one or more BIG-IP clusters</h6>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens
+{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_USER&quot;,
+   &quot;userName&quot;:&quot;user1&quot;,
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;REVOKE_TOKEN_FOR_USER&quot;,
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ],
+  &quot;generation&quot;: 7,
+  &quot;id&quot;: &quot;5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733104269292,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:18:23.451-0700&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userName&quot;: &quot;user1&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h6 id="revoke-all-oauth-tokens-for-a-user-in-big-ip-devices-matching-one-or-more-big-ip-clusters-one-or-more-access-config-groups-and-one-or-more-device-references">2.1.4 Revoke All OAuth Tokens for a User in BIG-IP devices matching one or more BIG-IP clusters, one or more Access config groups and one or more device references</h6>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens
+{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_USER&quot;,
+   &quot;userName&quot;:&quot;user1&quot;,
+   &quot;accessGroupNames&quot;:[
+      &quot;TestGroup1&quot;,
+      &quot;TestGroup2&quot;
+   ],
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ],
+   &quot;deviceReferences&quot;: [
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      },
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d&quot;
+      }
+  ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;REVOKE_TOKEN_FOR_USER&quot;,
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+   &quot;accessGroupNames&quot;:[
+      &quot;TestGroup1&quot;,
+      &quot;TestGroup2&quot;
+   ],
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ],
+   &quot;deviceReferences&quot;: [
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      },
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d&quot;
+      }
+  ],
+  &quot;generation&quot;: 7,
+  &quot;id&quot;: &quot;5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733104269292,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:18:23.451-0700&quot;,
+  &quot;userName&quot;: &quot;user1&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h5 id="revoke-all-oauth-tokens-for-given-client-id">2.2 Revoke All OAuth Tokens for given Client Id</h5>
+<p>You can revoke all oauth tokens for given client id in one or more BIG-IP devices that matches one or more input criteria specified below.</p>
+<h6 id="revoke-all-oauth-tokens-for-given-client-id-in-big-ip-devices-matching-one-or-more-device-reference">2.2.1 Revoke All OAuth Tokens for given Client Id in BIG-IP devices matching one or more Device Reference</h6>
+<p>Mostly it suffices to provide one device reference as input, as Client id is unique per device for an oauth client app, so its not common to have same client id in more than one device.</p>
+<p>Note: To revoke oauth tokens in an device that is part of cluster, then it is recommended to use cluster name instead of device reference. Refer to example in next section. If that is not possible then device reference of ACTIVE device of cluster should be used for the API to work. Refer to prerequisites section for more details.</p>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens
+{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+   &quot;clientId&quot;:&quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+   &quot;deviceReferences&quot;:[
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      }
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+   &quot;clientId&quot;:&quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+  &quot;deviceReferences&quot;: [
+    {
+      &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+    }
+  ],
+  &quot;generation&quot;: 7,
+  &quot;id&quot;: &quot;5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733104269292,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:18:23.451-0700&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h6 id="revoke-all-oauth-tokens-for-given-client-id-in-big-ip-devices-matching-one-or-more-access-config-groups">2.2.2 Revoke All OAuth Tokens for given Client Id in BIG-IP devices matching one or more Access config groups</h6>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens
+{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+   &quot;clientId&quot;:&quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+   &quot;accessGroupNames&quot;:[
+      &quot;TestGroup1&quot;,
+      &quot;TestGroup2&quot;
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+   &quot;clientId&quot;:&quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+   &quot;accessGroupNames&quot;:[
+      &quot;TestGroup1&quot;,
+      &quot;TestGroup2&quot;
+   ],
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+  &quot;generation&quot;: 7,
+  &quot;id&quot;: &quot;5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733104269292,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:18:23.451-0700&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h6 id="revoke-all-oauth-tokens-for-given-client-id-in-one-or-more-big-ip-clusters">2.2.3 Revoke All OAuth Tokens for given Client Id in one or more BIG-IP clusters</h6>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens
+{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+   &quot;clientId&quot;:&quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+   &quot;clientId&quot;:&quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ],
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+  &quot;generation&quot;: 7,
+  &quot;id&quot;: &quot;5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733104269292,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:18:23.451-0700&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h6 id="revoke-all-oauth-tokens-for-given-client-id-in-big-ip-devices-matching-one-or-more-big-ip-clusters-one-or-more-access-config-groups-and-one-or-more-device-references">2.2.4 Revoke All OAuth Tokens for given Client Id in BIG-IP devices matching one or more BIG-IP clusters, one or more Access config groups and one or more device references</h6>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens
+{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+   &quot;clientId&quot;:&quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+   &quot;accessGroupNames&quot;:[
+      &quot;TestGroup1&quot;,
+      &quot;TestGroup2&quot;
+   ],
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ],
+   &quot;deviceReferences&quot;: [
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      },
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d&quot;
+      }
+  ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+   &quot;action&quot;:&quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+   &quot;clientId&quot;:&quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+   &quot;accessGroupNames&quot;:[
+      &quot;TestGroup1&quot;,
+      &quot;TestGroup2&quot;
+   ],
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ],
+   &quot;deviceReferences&quot;: [
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      },
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d&quot;
+      }
+  ],
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+  &quot;generation&quot;: 7,
+  &quot;id&quot;: &quot;5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733104269292,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:18:23.451-0700&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h5 id="revoke-list-of-oauth-tokens-in-big-ip-devices-for-one-or-more-device-reference">2.3 Revoke List of OAuth Tokens in BIG-IP devices for one or more Device Reference</h5>
+<p>Note: * If the input device reference is part of cluster, then device reference of ACTIVE device of cluster should be used in this action, for the API to work. If device reference of STANDBY device is passed as input, the task may finish, but API will not be able to send additional warning or error in the response. Refer to prerequisites section for more details. * OAuth id's that has to be revoked, need to be manually determined, currently there is no API support to list session information. In BIG-IQ UI, token information can be found in Monitoring tab under Dashboards &amp; Reports-&gt;Access-&gt;OAuth-&gt;Tokens. If OAuth Id column is not visible, it needs to be selected in Grid Settings on top left most corner of the tokens table.</p>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens
+{
+   &quot;action&quot;:&quot;REVOKE_LIST_OF_TOKENS&quot;,
+   &quot;perDeviceOauthIds&quot;: [
+    {
+      &quot;oauthIds&quot;: [
+        {
+          &quot;id&quot;: &quot;da6d57ffab9decbe9d75b7fdd4440ad43bedc7a475f3105b&quot;,
+          &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        },
+        {
+          &quot;id&quot;: &quot;0df998ae62ace6fb6a82bb745b8586e7306afb94e3ca146a&quot;,
+          &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        }
+      ],
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      }
+    },
+    {
+      &quot;oauthIds&quot;: [
+        {
+          &quot;id&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+          &quot;clientId&quot;: &quot;bb745b8586e7306afb94&quot;
+        },
+        {
+          &quot;id&quot;: &quot;8586e7306afb8586e7306afb8586e7306afb&quot;,
+          &quot;clientId&quot;: &quot;8ad92cbb970dd500&quot;
+        }
+      ],
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/23h4jkhk324-f405-489f-kj3434-98234&quot;
+      }
+    }
+  ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+   &quot;action&quot;:&quot;REVOKE_LIST_OF_TOKENS&quot;,
+   &quot;perDeviceOauthIds&quot;: [
+    {
+      &quot;oauthIds&quot;: [
+        {
+          &quot;id&quot;: &quot;da6d57ffab9decbe9d75b7fdd4440ad43bedc7a475f3105b&quot;,
+          &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        },
+        {
+          &quot;id&quot;: &quot;0df998ae62ace6fb6a82bb745b8586e7306afb94e3ca146a&quot;,
+          &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        }
+      ],
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      }
+    },
+    {
+      &quot;oauthIds&quot;: [
+        {
+          &quot;id&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+          &quot;clientId&quot;: &quot;bb745b8586e7306afb94&quot;
+        },
+        {
+          &quot;id&quot;: &quot;8586e7306afb8586e7306afb8586e7306afb&quot;,
+          &quot;clientId&quot;: &quot;8ad92cbb970dd500&quot;
+        }
+      ],
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/23h4jkhk324-f405-489f-kj3434-98234&quot;
+      }
+    }
+  ],
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+  &quot;generation&quot;: 7,
+  &quot;id&quot;: &quot;5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733104269292,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:18:23.451-0700&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h4 id="perform-additional-get-methods-to-the-revoke-oauth-tokens-task-created-in-step-2.">3. Perform additional GET methods to the revoke oauth tokens task created in Step 2.</h4>
+<p>Perform additional GET methods on the selfLink returned from the Step 2 response JSON. Perform them in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED. Use a select option to reduce the content of the returned JSON to a manageable amount. In addition to the status, result should have the value of COMPLETE.</p>
+<p>For a task to be successful,response should have values of status as FINISHED and result as COMPLETE.</p>
+<p>Note: Replace below URI with selfLink from json response or replace 5b688828-2279-40b0-9dc1-eccdebb6837f in below URI with id from json response.</p>
+<p>To get select fields in the response use below query</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f?$select=status,result,errorMessage</code></pre>
+<p>To get complete response use below query</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/revoke-tokens/5b688828-2279-40b0-9dc1-eccdebb6837f</code></pre>
+<h5 id="sample-of-successful-response">3.1 Sample of Successful Response</h5>
+<p>The following is an sample successful response JSON from the GET method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+  &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+  &quot;currentStep&quot;: &quot;DONE&quot;,
+  &quot;deviceReferences&quot;: [
+    {
+      &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+    }
+  ],
+  &quot;endDateTime&quot;: &quot;2016-09-12T19:18:56.027-0700&quot;,
+  &quot;generation&quot;: 7,
+  &quot;id&quot;: &quot;9ae2bf8a-a53b-4f4e-b012-8b7c5df56a73&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733136078468,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;result&quot;: &quot;COMPLETE&quot;,
+  &quot;resultDetails&quot;: [],
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/9ae2bf8a-a53b-4f4e-b012-8b7c5df56a73&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:18:54.861-0700&quot;,
+  &quot;status&quot;: &quot;FINISHED&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h5 id="sample-of-failed-response">3.2 Sample of Failed Response</h5>
+<p>The following is sample of failed task response JSON from the GET method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;REVOKE_LIST_OF_TOKENS&quot;,
+  &quot;currentStep&quot;: &quot;REVOKE_TOKENS_FOR_STANDALONE&quot;,
+  &quot;endDateTime&quot;: &quot;2016-09-12T19:19:26.794-0700&quot;,
+  &quot;errorMessage&quot;: &quot;Tokens not found in BIG-IP. Possibly already purged tokens.&quot;,
+  &quot;generation&quot;: 6,
+  &quot;id&quot;: &quot;56a6994d-06b7-4085-b93d-29c489c805c5&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1473733166845546,
+  &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+  &quot;perDeviceOauthIds&quot;: [
+    {
+      &quot;oauthIds&quot;: [
+        {
+          &quot;id&quot;: &quot;da6d57ffab9decbe9d75b7fdd4440ad43bedc7a475f3105b&quot;,
+          &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        },
+        {
+          &quot;id&quot;: &quot;0df998ae62ace6fb6a82bb745b8586e7306afb94e3ca146a&quot;,
+          &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        }
+      ],
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      }
+    }
+  ],
+  &quot;result&quot;: &quot;FAILED&quot;,
+  &quot;resultDetails&quot;: [
+    {
+      &quot;failedIds&quot;: [
+        {
+          &quot;id&quot;: &quot;0df998ae62ace6fb6a82bb745b8586e7306afb94e3ca146a&quot;,
+          &quot;dbInstance&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+          &quot;clientId&quot;: &quot;&quot;
+        },
+        {
+          &quot;id&quot;: &quot;da6d57ffab9decbe9d75b7fdd4440ad43bedc7a475f3105b&quot;,
+          &quot;dbInstance&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+          &quot;clientId&quot;: &quot;&quot;
+        }
+      ],
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      }
+    }
+  ],
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/56a6994d-06b7-4085-b93d-29c489c805c5&quot;,
+  &quot;startDateTime&quot;: &quot;2016-09-12T19:19:26.509-0700&quot;,
+  &quot;status&quot;: &quot;FAILED&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<p>When an error occurs, review the BIG-IQ Centralized Management user interface for device management to determine the details of the failure. In addition to using the user interface, some error information can be determined from the REST API response JSON as shown in the following error.</p>
+<h4 id="error-generated-when-an-incorrect-uri-is-sent-in-the-rest-request.">Error generated when an incorrect URI is sent in the REST request.</h4>
+<pre><code>{
+  &quot;code&quot;: 404,
+  &quot;message&quot;: &quot;Public URI path not registered&quot;,
+  &quot;referer&quot;: &quot;192.168.101.130&quot;,
+  &quot;restOperationId&quot;: 19541801,
+  &quot;errorStack&quot;: [
+    &quot;com.f5.rest.common.RestWorkerUriNotFoundException: Public URI path not registered&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.cloneAndForwardRequest(ForwarderPassThroughWorker.java:250)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onForward(ForwarderPassThroughWorker.java:106)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onQuery(ForwarderPassThroughWorker.java:409)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callDerivedRestMethod(RestWorker.java:1071)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callRestMethodHandler(RestWorker.java:1040)&quot;,
+    &quot;at com.f5.rest.common.RestServer.processQueuedRequests(RestServer.java:1467)&quot;,
+    &quot;at com.f5.rest.common.RestServer.access$000(RestServer.java:53)&quot;,
+    &quot;at com.f5.rest.common.RestServer$1.run(RestServer.java:333)&quot;,
+    &quot;at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)&quot;,
+    &quot;at java.util.concurrent.FutureTask.run(FutureTask.java:262)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)&quot;,
+    &quot;at java.lang.Thread.run(Thread.java:745)\n&quot;
+  ],
+  &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h4 id="task-failure-when-action-is-not-provided.">Task failure when action is not provided.</h4>
+<p>Task creation will not happen, when required data is missing in the input JSON during POST. Due to this reason, you will not see id or selfLink in the response for validation failures.</p>
+<pre><code>{
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;action is missing&quot;,
+    &quot;originalRequestBody&quot;: &quot;{\&quot;id\&quot;:\&quot;e8f92ff2-0367-4393-b79f-ea91147c71ac\&quot;,\&quot;status\&quot;:\&quot;CREATED\&quot;,\&quot;name\&quot;:\&quot;revoke-oauth-tokens\&quot;,\&quot;generation\&quot;:1,\&quot;lastUpdateMicros\&quot;:1480715155144821,\&quot;kind\&quot;:\&quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate\&quot;,\&quot;selfLink\&quot;:\&quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/e8f92ff2-0367-4393-b79f-ea91147c71ac\&quot;}&quot;,
+    &quot;referer&quot;: &quot;192.168.85.74&quot;,
+    &quot;restOperationId&quot;: 5541817,
+    &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h4 id="task-failure-when-required-input-is-not-available.">Task failure when required input is not available.</h4>
+<pre><code>{
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;Request should have atleast one of these fields populated: accessGroupNames , clusterNames , machineIds &quot;,
+    &quot;originalRequestBody&quot;: &quot;{\&quot;action\&quot;:\&quot;REVOKE_TOKEN_FOR_CLIENT_ID\&quot;,\&quot;perDeviceOauthIds\&quot;:[{\&quot;deviceReference\&quot;:{\&quot;link\&quot;:\&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642\&quot;}}],\&quot;id\&quot;:\&quot;0bd7f801-2b83-46ec-a953-2464b9a5aada\&quot;,\&quot;status\&quot;:\&quot;CREATED\&quot;,\&quot;name\&quot;:\&quot;revoke-oauth-tokens\&quot;,\&quot;generation\&quot;:1,\&quot;lastUpdateMicros\&quot;:1480723471881889,\&quot;kind\&quot;:\&quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate\&quot;,\&quot;selfLink\&quot;:\&quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/0bd7f801-2b83-46ec-a953-2464b9a5aada\&quot;}&quot;,
+    &quot;referer&quot;: &quot;192.168.85.74&quot;,
+    &quot;restOperationId&quot;: 5898985,
+    &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h4 id="task-failure-when-for-a-given-input-there-is-no-matching-devices-for-non-existing-or-invalid-device-reference-or-access-group-or-cluster-names">Task failure when, for a given input, there is no matching devices for non-existing or invalid (device reference or access group or cluster names)</h4>
+<pre><code>{
+    &quot;accessGroupNames&quot;: [
+        &quot;TestGroup1&quot;,
+        &quot;TestGroup2&quot;,
+        null
+    ],
+    &quot;action&quot;: &quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+    &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+    &quot;clusterNames&quot;: [
+        &quot;BlueCluster&quot;,
+        &quot;RedCluster&quot;
+    ],
+    &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+    &quot;deviceReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+        }
+    ],
+    &quot;endDateTime&quot;: &quot;2016-12-02T13:57:54.644-0800&quot;,
+    &quot;errorMessage&quot;: &quot;No matching device(s) found for given accessGroup or cluster or deviceReference list.&quot;,
+    &quot;failureDetails&quot;: [],
+    &quot;generation&quot;: 2,
+    &quot;id&quot;: &quot;8cb892a9-98a1-4433-ab09-e1d3ceafd3e6&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1480715874695778,
+    &quot;name&quot;: &quot;revoke-oauth-tokens&quot;,
+    &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/8cb892a9-98a1-4433-ab09-e1d3ceafd3e6&quot;,
+    &quot;startDateTime&quot;: &quot;2016-12-02T13:57:54.640-0800&quot;,
+    &quot;status&quot;: &quot;FAILED&quot;,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h4 id="task-fails-when-the-input-is-valid-but-the-matching-tokens-dont-exist-anymore-on-the-big-ip-system-for-the-revoke_token_for_user-or-revoke_token_for_client_id-action">Task fails when the input is valid, but the matching tokens don't exist anymore on the BIG-IP system for the REVOKE_TOKEN_FOR_USER or REVOKE_TOKEN_FOR_CLIENT_ID action</h4>
+<p>Even for valid request, you can sometimes see failures because API will currently try to revoke EXPIRED tokens.</p>
+<pre><code>{
+    &quot;action&quot;: &quot;REVOKE_TOKEN_FOR_CLIENT_ID&quot;,
+    &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;,
+    &quot;currentStep&quot;: &quot;REVOKE_TOKENS_FOR_STANDALONE&quot;,
+    &quot;deviceReferences&quot;: [
+    {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-access-allBigIpDevices/devices/b795b3da-b703-4b7c-9f9b-ec3d32a7668d&quot;
+    }
+    ],
+    &quot;endDateTime&quot;: &quot;2016-12-02T14:47:25.215-0800&quot;,
+    &quot;errorMessage&quot;: &quot;Tokens not found in BIG-IP. Possibly already purged tokens.&quot;,
+    &quot;failureDetails&quot;: [
+    {
+        &quot;failedIds&quot;: [
+        {
+            &quot;errorCode&quot;: 400,
+            &quot;error&quot;: &quot;status:400, body:{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;Token revoke failed. The OAuth ID is not found\&quot;,\&quot;errorStack\&quot;:[],\&quot;apiError\&quot;:26214401}&quot;,
+            &quot;id&quot;: &quot;21548559d296d726b12747ab45f5aed0d249436e652f1ff5&quot;,
+            &quot;dbInstance&quot;: &quot;/Common/oauthdb&quot;,
+            &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        },
+        {
+            &quot;errorCode&quot;: 400,
+            &quot;error&quot;: &quot;status:400, body:{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;Token revoke failed. The OAuth ID is not found\&quot;,\&quot;errorStack\&quot;:[],\&quot;apiError\&quot;:26214401}&quot;,
+            &quot;id&quot;: &quot;b189aa46265af31c6f240d1789374dd985d6baea546217e7&quot;,
+            &quot;dbInstance&quot;: &quot;/Common/oauthdb&quot;,
+            &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        },
+        {
+            &quot;errorCode&quot;: 400,
+            &quot;error&quot;: &quot;status:400, body:{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;Token revoke failed. The OAuth ID is not found\&quot;,\&quot;errorStack\&quot;:[],\&quot;apiError\&quot;:26214401}&quot;,
+            &quot;id&quot;: &quot;6c784d41f24baefa363834be139e66dd0ba61f045227fb87&quot;,
+            &quot;dbInstance&quot;: &quot;/Common/oauthdb&quot;,
+            &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        },
+        {
+            &quot;errorCode&quot;: 400,
+            &quot;error&quot;: &quot;status:400, body:{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;Token revoke failed. The OAuth ID is not found\&quot;,\&quot;errorStack\&quot;:[],\&quot;apiError\&quot;:26214401}&quot;,
+            &quot;id&quot;: &quot;b3913c61dad4e65aa2cd1c3fb5f3e3d74adf2b01f851e687&quot;,
+            &quot;dbInstance&quot;: &quot;/Common/oauthdb&quot;,
+            &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        },
+        {
+            &quot;errorCode&quot;: 400,
+            &quot;error&quot;: &quot;status:400, body:{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;Token revoke failed. The OAuth ID is not found\&quot;,\&quot;errorStack\&quot;:[],\&quot;apiError\&quot;:26214401}&quot;,
+            &quot;id&quot;: &quot;08f38dc356b4d5ad6e5f856c0f2792aa98ae993b2305469b&quot;,
+            &quot;dbInstance&quot;: &quot;/Common/oauthdb&quot;,
+            &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        }
+        ],
+        &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-access-allBigIpDevices/devices/b795b3da-b703-4b7c-9f9b-ec3d32a7668d&quot;
+        }
+    }
+    ],
+    &quot;generation&quot;: 6,
+    &quot;id&quot;: &quot;92be2f5d-2d88-4810-be1f-72443a4e87d0&quot;,
+    &quot;identityReferences&quot;: [
+    {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+    ],
+    &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1480718845268487,
+    &quot;name&quot;: &quot;revoke-oauth-tokens&quot;,
+    &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+    &quot;result&quot;: &quot;FAILED&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/92be2f5d-2d88-4810-be1f-72443a4e87d0&quot;,
+    &quot;startDateTime&quot;: &quot;2016-12-02T14:47:09.095-0800&quot;,
+    &quot;status&quot;: &quot;FAILED&quot;,
+    &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h4 id="task-fails-when-the-input-is-valid-but-the-matching-tokens-dont-exist-anymore-on-the-big-ip-system-for-the-revoke_token_for_user-action.">Task fails when the input is valid, but the matching tokens don't exist anymore on the BIG-IP system for the REVOKE_TOKEN_FOR_USER action.</h4>
+<p>Even for valid request, you can sometimes see failures because the API will currently try to revoke EXPIRED tokens.</p>
+<pre><code>{
+    &quot;action&quot;: &quot;REVOKE_TOKEN_FOR_USER&quot;,
+    &quot;currentStep&quot;: &quot;REVOKE_TOKENS_FOR_STANDALONE&quot;,
+    &quot;deviceReferences&quot;: [
+    {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-access-allBigIpDevices/devices/b795b3da-b703-4b7c-9f9b-ec3d32a7668d&quot;
+    }
+    ],
+    &quot;endDateTime&quot;: &quot;2016-12-02T15:01:22.144-0800&quot;,
+    &quot;errorMessage&quot;: &quot;Tokens not found in BIG-IP. Possibly already purged tokens.&quot;,
+    &quot;failureDetails&quot;: [
+    {
+        &quot;failedIds&quot;: [
+        {
+            &quot;errorCode&quot;: 400,
+            &quot;error&quot;: &quot;status:400, body:{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;Token revoke failed. The OAuth ID is not found\&quot;,\&quot;errorStack\&quot;:[],\&quot;apiError\&quot;:26214401}&quot;,
+            &quot;id&quot;: &quot;7578a282db6c6e37a396421cb0a6511c58ee7d64e2dd1050&quot;,
+            &quot;dbInstance&quot;: &quot;/Common/oauthdb&quot;,
+            &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        },
+        {
+            &quot;errorCode&quot;: 400,
+            &quot;error&quot;: &quot;status:400, body:{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;Token revoke failed. The OAuth ID is not found\&quot;,\&quot;errorStack\&quot;:[],\&quot;apiError\&quot;:26214401}&quot;,
+            &quot;id&quot;: &quot;8a9fc4951123ac5f8c0014331aa0d58dfe6c7436d26a503c&quot;,
+            &quot;dbInstance&quot;: &quot;/Common/oauthdb&quot;,
+            &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        },
+        {
+            &quot;errorCode&quot;: 400,
+            &quot;error&quot;: &quot;status:400, body:{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;Token revoke failed. The OAuth ID is not found\&quot;,\&quot;errorStack\&quot;:[],\&quot;apiError\&quot;:26214401}&quot;,
+            &quot;id&quot;: &quot;e376b1c025577121a883d9dfc13ccbf93dcc201ac617225b&quot;,
+            &quot;dbInstance&quot;: &quot;/Common/oauthdb&quot;,
+            &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        },
+        {
+            &quot;errorCode&quot;: 400,
+            &quot;error&quot;: &quot;status:400, body:{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;Token revoke failed. The OAuth ID is not found\&quot;,\&quot;errorStack\&quot;:[],\&quot;apiError\&quot;:26214401}&quot;,
+            &quot;id&quot;: &quot;3b7e0e581400df4786708e0447f9c3b285cee9533616e686&quot;,
+            &quot;dbInstance&quot;: &quot;/Common/oauthdb&quot;,
+            &quot;clientId&quot;: &quot;e3f3e7204d00d88ad92cbb970dd5005056b093adfa6d7457&quot;
+        }
+        ],
+        &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-access-allBigIpDevices/devices/b795b3da-b703-4b7c-9f9b-ec3d32a7668d&quot;
+        }
+    }
+    ],
+    &quot;generation&quot;: 6,
+    &quot;id&quot;: &quot;5c717dcf-fa6a-4ae1-b5fd-3b20be6f2ba7&quot;,
+    &quot;identityReferences&quot;: [
+    {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+    ],
+    &quot;kind&quot;: &quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1480719682195917,
+    &quot;name&quot;: &quot;revoke-oauth-tokens&quot;,
+    &quot;ownerMachineId&quot;: &quot;fd870e82-842d-4194-a882-71cb92e2a5c3&quot;,
+    &quot;result&quot;: &quot;FAILED&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/5c717dcf-fa6a-4ae1-b5fd-3b20be6f2ba7&quot;,
+    &quot;startDateTime&quot;: &quot;2016-12-02T15:00:45.580-0800&quot;,
+    &quot;status&quot;: &quot;FAILED&quot;,
+    &quot;userName&quot;: &quot;jack&quot;,
+    &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h4 id="task-failure-when-devicereference-is-missing-for-revoke_list_of_tokens-action">Task failure when deviceReference is missing for REVOKE_LIST_OF_TOKENS action</h4>
+<pre><code>{
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;Expected deviceReference per list of perDeviceOauthIds&quot;,
+    &quot;originalRequestBody&quot;: &quot;{\&quot;action\&quot;:\&quot;REVOKE_LIST_OF_TOKENS\&quot;,\&quot;perDeviceOauthIds\&quot;:[{}],\&quot;id\&quot;:\&quot;9707fa05-eb02-4827-aff1-b1059673ef1f\&quot;,\&quot;status\&quot;:\&quot;CREATED\&quot;,\&quot;name\&quot;:\&quot;revoke-oauth-tokens\&quot;,\&quot;generation\&quot;:1,\&quot;lastUpdateMicros\&quot;:1480723333609721,\&quot;kind\&quot;:\&quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate\&quot;,\&quot;selfLink\&quot;:\&quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/9707fa05-eb02-4827-aff1-b1059673ef1f\&quot;}&quot;,
+    &quot;referer&quot;: &quot;192.168.85.74&quot;,
+    &quot;restOperationId&quot;: 5895882,
+    &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h4 id="task-failure-when-oauthids-are-missing-for-revoke_list_of_tokens-action">Task failure when oauthIds are missing for REVOKE_LIST_OF_TOKENS action</h4>
+<pre><code>{
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;Expected oauthIds per list of perDeviceOauthIds&quot;,
+    &quot;originalRequestBody&quot;: &quot;{\&quot;action\&quot;:\&quot;REVOKE_LIST_OF_TOKENS\&quot;,\&quot;perDeviceOauthIds\&quot;:[{\&quot;deviceReference\&quot;:{\&quot;link\&quot;:\&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642\&quot;}}],\&quot;id\&quot;:\&quot;691e86a6-4adb-48c7-8e45-3c9a43d3d8a4\&quot;,\&quot;status\&quot;:\&quot;CREATED\&quot;,\&quot;name\&quot;:\&quot;revoke-oauth-tokens\&quot;,\&quot;generation\&quot;:1,\&quot;lastUpdateMicros\&quot;:1480723393766436,\&quot;kind\&quot;:\&quot;cm:access:tasks:revoke-tokens:oauthrevoketokentaskitemstate\&quot;,\&quot;selfLink\&quot;:\&quot;https://localhost/mgmt/cm/access/tasks/revoke-tokens/691e86a6-4adb-48c7-8e45-3c9a43d3d8a4\&quot;}&quot;,
+    &quot;referer&quot;: &quot;192.168.85.74&quot;,
+    &quot;restOperationId&quot;: 5897207,
+    &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>

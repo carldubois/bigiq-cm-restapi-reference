@@ -1,0 +1,290 @@
+<h2 id="view-status-of-ltm-objects">View Status of LTM objects</h2>
+<h3 id="overview">Overview</h3>
+<p>When you manage your BIG-IP devices with BIG-IQ software, you can review the status of applications across your data centers using the BIG-IQ REST API.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Make certain that the following prerequisites have been met.</p>
+<ul>
+<li>All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management device.</li>
+<li>The BIG-IQ Centralized Management device is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management device, and the current configuration of the BIG-IP device has been discovered on the BIG-IQ Centralized Management device.</li>
+</ul>
+<p>Note: When you perform these tasks using the example code provided, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ device, change localhost to be the IP address of the BIG-IQ Centralized Management device.</p>
+<h3 id="search-for-an-applications-configuration-objects">Search for an application's configuration objects</h3>
+<p>You can use this call to locate the configuration objects on a managed device. Using the IP address, hostname, or another specific property, you can get information about the configuration objects on the managed device.</p>
+<h4 id="locate-a-list-of-configuration-object-kinds.">1. Locate a list of configuration object kinds.</h4>
+<p>You can retrieve a list of available kinds for LTM, Network, and System objects. A typical post looks like this:</p>
+<pre><code>GET https://ip/mgmt/cm/adc-core/utility/object-kinds
+
+Results:
+{
+    &quot;items&quot;: [
+        ...
+        {
+            &quot;displayName&quot;: &quot;Virtual Server&quot;,
+            &quot;itemKind&quot;: &quot;cm:adc-core:working-config:ltm:virtual:adcvirtualstate&quot;
+        },
+        ...
+    ]
+    &quot;generation&quot;: 0,
+    &quot;lastUpdateMicros&quot;: 0
+}</code></pre>
+<h4 id="locate-a-virtual-server-by-address.">2. Locate a virtual server by address.</h4>
+<p>You can retrieve a listing of the current configuration values for a virtual serverincluding it's selfLink), by posting a query to it's IP address. A typical post looks like this:</p>
+<pre><code>GET https://&lt;ip&gt;/mgmt/shared/index/config?$filter=allContent eq &#39;10.145.195.168*&#39; and kind eq &#39;cm:adc-core:working-config:ltm:virtual:adcvirtualstate&#39;
+
+Results:
+{
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;translateAddress&quot;: &quot;enabled&quot;,
+            &quot;sourcePort&quot;: &quot;preserve&quot;,
+            &quot;state&quot;: &quot;enabled&quot;,
+            &quot;addressStatus&quot;: &quot;yes&quot;,
+            &quot;mask&quot;: &quot;255.255.255.255&quot;,
+            &quot;vlansEnabled&quot;: &quot;disabled&quot;,
+            &quot;autoLasthop&quot;: &quot;default&quot;,
+            &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:virtual:adcvirtualstate&quot;,
+            &quot;mirror&quot;: &quot;disabled&quot;,
+            &quot;id&quot;: &quot;8fbe1abd-a87d-30e9-a1ca-904f0c2018b6&quot;,
+            &quot;partition&quot;: &quot;Common&quot;,
+            &quot;lastUpdateMicros&quot;: 1479501532321481,
+            &quot;defaultSslPersistenceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/persistence/ssl/c6f31f8f-27f7-3554-808c-f3c133ebe861&quot;
+            },
+            &quot;nat64&quot;: &quot;disabled&quot;,
+            &quot;name&quot;: &quot;owa-app&quot;,
+            &quot;connectionLimit&quot;: 0,
+            &quot;generation&quot;: 4,
+            &quot;poolReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/8928f8af-3bfb-3a1f-ab25-471ccef7a1c0&quot;
+            },
+            &quot;sourceAddress&quot;: &quot;0.0.0.0/0&quot;,
+            &quot;destinationFullPath&quot;: &quot;10.145.195.168:80&quot;,
+            &quot;profilesCollectionReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/8fbe1abd-a87d-30e9-a1ca-904f0c2018b6/profiles&quot;,
+                &quot;isSubcollection&quot;: true
+            },
+            &quot;gtmScore&quot;: 0,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/8fbe1abd-a87d-30e9-a1ca-904f0c2018b6&quot;,
+            &quot;ipProtocol&quot;: &quot;tcp&quot;,
+            &quot;rateLimitMode&quot;: &quot;object&quot;,
+            &quot;deviceReference&quot;: {
+                &quot;id&quot;: &quot;4d01b7c8-63d5-465f-8ef1-cc8795f32abb&quot;,
+                &quot;name&quot;: &quot;bigip1.pdsea.f5net.com&quot;,
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4d01b7c8-63d5-465f-8ef1-cc8795f32abb&quot;,
+                &quot;machineId&quot;: &quot;4d01b7c8-63d5-465f-8ef1-cc8795f32abb&quot;,
+                &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;
+            },
+            &quot;rateLimit&quot;: &quot;disabled&quot;,
+            &quot;translatePort&quot;: &quot;enabled&quot;,
+            &quot;sourceAddressTranslation&quot;: {
+                &quot;type&quot;: &quot;none&quot;
+            }
+        }
+    ]
+}</code></pre>
+<h4 id="get-the-latest-availability-of-the-virtual-server.">3. Get the latest availability of the virtual server.</h4>
+<p>To view the current availability status of a virtual server, simply add '/stats' to the end of the virtual server's selfLink and do a GET on that URL. A typical post looks like this:</p>
+<pre><code>GET https://&lt;ip&gt;/mgmt/cm/adc-core/working-config/ltm/virtual/8fbe1abd-a87d-30e9-a1ca-904f0c2018b6/stats
+
+Results:
+{
+    &quot;entries&quot;: {
+        &quot;status.enabledState&quot;: {
+            &quot;description&quot;: &quot;enabled&quot;,
+            &quot;lastUpdateMicros&quot;: 1479501254572669
+        },
+        &quot;status.statusReason&quot;: {
+            &quot;description&quot;: &quot;The virtual server is available&quot;,
+            &quot;lastUpdateMicros&quot;: 1479501254572670
+        },
+        &quot;status.availabilityState&quot;: {
+            &quot;description&quot;: &quot;available&quot;,
+            &quot;lastUpdateMicros&quot;: 1479501254572669
+        },
+        &quot;lastRefreshMicros&quot;: {
+            &quot;value&quot;: 1479510554396833,
+            &quot;lastUpdateMicros&quot;: 1479510554400702,
+            &quot;updateType&quot;: &quot;BASIC&quot;
+        }
+    },
+    &quot;generation&quot;: 76,
+    &quot;lastUpdateMicros&quot;: 1479510554400702,
+    &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:virtual:8fbe1abd-a87d-30e9-a1ca-904f0c2018b6:stats:restworkerstats&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/8fbe1abd-a87d-30e9-a1ca-904f0c2018b6/stats&quot;
+}</code></pre>
+<blockquote>
+<p><strong>Note:</strong> - The response is a record of the statistics since the last collection time. See <em>lastRefreshMicros.value</em> for a unix timestamp representing the last time statistics were collected for this object's device. - <em>status.availabilityState</em> indicates whether the virtual server's pool has been marked available by monitors attached to the virtual server's pool, pool members, or nodes. - The location of these statistics could change in the future.</p>
+</blockquote>
+<h3 id="walk-from-virtual-server-to-nodes">Walk From Virtual Server To Nodes</h3>
+<p>There are a couple of mechanisms for locating that nodes that are used by a virtual server. 1. Using the referenceKind URL parameter 2. Manually walking each reference</p>
+<pre><code>Virtual Server -&gt; Pool -&gt; Pool Members -&gt; Nodes</code></pre>
+<h4 id="using-the-referencekind-url-parameter">1. Using the referenceKind URL Parameter</h4>
+<p>For this method, use the referenceMethod* 'resourceReferencesKind', to specify the virtual server as the <em>referenceLink</em> and the node kind as the <em>referenceKind</em>. A typical post looks like this:</p>
+<pre><code>GET https://&lt;ip&gt;/mgmt/shared/index/config?referenceMethod=resourceReferencesKind
+&amp;referenceKind=cm:adc-core:working-config:ltm:node:adcnodestate
+&amp;referenceLink=https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/8fbe1abd-a87d-30e9-a1ca-904f0c2018b6
+&amp;referenceDepth=3
+&amp;inflate=true
+
+Results:
+{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/shared/index/config?referenceKind=cm:adc-core:working-config:ltm:node:adcnodestate&amp;inflate=true&amp;referenceMethod=resourceReferencesKind&amp;referenceLink=https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/8fbe1abd-a87d-30e9-a1ca-904f0c2018b6&amp;referenceDepth=3&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;address&quot;: &quot;10.10.10.9&quot;,
+            &quot;connectionLimit&quot;: 0,
+            &quot;isEphemeral&quot;: false,
+            &quot;rateLimit&quot;: &quot;disabled&quot;,
+            &quot;ratio&quot;: 1,
+            &quot;sessionConfig&quot;: &quot;user-enabled&quot;,
+            &quot;stateConfig&quot;: &quot;user-up&quot;,
+            &quot;fqdn&quot;: {
+                &quot;addressFamily&quot;: &quot;ipv4&quot;,
+                &quot;isAutoPopulate&quot;: false,
+                &quot;downInterval&quot;: 5,
+                &quot;interval&quot;: &quot;3600&quot;
+            },
+            &quot;partition&quot;: &quot;Common&quot;,
+            &quot;deviceReference&quot;: {
+                &quot;id&quot;: &quot;4d01b7c8-63d5-465f-8ef1-cc8795f32abb&quot;,
+                &quot;name&quot;: &quot;bigip1.pdsea.f5net.com&quot;,
+                &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+                &quot;machineId&quot;: &quot;4d01b7c8-63d5-465f-8ef1-cc8795f32abb&quot;,
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4d01b7c8-63d5-465f-8ef1-cc8795f32abb&quot;
+            },
+            &quot;name&quot;: &quot;10.10.10.9&quot;,
+            &quot;id&quot;: &quot;befccffd-0928-3b58-b5d8-6e83f40e074e&quot;,
+            &quot;generation&quot;: 1,
+            &quot;lastUpdateMicros&quot;: 1479501043301183,
+            &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:node:adcnodestate&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/befccffd-0928-3b58-b5d8-6e83f40e074e&quot;
+        }
+    ]
+}</code></pre>
+<h4 id="manually-walking-each-reference">2. Manually walking each reference</h4>
+<p>For this method, post a Get to the virtual server's <em>poolReference</em> A typical post looks like this:</p>
+<pre><code>GET https://&lt;ip&gt;/mgmt/cm/adc-core/working-config/ltm/virtual/8fbe1abd-a87d-30e9-a1ca-904f0c2018b6
+
+Results:
+{
+    ...
+    &quot;name&quot;: &quot;owa-app&quot;,
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;poolReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/8928f8af-3bfb-3a1f-ab25-471ccef7a1c0&quot;
+    },
+    
+    ...
+}</code></pre>
+<p>Retrieve the pool's member subcollection reference. To get a pool's member reference subcollection, you can post a query to the members. A typical post looks like this:</p>
+<pre><code>GET https://&lt;ip&gt;/mgmt/cm/adc-core/working-config/ltm/pool/8928f8af-3bfb-3a1f-ab25-471ccef7a1c0
+
+Results:
+{
+    ...
+    &quot;membersCollectionReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/8928f8af-3bfb-3a1f-ab25-471ccef7a1c0/members&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;name&quot;: &quot;owa-pool&quot;,
+    &quot;partition&quot;: &quot;Common&quot;
+    ...
+}</code></pre>
+<p>Retrieve the node references from each member subcollection item. To get a list of a virtual server's node references, you can post a query to the members. A typical post looks like this:</p>
+<pre><code>GET https://&lt;ip&gt;/mgmt/cm/adc-core/working-config/ltm/pool/8928f8af-3bfb-3a1f-ab25-471ccef7a1c0/members
+
+Results:
+{
+    &quot;items&quot;: [
+        {
+            ...
+            &quot;nodeReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/befccffd-0928-3b58-b5d8-6e83f40e074e&quot;
+            },
+            &quot;partition&quot;: &quot;Common&quot;,
+            &quot;name&quot;: &quot;10.10.10.9:8000&quot;,
+            ...
+        },
+        {
+            ...
+            &quot;nodeReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/befccffd-0928-3b58-b5d8-6e83f40e074e&quot;
+            },
+            &quot;partition&quot;: &quot;Common&quot;,
+            &quot;name&quot;: &quot;10.10.10.9:8002&quot;,
+            ...
+        },
+        {
+            ...
+            &quot;nodeReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/befccffd-0928-3b58-b5d8-6e83f40e074e&quot;
+            },
+            &quot;partition&quot;: &quot;Common&quot;,
+            &quot;name&quot;: &quot;10.10.10.9:8001&quot;,
+            ...
+        }
+    ],
+    &quot;generation&quot;: 4,
+    &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:pool:members:adcpoolmembercollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479501141331454,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/8928f8af-3bfb-3a1f-ab25-471ccef7a1c0/members&quot;
+}</code></pre>
+<p>Retrieve the node using the <em>nodeReference</em> from each member. To get a member's node reference, you can post a query to each member. A typical post looks like this:</p>
+<pre><code>GET https://10.145.192.199/mgmt/cm/adc-core/working-config/ltm/node/befccffd-0928-3b58-b5d8-6e83f40e074e
+
+Results:
+{
+    &quot;address&quot;: &quot;10.10.10.9&quot;,
+    &quot;connectionLimit&quot;: 0,
+    &quot;isEphemeral&quot;: false,
+    &quot;rateLimit&quot;: &quot;disabled&quot;,
+    &quot;ratio&quot;: 1,
+    &quot;sessionConfig&quot;: &quot;user-enabled&quot;,
+    &quot;stateConfig&quot;: &quot;user-up&quot;,
+    &quot;fqdn&quot;: {
+        &quot;addressFamily&quot;: &quot;ipv4&quot;,
+        &quot;isAutoPopulate&quot;: false,
+        &quot;downInterval&quot;: 5,
+        &quot;interval&quot;: &quot;3600&quot;
+    },
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;id&quot;: &quot;4d01b7c8-63d5-465f-8ef1-cc8795f32abb&quot;,
+        &quot;name&quot;: &quot;bigip1.pdsea.f5net.com&quot;,
+        &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+        &quot;machineId&quot;: &quot;4d01b7c8-63d5-465f-8ef1-cc8795f32abb&quot;,
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4d01b7c8-63d5-465f-8ef1-cc8795f32abb&quot;
+    },
+    &quot;name&quot;: &quot;10.10.10.9&quot;,
+    &quot;id&quot;: &quot;befccffd-0928-3b58-b5d8-6e83f40e074e&quot;,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1479501043301183,
+    &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:node:adcnodestate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/befccffd-0928-3b58-b5d8-6e83f40e074e&quot;
+}</code></pre>
+<h3 id="searching-for-non-conformant-configuration.">Searching for non-conformant configuration.</h3>
+<p>If you have a company policy regarding acceptable configurations, you can use the $filter parameter to search for a particular invalid configuration.</p>
+<p>For example, if your company policy prohibits autoLasthop on virtual servers to be 'enabled', you could issue the following query to locate invalid virtuals servers:</p>
+<blockquote>
+<p><strong>Note:</strong> In this case, for simplicity we use $select=selfLink,autoLasthop to suppress all properties except for the <em>selfLink</em> and <em>autoLasthop</em>.</p>
+</blockquote>
+<pre><code>GET https://&lt;ip&gt;/mgmt/cm/adc-core/working-config/ltm/virtual?$filter=autoLasthop eq &#39;enabled&#39;&amp;$select=selfLink,autoLasthop
+
+Results:
+{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;autoLasthop&quot;: &quot;enabled&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/8fbe1abd-a87d-30e9-a1ca-904f0c2018b6&quot;
+        }
+    ],
+    &quot;generation&quot;: 26,
+    &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:virtual:adcvirtualcollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479756371933830
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>

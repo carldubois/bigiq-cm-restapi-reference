@@ -1,0 +1,225 @@
+<h2 id="establish-trust-between-a-big-iq-centralized-management-system-and-a-big-ip-device">Establish trust between a BIG-IQ Centralized Management system and a BIG-IP device</h2>
+<h3 id="overview">Overview</h3>
+<p>You can use the REST API to establish trust between the BIG-IQ Centralized Management system and BIG-IP devices so that the BIG-IQ Centralized Management system can manage, and communicate with, the BIG-IP device. This trust establishment example also shows how to upgrade the REST framework for a BIG-IP device version 12.0.0 or lower.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>This example assumes the following about the configuration:</p>
+<ul>
+<li>All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system.</li>
+<li>The BIG-IQ Centralized Management system is operational, has completed the setup wizard and has all system-level configuration in place.</li>
+<li>When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.</li>
+</ul>
+<h3 id="description">Description</h3>
+<p>You establish the trust between the BIG-IQ Centralized Management system and the BIG-IP device as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Perform a GET method on the machineid-resolver URI to determine the current state of the BIG-IP device. Using this information, you can determine the management status of the BIG-IP device.</li>
+<li>Perform a POST method on the trust URI to create the trust between the BIG-IQ Centralized Management system and the BIG-IP device.</li>
+<li>Monitor the task via GET methods until the status has a value of FINISHED, FAILED or CANCELLED.</li>
+<li>If needed, perform a PATCH method to the task with the necessary root credentials to support a framework upgrade. You perform the patch when the status has a value of FINISHED and the currentStep value indicates a framework upgrade is required.</li>
+<li>Perform GET methods to monitor the trust task until the status has a value of FINISHED, FAILED or CANCELLED.</li>
+</ol>
+<p>The following extended example show each of these REST API methods.</p>
+<h3 id="extended-example-for-establishing-device-trust">Extended example for establishing device trust</h3>
+<p>In the following example:</p>
+<ul>
+<li>The BIG-IP device discovery address is 10.255.4.124. you can substitute your BIG-IP device’s discovery address for this address when you implement the example.<br />
+</li>
+<li>The BIG-IP device is in a DSC cluster with another BIG-IP device which has a discovery address of 10.255.4.125. The trust relationship with the clustered BIG-IP device is established later and is not covered in this example.</li>
+</ul>
+<h4 id="determine-the-current-status-of-the-big-ip-device-on-the-big-iq-centralized-management-system.">1. Determine the current status of the BIG-IP device on the BIG-IQ Centralized Management system.</h4>
+<p>Perform a GET method on the machineid-resolver to determine if the BIG-IP device already has trust established. You will want to use the filter option to narrow the returned JSON information to just this particular BIG-IP device. If the value of items is not an empty list [], then the trust has already been established.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/system/machineid-resolver?$filter=(&#39;address&#39;+eq+&#39;10.255.4.124&#39;)</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+  &quot;items&quot;: [],
+  &quot;generation&quot;: 0,
+  &quot;lastUpdateMicros&quot;: 0,
+  &quot;selfLink&quot;: &quot;http://localhost:8100/cm/system/machineid-resolver?$filter=%28%27address%27+eq+%2710.255.4.124%27%29&quot;
+}</code></pre>
+<h4 id="perform-a-post-method-to-the-trust-uri-to-establish-trust-between-the-big-iq-centralized-management-system-and-the-big-ip-device.">2. Perform a POST method to the trust URI to establish trust between the BIG-IQ Centralized Management system and the BIG-IP device.</h4>
+<p>Perform a POST method to the trust task URI. The following options must be included in the POST JSON data: - address - The discovery address for the BIG-IP device. - clusterName - The name to be used to label the DSC cluster if this BIG-IP device is part of a DSC cluster. - useBigiqSync - The mode to be used for synchronizing the DSC cluster. It is highly recommended that this be included and set to false so that the BIG-IP devices will perform the necessary syncing of the cluster. - userName - The user name for the account that has admin privileges on the BIG-IP device. - password - The password associated with the userName on the BIG-IP device.</p>
+<pre><code>POST: https://&lt;mgmtip&gt;/mgmt/cm/gloal/tasks/device-trust
+
+{
+    &quot;address&quot;: &quot;10.255.4.124&quot;,
+    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+    &quot;password&quot;: &quot;admin&quot;,
+    &quot;useBigiqSync&quot;: false,
+    &quot;userName&quot;: &quot;admin&quot;
+}</code></pre>
+<p>The following is the response JSON from the POST method:</p>
+<pre><code>    &quot;address&quot;: &quot;10.255.4.124&quot;,
+    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+    &quot;generation&quot;: 1,
+    &quot;id&quot;: &quot;a27f6fd7-d0cc-4f2a-892b-cb859b182cdb&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:global:tasks:device-trust:bigiptrusttaskstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1476994540596918,
+    &quot;ownerMachineId&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;,
+    &quot;password&quot;: &quot;Gyw7sPg5BFC1vu23i5pKEDbQUw+WL3ZCGIxN/yg1IEQ=&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-892b-cb859b182cdb&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;taskWorkerGeneration&quot;: 1,
+    &quot;useBigiqSync&quot;: false,
+    &quot;userName&quot;: &quot;admin&quot;,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+}</code></pre>
+<h4 id="perform-get-methods-to-the-trust-task-returned-in-step-2.">3. Perform GET methods to the trust task returned in Step 2.</h4>
+<p>Perform GET methods to the 'selfLink' that is returned from the response JSON in Step 2. These methods should be performed in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED. Use a select option to reduce the content of the returned JSON to a manageable amount.</p>
+<pre><code>GET: https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-892b-cb859b182cdb?$select=address,status,currentStep</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+  &quot;address&quot;: &quot;10.255.4.124&quot;,
+  &quot;currentStep&quot;: &quot;PENDING_FRAMEWORK_UPGRADE_CONFIRMATION&quot;,
+  &quot;status&quot;: &quot;FINISHED&quot;
+}</code></pre>
+<h4 id="perform-a-patch-method-on-the-trust-task-to-start-the-framework-upgrade-if-needed.">4. Perform a PATCH method on the trust task to start the framework upgrade, if needed.</h4>
+<p>This step is only needed for BIG-IP devices lower than version 12.0.0 that require a framework upgrade. BIG-IP devices that do not require the framework upgrade would have a currentStep value of DONE.</p>
+<p>Perform a PATCH method on the task selfLink as follows when the value of currentStep in the task JSON is PENDING_FRAMEWORK_UPGRADE_CONFIRMATION and the status is FINISHED.</p>
+<p>The following options must be included in the PATCH JSON data: - confirmFrameworkUpgrade - The boolean element that indicates that the upgrade should be performed, should be set to true. - rootPassword - The password associated with the rootUser on the BIG-IP. - rootUser - The user name that has root privileges on the BIG-IP. - status - The status of the task, this must be set to the STARTED state for the task to continue.</p>
+<pre><code>PATCH: https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-892b-cb859b182cdb
+
+{
+    &quot;confirmFrameworkUpgrade&quot;: true,
+    &quot;rootPassword&quot;: &quot;default&quot;,
+    &quot;rootUser&quot;: &quot;root&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;
+}</code></pre>
+<p>The following is the response JSON from the PATCH method:</p>
+<pre><code>{
+    &quot;address&quot;: &quot;10.255.4.124&quot;,
+    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+    &quot;confirmFrameworkUpgrade&quot;: true,
+    &quot;currentStep&quot;: &quot;PENDING_FRAMEWORK_UPGRADE_CONFIRMATION&quot;,
+    &quot;generation&quot;: 10,
+    &quot;id&quot;: &quot;a27f6fd7-d0cc-4f2a-892b-cb859b182cdb&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;isChassisDevice&quot;: false,
+    &quot;kind&quot;: &quot;cm:global:tasks:device-trust:bigiptrusttaskstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1476994543714131,
+    &quot;ownerMachineId&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;,
+    &quot;password&quot;: &quot;Gyw7sPg5BFC1vu23i5pKEDbQUw+WL3ZCGIxN/yg1IEQ=&quot;,
+    &quot;requireFrameworkUpgrade&quot;: true,
+    &quot;rootPassword&quot;: &quot;QBPviVmuHPdmzHZRPQt4TAUJHlklLNp0aKnU6OkffRQ=&quot;,
+    &quot;rootUser&quot;: &quot;root&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-892b-cb859b182cdb&quot;,
+    &quot;startDateTime&quot;: &quot;2016-10-20T16:15:43.715-0400&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;taskWorkerGeneration&quot;: 1,
+    &quot;useBigiqSync&quot;: false,
+    &quot;userName&quot;: &quot;admin&quot;,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h4 id="perform-additional-get-methods-to-the-trust-task.">5. Perform additional GET methods to the trust task.</h4>
+<p>Perform additional GET methods on the 'selfLink' that is returned from the Step 2 response JSON. Perform them in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED. Use a select option to reduce the content of the returned JSON to a manageable amount. In addition to the status, the currentStep should have the value of DONE.</p>
+<pre><code>GET: https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-892b-cb859b182cdb?$select=address,status,currentStep</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+  &quot;address&quot;: &quot;10.255.4.124&quot;,
+  &quot;currentStep&quot;: &quot;DONE&quot;,
+  &quot;status&quot;: &quot;FINISHED&quot;
+}</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<p>On a failure condition, review the BIG-IQ Centralized Management Devices user interface to determine the details of the failure. However, some error information can be determined from the REST API response JSON as shown in the following errors.</p>
+<h4 id="error-generated-when-an-incorrect-uri-is-sent-in-the-rest-request.">Error generated when an incorrect URI is sent in the REST request.</h4>
+<pre><code>{
+  &quot;code&quot;: 404,
+  &quot;message&quot;: &quot;Public URI path not registered&quot;,
+  &quot;referer&quot;: &quot;192.168.101.130&quot;,
+  &quot;restOperationId&quot;: 19541801,
+  &quot;errorStack&quot;: [
+    &quot;com.f5.rest.common.RestWorkerUriNotFoundException: Public URI path not registered&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.cloneAndForwardRequest(ForwarderPassThroughWorker.java:250)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onForward(ForwarderPassThroughWorker.java:106)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onQuery(ForwarderPassThroughWorker.java:409)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callDerivedRestMethod(RestWorker.java:1071)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callRestMethodHandler(RestWorker.java:1040)&quot;,
+    &quot;at com.f5.rest.common.RestServer.processQueuedRequests(RestServer.java:1467)&quot;,
+    &quot;at com.f5.rest.common.RestServer.access$000(RestServer.java:53)&quot;,
+    &quot;at com.f5.rest.common.RestServer$1.run(RestServer.java:333)&quot;,
+    &quot;at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)&quot;,
+    &quot;at java.util.concurrent.FutureTask.run(FutureTask.java:262)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)&quot;,
+    &quot;at java.lang.Thread.run(Thread.java:745)\n&quot;
+  ],
+  &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h4 id="post-response-to-the-trust-uri-with-bad-authentication-for-admin-user-credentials.">POST response to the trust URI with bad authentication for admin user credentials.</h4>
+<pre><code>       {
+            &quot;address&quot;: &quot;10.145.192.4&quot;,
+            &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+            &quot;currentStep&quot;: &quot;CHECK_BIGIP_AVAILABLE&quot;,
+            &quot;endDateTime&quot;: &quot;2016-10-21T12:30:47.867-0400&quot;,
+            &quot;errorMessage&quot;: &quot;Failed to connect to 10.145.192.4, check credentials: Unauthorized(401)&quot;,
+            &quot;generation&quot;: 7.0,
+            &quot;id&quot;: &quot;225dfd23-f6a3-476a-aa20-a022e3104f9d&quot;,
+            &quot;identityReferences&quot;: [
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+                }
+            ],
+            &quot;kind&quot;: &quot;cm:global:tasks:device-trust:bigiptrusttaskstate&quot;,
+            &quot;lastUpdateMicros&quot;: 1477067447917160.0,
+            &quot;ownerMachineId&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;,
+            &quot;password&quot;: &quot;fxbJ6VMgFG+zmvc3sHNrOtP8S63zO/cV82Umoa10BXk=&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/global/tasks/device-trust/225dfd23-f6a3-476a-aa20-a022e3104f9d&quot;,
+            &quot;startDateTime&quot;: &quot;2016-10-21T12:30:46.147-0400&quot;,
+            &quot;status&quot;: &quot;FAILED&quot;,
+            &quot;useBigiqSync&quot;: false,
+            &quot;userName&quot;: &quot;admin&quot;,
+            &quot;userReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+            },
+            &quot;username&quot;: &quot;admin&quot;
+        }</code></pre>
+<h4 id="patch-response-to-the-trust-uri-with-bad-authentication-for-root-user-credentials-used-by-framework-upgrade.">PATCH response to the trust URI with bad authentication for root user credentials used by framework upgrade.</h4>
+<pre><code>        {
+            &quot;address&quot;: &quot;10.145.192.3&quot;,
+            &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+            &quot;confirmFrameworkUpgrade&quot;: true,
+            &quot;currentStep&quot;: &quot;FAILED&quot;,
+            &quot;endDateTime&quot;: &quot;2016-10-21T12:49:24.234-0400&quot;,
+            &quot;errorMessage&quot;: &quot;could not upgrade REST framework: Authentication failed&quot;,
+            &quot;generation&quot;: 13.0,
+            &quot;id&quot;: &quot;e9e28cb8-b79e-4a61-945a-a6a169b2069b&quot;,
+            &quot;identityReferences&quot;: [
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+                }
+            ],
+            &quot;isChassisDevice&quot;: false,
+            &quot;kind&quot;: &quot;cm:global:tasks:device-trust:bigiptrusttaskstate&quot;,
+            &quot;lastUpdateMicros&quot;: 1477068564284693.0,
+            &quot;machineId&quot;: &quot;9f320100-2177-42e0-8a46-2e33cd3366da&quot;,
+            &quot;ownerMachineId&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;,
+            &quot;password&quot;: &quot;S6UaoDf+sOjWxCx78p4IHwxd3/Ro+45FkZ4R47XwK/I=&quot;,
+            &quot;requireFrameworkUpgrade&quot;: true,
+            &quot;requireRootCredential&quot;: true,
+            &quot;rootPassword&quot;: &quot;P6toc0D6WpqESiOYbDqAZAlVn98n9ekoMN//DGIxukI=&quot;,
+            &quot;rootUser&quot;: &quot;root&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/global/tasks/device-trust/e9e28cb8-b79e-4a61-945a-a6a169b2069b&quot;,
+            &quot;startDateTime&quot;: &quot;2016-10-21T12:49:03.071-0400&quot;,
+            &quot;status&quot;: &quot;FAILED&quot;,
+            &quot;useBigiqSync&quot;: false,
+            &quot;userName&quot;: &quot;admin&quot;,
+            &quot;userReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+            },
+            &quot;username&quot;: &quot;admin&quot;
+        }</code></pre>
+<h3 id="api-reference">API Reference</h3>

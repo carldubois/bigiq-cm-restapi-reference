@@ -1,0 +1,267 @@
+<h2 id="create-simple-application">Create simple application</h2>
+<h3 id="overview">Overview</h3>
+<p>Using the BIG-IQ REST API, you can create a simple application and then deploy that application to BIG-IP devices. A typical simple application includes the following four LTM objects: virtual server, pool, pool member, and node. To create a simple application, all four LTM objects are required.</p>
+<p>Virtual server is an entry point to a simple application. A virtual server references a pool. A pool includes a list of pool member objects. A pool member is dependent on a node object.</p>
+<p>Use the following steps to create a simple application:</p>
+<ul>
+<li>step 1: Create a node.</li>
+<li>step 2: Create a pool.</li>
+<li>step 3: Add a pool member to a pool.</li>
+<li>step 4: Create a virtual server.</li>
+<li>step 5: Attach the pool to a virtual server.</li>
+</ul>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Make certain that the following prerequisites have been met.</p>
+<ul>
+<li>All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management device.</li>
+<li>The BIG-IQ Centralized Management device is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management device, and the current configuration of the BIG-IP device has been discovered on the BIG-IQ Centralized Management device.</li>
+</ul>
+<p>Note: When you perform these tasks using the example code provided, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ device, change localhost to be the IP address of the BIG-IQ Centralized Management device.</p>
+<h3 id="examples-for-creating-a-simple-application">Examples for creating a simple application</h3>
+<p>Below are a few examples showing how to create a simple application.</p>
+<h4 id="create-a-node">1. Create a node</h4>
+<pre><code>POST https://ip/mgmt/cm/adc-core/working-config/ltm/node
+
+Request body:
+{
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;name&quot;: &quot;myNode&quot;,
+    &quot;address&quot;: &quot;20.20.20.20&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;
+    }
+}</code></pre>
+<p>When the POST command completes successfully, it creates a node in working config. The response is the selfLink of the object. Here is an example POST response:</p>
+<pre><code>{
+    &quot;address&quot;: &quot;20.20.20.20&quot;,
+    &quot;connectionLimit&quot;: 0,
+    &quot;isEphemeral&quot;: false,
+    &quot;rateLimit&quot;: &quot;disabled&quot;,
+    &quot;fqdn&quot;: {
+        &quot;addressFamily&quot;: &quot;ipv4&quot;,
+        &quot;isAutoPopulate&quot;: false,
+        &quot;downInterval&quot;: 5,
+        &quot;interval&quot;: &quot;3600&quot;
+    },
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;id&quot;: &quot;4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;,
+        &quot;name&quot;: &quot;bigip12-swu.f5.com&quot;,
+        &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+        &quot;machineId&quot;: &quot;4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;,
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;
+    },
+    &quot;name&quot;: &quot;myNode&quot;,
+    &quot;id&quot;: &quot;17345a11-9d4d-3545-8d75-200e1fb50d10&quot;,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1481060607706179,
+    &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:node:adcnodestate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48&quot;
+}</code></pre>
+<p>Take note of the selfLink. Posting a GET to the selfLink creates the object in working config. A successful response looks like this:</p>
+<pre><code>GET https://ip/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48
+{
+    &quot;address&quot;: &quot;20.20.20.20&quot;,
+    &quot;connectionLimit&quot;: 0,
+    &quot;isEphemeral&quot;: false,
+    &quot;rateLimit&quot;: &quot;disabled&quot;,
+    &quot;fqdn&quot;: {
+        &quot;addressFamily&quot;: &quot;ipv4&quot;,
+        &quot;isAutoPopulate&quot;: false,
+        &quot;downInterval&quot;: 5,
+        &quot;interval&quot;: &quot;3600&quot;
+    },
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;id&quot;: &quot;4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;,
+        &quot;name&quot;: &quot;bigip12-swu.f5.com&quot;,
+        &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+        &quot;machineId&quot;: &quot;4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;,
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;
+    },
+    &quot;name&quot;: &quot;myNode&quot;,
+    &quot;id&quot;: &quot;bcad3364-7481-3c1c-b4cf-093486816a48&quot;,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1481060607706179,
+    &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:node:adcnodestate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48&quot;
+}</code></pre>
+<h4 id="create-a-pool">2. Create a pool</h4>
+<pre><code>POST https://ip/mgmt/cm/adc-core/working-config/ltm/pool
+
+Request Body:
+{
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;name&quot;: &quot;myPool&quot;,
+    &quot;loadBalancingMode&quot;: &quot;round-robin&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;
+    }
+}</code></pre>
+<p>After a successful creation, a new pool is created. A successful response looks like this:</p>
+<pre><code>GET  https://ip/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1
+
+Results:
+{
+    &quot;allowNat&quot;: true,
+    &quot;allowSnat&quot;: true,
+    &quot;ignorePersistedWeight&quot;: false,
+    &quot;ipTosToClientControl&quot;: &quot;pass-through&quot;,
+    &quot;ipTosToServerControl&quot;: &quot;pass-through&quot;,
+    &quot;linkQosToClient&quot;: 65535,
+    &quot;linkQosToServer&quot;: 65535,
+    &quot;loadBalancingMode&quot;: &quot;round-robin&quot;,
+    &quot;minActiveMembers&quot;: 0,
+    &quot;queueDepthLimit&quot;: 0,
+    &quot;enableQueueOnConnectionLimit&quot;: false,
+    &quot;queueTimeLimit&quot;: 0,
+    &quot;reselectTries&quot;: 0,
+    &quot;serviceDownAction&quot;: &quot;none&quot;,
+    &quot;slowRampTime&quot;: 10,
+    &quot;membersCollectionReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1/members&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;id&quot;: &quot;4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;,
+        &quot;name&quot;: &quot;bigip12-swu.f5.com&quot;,
+        &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+        &quot;machineId&quot;: &quot;4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;,
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;
+    },
+    &quot;name&quot;: &quot;myPool&quot;,
+    &quot;id&quot;: &quot;db935eaf-69b8-34b1-8c0c-d61d665698c1&quot;,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1481060913788697,
+    &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:pool:adcpoolstate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1&quot;
+}
+</code></pre>
+<h4 id="create-a-pool-member">3. Create a pool member</h4>
+<p>To create a pool member, you must create a pool and a node first. Here is an example that shows how to create a pool member using the node created in the Create a node task and the pool created in the Create a pool task.</p>
+<pre><code>POST https://ip/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1/members
+
+Request Body:
+{
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;name&quot;: &quot;myNode:80&quot;,
+    &quot;port&quot;: 80,
+    &quot;nodeReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48&quot;
+     }
+}</code></pre>
+<p>When a pool member is successfully created, you can find a member under the target pool. A successful response looks like this:</p>
+<pre><code>GET https://ip/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1/members/43ef0c03-0630-379f-a652-0c2e4fbbdce0 
+
+Results:
+{
+    &quot;connectionLimit&quot;: 0,
+    &quot;port&quot;: 80,
+    &quot;priorityGroup&quot;: 0,
+    &quot;rateLimit&quot;: &quot;disabled&quot;,
+    &quot;ratio&quot;: 1,
+    &quot;sessionConfig&quot;: &quot;user-enabled&quot;,
+    &quot;stateConfig&quot;: &quot;user-up&quot;,
+    &quot;nodeReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/bcad3364-7481-3c1c-b4cf-093486816a48&quot;
+    },
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;name&quot;: &quot;myNode:80&quot;,
+    &quot;id&quot;: &quot;43ef0c03-0630-379f-a652-0c2e4fbbdce0&quot;,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1481061178891481,
+    &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:pool:members:adcpoolmemberstate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1/members/43ef0c03-0630-379f-a652-0c2e4fbbdce0&quot;
+}</code></pre>
+<h4 id="create-a-virtual-server">4. Create a virtual server</h4>
+<pre><code>POST https://ip/mgmt/cm/adc-core/working-config/ltm/virtual
+
+Request Body:
+{
+      &quot;partition&quot;: &quot;Common&quot;,
+      &quot;name&quot;: &quot;myVirtual&quot;,
+      &quot;destinationAddress&quot;: &quot;10.10.10.10&quot;,
+      &quot;mask&quot;: &quot;255.255.255.255&quot;,
+      &quot;destinationPort&quot;: 80,
+      &quot;sourceAddress&quot;: &quot;0.0.0.0/0&quot;,
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;
+    }
+}</code></pre>
+<p>When a virtual server object is successfully created, the response looks like this:</p>
+<pre><code>GET  https://ip/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8
+
+{
+    &quot;sourceAddress&quot;: &quot;0.0.0.0/0&quot;,
+    &quot;sourceAddressTranslation&quot;: {
+        &quot;type&quot;: &quot;none&quot;
+    },
+    &quot;destinationAddress&quot;: &quot;10.10.10.10&quot;,
+    &quot;destinationPort&quot;: 80,
+    &quot;mask&quot;: &quot;255.255.255.255&quot;,
+    &quot;state&quot;: &quot;enabled&quot;,
+    &quot;mirror&quot;: &quot;disabled&quot;,
+    &quot;ipProtocol&quot;: &quot;any&quot;,
+    &quot;profilesCollectionReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8/profiles&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;vlansEnabled&quot;: &quot;disabled&quot;,
+    &quot;addressStatus&quot;: &quot;yes&quot;,
+    &quot;autoLasthop&quot;: &quot;default&quot;,
+    &quot;connectionLimit&quot;: 0,
+    &quot;gtmScore&quot;: 0,
+    &quot;nat64&quot;: &quot;disabled&quot;,
+    &quot;rateLimit&quot;: &quot;disabled&quot;,
+    &quot;rateLimitMode&quot;: &quot;object&quot;,
+    &quot;translateAddress&quot;: &quot;enabled&quot;,
+    &quot;translatePort&quot;: &quot;enabled&quot;,
+    &quot;sourcePort&quot;: &quot;preserve&quot;,
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;id&quot;: &quot;4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;,
+        &quot;name&quot;: &quot;bigip12-swu.f5.com&quot;,
+        &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+        &quot;machineId&quot;: &quot;4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;,
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;
+    },
+    &quot;name&quot;: &quot;myVirtual&quot;,
+    &quot;id&quot;: &quot;b4469b6f-f18f-3978-8372-4fbd562f31b8&quot;,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1481062132296433,
+    &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:virtual:adcvirtualstate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8&quot;
+}</code></pre>
+<p>To create a virtual server with a pool attached, include the property &quot;poolReference&quot; in the POST request body. For example:</p>
+<pre><code>POST https://ip/mgmt/cm/adc-core/working-config/ltm/virtual
+
+Request Body:
+{
+      &quot;partition&quot;: &quot;Common&quot;,
+      &quot;name&quot;: &quot;myVirtual&quot;,
+      &quot;destinationAddress&quot;: &quot;10.10.10.10&quot;,
+      &quot;mask&quot;: &quot;255.255.255.255&quot;,
+      &quot;destinationPort&quot;: 80,
+      &quot;sourceAddress&quot;: &quot;0.0.0.0/0&quot;,
+      &quot;poolReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1&quot;
+      },
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/4fcf3469-f9ca-4a51-80d0-3336f779f949&quot;
+       }
+}
+</code></pre>
+<h4 id="attach-a-pool-to-a-virtual-server">5. Attach a pool to a virtual server</h4>
+<p>In practice, this task and the last one (Create a virtual server) can be combined into a single step. Because attaching and detaching a pool is a significant step, we document it as a separate step. If you want to combine these two tasks, you just need to add the property &quot;poolReference&quot; into the POST request body.</p>
+<pre><code>PATCH https://ip/mgmt/cm/adc-core/working-config/ltm/virtual/b4469b6f-f18f-3978-8372-4fbd562f31b8
+
+Request Body:
+{
+    &quot;poolReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/db935eaf-69b8-34b1-8c0c-d61d665698c1&quot;
+    }
+}
+    </code></pre>
+<h3 id="api-reference">API Reference</h3>

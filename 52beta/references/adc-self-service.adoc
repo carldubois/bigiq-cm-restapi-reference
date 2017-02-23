@@ -1,0 +1,269 @@
+= BIG-IQ LTM/ADC Self-Service Task. (enable/disable pool member)
+
+
+[[_overview]]
+== Overview
+API used create a self-service task to perform functions such as enable/disable pool member.
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/adc-core/tasks
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_self-service_post]]
+=== Create a adc self-service task managed by BIGIQ module.
+....
+POST /self-service
+....
+
+
+==== Description
+Create a adc self-service task and add to collection.
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to a self-service task.|string(UUID)|None
+|*Body*|*Json string request body.* +
+_required_|Input parameter list in json format. Ex. {"resourceReference":{"link":"https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/3a3361a8-64fa-33d7-bc1a-d6658f31e687/members/a0fd9118-b58c-339f-8085-e92f1f75ec1e"},"operation":"enable"} |<<_post_adc_self_service_body,post_adc_self_service_body>>|None
+|===
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST a self-service task.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+[[_self-service_get]]
+=== List all collections of self-service tasks.
+....
+GET /self-service
+....
+
+
+==== Description
+Returns the collection of self-service tasks.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET collection of self-service tasks.|<<_properties_collection,properties_collection>>
+|*400*|Error response "Bad Request"|<<_error_collection,error_collection>>
+|===
+
+
+[[_self-service_objectid_get]]
+=== Used to get a single instance of a self-service task object.
+....
+GET /self-service/{objectId}
+....
+
+
+==== Description
+Returns a self-service task object identified by id for an endpoint URI.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id assigned to a self-service task.|string(UUID)|None
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|Self-service task object.|<<_properties_self_service,properties_self_service>>
+|*400*|Server error response "Bad Request".|<<_error_collection,error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_error_collection]]
+=== error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection of self-service task errors.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for device-trust collections-cm:global:tasks:device-trust:bigiptrusttaskstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_properties_collection]]
+=== properties_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a self-service collection object. generation.|integer(int64)
+|*items* +
+_optional_|Self-serivce task properties associated with the collection.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for this self-service task collection object.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an self-service collection object. time.|integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the self-service task collection object.|string
+|===
+
+
+[[_properties_self_service]]
+=== properties_self_service
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*deviceReference* +
+_optional_|Reference link to device object in resolver.|<<_properties_self_service_devicereference,deviceReference>>
+|*endDateTime* +
+_optional_|Date/Time when self-service task end. 2016-10-11T10:30:17.834-0400|string
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a self-service task object. generation.|integer(int64)
+|*id* +
+_optional_ +
+_read-only_|Unique id assigned to a self-service task object.|string
+|*identityReference* +
+_optional_|Array of reference links to user used to create self-service task. mgmt/shared/authz/users/admin|< <<_properties_self_service_identityreference,identityReference>> > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for this self-service task object.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an self-service task object. time.|integer(int64)
+|*name* +
+_optional_|Name of self-service task object. example. 'Self-Service_10.55.2.20:80'|string
+|*operation* +
+_optional_|Description of operation type. example. (enable/disable/force offline).|string
+|*ownerMachineId* +
+_optional_ +
+_read-only_|A unique id string for the BIGIQ acting as a device owner.|string
+|*resourceReference* +
+_optional_|Reference link to resource used. example. pool member enable/disable|<<_properties_self_service_resourcereference,resourceReference>>
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to the self-service task object.|string
+|*stateDateTime* +
+_optional_|Date/Time when self-service task began. 2016-10-11T10:30:17.834-0400|string
+|*status* +
+_optional_|Status if self-service task based on state. STARTED; FINSIHED etc..|string
+|*userReference* +
+_optional_|Reference link to user used to create self-service task. mgmt/shared/authz/users/admin|<<_properties_self_service_userreference,userReference>>
+|*username* +
+_optional_|Username of user whom iniated the task.|string
+|===
+
+[[_properties_self_service_devicereference]]
+*deviceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_|Reference link to device assocated with this self-service task in the device resolver.|string
+|===
+
+[[_properties_self_service_identityreference]]
+*identityReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_|Reference link table to authz users.|string
+|===
+
+[[_properties_self_service_resourcereference]]
+*resourceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_|Reference link to the resource in which the task is mananging. |string
+|===
+
+[[_properties_self_service_userreference]]
+*userReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*link* +
+_optional_|Reference link table to authz user.|string
+|===
+
+[[_post_adc_self_service_body]]
+=== post_adc_self_service_body
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*resourceReference* +
+_required_|Reference link to the pool member resource for self service.|string
+|*operation* +
+_required_|Enable, Disable or Force Offline.|string
+|===
+

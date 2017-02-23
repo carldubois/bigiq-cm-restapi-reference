@@ -1,0 +1,41 @@
+<h1 id="api-purchased-pool-license-members">API Purchased Pool License Members</h1>
+<h2 id="overview">Overview</h2>
+<p>API to license a BIG-IP device with a seat of the purchased pool license, refresh the the license or revoking the license.</p>
+<h3 id="prerequisities">Prerequisities</h3>
+<p>You should be sure the following prerequisites have been met.</p>
+<ul>
+<li>The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>A list of BIG-IP ready to be grant a license.</li>
+<li>The user has administrator or device manager role</li>
+</ul>
+<h3 id="grant">Grant</h3>
+<p>User grants a license to a BIG-IP by POSTing a new item to the <code>/members</code> subcollection to grant a license to a device For a Purchased pool license, there is only one such collection. Item 2 and item 3 are examples for granting a seat to managed and unmanaged device respectively.</p>
+<h3 id="refresh">Refresh</h3>
+<p>User could refresh a license granted to a device by PATCHing the end point in the member subcollection(item 5). Admin credential is required for an unmanaged device.</p>
+<h3 id="revoke">Revoke</h3>
+<p>User could revoke a license granted to a devive by removing the end point from the member subcollection(item 6).</p>
+<h3 id="get-all-the-members-of-a-purchased-pool-license-get">1. Get all the members of a purchased pool license [GET]</h3>
+<p>GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members ``` Response: { items: { individual member } }</p>
+<h4 id="license-a-managed-device-by-adding-it-to-the-purchased-pool-license.">2. License a managed device by adding it to the purchased pool license.</h4>
+<p>This is the typical case, where a managed device is granted a seat. It is a relatively simple process, since trust is already established with the device. User should poll the individual member to check licensing status</p>
+<p>POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members</p>
+<p>Request: { &quot;deviceReference&quot;: { &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/267a2427-daa7-4e33-963f-300dbbe1a9f6&quot; } }</p>
+<p>Response: { &quot;uuid&quot;: &quot;1c353141-3738-4bd1-9daa-48450e88cf63&quot;, &quot;deviceReference&quot;: { &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/267a2427-daa7-4e33-963f-300dbbe1a9f6&quot; }, &quot;state&quot;: &quot;LICENSED&quot;, &quot;generation&quot;: 2, &quot;lastUpdateMicros&quot;: 1392154597441615, &quot;kind&quot;: &quot;cm:shared:licensing:pools:licensepoolmemberstate&quot;, &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/shared/licensing/pools/858ecc73-ddb8-45d5-893b-c4f1b9b9fcbf/members/1c353141-3738-4bd1-9daa-48450e88cf63&quot; }</p>
+<h4 id="license-an-unmanaged-device-by-adding-it-to-the-purchased-pool-license.">3. License an unmanaged device by adding it to the purchased pool license.</h4>
+<p>Since managing a device can be a somewhat expensive operation, BIG-IQ has the ability to grant licenses to unmanaged devices. This allows supporting thousands of grants. However, licensing operations for unmanaged grants require different inputs — instead of a deviceReference, expected fields are an IP address, username and password. User should poll the individual member to check licensing status</p>
+<p>POST https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members</p>
+<p>Request: { deviceAddress: &quot;172.27.92.241&quot;, username: &quot;username&quot;, password: &quot;password&quot; }</p>
+<p>Response: { uuid:&quot;d3b1a0d5-e63d-43b0-a959-0ae80d7e1dad&quot;, deviceName:&quot;mgmtadc2.olympus.f5net.com&quot;, deviceMachineId:&quot;7db419f9-2c31-45fb-9fa5-3285fd613a06&quot;, deviceAddress:&quot;172.27.92.241&quot;, state:&quot;INSTALL&quot;, generation:1, lastUpdateMicros:1480540947173394, kind:&quot;cm:device:licensing:pool:purchased-pool:licenses:licensepoolmemberstate&quot;, selfLink:&quot;https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/87a7e757-7dc8-4af3-9404-63d1c83bbf53/members/d3b1a0d5-e63d-43b0-a959-0ae80d7e1dad&quot; }</p>
+<h4 id="poll-purchased-pool-license-memeber-status">4. Poll purchased pool license memeber status</h4>
+<p>GET https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member_uuid}</p>
+<p>Response: { &quot;uuid&quot;: &quot;1c353141-3738-4bd1-9daa-48450e88cf63&quot;, &quot;deviceReference&quot;: { &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/267a2427-daa7-4e33-963f-300dbbe1a9f6&quot; }, &quot;state&quot;: &quot;LICENSED&quot;, &quot;generation&quot;: 2, &quot;lastUpdateMicros&quot;: 1392154597441615, &quot;kind&quot;: &quot;cm:shared:licensing:pools:licensepoolmemberstate&quot;, &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/shared/licensing/pools/858ecc73-ddb8-45d5-893b-c4f1b9b9fcbf/members/1c353141-3738-4bd1-9daa-48450e88cf63&quot; }</p>
+<h4 id="refresh-a-device-with-a-purchased-pool-license">5. Refresh a device with a purchased pool license</h4>
+<p>User should poll the individual member to check licensing status. Status will become LICENSED if the process is successful.</p>
+<p>PATCH https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member_uuid}</p>
+<p>Request: { &quot;state&quot;:&quot;INSTALL&quot; }</p>
+<p>For unmanaged device, admin credential is required { username: &quot;admin&quot;, password: &quot;password&quot;, state: &quot;INSTALL&quot; }</p>
+<p>Response: { &quot;uuid&quot;: &quot;1c353141-3738-4bd1-9daa-48450e88cf63&quot;, &quot;deviceReference&quot;: { &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/267a2427-daa7-4e33-963f-300dbbe1a9f6&quot; }, &quot;state&quot;: &quot;INSTALL&quot;, &quot;generation&quot;: 2, &quot;lastUpdateMicros&quot;: 1392154597441615, &quot;kind&quot;: &quot;cm:shared:licensing:pools:licensepoolmemberstate&quot;, &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/shared/licensing/pools/858ecc73-ddb8-45d5-893b-c4f1b9b9fcbf/members/1c353141-3738-4bd1-9daa-48450e88cf63&quot; }</p>
+<h4 id="revoke-license-from-a-device-with-a-purchased-pool-license">6. Revoke license from a device with a purchased pool license</h4>
+<p>DELETE https://ip/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member_uuid}</p>
+<p>Request: { username: &quot;username&quot;, password: &quot;password&quot;, uuid: &quot;d3b1a0d5-e63d-43b0-a959-0ae80d7e1dad&quot; }</p>
+<h3 id="api-reference">API Reference</h3>
