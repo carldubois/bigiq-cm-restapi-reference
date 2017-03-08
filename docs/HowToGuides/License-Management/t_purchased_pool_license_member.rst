@@ -26,7 +26,7 @@ for an unmanaged device.
 Revoke
 ~~~~~~
 
-User could revoke a license granted to a devive by removing the end
+User could revoke a license granted to a device by removing the end
 point from the member subcollection(item 6).
 
 1. Get all the members of a purchased pool license [GET]
@@ -116,7 +116,7 @@ status
         selfLink:"https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/87a7e757-7dc8-4af3-9404-63d1c83bbf53/members/d3b1a0d5-e63d-43b0-a959-0ae80d7e1dad"
     }
 
-4. Poll purchased pool license memeber status
+4. Poll purchased pool license member status
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
