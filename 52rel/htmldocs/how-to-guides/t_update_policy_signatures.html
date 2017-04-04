@@ -1,0 +1,82 @@
+<h2 id="enable-and-enforce-a-specific-signature-in-a-policy-by-signatureid">Enable and enforce a specific signature in a policy by signatureId</h2>
+<h3 id="overview">Overview</h3>
+<p>Describes how you use the REST API to update the attributes of a specific signature in a policy.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ol style="list-style-type: decimal">
+<li>Retrieve a policy selfLink using the policy name, as shown on other examples in this chapter.</li>
+<li>Find the signatureId that needs to be updated. The signatureId is shown on the BIG-IP and BIG-IQ UI and is reported in violation logs.</li>
+</ol>
+<h3 id="description">Description</h3>
+<p>Describes how you use the REST API to update the attributes of a specific signature in a policy.</p>
+<p>Perform the REST API actions in the following order:</p>
+<ol style="list-style-type: decimal">
+<li>Perform a GET operation to the signatures collection to retrieve a seflLink of a signature.</li>
+<li>Perform a GET operation to the policy signatures to validate that the signature is listed within the security policy signatures.</li>
+<li>Perform a POST operation with the new attributes to a special URI that updates policy signature attributes.</li>
+</ol>
+<p>The following extended example shows each of these REST API actions.</p>
+<h4 id="perform-a-get-operation-to-the-signatures-collection-to-retrieve-a-sefllink-of-a-signature.">1. Perform a GET operation to the signatures collection to retrieve a seflLink of a signature.</h4>
+<p>Perform a GET operation to the signatures collection to retrieve a seflLink of a signature.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/signatures/$filter=signatureId eq &#39;&lt;signatureId&gt;&#39;?$select=signatureId,selfLink</code></pre>
+<p>The following is the JSON response from the GET operation:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/signatures&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;signatureId&quot;: &quot;200010008&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/signatures/152bcf94-4ab3-3f8b-b524-4648f83249e0&quot;
+        }
+    ],
+    &quot;generation&quot;: 2925,
+    &quot;kind&quot;: &quot;cm:asm:working-config:signatures:signaturecollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479385001323905
+}</code></pre>
+<h4 id="perform-a-get-operation-to-the-policy-signatures-to-validate-that-the-signature-is-listed-within-the-security-policy-signatures.">2. Perform a GET operation to the policy signatures to validate that the signature is listed within the security policy signatures.</h4>
+<p>Perform a GET operation on the signatures sub collection link, with a special parameter called 'filterBySignatureSets' that limits the results to signatures that are part of the sets that are defined in the policy. The signatures sub collection link can be found in the 'signatureReference' reference structure (link attribute) in the policy above. The link can also be determined by the policy selfLink - add '/signatures' to the policy selfLink. The same logic applies to all other sub collections as listed above. Note - further filtering by the 'enabled'/'performStaging' attributes cannot be done by the REST APIs. Such filtering should be done by the caller with the retrieved results. To validate that the signature is used in the policy, validate that the 'selfLink' obtained in step #1 is set in one of the signatures as the value of the link attribute of the signatureReference structure.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/policies/&lt;id&gt;/signatures?filterBySignatureSets=true</code></pre>
+<p>The following is the JSON response from the GET operation:</p>
+<pre><code>{
+    &quot;items&quot;: [
+        {
+            &quot;signatures&quot;: [ **** Link to t_asm_signatures_reference.md **** ],
+            &quot;name&quot;: &quot;signatures&quot;,
+            &quot;id&quot;: &quot;006fcd4e-b57c-3714-aede-6bb66938a9a6&quot;,
+            &quot;generation&quot;: 1,
+            &quot;lastUpdateMicros&quot;: 1479388438674931,
+            &quot;kind&quot;: &quot;cm:asm:working-config:policies:signatures:policysignaturearraystate&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef/signatures/006fcd4e-b57c-3714-aede-6bb66938a9a6&quot;
+        }
+    ],
+    &quot;generation&quot;: 2,
+    &quot;lastUpdateMicros&quot;: 1479388438906235,
+    &quot;kind&quot;: &quot;cm:asm:working-config:policies:signatures:policysignaturecollectionstate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef/signatures&quot;
+}</code></pre>
+<h4 id="perform-a-post-operation-with-the-new-attributes-to-a-special-uri-that-updates-policy-signature-attributes.">3. Perform a POST operation with the new attributes to a special URI that updates policy signature attributes.</h4>
+<p>Perform a POST operation with the new attributes to a special URI that updates policy signature attributes. The URI is the string &quot;/signatures/update&quot; appended to the policy selfLink. The POST data contains an array of updated signatures. Use the signature selfLink as obtained in step #1 as the link attribute of the 'signatureReference' structure. Choose the 'enabled' and 'performStaging' values as needed. Note - the example shows one signature in the 'updatedSignatures' array, but multiple signatures can be chosen.</p>
+<pre><code>POST: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/policies/&lt;policy id&gt;/signatures/update
+{  
+   &quot;updatedSignatures&quot;:[  
+      {  
+         &quot;signatureReference&quot;:{  
+            &quot;link&quot;:&quot;https://localhost/mgmt/cm/asm/working-config/signatures/152bcf94-4ab3-3f8b-b524-4648f83249e0&quot;
+         },
+         &quot;enabled&quot;:true,
+         &quot;performStaging&quot;:true
+      }
+   ]
+}</code></pre>
+<p>The following is the JSON response from the POST operation:</p>
+<pre><code>{
+    &quot;updatedSignatures&quot;: [
+        {
+            &quot;signatureReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/signatures/152bcf94-4ab3-3f8b-b524-4648f83249e0&quot;
+            },
+            &quot;enabled&quot;: true,
+            &quot;performStaging&quot;: true
+        }
+    ]
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>

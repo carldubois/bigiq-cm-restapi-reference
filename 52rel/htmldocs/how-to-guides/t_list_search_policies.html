@@ -1,0 +1,54 @@
+<h2 id="listing-web-application-security-policies-and-searching-for-a-specific-policy-by-name.">Listing Web Application Security policies and searching for a specific policy by name.</h2>
+<h3 id="overview">Overview</h3>
+<p>Describes how you use the REST API to list all policies and to retrieve a link to an existing policy by a policy name.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>None.</p>
+<h3 id="description">Description</h3>
+<p>Describes how you use the REST API to list all policies and to retrieve a link to an existing policy by a policy name.</p>
+<p>Perform the REST API actions in the following order:</p>
+<ol style="list-style-type: decimal">
+<li>Perform a GET operation to return all policies.</li>
+<li>Perform a GET operation to return a specific policy using a filter.</li>
+</ol>
+<p>The following extended example shows each of these REST API actions.</p>
+<h4 id="perform-a-get-operation-to-return-all-policies.">1. Perform a GET operation to return all policies.</h4>
+<p>Perform a GET operation on the policies collection, limiting the result to show specific fields that are defining those resources, together with a link to retrieve all the policy properties (selfLink). In this example two policies are retrieved named name Policy_1 and Policy_2. Both exist in the Common partition, as can be seen in the fullPath field value in the example).</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/policies?$select=name,fullPath,selfLink</code></pre>
+<p>The following is the JSON response from the GET operation:</p>
+<pre><code>{
+    &quot;items&quot;: [
+        {
+            &quot;fullPath&quot;: &quot;/Common/Policy_1&quot;,
+            &quot;name&quot;: &quot;Policy_1&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef&quot;
+        },
+        {
+            &quot;fullPath&quot;: &quot;/Common/Policy_2&quot;,
+            &quot;name&quot;: &quot;Policy_2&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/240b8504-53df-322f-9faa-008b5f0bc988&quot;
+        }
+    ],
+    &quot;generation&quot;: 9,
+    &quot;kind&quot;: &quot;cm:asm:working-config:policies:policycollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1478688837870194,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies&quot;
+}</code></pre>
+<h4 id="perform-a-get-operation-to-return-a-specific-policy-using-a-filter.">2. Perform a GET operation to return a specific policy using a filter.</h4>
+<p>Perform a GET operation on the policies collection, filtering the results by a name and limiting the result to show specific fields that are defining the resource, together with a link to retrieve all the policy properties (selfLink). In this example the name being searched for is 'Policy_1'.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/policies?$filter=name eq &#39;Policy_1&#39;&amp;$select=name,fullPath,selfLink</code></pre>
+<p>The following is the JSON response from the GET operation:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;fullPath&quot;: &quot;/Common/Policy_1&quot;,
+            &quot;name&quot;: &quot;Policy_1&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/1005831c-7e40-30ed-bd0d-f8068526d7ef&quot;
+        }
+    ],
+    &quot;generation&quot;: 9,
+    &quot;kind&quot;: &quot;cm:asm:working-config:policies:policycollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1478688837870194
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>

@@ -1,0 +1,203 @@
+<h1 id="purchased-pool-licenses-api">Purchased Pool Licenses API</h1>
+<h2 id="overview">Overview</h2>
+<p>This API supports activating, reactivating, and removing a purchased pool license.</p>
+<ol style="list-style-type: decimal">
+<li>A pool license is different from the traditional device-based license.<br />
+</li>
+<li>When you use BIG-IQ to push a pool license to a managed device, the action is called &quot;granting&quot; the license.</li>
+<li>By doing this you &quot;create a grant,&quot; and the BIG-IP that you pushed the license to is counted as &quot;occupying a seat&quot; for the license.</li>
+<li>This is also known as a license &quot;assignment,&quot; and is typically done through the &quot;/members&quot; subcollection for the pool license.<br />
+</li>
+<li>There are two fields: totalDeviceLicenses, which tracks the seats a purchased pool license has, and freeDeviceLicenses, that tracks how many seats are still available.</li>
+</ol>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Make certain that the following prerequisites have been met.</p>
+<ul>
+<li>The BIG-IQ Centralized Management device is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>The BIG-IQ has an internet connection to the F5 licensing server if you plan to use automatic activation.</li>
+<li>You have either the administrator or device manager role.</li>
+</ul>
+<p>Note: When you perform these tasks using the example code provided, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ device, change localhost to be the IP address of the BIG-IQ Centralized Management device.</p>
+<h3 id="activate">Activate</h3>
+<p>You can choose to activate a purchased pool license with the API directly instead of through the initial activation API. The steps are almost identical. For automatic activation, the steps are: * POST with regkey and activation method. * Poll the endpoint for this license to check for status. * PATCH to accept EULA. * Poll the endpoint for the license to check the final status.</p>
+<p>For manual action, the steps are: * POST with regkey and activation method. * Using the dossier from POST response, go to the F5 licensing web portal to accept the EULA and get the generated license. * PATCH the endpoint for the license with the license text.</p>
+<h3 id="reactivate">Reactivate</h3>
+<p>This is the process to reactivate a purchased pool license. The steps to reactivate automatically are: * PATCH with state = RELICENSE (step 4) * Poll the endpoint for this license to get the status (step 3). Because this is a reactivation, you do not need to accept EULA.</p>
+<p>The steps to reactivate manually are: * PATCH with state = RELICENSE (step 4). * Get the generated license from the F5 licensing web portal and PATCH it to the license endpoint (step 6).</p>
+<h3 id="remove">Remove</h3>
+<ul>
+<li>To remove a purchased pool license, send a DELETE on the endpoint (step 7).</li>
+</ul>
+<h4 id="query-existing-purchased-pool-licenses">1. Query existing purchased pool licenses</h4>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;items&quot;: [],
+  &quot;generation&quot;: 7,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:purchased-pool:licenses:licensepoolworkercollectionstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1487328656734798,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses&quot;
+}</code></pre>
+<h4 id="start-activation-of-a-new-purchased-pool-license">2. Start activation of a new purchased pool license</h4>
+<p>There are a few activation methods. Automatic is the default and requires connectivity to the F5 licensing server. For manual activation, the POST body should set the method to MANUAL.</p>
+<pre><code>POST https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;baseRegKey&quot;: &quot;R8573-25996-57909-24167-3331348&quot;,
+  &quot;name&quot;: &quot;my license&quot;,
+  &quot;method&quot;: &quot;AUTOMATIC&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;uuid&quot;: &quot;ae74294e-f3f2-4ad3-86bc-ab3fdb5dfe4c&quot;,
+  &quot;baseRegKey&quot;: &quot;R8573-25996-57909-24167-3331348&quot;,
+  &quot;method&quot;: &quot;AUTOMATIC&quot;,
+  &quot;name&quot;: &quot;my license&quot;,
+  &quot;dossier&quot;: &quot;82b215e883...&quot;,
+  &quot;sortName&quot;: &quot;Purchased Pool&quot;,
+  &quot;state&quot;: &quot;GETTING_EULA&quot;,
+  &quot;publicKey&quot;: [
+    48,
+    -126,
+    1,
+    ...
+  ],
+  &quot;privateKey&quot;: &quot;HC57Vph6Ke...&quot;,
+  &quot;registeredKey&quot;: [
+    -116,
+    -30,
+    50,
+    ...
+  ],
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1487329927179822,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:purchased-pool:licenses:licensepoolworkerstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/ae74294e-f3f2-4ad3-86bc-ab3fdb5dfe4c&quot;
+}</code></pre>
+<h4 id="poll-to-get-purchased-pool-license-status">3. Poll to get purchased pool license status</h4>
+<p>The desired state of a purchased pool license is that the status is LICENSED. After the initial POST, the license eventually transitions to WAITING_FOR_EULA_ACCEPTANCE.</p>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/ae74294e-f3f2-4ad3-86bc-ab3fdb5dfe4c</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;eulaText&quot;: &quot;END USER LICENSE AGREEMENT\r\nDOC-0355-08\r\n\r\nIMPORTANT - READ BEFORE...&quot;,
+  &quot;state&quot;: &quot;WAITING_FOR_EULA_ACCEPTANCE&quot;,
+  ...
+}</code></pre>
+<h4 id="reactivate-a-purchased-pool-license">4. Reactivate a purchased pool license</h4>
+<p>After a purchased pool license is activated, it can be reactivated if needed (e.g. to add an add-on key).</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/ae74294e-f3f2-4ad3-86bc-ab3fdb5dfe4c</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;state&quot;: &quot;RELICENSE&quot;,
+  &quot;method&quot;: &quot;AUTOMATIC&quot;
+}</code></pre>
+<p>After the PATCH completes, poll the license (step 3) until it reaches the LICENSED state.</p>
+<p>Response:</p>
+<pre><code>{
+  &quot;state&quot;: &quot;LICENSED&quot;,
+  &quot;totalDeviceLicenses&quot;: 25,
+  &quot;freeDeviceLicenses&quot;: 25,
+  &quot;licenseText&quot;: &quot;#\nAuth vers :...&quot;,
+  &quot;licenseState&quot;: {
+    &quot;vendor&quot;: &quot;F5 Networks, Inc.&quot;,
+    &quot;licensedDateTime&quot;: &quot;2017-02-17T00:00:00-08:00&quot;,
+    &quot;licensedVersion&quot;: &quot;5.2.0&quot;,
+    &quot;evaluationStartDateTime&quot;: &quot;2017-02-16T00:00:00-08:00&quot;,
+    &quot;evaluationEndDateTime&quot;: &quot;2017-03-20T00:00:00-07:00&quot;,
+    &quot;licenseEndDateTime&quot;: &quot;2017-03-20T00:00:00-07:00&quot;,
+    &quot;licenseStartDateTime&quot;: &quot;2017-02-16T00:00:00-08:00&quot;,
+    &quot;registrationKey&quot;: &quot;R8573-25996-57909-24167-3331348&quot;,
+    &quot;platformId&quot;: &quot;BIG-IQ Pool&quot;,
+    &quot;authVers&quot;: &quot;5b&quot;,
+    &quot;serviceCheckDateTime&quot;: &quot;2017-02-17T00:00:00-08:00&quot;,
+    &quot;exclusivePlatform&quot;: [
+      &quot;BIG-IQ Pool&quot;
+    ],
+    &quot;featureFlags&quot;: [
+      {
+        &quot;featureName&quot;: &quot;gtm_rate_fallback&quot;,
+        &quot;featureValue&quot;: &quot;1000&quot;
+      },
+      ...
+  },
+  ...
+}</code></pre>
+<h4 id="complete-automatic-activation-by-accepting-the-eula">5. Complete automatic activation by accepting the EULA</h4>
+<p>Echo the EULA text back to the license endpoint to agree to the EULA and complete the automatic activation workflow.</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/ae74294e-f3f2-4ad3-86bc-ab3fdb5dfe4c</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;eulaText&quot;: &quot;END USER LICENSE AGREEMENT\r\nDOC-0355-08\r\n\r\nIMPORTANT - READ BEFORE...&quot;,
+  &quot;state&quot;:&quot;ACCEPTED_EULA&quot;
+}</code></pre>
+<p>After the PATCH completes, poll the license (step 3) until it reaches the LICENSED state.</p>
+<p>Response:</p>
+<pre><code>{
+  &quot;state&quot;: &quot;LICENSED&quot;,
+  &quot;totalDeviceLicenses&quot;: 25,
+  &quot;freeDeviceLicenses&quot;: 25,
+  &quot;licenseText&quot;: &quot;#\nAuth vers :...&quot;,
+  &quot;licenseState&quot;: {
+    &quot;vendor&quot;: &quot;F5 Networks, Inc.&quot;,
+    &quot;licensedDateTime&quot;: &quot;2017-02-17T00:00:00-08:00&quot;,
+    &quot;licensedVersion&quot;: &quot;5.2.0&quot;,
+    &quot;evaluationStartDateTime&quot;: &quot;2017-02-16T00:00:00-08:00&quot;,
+    &quot;evaluationEndDateTime&quot;: &quot;2017-03-20T00:00:00-07:00&quot;,
+    &quot;licenseEndDateTime&quot;: &quot;2017-03-20T00:00:00-07:00&quot;,
+    &quot;licenseStartDateTime&quot;: &quot;2017-02-16T00:00:00-08:00&quot;,
+    &quot;registrationKey&quot;: &quot;R8573-25996-57909-24167-3331348&quot;,
+    &quot;platformId&quot;: &quot;BIG-IQ Pool&quot;,
+    &quot;authVers&quot;: &quot;5b&quot;,
+    &quot;serviceCheckDateTime&quot;: &quot;2017-02-17T00:00:00-08:00&quot;,
+    &quot;exclusivePlatform&quot;: [
+      &quot;BIG-IQ Pool&quot;
+    ],
+    &quot;featureFlags&quot;: [
+      {
+        &quot;featureName&quot;: &quot;gtm_rate_fallback&quot;,
+        &quot;featureValue&quot;: &quot;1000&quot;
+      },
+      ...
+  },
+  ...
+}</code></pre>
+<h4 id="complete-manual-activation-by-providing-license-text">6. Complete manual activation by providing license text</h4>
+<p>If manual activation was used in step 2, then using license text received from the F5 licensing web portal, submit the following request to complete the manual activation workflow.</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/ae74294e-f3f2-4ad3-86bc-ab3fdb5dfe4c</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;licenseText&quot;: &quot;...&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;state&quot;: &quot;LICENSED&quot;,
+  &quot;totalDeviceLicenses&quot;: 25,
+  &quot;freeDeviceLicenses&quot;: 25,
+  &quot;licenseText&quot;: &quot;#\nAuth vers :...&quot;,
+  &quot;licenseState&quot;: {
+    &quot;vendor&quot;: &quot;F5 Networks, Inc.&quot;,
+    &quot;licensedDateTime&quot;: &quot;2017-02-17T00:00:00-08:00&quot;,
+    &quot;licensedVersion&quot;: &quot;5.2.0&quot;,
+    &quot;evaluationStartDateTime&quot;: &quot;2017-02-16T00:00:00-08:00&quot;,
+    &quot;evaluationEndDateTime&quot;: &quot;2017-03-20T00:00:00-07:00&quot;,
+    &quot;licenseEndDateTime&quot;: &quot;2017-03-20T00:00:00-07:00&quot;,
+    &quot;licenseStartDateTime&quot;: &quot;2017-02-16T00:00:00-08:00&quot;,
+    &quot;registrationKey&quot;: &quot;R8573-25996-57909-24167-3331348&quot;,
+    &quot;platformId&quot;: &quot;BIG-IQ Pool&quot;,
+    &quot;authVers&quot;: &quot;5b&quot;,
+    &quot;serviceCheckDateTime&quot;: &quot;2017-02-17T00:00:00-08:00&quot;,
+    &quot;exclusivePlatform&quot;: [
+      &quot;BIG-IQ Pool&quot;
+    ],
+    &quot;featureFlags&quot;: [
+      {
+        &quot;featureName&quot;: &quot;gtm_rate_fallback&quot;,
+        &quot;featureValue&quot;: &quot;1000&quot;
+      },
+      ...
+  },
+  ...
+}</code></pre>
+<h4 id="delete-a-purchased-pool-license">7. Delete a purchased pool license</h4>
+<pre><code>DELETE https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/ae74294e-f3f2-4ad3-86bc-ab3fdb5dfe4c</code></pre>
+<h3 id="api-reference">API Reference</h3>

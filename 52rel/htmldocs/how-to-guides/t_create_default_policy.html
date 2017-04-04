@@ -1,0 +1,215 @@
+<h2 id="creating-a-default-policy.">Creating a default policy.</h2>
+<h3 id="overview">Overview</h3>
+<p>Describes how you use the REST API to create a Web Application Security policy.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>None.</p>
+<h3 id="description">Description</h3>
+<p>Describes how you use the REST API to create a Web Application Security policy. The Web Application Security policy is a complex object with multiple sub collections, some of them have default values created by the system when the policy is created.</p>
+<h3 id="rest-api-actions">REST API actions</h3>
+<ol style="list-style-type: decimal">
+<li><p>Perform a POST operation to the policies collection.</p></li>
+<li><p>The data being sent to the server includes the name of the policy, the partition, the fullPath and the application language.</p></li>
+</ol>
+<p>Note - the fullPath is usually determined by the partition and name, separated by the '/' character.</p>
+<pre><code>POST: https://&lt;mgmtip&gt;/mgmt/cm/asm/working-config/policies
+{  
+   &quot;name&quot;:&quot;Policy_3&quot;,
+   &quot;partition&quot;:&quot;Common&quot;,
+   &quot;fullPath&quot;:&quot;/Common/Policy_3&quot;,
+   &quot;applicationLanguage&quot;:&quot;utf-8&quot;
+}</code></pre>
+<p>The following is the JSON response from the POST operation:</p>
+<pre><code>{
+    &quot;allowedResponseCodes&quot;: [
+        400,
+        401,
+        404,
+        407,
+        417,
+        503
+    ],
+    &quot;createdDatetime&quot;: &quot;2016-11-20T11:37:32Z&quot;,
+    &quot;creatorName&quot;: &quot;admin&quot;,
+    &quot;customXffHeaders&quot;: [],
+    &quot;applicationLanguage&quot;: &quot;utf-8&quot;,
+    &quot;caseInsensitive&quot;: false,
+    &quot;protocolIndependent&quot;: false,
+    &quot;enforcementMode&quot;: &quot;transparent&quot;,
+    &quot;learningMode&quot;: &quot;manual&quot;,
+    &quot;modifierName&quot;: &quot;&quot;,
+    &quot;stagingSettings&quot;: {
+        &quot;signatureStaging&quot;: true,
+        &quot;placeSignaturesInStaging&quot;: false,
+        &quot;enforcementReadinessPeriod&quot;: 7
+    },
+    &quot;attributes&quot;: {
+        &quot;maximumCookieHeaderLength&quot;: &quot;8192&quot;,
+        &quot;inspectHttpUploads&quot;: false,
+        &quot;triggerAsmIruleEvent&quot;: &quot;disabled&quot;,
+        &quot;useDynamicSessionIdInUrl&quot;: false,
+        &quot;maximumHttpHeaderLength&quot;: &quot;8192&quot;,
+        &quot;maskCreditCardNumbersInRequest&quot;: true,
+        &quot;pathParameterHandling&quot;: &quot;as-parameters&quot;
+    },
+    &quot;fullPath&quot;: &quot;/Common/Policy_3&quot;,
+    &quot;versionDeviceName&quot;: &quot;Policy_3&quot;,
+    &quot;versionLastChange&quot;: &quot;POST Policy_3&quot;,
+    &quot;versionPolicyName&quot;: &quot;/Common/Policy_3&quot;,
+    &quot;versionDatetime&quot;: &quot;2016-11-20T11:37:32Z&quot;,
+    &quot;trustXff&quot;: false,
+    &quot;disallowedGeolocationReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/disallowed-geolocations&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;signatureReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/signatures&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;csrfProtectionReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/csrf-protection&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;methodReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/methods&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;sessionTrackingReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/session-tracking&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;parameterReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/parameters&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;ipIntelligenceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/ip-intelligence&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;policyBuilderReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/policy-builder&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;dataGuardReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/data-guard&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;webScrapingReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/web-scraping&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;headerReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/headers&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;responsePageReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/response-pages&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;xmlProfileReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/xml-profiles&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;urlReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/urls&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;sensitiveParameterReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/sensitive-parameters&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;loginPageReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/login-pages&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;xmlValidationFileReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/xml-validation-files&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;cookieReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/cookies&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;characterSetReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/character-sets&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;loginEnforcementReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/login-enforcement&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;bruteForceAttackPreventionReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/brute-force-attack-preventions&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;redirectionProtectionReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/redirection-protection&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;whitelistIpReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/whitelist-ips&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;gwtProfileReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/gwt-profiles&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;signatureSetReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/signature-sets&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;jsonProfileReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/json-profiles&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;filetypeReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/filetypes&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;hostNameReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/host-names&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;violationsReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/violations&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;evasionsReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/evasions&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;httpProtocolsReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/http-protocols&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;webServicesSecurityReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/web-services-securities&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;extractionsReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/extractions&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;plainTextProfileReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/plain-text-profiles&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;websocketUrlReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/websocket-urls&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;sectionReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40/sections&quot;,
+        &quot;isSubcollection&quot;: true
+    },
+    &quot;type&quot;: &quot;security&quot;,
+    &quot;hasParent&quot;: false,
+    &quot;partition&quot;: &quot;Common&quot;,
+    &quot;name&quot;: &quot;Policy_3&quot;,
+    &quot;description&quot;: &quot;&quot;,
+    &quot;id&quot;: &quot;ae0dedd4-56dd-32c3-9910-a29937d7db40&quot;,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1479641852337670,
+    &quot;kind&quot;: &quot;cm:asm:working-config:policies:policystate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/asm/working-config/policies/ae0dedd4-56dd-32c3-9910-a29937d7db40&quot;
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>

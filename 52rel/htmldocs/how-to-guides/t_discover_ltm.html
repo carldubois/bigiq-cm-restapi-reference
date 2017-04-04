@@ -1,0 +1,297 @@
+<h2 id="discover-the-local-traffic-service-on-a-big-ip-device-using-a-big-iq-centralized-management-system">Discover the Local Traffic service on a BIG-IP device using a BIG-IQ Centralized Management system</h2>
+<h3 id="overview">Overview</h3>
+<p>You can use the REST API to discover the current configuration of the Local Traffic service on a BIG-IP device on a BIG-IQ Centralized Management system.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>You should be sure the following prerequisites have been met.</p>
+<ul>
+<li>All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system.</li>
+<li>The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system.</li>
+<li>When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.</li>
+</ul>
+<h3 id="description">Description</h3>
+<p>You use the following process to discover the Local Traffic service for a BIG-IP device on the BIG-IQ Centralized Management system.</p>
+<ol style="list-style-type: decimal">
+<li>Perform a GET method on the machineid-resolver URI to determine the current state of the BIG-IP device.</li>
+<li>Perform a GET method on the discovery URI using a filter of the machineId found in Step 1. The content of the response determines whether a PATCH or POST method will be used. You use either a POST method to create the discovery task or a PATCH method to update an existing task.</li>
+<li>Perform a POST method (or PATCH method) on the discovery URI to discover the current configuration of the BIG-IP device.</li>
+<li>Monitor the task using GET methods until the status has reached a value of FINISHED, FAILED or CANCELLED. When the GET method status value is FINISHED and the currentStep value is DONE, the discovery has completed.</li>
+</ol>
+<h3 id="example-for-device-discovery">Example for Device Discovery</h3>
+<p>In the following example:</p>
+<ul>
+<li>The BIG-IP device discovery address is 10.255.4.124. you substitute your BIG-IP device’s discovery address for this address when you implement the example.<br />
+</li>
+<li>The BIG-IP device is in a DSC cluster with another BIG-IP device which has a discovery address of 10.255.4.125. The trust relationship with the clustered BIG-IP device is established later and is not covered in this example.</li>
+</ul>
+<h4 id="determine-the-current-status-of-the-big-ip-device-on-the-big-iq-centralized-management-system.">1. Determine the current status of the BIG-IP device on the BIG-IQ Centralized Management system.</h4>
+<p>Perform a GET method on the machineid-resolver URI to determine if the BIG-IP device already has trust established. You will want to use the filter option to narrow the returned JSON information to just this particular BIG-IP device. If the value of the items element is not an empty list [], then the trust has already been established. If the value of the items element is an empty list, you must establish trust before you can attempt to discover the device.</p>
+<p>In the response to the GET method, you see trust is established since the following data is found in the list:</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm:gui:module&quot;: [
+        &quot;BigIPDevice&quot;
+    ]</code></pre>
+<p>If the adc value is found in the list, the Local Traffic service has already been discovered; the adc value represents the Local Traffic service.</p>
+<p>The machineId from the response JSON will be used in Step 2.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/system/machineid-resolver?$filter=(&#39;address&#39;+eq+&#39;10.255.4.124&#39;)</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;generation&quot;: 0,
+    &quot;items&quot;: [
+        {
+            &quot;address&quot;: &quot;10.255.4.124&quot;,
+            &quot;build&quot;: &quot;0.0.141&quot;,
+            &quot;deviceUri&quot;: &quot;https://10.255.4.124:443&quot;,
+            &quot;edition&quot;: &quot;Final&quot;,
+            &quot;generation&quot;: 4,
+            &quot;hostname&quot;: &quot;bigip124.f5.com&quot;,
+            &quot;httpsPort&quot;: 443,
+            &quot;isClustered&quot;: false,
+            &quot;isLicenseExpired&quot;: false,
+            &quot;isVirtual&quot;: true,
+            &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+            &quot;lastUpdateMicros&quot;: 1477676742276559,
+            &quot;machineId&quot;: &quot;9f320100-2177-42e0-8a46-2e33cd3366da&quot;,
+            &quot;managementAddress&quot;: &quot;10.255.4.124&quot;,
+            &quot;mcpDeviceName&quot;: &quot;/Common/bigip124.f5.com&quot;,
+            &quot;product&quot;: &quot;BIG-IP&quot;,
+            &quot;properties&quot;: {
+                &quot;cm-bigip-allBigIpDevices&quot;: {
+                    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [
+                        &quot;BigIPDevice&quot;
+                    ],
+                    &quot;modules&quot;: [],
+                    &quot;shared:resolver:device-groups:discoverer&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;
+                },
+                &quot;cm-bigip-allDevices&quot;: {
+                    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [],
+                    &quot;modules&quot;: [],
+                    &quot;shared:resolver:device-groups:discoverer&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;
+                },
+                &quot;cm-bigip-cluster_Cluster-124-125&quot;: {
+                    &quot;clusterName&quot;: &quot;Cluster-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [],
+                    &quot;modules&quot;: [],
+                    &quot;shared:resolver:device-groups:discoverer&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;
+                },
+                &quot;cm:gui:module&quot;: [
+                    &quot;BigIPDevice&quot;
+                ],
+                &quot;modules&quot;: []
+            },
+            &quot;restFrameworkVersion&quot;: &quot;12.0.0-0.0.4211&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;,
+            &quot;slots&quot;: [
+                {
+                    &quot;build&quot;: &quot;0.0.141&quot;,
+                    &quot;isActive&quot;: false,
+                    &quot;product&quot;: &quot;BIG-IP&quot;,
+                    &quot;version&quot;: &quot;11.5.2&quot;,
+                    &quot;volume&quot;: &quot;HD1.1&quot;
+                },
+                {
+                    &quot;build&quot;: &quot;0.0.141&quot;,
+                    &quot;isActive&quot;: true,
+                    &quot;product&quot;: &quot;BIG-IP&quot;,
+                    &quot;version&quot;: &quot;11.5.2&quot;,
+                    &quot;volume&quot;: &quot;HD1.2&quot;
+                }
+            ],
+            &quot;state&quot;: &quot;ACTIVE&quot;,
+            &quot;trustDomainGuid&quot;: &quot;91bd712a-ad8f-4570-ab540050560145f3&quot;,
+            &quot;uuid&quot;: &quot;9f320100-2177-42e0-8a46-2e33cd3366da&quot;,
+            &quot;version&quot;: &quot;11.5.2&quot;
+        }
+    ],
+    &quot;lastUpdateMicros&quot;: 0,
+    &quot;selfLink&quot;: &quot;http://localhost:8100/cm/system/machineid-resolver?$filter=%28%27address%27+eq+%2710.255.4.124%27%29&quot;
+}</code></pre>
+<h4 id="perform-a-get-method-on-the-discovery-uri-using-a-filter-of-the-machineid-found-in-step-1.">2. Perform a GET method on the discovery URI using a filter of the machineId found in Step 1.</h4>
+<p>The content of the response determines whether a PATCH or POST method will be used. You use either a POST method to create the discovery task or a PATCH method to update an existing task. An existing task would be found if: - A previous discovery of the device was performed (and you may now want to perform a rediscovery of the device). - A previous discovery task for this device was not deleted. Finding existing discovery tasks should be rare.</p>
+<pre><code>GET: https://localhost/mgmt/cm/global/tasks/device-discovery?$filter=deviceReference/link+eq+&#39;*9f320100-2177-42e0-8a46-2e33cd3366da&#39;</code></pre>
+<p>The following is the response JSON from the GET method when no existing task is found:</p>
+<pre><code>{
+    &quot;generation&quot;: 791,
+    &quot;items&quot;: [],
+    &quot;kind&quot;: &quot;cm:global:tasks:device-discovery:discoverysupertaskcollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1477678379537052,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/global/tasks/device-discovery&quot;,
+    &quot;totalItems&quot;: 0
+}</code></pre>
+<h4 id="perform-a-post-method-to-the-discovery-task-if-one-was-not-returned-in-step-2-or-continue-to-step-4-and-perform-the-patch-method-to-an-existing-task-for-the-device.">3. Perform a POST method to the discovery task if one was not returned in Step 2, or continue to Step 4 and perform the PATCH method to an existing task for the device.</h4>
+<p>Use a POST method with the following JSON on the discovery task to start the discovery. - deviceReference: The BIG-IP device selfLink reference from Step 1 - moduleList: The module to discover, adc_core - status: The status of the task, STARTED</p>
+<pre><code>POST: https://localhost/mgmt/cm/global/tasks/device-discovery
+{
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;moduleList&quot;: [
+        {
+            &quot;module&quot;: &quot;adc_core&quot;
+        }
+    ],
+    &quot;status&quot;: &quot;STARTED&quot;
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;generation&quot;: 1,
+    &quot;id&quot;: &quot;d435934f-c615-4873-85f9-ddb4ac4e6c3e&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:global:tasks:device-discovery:discoverysupertaskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1477678409190342,
+    &quot;moduleList&quot;: [
+        {
+            &quot;module&quot;: &quot;adc_core&quot;
+        }
+    ],
+    &quot;ownerMachineId&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/global/tasks/device-discovery/d435934f-c615-4873-85f9-ddb4ac4e6c3e&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;taskWorkerGeneration&quot;: 1,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+}</code></pre>
+<h4 id="if-a-task-already-exists-perform-a-patch-method-to-the-discovery-task-returned-in-step-2-to-start-the-discovery-or-rediscovery.">4. If a task already exists, perform a PATCH method to the discovery task returned in Step 2 to start the discovery or rediscovery.</h4>
+<p>This operation reuses a task for the same device that exists either because the device is already discovered or the device was removed and the task was never deleted. The PATCH JSON data should include: - moduleList: The module to discover, adc_core - status: The status of the task, STARTED</p>
+<pre><code>PATCH: https://localhost/mgmt/cm/global/tasks/device-trust/a27f6fd7-d0cc-4f2a-892b-cb859b182cdb
+{
+    &quot;moduleList&quot;: [
+        {
+            &quot;module&quot;: &quot;adc_core&quot;
+        }
+    ],
+    &quot;status&quot;: &quot;STARTED&quot;
+}</code></pre>
+<p>Response JSON from the PATCH:</p>
+<pre><code>{
+    &quot;allModuleStatus&quot;: [
+        {
+            &quot;endTime&quot;: &quot;2016-10-28T18:42:11.187Z&quot;,
+            &quot;module&quot;: &quot;adc_core&quot;,
+            &quot;startTime&quot;: &quot;2016-10-28T18:42:02.062Z&quot;
+        }
+    ],
+    &quot;currentConfigConsistencyCheckReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/global/tasks/current-config-consistency-check/7c2df895-16f8-42a6-b38a-96ed519fbda4&quot;
+    },
+    &quot;currentStep&quot;: &quot;DONE&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;generation&quot;: 8,
+    &quot;id&quot;: &quot;4d3dd0f7-4a1e-424c-8b02-ad9e952189fc&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:global:tasks:device-discovery:discoverysupertaskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1477680292504922,
+    &quot;moduleList&quot;: [
+        {
+            &quot;module&quot;: &quot;adc_core&quot;
+        }
+    ],
+    &quot;ownerMachineId&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/global/tasks/device-discovery/4d3dd0f7-4a1e-424c-8b02-ad9e952189fc&quot;,
+    &quot;startDateTime&quot;: &quot;2016-10-28T14:44:52.506-0400&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;taskWorkerGeneration&quot;: 1,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h4 id="perform-additional-get-methods-to-the-discovery-task-created-in-step-3-or-step-4.">5. Perform additional GET methods to the discovery task created in Step 3 or Step 4.</h4>
+<p>Perform additional GET methods on the selfLink returned from the Step 3 or Step 4 response JSON. Perform them in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED. Use a select option to reduce the content of the returned JSON to a manageable amount. In addition to the status, currentStep should have the value of DONE.</p>
+<pre><code>GET: https://localhost/mgmt/cm/global/tasks/device-discovery/d435934f-c615-4873-85f9-ddb4ac4e6c3e?$select=status,currentStep</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+  &quot;currentStep&quot;: &quot;DONE&quot;,
+  &quot;status&quot;: &quot;FINISHED&quot;
+}</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<p>When an error occurs, review the BIG-IQ Centralized Management user interface for device management to determine the details of the failure. In addition to using the user interface, some error information can be determined from the REST API response JSON as shown in the following error.</p>
+<h4 id="error-generated-when-an-incorrect-uri-is-sent-in-the-rest-request.">Error generated when an incorrect URI is sent in the REST request.</h4>
+<pre><code>{
+  &quot;code&quot;: 404,
+  &quot;message&quot;: &quot;Public URI path not registered&quot;,
+  &quot;referer&quot;: &quot;192.168.101.130&quot;,
+  &quot;restOperationId&quot;: 19541801,
+  &quot;errorStack&quot;: [
+    &quot;com.f5.rest.common.RestWorkerUriNotFoundException: Public URI path not registered&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.cloneAndForwardRequest(ForwarderPassThroughWorker.java:250)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onForward(ForwarderPassThroughWorker.java:106)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onQuery(ForwarderPassThroughWorker.java:409)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callDerivedRestMethod(RestWorker.java:1071)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callRestMethodHandler(RestWorker.java:1040)&quot;,
+    &quot;at com.f5.rest.common.RestServer.processQueuedRequests(RestServer.java:1467)&quot;,
+    &quot;at com.f5.rest.common.RestServer.access$000(RestServer.java:53)&quot;,
+    &quot;at com.f5.rest.common.RestServer$1.run(RestServer.java:333)&quot;,
+    &quot;at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)&quot;,
+    &quot;at java.util.concurrent.FutureTask.run(FutureTask.java:262)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)&quot;,
+    &quot;at java.lang.Thread.run(Thread.java:745)\n&quot;
+  ],
+  &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h4 id="discovery-failure-for-a-device-that-is-no-longer-available.">Discovery failure for a device that is no longer available.</h4>
+<pre><code>{
+    &quot;allModuleStatus&quot;: [
+        {
+            &quot;endTime&quot;: &quot;2016-10-28T18:54:24.915Z&quot;,
+            &quot;errorMsg&quot;: &quot;Error getting resource provisioning from /mgmt/tm/sys/provision on bigip124.f5.com (10.145.192.3); check if iControl REST service is running on the BIG-IP&quot;,
+            &quot;module&quot;: &quot;adc_core&quot;,
+            &quot;startTime&quot;: &quot;2016-10-28T18:54:23.891Z&quot;
+        }
+    ],
+    &quot;currentConfigConsistencyCheckReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/global/tasks/current-config-consistency-check/44e46a83-b6a1-4760-b643-ed2ea310fb0c&quot;
+    },
+    &quot;currentStep&quot;: &quot;FAILED&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;endDateTime&quot;: &quot;2016-10-28T14:54:26.033-0400&quot;,
+    &quot;errorMessage&quot;: &quot;Failed to process module tasks : At least one module is failed&quot;,
+    &quot;generation&quot;: 7,
+    &quot;id&quot;: &quot;e4a23fed-570c-4607-afd5-ee2c96ba6b06&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:global:tasks:device-discovery:discoverysupertaskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1477680866084285,
+    &quot;moduleList&quot;: [
+        {
+            &quot;endTime&quot;: &quot;2016-10-28T18:54:24.915Z&quot;,
+            &quot;errorMsg&quot;: &quot;Error getting resource provisioning from /mgmt/tm/sys/provision on bigip124.f5.com (10.145.192.3); check if iControl REST service is running on the BIG-IP&quot;,
+            &quot;module&quot;: &quot;adc_core&quot;,
+            &quot;startTime&quot;: &quot;2016-10-28T18:54:23.891Z&quot;,
+            &quot;status&quot;: &quot;FAILED&quot;
+        }
+    ],
+    &quot;ownerMachineId&quot;: &quot;87611fbb-fb85-4c41-a9c0-ee7a5ba388d2&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/global/tasks/device-discovery/e4a23fed-570c-4607-afd5-ee2c96ba6b06&quot;,
+    &quot;startDateTime&quot;: &quot;2016-10-28T14:54:23.659-0400&quot;,
+    &quot;status&quot;: &quot;FAILED&quot;,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;
+}      </code></pre>
+<h3 id="api-reference">API Reference</h3>

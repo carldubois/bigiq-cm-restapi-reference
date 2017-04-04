@@ -1,0 +1,296 @@
+<h1 id="regkey-pool-licenses-api">RegKey Pool Licenses API</h1>
+<h2 id="overview">Overview</h2>
+<p>This API supports managing individual BIG-IP VE licenses within BIG-IQ. The API provides methods to create a RegKey Pool, add/remove registration keys to or from a pool, and assign/revoke a key to or from a BIG-IP device.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Make certain that the following prerequisites have been met.</p>
+<ul>
+<li>The BIG-IQ Centralized Management device is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>The BIG-IQ has an internet connection to the F5 licensing server if you plan to use automatic activation.</li>
+<li>You have a set of BIG-IP VE license keys to be managed.</li>
+<li>You have either the administrator or device manager role.</li>
+</ul>
+<p>Note: When you perform these tasks using the example code provided, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ device, change localhost to be the IP address of the BIG-IQ Centralized Management device.</p>
+<h3 id="manage-a-regkey-pool">Manage a RegKey Pool</h3>
+<p>This API provides methods to manage the RegKey Pool collection by creating, updating, or deleting a RegKey Pool.</p>
+<h4 id="query-existing-regkey-pools">1. Query existing RegKey Pools</h4>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses</code></pre>
+<p>Response</p>
+<pre><code>{
+  &quot;items&quot;: [
+    {
+      &quot;id&quot;: &quot;cc010b7d-9c9e-40a9-9668-321f4ebc26f6&quot;,
+      &quot;name&quot;: &quot;RegKey Pool #1&quot;,
+      &quot;sortName&quot;: &quot;Registration Key Pool&quot;,
+      &quot;generation&quot;: 1,
+      &quot;lastUpdateMicros&quot;: 1488535202069037,
+      &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:regkeypoollicensestate&quot;,
+      &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/cc010b7d-9c9e-40a9-9668-321f4ebc26f6&quot;
+    }
+  ],
+  &quot;generation&quot;: 6,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:regkeypoollicensecollectionstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1488535202076692,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses&quot;
+}</code></pre>
+<h4 id="create-a-regkey-pool">2. Create a RegKey Pool</h4>
+<pre><code>POST https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses</code></pre>
+<p>Request</p>
+<pre><code>{
+  &quot;name&quot;: &quot;RegKey Pool #2&quot;,
+  &quot;description&quot;: &quot;Custom description&quot;
+}</code></pre>
+<p>Response</p>
+<pre><code>{
+  &quot;id&quot;: &quot;150102a0-66ec-411f-8776-221019f430f3&quot;,
+  &quot;name&quot;: &quot;RegKey Pool #2&quot;,
+  &quot;description&quot;: &quot;Custom description&quot;,
+  &quot;sortName&quot;: &quot;Registration Key Pool&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488535345324793,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:regkeypoollicensestate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/150102a0-66ec-411f-8776-221019f430f3&quot;
+}</code></pre>
+<h4 id="update-a-regkey-pool-to-change-name-andor-description">3. Update a RegKey Pool to change name and/or description</h4>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}</code></pre>
+<p>Request</p>
+<pre><code>{
+  &quot;name&quot;: &quot;RegKey Pool #2 - updated&quot;,
+  &quot;description&quot; : &quot;Updated description&quot;
+}</code></pre>
+<p>Response</p>
+<pre><code>{
+  &quot;id&quot;: &quot;150102a0-66ec-411f-8776-221019f430f3&quot;,
+  &quot;name&quot;: &quot;RegKey Pool #2 - updated&quot;,
+  &quot;description&quot;: &quot;Updated description&quot;,
+  &quot;sortName&quot;: &quot;Registration Key Pool&quot;,
+  &quot;generation&quot;: 2,
+  &quot;lastUpdateMicros&quot;: 1488535758312642,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:regkeypoollicensestate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/150102a0-66ec-411f-8776-221019f430f3&quot;
+}</code></pre>
+<h4 id="remove-a-regkey-pool">4. Remove a RegKey Pool</h4>
+<p>Note: You cannot delete a RegKey Pool if it includes one or more registration keys assigned to a BIG-IP device.</p>
+<pre><code>DELETE https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}</code></pre>
+<h3 id="managing-registration-keys-in-a-regkey-pool">Managing registration keys in a RegKey Pool</h3>
+<p>Each RegKey Pool can contain an arbitrary number of BIG-IP registration keys.</p>
+<h4 id="query-existing-license-keys-for-a-regkey-pool">1. Query existing license keys for a RegKey Pool</h4>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;items&quot;: [],
+  &quot;generation&quot;: 0,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkeypoollicenseofferingcollectionstate&quot;,
+  &quot;lastUpdateMicros&quot;: 0,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/150102a0-66ec-411f-8776-221019f430f3/offerings&quot;
+}</code></pre>
+<h4 id="add-a-license-key-with-automatic-activation">2. Add a license key with automatic activation</h4>
+<p>Replace MY-REGISTRATION-KEY in this example with your actual BIG-IP VE registration key.</p>
+<pre><code>POST https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;regKey&quot;: &quot;MY-REGISTRATION-KEY&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;,
+  &quot;name&quot; : &quot;my freeform name&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;regKey&quot;: &quot;MY-REGISTRATION-KEY&quot;,
+  &quot;sortName&quot;: &quot;Registration Key Pool Item&quot;,
+  &quot;publicKey&quot;: [
+    16,
+    96,
+    61,
+    ...
+  ],
+  &quot;internalPrivateKey&quot;: &quot;hXIOe4RROD...&quot;,
+  &quot;encryptedPrivateKey&quot;: [
+    15,
+    104,
+    19,
+    ...
+  ],
+  &quot;name&quot;: &quot;my freeform name&quot;,
+  &quot;message&quot;: &quot;Automatic activation in progress&quot;,
+  &quot;dossier&quot;: &quot;4a133ec092...&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488538151253316,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkeypoollicenseofferingstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/150102a0-66ec-411f-8776-221019f430f3/offerings/Q0223-28107-64761-06159-4281213&quot;
+}</code></pre>
+<h4 id="poll-to-get-status">3. Poll to get status</h4>
+<p>After adding a registration key, you should poll to check the activation status.</p>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;eulaText&quot;: &quot;END USER LICENSE AGREEMENT\r\nDOC-0355-08\r\n\r\nIMPORTANT - READ BEFORE...&quot;
+  &quot;message&quot;: &quot;Accept EULA to continue&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC_NEED_EULA_ACCEPT&quot;,
+  ...
+}</code></pre>
+<h4 id="complete-automatic-activation-by-accepting-the-eula">4. Complete automatic activation by accepting the EULA</h4>
+<p>Echo the EULA text back to the license endpoint to agree to the EULA and complete the automatic activation workflow.</p>
+<p>After doing so, again poll to get the final activation status (either <code>READY</code> or <code>ACTIVATION_FAILED</code>).</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC_EULA_ACCEPTED&quot;,
+  &quot;eulaText&quot;: &quot;END USER LICENSE AGREEMENT\r\nDOC-0355-08\r\n\r\nIMPORTANT - READ BEFORE...&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;message&quot;: &quot;Finishing activation&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC_EULA_ACCEPTED&quot;,
+  ...
+}</code></pre>
+<h4 id="complete-manual-activation-by-providing-license-text">5. Complete manual activation by providing license text</h4>
+<p>If manual activation is used instead of automatic activation (in the POST to add a registration key, <code>status</code> is <code>ACTIVATING_MANUAL</code> instead of <code>ACTIVATING_AUTOMATIC</code>), then the PATCH to complete activation will include the license text received from the F5 licensing web portal.</p>
+<p>The response will include the final activation status (either <code>READY</code> or <code>ACTIVATION_FAILED</code>).</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;status&quot;: &quot;ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED&quot;,
+  &quot;licenseText&quot;: &quot;...&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;licenseState&quot;: {
+    &quot;vendor&quot;: &quot;F5 Networks, Inc.&quot;,
+    &quot;licensedDateTime&quot;: &quot;2017-03-03T00:00:00-08:00&quot;,
+    &quot;licensedVersion&quot;: &quot;5.2.0&quot;,
+    ...
+  },
+  &quot;message&quot;: &quot;Activated&quot;,
+  &quot;status&quot;: &quot;READY&quot;,
+  ...
+}</code></pre>
+<h4 id="retry-a-failed-activation-or-reactivate-an-existing-license">6. Retry a failed activation or reactivate an existing license</h4>
+<p>The process to retry an activation that failed or to reactivate an existing license is the same. Note, if an activation fails, check error messages returned from the API or the restjavad logs for details.</p>
+<p>Similar to the prior steps, you will need to poll to get the final activation status.</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;message&quot;: &quot;Automatic activation in progress&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;,
+  ...
+}</code></pre>
+<h4 id="reactivate-a-license-with-add-on-keys">7. Reactivate a license with add-on key(s)</h4>
+<p>Replace MY-ADD-ON-KEY in this example with your actual add-on key(s).</p>
+<p>Similar to the prior steps, you will need to poll to get the final activation status.</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;,
+  &quot;addOnKeys&quot;: [&quot;MY-ADD-ON-KEY&quot;]
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;message&quot;: &quot;Automatic activation in progress&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;,
+  ...
+}</code></pre>
+<h4 id="delete">8. Delete</h4>
+<p>Note, you cannot delete a registration key if it is assigned to a BIG-IP device.</p>
+<pre><code>DELETE https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}</code></pre>
+<h3 id="manage-license-assignment-to-a-big-ip-device">Manage license assignment to a BIG-IP device</h3>
+<p>Each registration key in a RegKey Pool can be assigned to only one BIG-IP. Assignments can be managed via the <code>/members</code> subcollection under each registration key.</p>
+<p>Note, assigning a new license to a BIG-IP device can cause a temporary interruption of operation.</p>
+<h4 id="get-the-assignment-for-a-registration-key-in-a-regkey-pool">1. Get the assignment for a registration key in a RegKey Pool</h4>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;items&quot;: [
+    {
+      &quot;auditRecordReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/device/licensing/audit/04236435-986c-44fc-94cc-97a072b4b747&quot;
+      },
+      &quot;deviceAddress&quot;: &quot;10.145.197.41&quot;,
+      &quot;deviceMachineId&quot;: &quot;7141a063-7cf8-423f-9829-9d40599fa3e0&quot;,
+      &quot;deviceName&quot;: &quot;bigip11-41.f5net.com&quot;,
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/7141a063-7cf8-423f-9829-9d40599fa3e0&quot;
+      },
+      &quot;generation&quot;: 4,
+      &quot;id&quot;: &quot;73854946-2e75-41e0-9ffb-7ebc06abd87d&quot;,
+      &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkey:members:regkeypoollicensememberstate&quot;,
+      &quot;lastUpdateMicros&quot;: 1488785701966707,
+      &quot;message&quot;: &quot;Device licensed&quot;,
+      &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/17be603d-3978-4c82-ac86-0d0b4cce8ce3/offerings/H4537-72099-57885-27527-0188153/members/73854946-2e75-41e0-9ffb-7ebc06abd87d&quot;,
+      &quot;status&quot;: &quot;LICENSED&quot;
+    }
+  ],
+  &quot;generation&quot;: 5,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkey:members:regkeypoollicensemembercollectionstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1488785701969074,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/17be603d-3978-4c82-ac86-0d0b4cce8ce3/offerings/H4537-72099-57885-27527-0188153/members&quot;
+}</code></pre>
+<h4 id="assign-a-license-to-a-managed-device">2. Assign a license to a managed device</h4>
+<p>Below is an example of assigning a registration key to a managed device. Afterwards, you should poll to check the assignment status.</p>
+<pre><code>POST https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;deviceReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/7141a063-7cf8-423f-9829-9d40599fa3e0&quot;
+  }
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;id&quot;: &quot;6dabfc7c-9bfc-4666-b0cf-e6fc076ac0ad&quot;,
+  &quot;deviceMachineId&quot;: &quot;7141a063-7cf8-423f-9829-9d40599fa3e0&quot;,
+  &quot;deviceReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/7141a063-7cf8-423f-9829-9d40599fa3e0&quot;
+  },
+  &quot;deviceAddress&quot;: &quot;10.145.197.41&quot;,
+  &quot;deviceName&quot;: &quot;bigip11-41.f5net.com&quot;,
+  &quot;status&quot;: &quot;INSTALLING&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488786814492210,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkey:members:regkeypoollicensememberstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/17be603d-3978-4c82-ac86-0d0b4cce8ce3/offerings/H4537-72099-57885-27527-0188153/members/6dabfc7c-9bfc-4666-b0cf-e6fc076ac0ad&quot;
+}</code></pre>
+<h4 id="assign-a-license-to-an-unmanaged-device">3. Assign a license to an unmanaged device</h4>
+<p>Below is an example of assigning a registration key to an unmanaged device. Afterwards, you should poll to check the assignment status.</p>
+<pre><code>POST https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;deviceAddress&quot;: &quot;10.145.198.181&quot;,
+  &quot;username&quot;: &quot;admin&quot;,
+  &quot;password&quot;: &quot;password&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;id&quot;: &quot;c90b62f0-65ee-48aa-ad57-c4ce8d1dc933&quot;,
+  &quot;deviceMachineId&quot;: &quot;77d9d4a4-9255-4f46-907e-b2bbd717e819&quot;,
+  &quot;deviceAddress&quot;: &quot;10.145.198.181&quot;,
+  &quot;deviceName&quot;: &quot;dsc-ip3.pdsea.f5net.com&quot;,
+  &quot;status&quot;: &quot;INSTALLING&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488787037718076,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:regkey:licenses:item:offerings:regkey:members:regkeypoollicensememberstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/17be603d-3978-4c82-ac86-0d0b4cce8ce3/offerings/H4537-72099-57885-27527-0188153/members/c90b62f0-65ee-48aa-ad57-c4ce8d1dc933&quot;
+}</code></pre>
+<h4 id="get-the-status-of-an-assignment">4. Get the status of an assignment</h4>
+<p>After initiating an assignment of a registration key to a device, you can query the status of the assignment to confirm the device is licensed successfully.</p>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members/{member_uuid}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;message&quot;: &quot;Device licensed&quot;,
+  &quot;status&quot;: &quot;LICENSED&quot;,
+  ...
+}</code></pre>
+<h4 id="revoke-license-from-a-managed-device">5. Revoke license from a managed device</h4>
+<pre><code>DELETE https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members/{member_uuid}</code></pre>
+<h4 id="revoke-license-from-an-unmanaged-device">6. Revoke license from an unmanaged device</h4>
+<p>For unmanaged devices, the request body must include administrator credentials and the member_uuid for the assignment as shown in the example.</p>
+<pre><code>DELETE https://localhost/mgmt/cm/device/licensing/pool/regkey/licenses/{id}/offerings/{regkey}/members/{member_uuid}</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;id&quot;: &quot;c90b62f0-65ee-48aa-ad57-c4ce8d1dc933&quot;,
+  &quot;username&quot;: &quot;admin&quot;,
+  &quot;password&quot;: &quot;password&quot;
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>

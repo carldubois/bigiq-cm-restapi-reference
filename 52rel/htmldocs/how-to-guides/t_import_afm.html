@@ -1,0 +1,895 @@
+<h2 id="import-the-advanced-firewall-service-into-the-working-configuration-on-a-big-iq-centralized-management-system">Import the Advanced Firewall service into the working configuration on a BIG-IQ Centralized Management system</h2>
+<h3 id="overview">Overview</h3>
+<p>You can use the REST API to import the current configuration for the Advanced Firewall service on a BIG-IP device into the working configuration on the BIG-IQ Centralized Management system.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>You should be sure the following prerequisites have been met.</p>
+<ul>
+<li>All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system.</li>
+<li>The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system and the Local Traffic service of the BIG-IP has been discovered and imported on the BIG-IQ Centralized Management system. In addition, the Advanced Firewall service of the BIG-IP has been discovered on the BIG-IQ Centralized Management system.</li>
+<li>When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.</li>
+</ul>
+<h3 id="description">Description</h3>
+<p>You use the following process to import the current configuration for the Advanced Firewall service of a BIG-IP device into the BIG-IQ Centralized Management system working configuration.</p>
+<ol style="list-style-type: decimal">
+<li>Determine the current state of the BIG-IP device by performing a GET method on the machineid-resolver URI. Using this information, the trust and discovery status of the BIG-IP device can be determined.</li>
+<li>Perform a POST method to the declare management authority URI to import the current configuration of the BIG-IP device.</li>
+<li>Monitor the task in the previous step using GET methods until the status reaches a value of FINISHED, FAILED, or CANCELLED.</li>
+<li>If pending conflicts are detected (when the value of currentStep is PENDING_CONFLICTS or PENDING_CHILD_CONFLICTS), perform a PATCH method on the declare management authority URI, with the appropriate conflict JSON.</li>
+<li>Perform additional GET methods on the declare management authority URI until the status value is FINISHED and the currentStep value is DONE.</li>
+</ol>
+<h3 id="importing-the-advanced-firewall-service">Importing the Advanced Firewall service</h3>
+<p>In the following example:</p>
+<ul>
+<li>The BIG-IP device discovery address is 10.255.4.124. you can substitute your BIG-IP device's discovery address for this address when you implement the example.<br />
+</li>
+<li>The BIG-IP device is in a DSC cluster with another BIG-IP device which has a discovery address of 10.255.4.125. The trust relationship with the clustered BIG-IP device is established later and is not covered in this example.</li>
+</ul>
+<h4 id="determine-the-current-status-of-the-big-ip-device-on-the-big-iq-centralized-management-system.">1. Determine the current status of the BIG-IP device on the BIG-IQ Centralized Management system.</h4>
+<p>Perform a GET method on the machineid-resolver URI to determine if the BIG-IP device already has trust established. You should use the filter option to narrow the returned JSON information to just this particular BIG-IP device. If the value of the items element is not an empty list [], then the trust has already been established.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/system/machineid-resolver?$filter=(&#39;address&#39;+eq+&#39;10.255.4.124&#39;)</code></pre>
+<p>In the following response JSON from the GET method, the adc, sharedsecurity and networksecurity values are returned. Having these values returned indicates that the Local Traffic and Advanced Firewall services have been discovered, and that trust already exists between the BIG-IP device and the BIG-IQ Centralized Management system.</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm:gui:module&quot;: [
+        &quot;sharedsecurity&quot;,
+        &quot;networksecurity&quot;,
+        &quot;BigIPDevice&quot;,
+        &quot;adc&quot;
+    ]
+}</code></pre>
+<p>The Local Traffic service is discovered and imported before any other service. If the adc value is not found in the list, the Local Traffic service has not been discovered and discovery and import must be performed. If sharedsecurity and networksecurity values are not found in the list, the Advanced Firewall service has not been discovered and discovery must be performed. The machineId found in the response JSON will be used in Step 2.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/system/machineid-resolver?$filter=(&#39;address&#39;+eq+&#39;10.255.4.124&#39;)</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;generation&quot;: 0,
+    &quot;items&quot;: [
+        {
+            &quot;address&quot;: &quot;10.255.4.124&quot;,
+            &quot;build&quot;: &quot;0.0.141&quot;,
+            &quot;deviceUri&quot;: &quot;https://10.255.4.124:443&quot;,
+            &quot;edition&quot;: &quot;Final&quot;,
+            &quot;generation&quot;: 1,
+            &quot;hostname&quot;: &quot;bigip124.f5.com&quot;,
+            &quot;httpsPort&quot;: 443,
+            &quot;isClustered&quot;: false,
+            &quot;isVirtual&quot;: true,
+            &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+            &quot;lastUpdateMicros&quot;: 1480692512743700,
+            &quot;machineId&quot;: &quot;9f320100-2177-42e0-8a46-2e33cd3366da&quot;,
+            &quot;managementAddress&quot;: &quot;10.255.4.124&quot;,
+            &quot;mcpDeviceName&quot;: &quot;/Common/bigip124.f5.com&quot;,
+            &quot;product&quot;: &quot;BIG-IP&quot;,
+            &quot;properties&quot;: {
+                &quot;cm-adccore-adccluster_CLUSTER-124-125&quot;: {
+                    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [
+                        &quot;adc&quot;
+                    ],
+                    &quot;modules&quot;: [],
+                    &quot;requiresDhcpProfileInDhcpVirtualServer&quot;: false,
+                    &quot;restrictsPortTranslationStatelessVirtual&quot;: false,
+                    &quot;supportsAlpineEnhs&quot;: false,
+                    &quot;supportsBadgerEnhs&quot;: false,
+                    &quot;supportsClassification&quot;: false,
+                    &quot;supportsRest&quot;: true,
+                    &quot;supports_13_0_Enhs&quot;: false
+                },
+                &quot;cm-adccore-allDevices&quot;: {
+                    &quot;cm:gui:module&quot;: [],
+                    &quot;modules&quot;: []
+                },
+                &quot;cm-adccore-allbigipDevices&quot;: {
+                    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [
+                        &quot;adc&quot;
+                    ],
+                    &quot;discovered&quot;: true,
+                    &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+                    &quot;importStatus&quot;: &quot;FINISHED&quot;,
+                    &quot;imported&quot;: true,
+                    &quot;importedDateTime&quot;: &quot;2016-12-02T15:28:54.676Z&quot;,
+                    &quot;lastDiscoveredDateTime&quot;: &quot;2016-12-02T15:28:21.816Z&quot;,
+                    &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-12-02T15:28:21.816Z&quot;,
+                    &quot;modules&quot;: [],
+                    &quot;requiresDhcpProfileInDhcpVirtualServer&quot;: false,
+                    &quot;restrictsPortTranslationStatelessVirtual&quot;: false,
+                    &quot;supportsAlpineEnhs&quot;: false,
+                    &quot;supportsBadgerEnhs&quot;: false,
+                    &quot;supportsClassification&quot;: false,
+                    &quot;supportsRest&quot;: true,
+                    &quot;supports_13_0_Enhs&quot;: false
+                },
+                &quot;cm-bigip-allBigIpDevices&quot;: {
+                    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [
+                        &quot;BigIPDevice&quot;
+                    ],
+                    &quot;modules&quot;: [],
+                    &quot;shared:resolver:device-groups:discoverer&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;
+                },
+                &quot;cm-bigip-allDevices&quot;: {
+                    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [],
+                    &quot;modules&quot;: [],
+                    &quot;shared:resolver:device-groups:discoverer&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;
+                },
+                &quot;cm-bigip-cluster_CLUSTER-124-125&quot;: {
+                    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [],
+                    &quot;modules&quot;: [],
+                    &quot;shared:resolver:device-groups:discoverer&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;
+                },
+                &quot;cm-firewall-allDevices&quot;: {
+                    &quot;cm:gui:module&quot;: [
+                        &quot;sharedsecurity&quot;,
+                        &quot;networksecurity&quot;,
+                        &quot;BigIPDevice&quot;,
+                        &quot;adc&quot;
+                    ],
+                    &quot;modules&quot;: [
+                        &quot;Security&quot;
+                    ]
+                },
+                &quot;cm-firewall-allFirewallDevices&quot;: {
+                    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [
+                        &quot;networksecurity&quot;
+                    ],
+                    &quot;discovered&quot;: true,
+                    &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+                    &quot;imported&quot;: false,
+                    &quot;lastDiscoveredDateTime&quot;: &quot;2016-12-02T15:28:37.998Z&quot;,
+                    &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-12-02T15:28:37.998Z&quot;,
+                    &quot;modules&quot;: [
+                        &quot;Security&quot;
+                    ],
+                    &quot;restrictsFirewallInlineRules&quot;: true,
+                    &quot;supportsAddressRange&quot;: true,
+                    &quot;supportsAfm&quot;: true,
+                    &quot;supportsAlpineDosProfileEnhs&quot;: false,
+                    &quot;supportsFlowIdleTimers&quot;: false,
+                    &quot;supportsFqdn&quot;: false,
+                    &quot;supportsFwPolicy&quot;: true,
+                    &quot;supportsGeoLocation&quot;: true,
+                    &quot;supportsIruleAction&quot;: true,
+                    &quot;supportsIruleSampleRate&quot;: false,
+                    &quot;supportsNatPolicy&quot;: false,
+                    &quot;supportsNestedAddressLists&quot;: true,
+                    &quot;supportsNestedPortLists&quot;: true,
+                    &quot;supportsPortMisusePolicy&quot;: false,
+                    &quot;supportsRest&quot;: true,
+                    &quot;supportsRuleLogging&quot;: true,
+                    &quot;supportsServicePolicy&quot;: false,
+                    &quot;supportsUserIdentity&quot;: false
+                },
+                &quot;cm-security-shared-allDevices&quot;: {
+                    &quot;cm:gui:module&quot;: [],
+                    &quot;modules&quot;: []
+                },
+                &quot;cm-security-shared-allSharedDevices&quot;: {
+                    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+                    &quot;cm:gui:module&quot;: [
+                        &quot;sharedsecurity&quot;
+                    ],
+                    &quot;discovered&quot;: true,
+                    &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+                    &quot;imported&quot;: false,
+                    &quot;lastDiscoveredDateTime&quot;: &quot;2016-12-02T15:28:35.280Z&quot;,
+                    &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-12-02T15:28:35.280Z&quot;,
+                    &quot;modules&quot;: [
+                        &quot;Security&quot;
+                    ],
+                    &quot;requiresDhcpProfileInDhcpVirtualServer&quot;: false,
+                    &quot;supportUdpPortList&quot;: false,
+                    &quot;supportsAlpineDosDeviceConfig&quot;: false,
+                    &quot;supportsAlpineDosDeviceWhitelistIpProcotol&quot;: false,
+                    &quot;supportsAlpineDosProfileEnhs&quot;: false,
+                    &quot;supportsAlpineEnhs&quot;: false,
+                    &quot;supportsAlpineLogProfileEnhs&quot;: false,
+                    &quot;supportsBadgerEnhs&quot;: false,
+                    &quot;supportsCascadeEnhs&quot;: false,
+                    &quot;supportsPortMisusePolicy&quot;: false,
+                    &quot;supportsRest&quot;: true,
+                    &quot;supportsSshProfile&quot;: false,
+                    &quot;supports_13_0_Enhs&quot;: false
+                },
+                &quot;cm:gui:module&quot;: [
+                    &quot;sharedsecurity&quot;,
+                    &quot;networksecurity&quot;,
+                    &quot;BigIPDevice&quot;,
+                    &quot;adc&quot;
+                ],
+                &quot;modules&quot;: [
+                    &quot;Security&quot;
+                ]
+            },
+            &quot;restFrameworkVersion&quot;: &quot;12.0.0-0.0.4211&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;,
+            &quot;slots&quot;: [
+                {
+                    &quot;build&quot;: &quot;0.0.141&quot;,
+                    &quot;isActive&quot;: false,
+                    &quot;product&quot;: &quot;BIG-IP&quot;,
+                    &quot;version&quot;: &quot;11.5.2&quot;,
+                    &quot;volume&quot;: &quot;HD1.1&quot;
+                },
+                {
+                    &quot;build&quot;: &quot;0.0.141&quot;,
+                    &quot;isActive&quot;: true,
+                    &quot;product&quot;: &quot;BIG-IP&quot;,
+                    &quot;version&quot;: &quot;11.5.2&quot;,
+                    &quot;volume&quot;: &quot;HD1.2&quot;
+                }
+            ],
+            &quot;state&quot;: &quot;ACTIVE&quot;,
+            &quot;trustDomainGuid&quot;: &quot;91bd712a-ad8f-4570-ab540050560145f3&quot;,
+            &quot;uuid&quot;: &quot;9f320100-2177-42e0-8a46-2e33cd3366da&quot;,
+            &quot;version&quot;: &quot;11.5.2&quot;
+        }
+    ],
+    &quot;lastUpdateMicros&quot;: 0,
+    &quot;selfLink&quot;: &quot;http://localhost:8100/cm/system/machineid-resolver?$filter=%28%27address%27+eq+%2710.255.4.124%27%29&quot;
+}</code></pre>
+<p>Before you import the Advanced Firewall service, verify that it has not already been imported. Perform a GET method on the cm-adccore-allbigipDevices device group, using the machine-id from the previous response to determine if the Advanced Firewall service on the BIG-IP device is already imported. Use the select filter to reduce the response JSON content. Review the indicated information in the response JSON:</p>
+<pre><code>    &quot;properties&quot;: {
+        &quot;discovered&quot;: true,
+        &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+        &quot;importStatus&quot;: &quot;FINISHED&quot;,     &lt;-- Should be missing
+        &quot;imported&quot;: true                &lt;-- Should be false
+     }</code></pre>
+<p>If the Advanced Firewall service is already imported, continuing with the example will re-import the existing current configuration into the working configuration.</p>
+<pre><code>GET: https://localhost/mgmt/shared/resolver/device-groups/cm-firewall-allFirewallDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da?$select=address,properties</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;address&quot;: &quot;10.255.4.124&quot;,
+    &quot;properties&quot;: {
+        &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+        &quot;discovered&quot;: true,
+        &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+        &quot;imported&quot;: false,
+        &quot;importedDateTime&quot;: &quot;2016-12-02T15:29:21.278Z&quot;,
+        &quot;lastDiscoveredDateTime&quot;: &quot;2016-12-02T15:28:37.998Z&quot;,
+        &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-12-02T15:28:37.998Z&quot;,
+        &quot;restrictsFirewallInlineRules&quot;: true,
+        &quot;supportsAddressRange&quot;: true,
+        &quot;supportsAfm&quot;: true,
+        &quot;supportsAlpineDosProfileEnhs&quot;: false,
+        &quot;supportsFlowIdleTimers&quot;: false,
+        &quot;supportsFqdn&quot;: false,
+        &quot;supportsFwPolicy&quot;: true,
+        &quot;supportsGeoLocation&quot;: true,
+        &quot;supportsIruleAction&quot;: true,
+        &quot;supportsIruleSampleRate&quot;: false,
+        &quot;supportsNatPolicy&quot;: false,
+        &quot;supportsNestedAddressLists&quot;: true,
+        &quot;supportsNestedPortLists&quot;: true,
+        &quot;supportsPortMisusePolicy&quot;: false,
+        &quot;supportsRest&quot;: true,
+        &quot;supportsRuleLogging&quot;: true,
+        &quot;supportsServicePolicy&quot;: false,
+        &quot;supportsUserIdentity&quot;: false
+    }
+}</code></pre>
+<h4 id="perform-a-post-method-to-the-declare-management-authority-uri.">2. Perform a POST method to the declare management authority URI.</h4>
+<p>Perform a POST method containing the following JSON to the declare management authority discovery task URI. This POST starts the import. The following are the items that must be sent in the POST JSON:</p>
+<ul>
+<li>clusterName: Indicates the name of the cluster used when trust was established.</li>
+<li>createChildTask: Indicates whether there is a child import associated with the main import task. Set to true for Advanced Firewall, this imports the Shared Security configuration.</li>
+<li>deviceReference: The BIG-IP device selfLink reference from Step 1.</li>
+<li>skipDiscovery: Indicates whether discovery should be skipped. Set to true since discovery is performed in another example.</li>
+<li>snapshotWorkingConfig: Indicates whether the working configuration on the BIG-IQ Centralized Management system should be captured in a snapshot prior to the import. Set to false for this example.</li>
+<li>useBigiqSync: Indicates whether the BIG-IQ Centralized Management system should synchronize objects for the cluster or whether the BIG-IP device should handle the synchronization. Set to the value that was set during trust establishment, false in this example.</li>
+</ul>
+<pre><code>POST: https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority
+
+{
+    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+    &quot;createChildTasks&quot;: true,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;skipDiscovery&quot;: true,
+    &quot;snapshotWorkingConfig&quot;: false,
+    &quot;useBigiqSync&quot;: true
+}</code></pre>
+<p>The following is the response JSON from the POST method:</p>
+<pre><code>{
+    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+    &quot;createChildTasks&quot;: true,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;generation&quot;: 1,
+    &quot;id&quot;: &quot;9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:firewall:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1480692537248416,
+    &quot;ownerMachineId&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;,
+    &quot;skipDiscovery&quot;: true,
+    &quot;snapshotWorkingConfig&quot;: false,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;taskWorkerGeneration&quot;: 1,
+    &quot;useBigiqSync&quot;: true,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+}</code></pre>
+<h4 id="perform-additional-get-methods-to-the-import-task-created-in-step-2.">3. Perform additional GET methods to the import task created in Step 2.</h4>
+<p>Perform additional GET methods on the selfLink that is returned from the response JSON in Step 2. Perform them in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED. In addition to the status, currentStep should have the value of DONE, PENDING_CONFLICTS or PENDING_CHILD_CONFLICTS. In the following example, the currentStep value is PENDING_CHILD_CONFLICTS, indicating that a conflict was detected in the child task, and so you need to perform Steps 4 and 5. If the currentStep value is DONE, then the import is complete.</p>
+<pre><code>GET: https://10.145.192.10/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;childTaskReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/declare-mgmt-authority/f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;
+        }
+    ],
+    &quot;childTaskStates&quot;: [
+        {
+            &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+            &quot;conflicts&quot;: [
+                {
+                    &quot;fromReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/ip-intelligence/blacklist-categories/6a6abd6d-daab-3e28-ab1e-ae7ac605be4b&quot;
+                    },
+                    &quot;resolution&quot;: &quot;NONE&quot;,
+                    &quot;toReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/ip-intelligence/blacklist-categories/aba61f43-371d-3768-bbf1-184bbb4a8357&quot;
+                    }
+                },
+                {
+                    &quot;fromReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/ip-intelligence/blacklist-categories/673eb7de-6480-3e59-94e2-d97b46d3d99e&quot;
+                    },
+                    &quot;resolution&quot;: &quot;NONE&quot;,
+                    &quot;toReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/ip-intelligence/blacklist-categories/bb7cf4bd-3259-3ff4-b06d-df2c0ebde3dd&quot;
+                    }
+                },
+                {
+                    &quot;fromReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/log-profiles/362ebb6a-f899-3e24-af39-4f57b1f798e8&quot;
+                    },
+                    &quot;resolution&quot;: &quot;NONE&quot;,
+                    &quot;toReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/log-profiles/dc4bd777-b34d-3761-85bf-0d55da08e7bb&quot;
+                    }
+                }
+            ],
+            &quot;createChildTasks&quot;: false,
+            &quot;currentStep&quot;: &quot;PENDING_CONFLICTS&quot;,
+            &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+            &quot;deviceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-security-shared-allSharedDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+            },
+            &quot;differenceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/reports/config-differences/740b35d2-4ac0-4fe9-9770-f1fb439d7b3d&quot;
+            },
+            &quot;differencerTaskReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/difference-config/bc9b9b13-d25b-4390-bbc1-4207e03e4962&quot;
+            },
+            &quot;endDateTime&quot;: &quot;2016-12-02T10:28:59.495-0500&quot;,
+            &quot;generation&quot;: 13,
+            &quot;id&quot;: &quot;f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;,
+            &quot;identityReferences&quot;: [
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+                }
+            ],
+            &quot;isChildTask&quot;: true,
+            &quot;kind&quot;: &quot;cm:security-shared:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+            &quot;lastUpdateMicros&quot;: 1480692539546736,
+            &quot;ownerMachineId&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;,
+            &quot;parentTaskReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;
+            },
+            &quot;reimport&quot;: false,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/declare-mgmt-authority/f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;,
+            &quot;skipDiscovery&quot;: true,
+            &quot;startDateTime&quot;: &quot;2016-12-02T10:28:57.740-0500&quot;,
+            &quot;status&quot;: &quot;FINISHED&quot;,
+            &quot;useBigiqSync&quot;: true,
+            &quot;userReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+            },
+            &quot;username&quot;: &quot;admin&quot;,
+            &quot;validationBypassMode&quot;: &quot;BYPASS_FINAL&quot;
+        }
+    ],
+    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+    &quot;conflicts&quot;: [
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/ip-intelligence/blacklist-categories/6a6abd6d-daab-3e28-ab1e-ae7ac605be4b&quot;
+            },
+            &quot;resolution&quot;: &quot;NONE&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/ip-intelligence/blacklist-categories/aba61f43-371d-3768-bbf1-184bbb4a8357&quot;
+            }
+        },
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/ip-intelligence/blacklist-categories/673eb7de-6480-3e59-94e2-d97b46d3d99e&quot;
+            },
+            &quot;resolution&quot;: &quot;NONE&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/ip-intelligence/blacklist-categories/bb7cf4bd-3259-3ff4-b06d-df2c0ebde3dd&quot;
+            }
+        },
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/log-profiles/362ebb6a-f899-3e24-af39-4f57b1f798e8&quot;
+            },
+            &quot;resolution&quot;: &quot;NONE&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/log-profiles/dc4bd777-b34d-3761-85bf-0d55da08e7bb&quot;
+            }
+        }
+    ],
+    &quot;createChildTasks&quot;: true,
+    &quot;currentStep&quot;: &quot;PENDING_CHILD_CONFLICTS&quot;,
+    &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-firewall-allFirewallDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;endDateTime&quot;: &quot;2016-12-02T10:28:59.876-0500&quot;,
+    &quot;generation&quot;: 11,
+    &quot;id&quot;: &quot;9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:firewall:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1480692539928364,
+    &quot;ownerMachineId&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;,
+    &quot;reimport&quot;: false,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;,
+    &quot;skipDiscovery&quot;: true,
+    &quot;snapshotWorkingConfig&quot;: false,
+    &quot;startDateTime&quot;: &quot;2016-12-02T10:28:57.267-0500&quot;,
+    &quot;status&quot;: &quot;FINISHED&quot;,
+    &quot;useBigiqSync&quot;: true,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;,
+    &quot;validationBypassMode&quot;: &quot;BYPASS_FINAL&quot;
+}</code></pre>
+<h4 id="use-a-patch-method-to-the-import-task-returned-in-step-2-to-resolve-the-conflicts-and-restart-the-import-task.">4. Use a PATCH method to the import task returned in Step 2 to resolve the conflicts and restart the import task.</h4>
+<p>You resolve conflicts by selecting one of following options: - Select USE_BIGIQ to indicate that the existing working configuration on the BIG-IQ Centralized Management system will be maintained where any conflict exists. - Select USE_BIGIP to indicate that the current configuration on the BIG-IP device will be used to update the working configuration on the BIG-IQ Centralized Management system where any conflict exists. In this example, USE_BIGIQ is selected.</p>
+<p>You perform conflict resolution by using the PATCH method and looping through each of the listed conflicts and setting the resolution element as shown in the following example. In addition, the status must be set to STARTED.</p>
+<pre><code>PATCH: https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad
+
+{
+    &quot;conflicts&quot;: [
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/ip-intelligence/blacklist-categories/6a6abd6d-daab-3e28-ab1e-ae7ac605be4b&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/ip-intelligence/blacklist-categories/aba61f43-371d-3768-bbf1-184bbb4a8357&quot;
+            }
+        },
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/ip-intelligence/blacklist-categories/673eb7de-6480-3e59-94e2-d97b46d3d99e&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/ip-intelligence/blacklist-categories/bb7cf4bd-3259-3ff4-b06d-df2c0ebde3dd&quot;
+            }
+        },
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/log-profiles/362ebb6a-f899-3e24-af39-4f57b1f798e8&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/log-profiles/dc4bd777-b34d-3761-85bf-0d55da08e7bb&quot;
+            }
+        }
+    ],
+    &quot;status&quot;: &quot;STARTED&quot;
+}</code></pre>
+<p>The following is the response JSON from the PATCH method:</p>
+<pre><code>{
+    &quot;childTaskReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/declare-mgmt-authority/f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;
+        }
+    ],
+    &quot;childTaskStates&quot;: [
+        {
+            &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+            &quot;conflicts&quot;: [
+                {
+                    &quot;fromReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/ip-intelligence/blacklist-categories/6a6abd6d-daab-3e28-ab1e-ae7ac605be4b&quot;
+                    },
+                    &quot;resolution&quot;: &quot;NONE&quot;,
+                    &quot;toReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/ip-intelligence/blacklist-categories/aba61f43-371d-3768-bbf1-184bbb4a8357&quot;
+                    }
+                },
+                {
+                    &quot;fromReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/ip-intelligence/blacklist-categories/673eb7de-6480-3e59-94e2-d97b46d3d99e&quot;
+                    },
+                    &quot;resolution&quot;: &quot;NONE&quot;,
+                    &quot;toReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/ip-intelligence/blacklist-categories/bb7cf4bd-3259-3ff4-b06d-df2c0ebde3dd&quot;
+                    }
+                },
+                {
+                    &quot;fromReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/log-profiles/362ebb6a-f899-3e24-af39-4f57b1f798e8&quot;
+                    },
+                    &quot;resolution&quot;: &quot;NONE&quot;,
+                    &quot;toReference&quot;: {
+                        &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/log-profiles/dc4bd777-b34d-3761-85bf-0d55da08e7bb&quot;
+                    }
+                }
+            ],
+            &quot;createChildTasks&quot;: false,
+            &quot;currentStep&quot;: &quot;PENDING_CONFLICTS&quot;,
+            &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+            &quot;deviceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-security-shared-allSharedDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+            },
+            &quot;differenceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/reports/config-differences/740b35d2-4ac0-4fe9-9770-f1fb439d7b3d&quot;
+            },
+            &quot;differencerTaskReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/difference-config/bc9b9b13-d25b-4390-bbc1-4207e03e4962&quot;
+            },
+            &quot;endDateTime&quot;: &quot;2016-12-02T10:28:59.495-0500&quot;,
+            &quot;generation&quot;: 13,
+            &quot;id&quot;: &quot;f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;,
+            &quot;identityReferences&quot;: [
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+                }
+            ],
+            &quot;isChildTask&quot;: true,
+            &quot;kind&quot;: &quot;cm:security-shared:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+            &quot;lastUpdateMicros&quot;: 1480692539546736,
+            &quot;ownerMachineId&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;,
+            &quot;parentTaskReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;
+            },
+            &quot;reimport&quot;: false,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/declare-mgmt-authority/f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;,
+            &quot;skipDiscovery&quot;: true,
+            &quot;startDateTime&quot;: &quot;2016-12-02T10:28:57.740-0500&quot;,
+            &quot;status&quot;: &quot;FINISHED&quot;,
+            &quot;useBigiqSync&quot;: true,
+            &quot;userReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+            },
+            &quot;username&quot;: &quot;admin&quot;,
+            &quot;validationBypassMode&quot;: &quot;BYPASS_FINAL&quot;
+        }
+    ],
+    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+    &quot;conflicts&quot;: [
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/ip-intelligence/blacklist-categories/6a6abd6d-daab-3e28-ab1e-ae7ac605be4b&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/ip-intelligence/blacklist-categories/aba61f43-371d-3768-bbf1-184bbb4a8357&quot;
+            }
+        },
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/ip-intelligence/blacklist-categories/673eb7de-6480-3e59-94e2-d97b46d3d99e&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/ip-intelligence/blacklist-categories/bb7cf4bd-3259-3ff4-b06d-df2c0ebde3dd&quot;
+            }
+        },
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/working-config/log-profiles/362ebb6a-f899-3e24-af39-4f57b1f798e8&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/current-config/log-profiles/dc4bd777-b34d-3761-85bf-0d55da08e7bb&quot;
+            }
+        }
+    ],
+    &quot;createChildTasks&quot;: true,
+    &quot;currentStep&quot;: &quot;PENDING_CHILD_CONFLICTS&quot;,
+    &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-firewall-allFirewallDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;generation&quot;: 12,
+    &quot;id&quot;: &quot;9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:firewall:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1480692540524857,
+    &quot;ownerMachineId&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;,
+    &quot;reimport&quot;: false,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;,
+    &quot;skipDiscovery&quot;: true,
+    &quot;snapshotWorkingConfig&quot;: false,
+    &quot;startDateTime&quot;: &quot;2016-12-02T10:29:00.528-0500&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;taskWorkerGeneration&quot;: 1,
+    &quot;useBigiqSync&quot;: true,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;,
+    &quot;validationBypassMode&quot;: &quot;BYPASS_FINAL&quot;
+}</code></pre>
+<h4 id="perform-additional-get-methods-on-the-import-task-created-in-step-2.">5. Perform additional GET methods on the import task created in Step 2.</h4>
+<p>Perform additional GET methods on the selfLink returned from either the Step 3 or Step 4 response. Perform the methods in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED, and currentStep has a value of DONE or PENDING_CONFLICTS. In the following example, the currentStep value is PENDING_CONFLICTS, indicating that a conflict was detected in the main task, and so you need to perform Steps 6 and 7. If the currentStep value is DONE, then the import is complete.</p>
+<pre><code>GET: https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;childTaskReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/declare-mgmt-authority/f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;
+        }
+    ],
+    &quot;childTaskStates&quot;: [
+        {
+            &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+            &quot;createChildTasks&quot;: false,
+            &quot;currentStep&quot;: &quot;DONE&quot;,
+            &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+            &quot;deviceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-security-shared-allSharedDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+            },
+            &quot;differenceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/reports/config-differences/740b35d2-4ac0-4fe9-9770-f1fb439d7b3d&quot;
+            },
+            &quot;differencerTaskReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/difference-config/bc9b9b13-d25b-4390-bbc1-4207e03e4962&quot;
+            },
+            &quot;endDateTime&quot;: &quot;2016-12-02T10:28:59.495-0500&quot;,
+            &quot;generation&quot;: 13,
+            &quot;id&quot;: &quot;f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;,
+            &quot;identityReferences&quot;: [
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+                }
+            ],
+            &quot;isChildTask&quot;: true,
+            &quot;kind&quot;: &quot;cm:security-shared:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+            &quot;lastUpdateMicros&quot;: 1480692539546736,
+            &quot;ownerMachineId&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;,
+            &quot;parentTaskReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;
+            },
+            &quot;reimport&quot;: false,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/declare-mgmt-authority/f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;,
+            &quot;skipDiscovery&quot;: true,
+            &quot;startDateTime&quot;: &quot;2016-12-02T10:28:57.740-0500&quot;,
+            &quot;status&quot;: &quot;FINISHED&quot;,
+            &quot;useBigiqSync&quot;: true,
+            &quot;userReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+            },
+            &quot;username&quot;: &quot;admin&quot;,
+            &quot;validationBypassMode&quot;: &quot;BYPASS_FINAL&quot;
+        }
+    ],
+    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+    &quot;conflicts&quot;: [
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/working-config/address-lists/5b6128e7-574a-3034-8e62-941d8e42c3f3&quot;
+            },
+            &quot;resolution&quot;: &quot;NONE&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/current-config/address-lists/7c310612-e1e2-32ae-8816-c6ea0bcbbe0c&quot;
+            }
+        }
+    ],
+    &quot;createChildTasks&quot;: true,
+    &quot;currentStep&quot;: &quot;PENDING_CONFLICTS&quot;,
+    &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-firewall-allFirewallDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;differenceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/reports/config-differences/04cf7ee7-0183-4f09-a213-94f358c244af&quot;
+    },
+    &quot;differencerTaskReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/difference-config/2d09a094-c80d-4d71-a186-f2a625bacc87&quot;
+    },
+    &quot;endDateTime&quot;: &quot;2016-12-02T10:29:10.814-0500&quot;,
+    &quot;generation&quot;: 18,
+    &quot;id&quot;: &quot;9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:firewall:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1480692550865936,
+    &quot;ownerMachineId&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;,
+    &quot;reimport&quot;: false,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;,
+    &quot;skipDiscovery&quot;: true,
+    &quot;snapshotWorkingConfig&quot;: false,
+    &quot;startDateTime&quot;: &quot;2016-12-02T10:29:00.528-0500&quot;,
+    &quot;status&quot;: &quot;FINISHED&quot;,
+    &quot;useBigiqSync&quot;: true,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;,
+    &quot;validationBypassMode&quot;: &quot;BYPASS_FINAL&quot;
+}</code></pre>
+<h4 id="use-a-patch-method-to-the-import-task-returned-in-step-3-or-4-to-resolve-the-conflicts-and-restart-the-import-task.">6. Use a PATCH method to the import task returned in Step 3 or 4 to resolve the conflicts and restart the import task.</h4>
+<p>You resolve conflicts by selecting one of following options: - Select USE_BIGIQ to indicate that the existing working configuration on the BIG-IQ Centralized Management system will be maintained where any conflict exists. - Select USE_BIGIP to indicate that the current configuration on the BIG-IP device will be used to update the working configuration on the BIG-IQ Centralized Management system where any conflict exists. In this example, USE_BIGIQ is selected.</p>
+<p>You perform conflict resolution by using the PATCH method and looping through each of the listed conflicts and setting the resolution element as shown in the following example. In addition, the status must be set to STARTED.</p>
+<pre><code>PATCH: https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad
+
+{
+    &quot;conflicts&quot;: [
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/working-config/address-lists/5b6128e7-574a-3034-8e62-941d8e42c3f3&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/current-config/address-lists/7c310612-e1e2-32ae-8816-c6ea0bcbbe0c&quot;
+            }
+        }
+    ],
+    &quot;status&quot;: &quot;STARTED&quot;
+}</code></pre>
+<p>The following is the response JSON from the PATCH method:</p>
+<pre><code>{
+    &quot;childTaskReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/declare-mgmt-authority/f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;
+        }
+    ],
+    &quot;childTaskStates&quot;: [
+        {
+            &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+            &quot;createChildTasks&quot;: false,
+            &quot;currentStep&quot;: &quot;DONE&quot;,
+            &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+            &quot;deviceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-security-shared-allSharedDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+            },
+            &quot;differenceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/reports/config-differences/740b35d2-4ac0-4fe9-9770-f1fb439d7b3d&quot;
+            },
+            &quot;differencerTaskReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/difference-config/bc9b9b13-d25b-4390-bbc1-4207e03e4962&quot;
+            },
+            &quot;endDateTime&quot;: &quot;2016-12-02T10:28:59.495-0500&quot;,
+            &quot;generation&quot;: 13,
+            &quot;id&quot;: &quot;f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;,
+            &quot;identityReferences&quot;: [
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+                }
+            ],
+            &quot;isChildTask&quot;: true,
+            &quot;kind&quot;: &quot;cm:security-shared:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+            &quot;lastUpdateMicros&quot;: 1480692539546736,
+            &quot;ownerMachineId&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;,
+            &quot;parentTaskReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;
+            },
+            &quot;reimport&quot;: false,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/security-shared/tasks/declare-mgmt-authority/f10eca99-1a80-4342-a98a-e25f69b2eda0&quot;,
+            &quot;skipDiscovery&quot;: true,
+            &quot;startDateTime&quot;: &quot;2016-12-02T10:28:57.740-0500&quot;,
+            &quot;status&quot;: &quot;FINISHED&quot;,
+            &quot;useBigiqSync&quot;: true,
+            &quot;userReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+            },
+            &quot;username&quot;: &quot;admin&quot;,
+            &quot;validationBypassMode&quot;: &quot;BYPASS_FINAL&quot;
+        }
+    ],
+    &quot;clusterName&quot;: &quot;CLUSTER-124-125&quot;,
+    &quot;conflicts&quot;: [
+        {
+            &quot;fromReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/working-config/address-lists/5b6128e7-574a-3034-8e62-941d8e42c3f3&quot;
+            },
+            &quot;resolution&quot;: &quot;USE_BIGIQ&quot;,
+            &quot;toReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/current-config/address-lists/7c310612-e1e2-32ae-8816-c6ea0bcbbe0c&quot;
+            }
+        }
+    ],
+    &quot;createChildTasks&quot;: true,
+    &quot;currentStep&quot;: &quot;PENDING_CONFLICTS&quot;,
+    &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+    &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-firewall-allFirewallDevices/devices/9f320100-2177-42e0-8a46-2e33cd3366da&quot;
+    },
+    &quot;differenceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/reports/config-differences/04cf7ee7-0183-4f09-a213-94f358c244af&quot;
+    },
+    &quot;differencerTaskReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/difference-config/2d09a094-c80d-4d71-a186-f2a625bacc87&quot;
+    },
+    &quot;generation&quot;: 19,
+    &quot;id&quot;: &quot;9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:firewall:tasks:declare-mgmt-authority:dmataskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1480692553727578,
+    &quot;ownerMachineId&quot;: &quot;93c853d1-0527-489d-ba7b-72c4f6870a4c&quot;,
+    &quot;reimport&quot;: false,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad&quot;,
+    &quot;skipDiscovery&quot;: true,
+    &quot;snapshotWorkingConfig&quot;: false,
+    &quot;startDateTime&quot;: &quot;2016-12-02T10:29:13.731-0500&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;taskWorkerGeneration&quot;: 1,
+    &quot;useBigiqSync&quot;: true,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;,
+    &quot;validationBypassMode&quot;: &quot;BYPASS_FINAL&quot;
+}</code></pre>
+<h4 id="perform-additional-get-methods-on-the-import-task-created-in-step-2.-1">7. Perform additional GET methods on the import task created in Step 2.</h4>
+<p>Perform additional GET methods on the selfLink returned from either the Step 3 or Step 4 response. Perform the methods in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED, and currentStep has a value of DONE. Use a select option to reduce the content of the returned JSON to a manageable amount.</p>
+<pre><code>GET: https://localhost/mgmt/cm/firewall/tasks/declare-mgmt-authority/9c1daed3-0e68-4e0a-bed3-8c37242b2cad?$select=deviceIp,status,currentStep</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;deviceIp&quot;: &quot;10.255.4.124&quot;,
+    &quot;status&quot;: &quot;FINISHED&quot;,
+    &quot;currentStep&quot;: &quot;DONE&quot;
+}</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<p>When an error occurs, use the BIG-IQ Centralized Management user interface for device management to determine the details of the failure. In addition to using the user interface, some error information can be determined from the REST API response JSON as shown in the following error.</p>
+<h4 id="error-generated-when-an-incorrect-uri-is-sent-in-the-rest-request.">Error generated when an incorrect URI is sent in the REST request.</h4>
+<pre><code>{
+  &quot;code&quot;: 404,
+  &quot;message&quot;: &quot;Public URI path not registered&quot;,
+  &quot;referer&quot;: &quot;192.168.101.130&quot;,
+  &quot;restOperationId&quot;: 19541801,
+  &quot;errorStack&quot;: [
+    &quot;com.f5.rest.common.RestWorkerUriNotFoundException: Public URI path not registered&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.cloneAndForwardRequest(ForwarderPassThroughWorker.java:250)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onForward(ForwarderPassThroughWorker.java:106)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onQuery(ForwarderPassThroughWorker.java:409)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callDerivedRestMethod(RestWorker.java:1071)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callRestMethodHandler(RestWorker.java:1040)&quot;,
+    &quot;at com.f5.rest.common.RestServer.processQueuedRequests(RestServer.java:1467)&quot;,
+    &quot;at com.f5.rest.common.RestServer.access$000(RestServer.java:53)&quot;,
+    &quot;at com.f5.rest.common.RestServer$1.run(RestServer.java:333)&quot;,
+    &quot;at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)&quot;,
+    &quot;at java.util.concurrent.FutureTask.run(FutureTask.java:262)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)&quot;,
+    &quot;at java.lang.Thread.run(Thread.java:745)\n&quot;
+  ],
+  &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>
