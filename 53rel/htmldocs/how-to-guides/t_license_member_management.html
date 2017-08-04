@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="license-assignrevoke-api">License Assign/Revoke API</h1>
+<h2 id="overview">Overview</h2>
+<p>This task API simplifies assigning and revoking licenses to/from BIG-IP devices. The API provides a simplified interface for the various pool license types supported by BIG-IQ. The API does not require knowing the deviceReference of managed devices nor the reference of the license to be assigned/revoked. All pool license types except Fraud Protection Service (FPS) licenses are supported. This includes individual BIG-IP VE licenses managed in a RegKey Pool on BIG-IQ.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Make certain that the following prerequisites have been met.</p>
+<ul>
+<li>The BIG-IQ Centralized Management device is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>The BIG-IQ license allows licensing managed or unmanaged BIG-IP devices.</li>
+<li>You have one or more pool licenses activated and ready to be assigned to BIG-IP devices. This can include standalone BIG-IP VE licenses in a RegKey Pool.</li>
+<li>You have one of the following roles: administrator, device manager, or license manager.</li>
+</ul>
+<p>Note: When you perform these tasks using the example code provided, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ device, change localhost to be the IP address of the BIG-IQ Centralized Management device.</p>
+<h3 id="assign-a-license">Assign a license</h3>
+<p>All assignment operations involve initiating a task, after which you should poll for task completion. See the <strong>Poll for task completion</strong> section below for details about polling.</p>
+<h4 id="assign-a-purchased-pool-license-to-a-managed-device">Assign a purchased pool license to a managed device</h4>
+<p>To assign a purchased pool license to a managed device, supply the name of the pool and the <strong>discovery</strong> address of the BIG-IP. The discovery address is the address used to add the BIG-IP to BIG-IQ. A successful response will indicate the assignment task has started. You should subsequently poll the returned <code>selfLink</code> waiting for the task to complete.</p>
+<pre><code>POST https://localhost/mgmt/cm/device/tasks/licensing/pool/member-management</code></pre>
+<p>Request</p>
+<pre><code>{
+  &quot;licensePoolName&quot;: &quot;pool name&quot;,
+  &quot;command&quot;: &quot;assign&quot;,
+  &quot;address&quot;: &quot;192.0.2.1&quot;
+}</code></pre>
+<p>Response</p>
+<pre><code>{
+    &quot;licensePoolName&quot;: &quot;pool name&quot;,
+    &quot;command&quot;: &quot;assign&quot;,
+    &quot;address&quot;: &quot;192.0.2.1&quot;,
+    &quot;id&quot;: &quot;d717c6a1-f3bd-46cb-8410-c6fda58940b9&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/lm&quot;
+    },
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/lm&quot;
+        }
+    ],
+    &quot;ownerMachineId&quot;: &quot;b814fef0-2e8b-460d-af43-0d100dc50352&quot;,
+    &quot;taskWorkerGeneration&quot;: 1,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1497509153046646,
+    &quot;kind&quot;: &quot;cm:device:tasks:licensing:pool:member-management:devicelicensingassignmenttaskstate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/tasks/licensing/pool/member-management/d717c6a1-f3bd-46cb-8410-c6fda58940b9&quot;
+}</code></pre>
+<h4 id="assign-a-pool-license-offering-to-a-managed-device">Assign a pool license offering to a managed device</h4>
+<p>All supported licenses other than purchased pools will have one or more offerings under the top-level license. An example utility license offering is <code>F5-BIG-MSP-BT-1G-LIC-DEV</code>. The offering names generally include the feature (good/better/best -- the &quot;BT&quot; in the example) and throughput (the &quot;1G&quot; in the example). For RegKey Pools, each registration key in the pool is an offering. The API offers a couple of fields, <code>skuKeyword1</code> and <code>skuKeyword2</code> to allow you to specify the offering name you would like to assign. The fields are optional -- you can supply zero, one or both of the fields. The API will match the strings provided against the offering names in the specified pool. If both search fields are provided, the first value must appear prior to the second in the offering name. If multiple offerings match the provided search criteria, the API will assign the first available offering (licenses in a RegKey Pool that are already assigned will be bypassed). In some cases, searching solely for the feature/throughput won't be specific enough. The feature may be represented by &quot;B&quot;, but that also matches against the &quot;F5-BIG&quot; prefix. You can extend the search criteria, including dashes or other characters as needed to ensure the desired offering is selected.</p>
+<p>Note, utility license assignments require one additional field, which is the unit of measure.</p>
+<p>Example assignment of a utility license offering:</p>
+<pre><code>POST https://localhost/mgmt/cm/device/tasks/licensing/pool/member-management</code></pre>
+<p>Request</p>
+<pre><code>{
+  &quot;licensePoolName&quot;: &quot;u1&quot;,
+  &quot;command&quot;: &quot;assign&quot;,
+  &quot;address&quot;: &quot;192.0.2.1&quot;,
+  &quot;skuKeyword1&quot;: &quot;BT&quot;,
+  &quot;skuKeyword2&quot;: &quot;1G&quot;,
+  &quot;unitOfMeasure&quot;: &quot;daily&quot;
+}</code></pre>
+<p>The response and need for polling for final status is similar to the purchased pool case shown above.</p>
+<p>Example assignment of a license from a regkey pool:</p>
+<pre><code>POST https://localhost/mgmt/cm/device/tasks/licensing/pool/member-management</code></pre>
+<p>Request</p>
+<pre><code>{
+  &quot;licensePoolName&quot;: &quot;rgp1&quot;,
+  &quot;command&quot;: &quot;assign&quot;,
+  &quot;address&quot;: &quot;192.0.2.1&quot;,
+  &quot;skuKeyword1&quot;: &quot;I3242&quot;
+}</code></pre>
+<h4 id="assigning-a-license-to-an-unmanaged-device">Assigning a license to an unmanaged device</h4>
+<p>The above examples for managed devices also apply to unmanaged devices, the only difference being unmanaged devices require credentials also be provided.</p>
+<pre><code>POST https://localhost/mgmt/cm/device/tasks/licensing/pool/member-management</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;licensePoolName&quot;: &quot;pool name&quot;,
+  &quot;command&quot;: &quot;assign&quot;,
+  &quot;address&quot;: &quot;192.0.2.1&quot;,
+  &quot;user&quot;: &quot;admin&quot;,
+  &quot;password&quot;: &quot;password&quot;
+}</code></pre>
+<p>If you're using a BIG-IP that is configured with an ssl-port other than 443 that also supports licensing with this configuration, you can supply the relevant port via the <code>port</code> field:</p>
+<pre><code>POST https://localhost/mgmt/cm/device/tasks/licensing/pool/member-management</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;licensePoolName&quot;: &quot;pool name&quot;,
+  &quot;command&quot;: &quot;assign&quot;,
+  &quot;address&quot;: &quot;192.0.2.1&quot;,
+  &quot;user&quot;: &quot;admin&quot;,
+  &quot;password&quot;: &quot;password&quot;,
+  &quot;port&quot;: 8443
+}</code></pre>
+<h3 id="revoke-a-license">Revoke a license</h3>
+<p>Similar to the assignment operations, revoking a license involves initiating a task, after which you should poll for task completion.</p>
+<h4 id="revoke-a-license-from-a-managed-device">Revoke a license from a managed device</h4>
+<pre><code>POST https://localhost/mgmt/cm/device/tasks/licensing/pool/member-management</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;licensePoolName&quot;: &quot;pool name&quot;,
+  &quot;command&quot;: &quot;revoke&quot;,
+  &quot;address&quot;: &quot;192.0.2.1&quot;
+}</code></pre>
+<h4 id="revoke-a-license-from-an-unmanaged-device">Revoke a license from an unmanaged device</h4>
+<pre><code>POST https://localhost/mgmt/cm/device/tasks/licensing/pool/member-management</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;licensePoolName&quot;: &quot;pool name&quot;,
+  &quot;command&quot;: &quot;revoke&quot;,
+  &quot;address&quot;: &quot;192.0.2.1&quot;,
+  &quot;user&quot;: &quot;admin&quot;,
+  &quot;password&quot;: &quot;password&quot;
+}</code></pre>
+<p>You can also supply the <code>port</code>, if needed.</p>
+<h3 id="poll-for-task-completion">Poll for task completion</h3>
+<p>For any assign or revoke task, you will need to poll the task waiting for it to complete. If successful, the final task <code>status</code> will be <code>FINISHED</code> and the <code>licenseAssignmentReference</code> will contain the reference to the resulting assignment. If the task fails, the final task <code>status</code> will be <code>FAILED</code> and <code>errorMessage</code> will be populated with relevant details. You can review restjavad logs for additional detail as needed.</p>
+<p>Note that a finished task means BIG-IP accepted and installed the license, though subsequent MCP validation on BIG-IP may reject the license. You may want to validate the BIG-IP is operational after the task completes. This gap may be eliminated in a future release.</p>
+<p>Tasks are retained for one week, though history also appears in the BIG-IQ Device audit log which has a longer default retention period.</p>
+<pre><code>GET https://localhost/mgmt/cm/device/tasks/licensing/pool/member-management/d717c6a1-f3bd-46cb-8410-c6fda58940b9</code></pre>
+<p>Response</p>
+<pre><code>{
+    &quot;address&quot;: &quot;192.0.2.1&quot;,
+    &quot;command&quot;: &quot;assign&quot;,
+    &quot;currentStep&quot;: &quot;POLL_ASSIGNMENT_STATUS&quot;,
+    &quot;endDateTime&quot;: &quot;2017-06-14T23:46:04.532-0700&quot;,
+    &quot;generation&quot;: 7,
+    &quot;id&quot;: &quot;d717c6a1-f3bd-46cb-8410-c6fda58940b9&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/lm&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:device:tasks:licensing:pool:member-management:devicelicensingassignmenttaskstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1497509164582382,
+    &quot;licenseAssignmentReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/9a79bcf5-906e-4418-83c2-190ea22b9ec8/member-management/9847bfb5-f0a4-474b-b978-04586fc6d17d&quot;
+    },
+    &quot;licensePoolName&quot;: &quot;pool name&quot;,
+    &quot;ownerMachineId&quot;: &quot;b814fef0-2e8b-460d-af43-0d100dc50352&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/tasks/licensing/pool/member-management/d717c6a1-f3bd-46cb-8410-c6fda58940b9&quot;,
+    &quot;skuKeyword1&quot;: &quot;&quot;,
+    &quot;skuKeyword2&quot;: &quot;&quot;,
+    &quot;startDateTime&quot;: &quot;2017-06-14T23:45:53.063-0700&quot;,
+    &quot;status&quot;: &quot;FINISHED&quot;,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/lm&quot;
+    },
+    &quot;username&quot;: &quot;lm&quot;
+}</code></pre>
+<p>Example of a failed response:</p>
+<pre><code>{
+    &quot;address&quot;: &quot;192.0.2.1&quot;,
+    &quot;command&quot;: &quot;assign&quot;,
+    &quot;currentStep&quot;: &quot;GET_LICENSE&quot;,
+    &quot;endDateTime&quot;: &quot;2017-06-14T23:57:10.608-0700&quot;,
+    &quot;errorMessage&quot;: &quot;License pool &#39;bad pool name&#39; not found&quot;,
+    &quot;id&quot;: &quot;dee9bd7a-7760-452e-ab61-93df87f5cf36&quot;,
+    &quot;licensePoolName&quot;: &quot;bad pool name&quot;,
+    &quot;status&quot;: &quot;FAILED&quot;,
+    ...
+}</code></pre>
+</body>
+</html>

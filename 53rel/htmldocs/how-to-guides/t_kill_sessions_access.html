@@ -1,0 +1,736 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h2 id="terminating-apm-sessions">Terminating APM Sessions</h2>
+<h3 id="overview">Overview</h3>
+<p>You can use the REST API implemented on BIG-IQ to kill/terminate sessions on one or more BIG-IP devices. There are three types of parameters that can be used to kill sessions:</p>
+<ul>
+<li>Cluster Names - the names of a Cluster on BIG-IP systems</li>
+<li>Access Groups - the name of BIG-IP APM Access Groups</li>
+<li>Usernames - the name of users that have established APM sessions</li>
+</ul>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Before attempting to use the API to terminate sessions, you should be sure the following prerequisites have been met:</p>
+<ul>
+<li>All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management system.</li>
+<li>The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration.<br />
+</li>
+<li>Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management system. The APM service is discovered for the BIG-IP device in BIG-IQ Centralized Management system.<br />
+</li>
+<li>The APM Configuration is imported, if access group name needs to be used as input criteria.</li>
+</ul>
+<hr />
+<h3 id="preliminary-api-calls">Preliminary API calls</h3>
+<p>Before the API call that actually performs session termination is carried out, you may wish to use API calls to determine:</p>
+<ul>
+<li>If a device is managed and trust is established</li>
+<li>If Access Discovery was completed for a device</li>
+<li>The Access Configuration was imported for a device</li>
+</ul>
+<h3 id="overview-of-api">Overview of API</h3>
+<p>Here's a outline of the process in which sessions are terminated.</p>
+<ol style="list-style-type: decimal">
+<li>If desired or needed, perform a REST call to determine the current state of the BIG-IP device using one of the GetDevInfo request and checking the responses. Depending on the mechanism used to kill sessions, parts of the response to the GetDevInfo request will be used as input parameters to kill sessions.</li>
+<li>Perform a POST that is specific to the mechanism you wish to perform. There are five variants of REST calls:</li>
+</ol>
+<ul>
+<li><p>Killing Sessions by AccessGroup and Username (<em>KillAccessGroupAndUsername</em>) This call allows you to kill all sessions by specifying a username and an Access Group name.</p></li>
+<li><p>Kill Sessions by Clusters and Username (<em>KillClusterAndUsername</em>) This call allows you to kill all sessions by indicated username and matched BIG-IP cluster name. This is a re</p></li>
+<li><p>Kill Sessions in one or more BIG-IP clusters (without username) (<em>KillCluster</em>) This call allows you to kill sessions on one more more BIG-IP clusters without specifying a username.</p></li>
+<li><p>Killing Sessions by BIG-IP Device Reference and Username (<em>KillDeviceReferenceAndUsername</em>) This call allows you to kill all sessions on one more BIB-IP systems using a device reference or set of device references. This call is not recommended if other calls can be used.</p></li>
+<li><p>Kill All Sessions using Device Reference (without username) (<em>KillDeviceReference</em>) This call allows you to kill all sessions on one more BIB-IP systems using a device reference or set of device references. This call is not recommended if other calls can be used.</p></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Monitor the task using GET methods until the status has reached a value of FINISHED, FAILED or CANCELLED. When the GET method status value is FINISHED and the currentStep value is DONE, the kill sessions is completed.</li>
+</ol>
+<h2 id="kill-sessions-post-killpost">Kill Sessions Post (KillPost)</h2>
+<p>There is a single Post request that is used to kill sessions. The parameters of this request for this post are shown in the table below. The various REST calls that should be used require a request that users some subset of this parameters of this post.</p>
+<table>
+<colgroup>
+<col width="44%" />
+<col width="55%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>action</td>
+<td>action value has to be KILL_BY_USER, KILL_ALL_SESSIONS or KILL_BY_LIST_OF_SESSIONS</td>
+</tr>
+<tr class="even">
+<td>deviceReferences</td>
+<td>list of device references</td>
+</tr>
+<tr class="odd">
+<td>accessGroupNames</td>
+<td>list of access config group names</td>
+</tr>
+<tr class="even">
+<td>clusterNames</td>
+<td>list of cluster names</td>
+</tr>
+<tr class="odd">
+<td>userName</td>
+<td>Case sensitive field name. user name of user whose sessions needs to be killed.</td>
+</tr>
+<tr class="even">
+<td>sessions</td>
+<td>list of one or more session info object, with each object containing device reference and list of sesion ids</td>
+</tr>
+<tr class="odd">
+<td>status</td>
+<td>As part of response, status denotes the status of the task. It can be STARTED, FINISHED, FAILED, CANCELLED or CANCEL_REQUESTED</td>
+</tr>
+<tr class="even">
+<td>result</td>
+<td>As part of response, result denotes whether kill sessions action was COMPLETE or FAILED</td>
+</tr>
+<tr class="odd">
+<td>errorMessage</td>
+<td>This can contain error message during failure</td>
+</tr>
+</tbody>
+</table>
+<h2 id="killaccessgroupandusername-username-list-of-accessgroups">KillAccessGroupAndUsername (username, list of AccessGroups)</h2>
+<p>To use this API you need to have the username and an access group name.</p>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/kill-sessions
+{
+   &quot;action&quot;:&quot;KILL_BY_USER&quot;,
+   &quot;userName&quot;:&quot;user2&quot;,
+   &quot;accessGroupNames&quot;:[
+      &quot;TestGroup1&quot;,
+      &quot;TestGroup2&quot;,
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;KILL_BY_USER&quot;,
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+   &quot;accessGroupNames&quot;:[
+      &quot;TestGroup1&quot;,
+      &quot;TestGroup2&quot;,
+   ]
+  &quot;generation&quot;: 4,
+  &quot;id&quot;: &quot;1834e57c-94a2-42eb-860a-1d5cf67ba9bf&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1479242595185322,
+  &quot;name&quot;: &quot;kill-access-sessions&quot;,
+  &quot;ownerMachineId&quot;: &quot;adf1e56b-bf8c-472a-9b2d-e2dd7199ffbd&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/1834e57c-94a2-42eb-860a-1d5cf67ba9bf&quot;,
+  &quot;startDateTime&quot;: &quot;2016-11-15T12:42:31.294-0800&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userName&quot;: &quot;user2&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h2 id="killclusterandusername-username-list-of-clusternames">KillClusterAndUsername (Username, list of ClusterNames)</h2>
+<p>To kill session for all sessions within a cluster that are associated with a username.. You might wish to find the clustername of an associated device by use of the FindDevClustername response from the DevInfo request.</p>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/kill-sessions
+{
+   &quot;action&quot;:&quot;KILL_BY_USER&quot;,
+   &quot;userName&quot;:&quot;user2&quot;,
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;KILL_BY_USER&quot;,
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ]
+  &quot;generation&quot;: 4,
+  &quot;id&quot;: &quot;1834e57c-94a2-42eb-860a-1d5cf67ba9bf&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1479242595185322,
+  &quot;name&quot;: &quot;kill-access-sessions&quot;,
+  &quot;ownerMachineId&quot;: &quot;adf1e56b-bf8c-472a-9b2d-e2dd7199ffbd&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/1834e57c-94a2-42eb-860a-1d5cf67ba9bf&quot;,
+  &quot;startDateTime&quot;: &quot;2016-11-15T12:42:31.294-0800&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userName&quot;: &quot;user2&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h2 id="killcluster-list-of-clusternames">KillCluster (list of ClusterNames)</h2>
+<p>This REST call kills all sessions associated with the cluster name or cluster names irrespective of any usernames.</p>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/kill-sessions
+{
+   &quot;action&quot;:&quot;KILL_ALL_SESSIONS&quot;,
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;KILL_ALL_SESSIONS&quot;,
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+   &quot;clusterNames&quot;:[
+      &quot;BlueCluster&quot;,
+      &quot;RedCluster&quot;
+   ]
+  &quot;generation&quot;: 4,
+  &quot;id&quot;: &quot;1834e57c-94a2-42eb-860a-1d5cf67ba9bf&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1479242595185322,
+  &quot;name&quot;: &quot;kill-access-sessions&quot;,
+  &quot;ownerMachineId&quot;: &quot;adf1e56b-bf8c-472a-9b2d-e2dd7199ffbd&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/1834e57c-94a2-42eb-860a-1d5cf67ba9bf&quot;,
+  &quot;startDateTime&quot;: &quot;2016-11-15T12:42:31.294-0800&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h2 id="killdevicereferenceandusername-list-of-device-references-username">KillDeviceReferenceAndUsername ( list of Device References, Username)</h2>
+<p>To use this call, you must have the name of the user and a device reference. If you don't have a device reference, you can get it by looking at the FindDevRef response of the DevInfo post request.</p>
+<p>Note: To kill sessions in an device that is part of cluster, then it is recommended to use cluster name instead of device references. Refer to prerequisites section for more details.</p>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/kill-sessions
+{
+   &quot;action&quot;:&quot;KILL_BY_USER&quot;,
+   &quot;userName&quot;:&quot;user2&quot;,
+   &quot;deviceReferences&quot;:[
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      },
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d&quot;
+      }
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;KILL_BY_USER&quot;,
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+  &quot;deviceReferences&quot;: [
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      },
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d&quot;
+      }
+  ],
+  &quot;generation&quot;: 4,
+  &quot;id&quot;: &quot;1834e57c-94a2-42eb-860a-1d5cf67ba9bf&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1479242595185322,
+  &quot;name&quot;: &quot;kill-access-sessions&quot;,
+  &quot;ownerMachineId&quot;: &quot;adf1e56b-bf8c-472a-9b2d-e2dd7199ffbd&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/1834e57c-94a2-42eb-860a-1d5cf67ba9bf&quot;,
+  &quot;startDateTime&quot;: &quot;2016-11-15T12:42:31.294-0800&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userName&quot;: &quot;user2&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h2 id="killdevicereference-list-of-devicereferences">KillDeviceReference (list of DeviceReferences)</h2>
+<p>Note: To kill sessions in an device that is part of cluster, then it is recommended to use cluster name instead of device references. Refer to example in next section.</p>
+<pre><code>POST:  https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/kill-sessions
+{
+   &quot;action&quot;:&quot;KILL_ALL_SESSIONS&quot;,
+   &quot;deviceReferences&quot;:[
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      },
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d&quot;
+      }
+   ]
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+  &quot;action&quot;: &quot;KILL_ALL_SESSIONS&quot;,
+  &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+  &quot;deviceReferences&quot;: [
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      },
+      {
+         &quot;link&quot;:&quot;https://localhost/mgmt/cm/system/machineid-resolver/3f320100-2177-42e0-8a46-2e33cd3366d&quot;
+      }
+  ],
+  &quot;generation&quot;: 4,
+  &quot;id&quot;: &quot;1834e57c-94a2-42eb-860a-1d5cf67ba9bf&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1479242595185322,
+  &quot;name&quot;: &quot;kill-access-sessions&quot;,
+  &quot;ownerMachineId&quot;: &quot;adf1e56b-bf8c-472a-9b2d-e2dd7199ffbd&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/1834e57c-94a2-42eb-860a-1d5cf67ba9bf&quot;,
+  &quot;startDateTime&quot;: &quot;2016-11-15T12:42:31.294-0800&quot;,
+  &quot;status&quot;: &quot;STARTED&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h1 id="checking-the-response">Checking the Response</h1>
+<p>Once the any of the calls to the various Kill requests is performed, the result of the operation should be checked. <strong>Note</strong>: it make take some time for the operation to execute, and a status to become available.</p>
+<p>To check the status, one should perform GET requests on the selfLink returned from the response JSON, and perform them in a loop until the status reaches one of the following:</p>
+<ul>
+<li>FINISHED</li>
+<li>CANCELLED</li>
+<li>FAILED</li>
+</ul>
+<p>Use a select option to reduce the content of the returned JSON to a manageable amount. In addition to the status, result should have the value of COMPLETE. For a task to be successful, response should have values of status as FINISHED and result as COMPLETE.</p>
+<p>To get select fields in the response use below query</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/kill-sessions/1834e57c-94a2-42eb-860a-1d5cf67ba9bf?$select=status,result,resultDetails,errorMessage</code></pre>
+<p>To get complete response use below query</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/access/tasks/kill-sessions/1834e57c-94a2-42eb-860a-1d5cf67ba9bf</code></pre>
+<h3 id="sample-of-successful-response">Sample of Successful Response</h3>
+<p>The following is an sample successful response JSON from the GET method:</p>
+<pre><code> {
+  &quot;action&quot;: &quot;KILL_BY_LIST_OF_SESSIONS&quot;,
+  &quot;result&quot;: &quot;COMPLETE&quot;,
+  &quot;currentStep&quot;: &quot;DONE&quot;,
+  &quot;endDateTime&quot;: &quot;2016-11-15T12:25:35.764-0800&quot;,
+  &quot;generation&quot;: 4,
+  &quot;id&quot;: &quot;1ab38f85-0178-4ce5-af08-ea5f5fd3ac5e&quot;,
+  &quot;identityReferences&quot;: [
+    {
+      &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }
+  ],
+  &quot;kind&quot;: &quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1479241535815782,
+  &quot;name&quot;: &quot;kill-access-sessions&quot;,
+  &quot;ownerMachineId&quot;: &quot;adf1e56b-bf8c-472a-9b2d-e2dd7199ffbd&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/1ab38f85-0178-4ce5-af08-ea5f5fd3ac5e&quot;,
+  &quot;sessions&quot;: [
+    {
+      &quot;sessionIds&quot;: [
+        &quot;2a5d7604&quot;,
+        &quot;875f7fed&quot;
+      ],
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+      }
+    }
+  ],
+  &quot;startDateTime&quot;: &quot;2016-11-15T12:25:35.610-0800&quot;,
+  &quot;status&quot;: &quot;FINISHED&quot;,
+  &quot;userReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+  },
+  &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h3 id="sample-of-failed-response">Sample of Failed Response</h3>
+<p>The following is sample of failed task response JSON from the GET method:</p>
+<pre><code>{
+    &quot;items&quot;: [
+        {
+            &quot;accessGroupNames&quot;: [
+                &quot;TestGroup123&quot;
+            ],
+            &quot;action&quot;: &quot;KILL_BY_USER&quot;,
+            &quot;currentStep&quot;: &quot;KILL&quot;,
+            &quot;deviceReferences&quot;: [
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/217270dc-83bc-469d-9b84-36d7ebf2f6be&quot;
+                }
+            ],
+            &quot;endDateTime&quot;: &quot;2016-11-30T14:32:23.395-0800&quot;,
+            &quot;errorMessage&quot;: &quot;Internal Error occurred&quot;,
+            &quot;generation&quot;: 3,
+            &quot;id&quot;: &quot;b3c02bb2-594e-44e1-bce7-eceb607111fb&quot;,
+            &quot;identityReferences&quot;: [
+                {
+                    &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+                }
+            ],
+            &quot;kind&quot;: &quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate&quot;,
+            &quot;lastUpdateMicros&quot;: 1480545143445735,
+            &quot;name&quot;: &quot;kill-access-sessions&quot;,
+            &quot;ownerMachineId&quot;: &quot;da4a4ca7-19f9-4a31-a1c2-004d5557ff10&quot;,
+            &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/b3c02bb2-594e-44e1-bce7-eceb607111fb&quot;,
+            &quot;startDateTime&quot;: &quot;2016-11-30T14:32:23.295-0800&quot;,
+            &quot;status&quot;: &quot;FAILED&quot;,
+            &quot;userName&quot;: &quot;user2&quot;,
+            &quot;userReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+            },
+            &quot;username&quot;: &quot;admin&quot;
+        }
+    ],
+    &quot;generation&quot;: 4,
+    &quot;kind&quot;: &quot;cm:access:tasks:kill-sessions:accesskillsessionstaskcollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1480545143451463,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/kill-sessions&quot;
+}</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<p>When an error occurs, review the BIG-IQ Centralized Management user interface for device management to determine the details of the failure. In addition to using the user interface, some error information can be determined from the REST API response JSON as shown in the following error.</p>
+<h4 id="error-generated-when-an-incorrect-uri-is-sent-in-the-rest-request.">Error generated when an incorrect URI is sent in the REST request.</h4>
+<pre><code>{
+  &quot;code&quot;: 404,
+  &quot;message&quot;: &quot;Public URI path not registered&quot;,
+  &quot;referer&quot;: &quot;192.168.101.130&quot;,
+  &quot;restOperationId&quot;: 19541801,
+  &quot;errorStack&quot;: [
+    &quot;com.f5.rest.common.RestWorkerUriNotFoundException: Public URI path not registered&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.cloneAndForwardRequest(ForwarderPassThroughWorker.java:250)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onForward(ForwarderPassThroughWorker.java:106)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onQuery(ForwarderPassThroughWorker.java:409)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callDerivedRestMethod(RestWorker.java:1071)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callRestMethodHandler(RestWorker.java:1040)&quot;,
+    &quot;at com.f5.rest.common.RestServer.processQueuedRequests(RestServer.java:1467)&quot;,
+    &quot;at com.f5.rest.common.RestServer.access$000(RestServer.java:53)&quot;,
+    &quot;at com.f5.rest.common.RestServer$1.run(RestServer.java:333)&quot;,
+    &quot;at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)&quot;,
+    &quot;at java.util.concurrent.FutureTask.run(FutureTask.java:262)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)&quot;,
+    &quot;at java.lang.Thread.run(Thread.java:745)\n&quot;
+  ],
+  &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h4 id="task-failure-when-action-is-not-provided.">Task failure when action is not provided.</h4>
+<p>Task creation will not happen, when required data is missing in the input JSON during POST. Due to this reason, you will not see id or selfLink in the response for validation failures.</p>
+<pre><code>{
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;action is missing.&quot;,
+    &quot;originalRequestBody&quot;: &quot;{\&quot;clusterNames\&quot;:[\&quot;ca-cluster\&quot;],\&quot;id\&quot;:\&quot;2e4b7a58-0016-44bd-ad4b-fd5a72202ce8\&quot;,\&quot;status\&quot;:\&quot;CREATED\&quot;,\&quot;name\&quot;:\&quot;kill-access-sessions\&quot;,\&quot;generation\&quot;:1,\&quot;lastUpdateMicros\&quot;:1480543050548655,\&quot;kind\&quot;:\&quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate\&quot;,\&quot;selfLink\&quot;:\&quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/2e4b7a58-0016-44bd-ad4b-fd5a72202ce8\&quot;}&quot;,
+    &quot;referer&quot;: &quot;192.168.85.81&quot;,
+    &quot;restOperationId&quot;: 30692644,
+    &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h4 id="task-failure-when-required-input-is-not-available.">Task failure when required input is not available.</h4>
+<pre><code>{
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;Request should have atleast one of these fields populated: accessGroupNames , clusterNames , deviceReferences&quot;,
+    &quot;originalRequestBody&quot;: &quot;{\&quot;action\&quot;:\&quot;KILL_ALL_SESSIONS\&quot;,\&quot;id\&quot;:\&quot;d28291d1-3547-4843-8b44-2331e3e40f4e\&quot;,\&quot;status\&quot;:\&quot;CREATED\&quot;,\&quot;name\&quot;:\&quot;kill-access-sessions\&quot;,\&quot;generation\&quot;:1,\&quot;lastUpdateMicros\&quot;:1480542944805994,\&quot;kind\&quot;:\&quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate\&quot;,\&quot;selfLink\&quot;:\&quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/d28291d1-3547-4843-8b44-2331e3e40f4e\&quot;}&quot;,
+    &quot;referer&quot;: &quot;192.168.85.81&quot;,
+    &quot;restOperationId&quot;: 30687454,
+    &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h4 id="task-failure-when-non-existing-or-invalid-device-reference-is-provided">Task failure when non-existing or invalid device reference is provided</h4>
+<pre><code>{
+    &quot;action&quot;: &quot;KILL_BY_LIST_OF_SESSIONS&quot;,
+    &quot;currentStep&quot;: &quot;RESOLVE_DEVICES&quot;,
+    &quot;endDateTime&quot;: &quot;2016-11-30T13:58:42.866-0800&quot;,
+    &quot;errorMessage&quot;: &quot;item not found at /cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;,
+    &quot;generation&quot;: 2,
+    &quot;id&quot;: &quot;89645318-b29f-4a46-9cf8-6f844ebe72f3&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;kind&quot;: &quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1480543122917061,
+    &quot;name&quot;: &quot;kill-access-sessions&quot;,
+    &quot;ownerMachineId&quot;: &quot;d5d58cdd-f5b5-4379-9d12-08e28253a16f&quot;,
+    &quot;result&quot;: &quot;PENDING&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/89645318-b29f-4a46-9cf8-6f844ebe72f3&quot;,
+    &quot;sessions&quot;: [
+        {
+            &quot;deviceReference&quot;: {
+                &quot;link&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/901695c8-f405-489f-9996-54f7b21da642&quot;
+            }
+        }
+    ],
+    &quot;startDateTime&quot;: &quot;2016-11-30T13:58:42.860-0800&quot;,
+    &quot;status&quot;: &quot;FAILED&quot;,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h4 id="task-failure-when-session-info-is-empty-for-kill_by_list_of_sessions-action">Task failure when session info is empty for KILL_BY_LIST_OF_SESSIONS action</h4>
+<pre><code>{
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;deviceReference is missing&quot;,
+    &quot;originalRequestBody&quot;: &quot;{\&quot;action\&quot;:\&quot;KILL_BY_LIST_OF_SESSIONS\&quot;,\&quot;sessions\&quot;:[{}],\&quot;id\&quot;:\&quot;66d1b009-4998-4f24-bb30-00f86c185652\&quot;,\&quot;status\&quot;:\&quot;CREATED\&quot;,\&quot;name\&quot;:\&quot;kill-access-sessions\&quot;,\&quot;generation\&quot;:1,\&quot;lastUpdateMicros\&quot;:1480543895438425,\&quot;kind\&quot;:\&quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate\&quot;,\&quot;selfLink\&quot;:\&quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/66d1b009-4998-4f24-bb30-00f86c185652\&quot;}&quot;,
+    &quot;referer&quot;: &quot;192.168.85.81&quot;,
+    &quot;restOperationId&quot;: 30713876,
+    &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h4 id="task-failure-when-session-ids-are-missing-for-kill_by_list_of_sessions-action">Task failure when session ids are missing for KILL_BY_LIST_OF_SESSIONS action</h4>
+<pre><code>{
+    &quot;code&quot;: 400,
+    &quot;message&quot;: &quot;sessionIds are missing for https://localhost/mgmt/cm/system/machineid-resolver/217270dc-83bc-469d-9b84-36d7ebf2f6be&quot;,
+    &quot;originalRequestBody&quot;: &quot;{\&quot;action\&quot;:\&quot;KILL_BY_LIST_OF_SESSIONS\&quot;,\&quot;sessions\&quot;:[{\&quot;deviceReference\&quot;:{\&quot;link\&quot;:\&quot;https://localhost/mgmt/cm/system/machineid-resolver/217270dc-83bc-469d-9b84-36d7ebf2f6be\&quot;}}],\&quot;id\&quot;:\&quot;b7f2a143-0440-4cfd-96c3-a17a107856d5\&quot;,\&quot;status\&quot;:\&quot;CREATED\&quot;,\&quot;name\&quot;:\&quot;kill-access-sessions\&quot;,\&quot;generation\&quot;:1,\&quot;lastUpdateMicros\&quot;:1480544881158043,\&quot;kind\&quot;:\&quot;cm:access:tasks:kill-sessions:accesskillsessionstaskitemstate\&quot;,\&quot;selfLink\&quot;:\&quot;https://localhost/mgmt/cm/access/tasks/kill-sessions/b7f2a143-0440-4cfd-96c3-a17a107856d5\&quot;}&quot;,
+    &quot;referer&quot;: &quot;192.168.85.81&quot;,
+    &quot;restOperationId&quot;: 233634,
+    &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h1 id="determine-the-current-status-of-the-big-ip-device">Determine the current status of the BIG-IP device</h1>
+<p>You can determine the status of BIG-IP devices by performing a specific GET request. Perform a GET method on the machineid-resolver URI to determine if the BIG-IP device already has trust established. You will want to use the filter option to narrow the returned JSON information to just this particular BIG-IP device. If the value of the items element is not an empty list [], then the trust has already been established. If the value of the items element is an empty list, you must establish trust before you can attempt to discover the device.</p>
+<h1 id="get-info-on-managed-big-ip-devices-getdevinfo">Get info on managed BIG-IP devices (GetDevInfo)</h1>
+<p>This set of API calls and operations allow one to retrieve information on managed BIGIP Devices.<br />
+There utility is based on one GET request, and a number of queries of the response.</p>
+<h2 id="the-getdevinfo-request">The GetDevInfo request</h2>
+<p>An API call may be used to get information on BIG-IP devices under management. This API call may be used with our without a filter. When used without a filter, ALL devices under management are returned. A filter, specifying IP addresses may also be used to get a subset of devices.<br />
+A call to the following URI will return all devices:</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/system/machineid-resolver</code></pre>
+<p>A call to the following URI (with a filter), will return a subset of all devices:</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/cm/system/machineid-resolver?$filter=(&#39;address&#39;+eq+&#39;10.255.4.124&#39;)</code></pre>
+<h2 id="the-getdevinfo-response">The GetDevInfo response</h2>
+<p>The following is the response JSON from the GET method. Each of the items under cm-access-allBigIpDevices corresponds to individual managed BIG-IP devices for which BIG-IQ Access is enabled.</p>
+<pre><code>{
+    &quot;items&quot;: [
+    {
+        &quot;uuid&quot;: &quot;98901455-6384-47cd-bc41-00a39dfe338f&quot;,
+        &quot;deviceUri&quot;: &quot;https://10.192.123.69:443&quot;,
+        &quot;machineId&quot;: &quot;98901455-6384-47cd-bc41-00a39dfe338f&quot;,
+        &quot;state&quot;: &quot;ACTIVE&quot;,
+        &quot;address&quot;: &quot;10.255.4.124&quot;,
+        &quot;httpsPort&quot;: 443,
+        &quot;hostname&quot;: &quot;bluebigipveha1.labf.com&quot;,
+        &quot;version&quot;: &quot;12.1.0&quot;,
+        &quot;product&quot;: &quot;BIG-IP&quot;,
+        &quot;edition&quot;: &quot;Final&quot;,
+        &quot;build&quot;: &quot;0.0.1354&quot;,
+        &quot;restFrameworkVersion&quot;: &quot;12.1.0-0.0.1354&quot;,
+        &quot;managementAddress&quot;: &quot;10.192.123.69&quot;,
+        &quot;mcpDeviceName&quot;: &quot;/Common/bluebigipveha1&quot;,
+        &quot;trustDomainGuid&quot;: &quot;5189f81c-96be-4449-b4110050560102e7&quot;,
+        &quot;properties&quot;: {
+            &quot;cm:gui:module&quot;: [
+                &quot;Access&quot;,
+                &quot;BigIPDevice&quot;,
+                &quot;adc&quot;
+            ],
+            &quot;modules&quot;: [
+                &quot;All Access managed BIG-IP devices&quot;
+            ],
+            &quot;cm-adccore-allbigipDevices&quot;: {
+                &quot;supportsBadgerEnhs&quot;: true,
+                &quot;supportsRest&quot;: true,
+                &quot;supportsAlpineEnhs&quot;: true,
+                &quot;lastDiscoveredDateTime&quot;: &quot;2016-11-10T19:06:14.804Z&quot;,
+                &quot;imported&quot;: true,
+                &quot;clusterName&quot;: &quot;BlueCluster&quot;,
+                &quot;restrictsPortTranslationStatelessVirtual&quot;: true,
+                &quot;requiresDhcpProfileInDhcpVirtualServer&quot;: true,
+                &quot;importStatus&quot;: &quot;FINISHED&quot;,
+                &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+                &quot;importedDateTime&quot;: &quot;2016-11-10T19:14:39.003Z&quot;,
+                &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-11-10T19:06:14.804Z&quot;,
+                &quot;modules&quot;: [
+                    &quot;All Access managed BIG-IP devices&quot;
+                ],
+                &quot;cm:gui:module&quot;: [
+                    &quot;Access&quot;,
+                    &quot;BigIPDevice&quot;,
+                    &quot;adc&quot;
+                ],
+                &quot;discovered&quot;: true,
+                &quot;supportsClassification&quot;: true
+            },
+            &quot;cm-bigip-allBigIpDevices&quot;: {
+                &quot;shared:resolver:device-groups:discoverer&quot;: &quot;d5d58cdd-f5b5-4379-9d12-08e28253a16f&quot;,
+                &quot;cm:gui:module&quot;: [
+                    &quot;BigIPDevice&quot;
+                ],
+                &quot;modules&quot;: []
+            },
+            &quot;cm-bigip-allDevices&quot;: {
+                &quot;shared:resolver:device-groups:discoverer&quot;: &quot;d5d58cdd-f5b5-4379-9d12-08e28253a16f&quot;,
+                &quot;cm:gui:module&quot;: [],
+                &quot;modules&quot;: []
+            },
+            &quot;cm-access-allBigIpDevices&quot;: {
+                &quot;discovered&quot;: true,
+                &quot;imported&quot;: true,
+                &quot;clusterName&quot;: &quot;BlueCluster&quot;,
+                &quot;supportsRest&quot;: true,
+                &quot;supports_13_0_Enhs&quot;: false,
+                &quot;supportsCascadeEnhs&quot;: true,
+                &quot;lastDiscoveredDateTime&quot;: &quot;2016-11-10T19:15:18.963Z&quot;,
+                &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-11-10T19:15:18.963Z&quot;,
+                &quot;cm:access:access-group-name&quot;: &quot;TestGroup&quot;,
+                &quot;cm:access:source-device&quot;: true,
+                &quot;cm:access:access-group-device-link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/CA/devices/98901455-6384-47cd-bc41-00a39dfe338f&quot;,
+                &quot;cm:access:import-version&quot;: &quot;12.1.0&quot;,
+                &quot;cm:access:access-group-link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/TestGroup&quot;,
+                &quot;importedDateTime&quot;: &quot;2016-11-10T19:17:04.459Z&quot;,
+                &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+                &quot;importStatus&quot;: &quot;FINISHED&quot;,
+                &quot;cm:gui:module&quot;: [
+                    &quot;Access&quot;
+                ],
+                &quot;modules&quot;: [
+                    &quot;All Access managed BIG-IP devices&quot;
+                ]
+            },
+            &quot;cm-bigip-cluster_BlueCluster&quot;: {
+                &quot;clusterName&quot;: &quot;BlueCluster&quot;,
+                &quot;shared:resolver:device-groups:discoverer&quot;: &quot;da4a4ca7-19f9-4a31-a1c2-004d5557ff10&quot;,
+                &quot;cm:gui:module&quot;: [],
+                &quot;modules&quot;: []
+            },
+            &quot;cm-access-allDevices&quot;: {
+                &quot;clusterName&quot;: &quot;BlueCluster&quot;,
+                &quot;cm:gui:module&quot;: [
+                    &quot;Access&quot;
+                ],
+                &quot;modules&quot;: [
+                    &quot;All Access managed BIG-IP devices&quot;
+                ]
+            },
+            &quot;TestGroup&quot;: {
+                &quot;discovered&quot;: true,
+                &quot;imported&quot;: false,
+                &quot;supportsRest&quot;: true,
+                &quot;supports_13_0_Enhs&quot;: false,
+                &quot;supportsCascadeEnhs&quot;: true,
+                &quot;discoveryStatus&quot;: &quot;FINISHED&quot;,
+                &quot;lastDiscoveredDateTime&quot;: &quot;2016-10-26T04:15:56.356Z&quot;,
+                &quot;lastUserDiscoveredDateTime&quot;: &quot;2016-10-26T04:15:56.356Z&quot;,
+                &quot;cm:access:all-bigip-device-link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-access-allBigIpDevices/devices/98901455-6384-47cd-bc41-00a39dfe338f&quot;,
+                &quot;cm:access:import-version&quot;: &quot;12.1.0&quot;,
+                &quot;cm:access:source-device&quot;: true,
+                &quot;cm:gui:module&quot;: [
+                    &quot;Access&quot;
+                ],
+                &quot;modules&quot;: [
+                    &quot;All Access managed BIG-IP devices&quot;
+                ]
+            },
+            &quot;cm-adccore-allDevices&quot;: {
+                &quot;cm:gui:module&quot;: [],
+                &quot;modules&quot;: []
+            }
+        },
+        &quot;isClustered&quot;: false,
+        &quot;isVirtual&quot;: true,
+        &quot;isLicenseExpired&quot;: false,
+        &quot;slots&quot;: [
+            {
+                &quot;volume&quot;: &quot;HD1.1&quot;,
+                &quot;product&quot;: &quot;BIG-IP&quot;,
+                &quot;version&quot;: &quot;12.1.0&quot;,
+                &quot;build&quot;: &quot;0.0.1354&quot;,
+                &quot;isActive&quot;: true
+            },
+            {
+                &quot;volume&quot;: &quot;HD1.3&quot;,
+                &quot;product&quot;: &quot;BIG-IP&quot;,
+                &quot;version&quot;: &quot;12.0.0&quot;,
+                &quot;build&quot;: &quot;0.0.606&quot;,
+                &quot;isActive&quot;: false
+            }
+        ],
+        &quot;generation&quot;: 67,
+        &quot;lastUpdateMicros&quot;: 1479332833705505,
+        &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+        &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/98901455-6384-47cd-bc41-00a39dfe338f&quot;
+    }
+    ],
+    &quot;generation&quot;: 0,
+    &quot;lastUpdateMicros&quot;: 0,
+    &quot;selfLink&quot;: &quot;http://localhost:8100/cm/system/machineid-resolver/?$filter=%27address%27+eq+%2710.192.123.198%27&quot;
+}</code></pre>
+<h2 id="checking-if-trust-is-established">Checking if Trust is established</h2>
+<p>In the response to the GET method, you see trust is established since the following data is found in the list:</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm:gui:module&quot;: [
+        &quot;BigIPDevice&quot;
+    ]</code></pre>
+<h2 id="checking-if-access-discovery-is-completed">Checking if Access Discovery is completed</h2>
+<p>In the response to the GET method, if the Access value is found in the list, the Access Policy Manager service has already been discovered; the adc value represents the Local Traffic service and this must be found in order to continue with the Access Policy Manager discovery workflow.</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm:gui:module&quot;: [
+        &quot;BigIPDevice&quot;,
+        &quot;adc&quot;,
+        &quot;Access&quot;
+    ]</code></pre>
+<h2 id="check-if-access-configuration-is-imported">Check if Access Configuration is Imported</h2>
+<p>In the response to the GET method, you see access import is done if value of imported property is true in cm-access-allBigIpDevices:</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm-access-allBigIpDevices&quot;: {
+        &quot;imported&quot;: true
+    }
+}</code></pre>
+<h2 id="find-access-group-name-of-the-device-finddevaccessgroupname">Find Access Group Name of the device (FindDevAccessGroupName)</h2>
+<p>This is applicable only if the device is imported. In the response to the GET method, value of cm:access:access-group-name property contains the access group name. This property is present in cm-access-allBigIpDevices, which is present inside properties field value. In this example, access group name is TestGroup:</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm-access-allBigIpDevices&quot;: {
+        &quot;cm:access:access-group-name&quot;: &quot;TestGroup&quot;
+    }
+}</code></pre>
+<h2 id="find-cluster-name-of-a-device-that-is-part-of-cluster-finddevclustername">Find Cluster Name of a device that is part of Cluster (FindDevClustername)</h2>
+<p>This is applicable only if the device is discovered and part of cluster.</p>
+<p>In the response to the GET method, value of clusterName property contains the cluster name. This property is present in cm-access-allBigIpDevices, which is present inside properties field value. In this example, cluster name is BlueCluster:</p>
+<pre><code>&quot;properties&quot;: {
+    &quot;cm-access-allBigIpDevices&quot;: {
+        &quot;clusterName&quot;: &quot;BlueCluster&quot;
+    }
+}</code></pre>
+<h2 id="find-device-reference-of-an-device-finddevref">Find device reference of an device (FindDevRef)</h2>
+<p>In the response to the GET method, value of selfLink is the device reference of the device.</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/system/machineid-resolver/98901455-6384-47cd-bc41-00a39dfe338f&quot;
+}</code></pre>
+<h2 id="list-all-access-config-groups">List All Access Config Groups</h2>
+<p>To get a list of all access config group name, perform following GET on device groups resolver API with filter to retrieve only access config group. In the response, groupName refers to access config group name.</p>
+<pre><code>GET: https://&lt;mgmtip&gt;/mgmt/shared/resolver/device-groups/?$filter=&#39;properties/cm:access:access_group&#39;+eq+&#39;true&#39;&amp;$select=groupName,displayName</code></pre>
+<p>The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups&quot;,
+    &quot;totalItems&quot;: 1,
+    &quot;items&quot;: [
+        {
+            &quot;displayName&quot;: &quot;TestGroup&quot;,
+            &quot;groupName&quot;: &quot;TestGroup&quot;
+        },
+        {
+            &quot;displayName&quot;: &quot;TestGroup2&quot;,
+            &quot;groupName&quot;: &quot;TestGroup2&quot;
+        }
+    ],
+    &quot;generation&quot;: 23,
+    &quot;kind&quot;: &quot;shared:resolver:device-groups:devicegroupcollectionstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1479942921954266
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h2 id="retrieving-a-web-application-security-event-log-record-using-a-support_id.">Retrieving a Web Application Security Event Log record using a support_id.</h2>
+<h3 id="overview">Overview</h3>
+<p>Describes how you use the REST API to retrieve a Web Application Security Event Log record using a support_id.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ol style="list-style-type: decimal">
+<li>A Logging Node is configured with the Web Application Security service enabled.</li>
+<li>Events are sent from BIG-IP to the Logging Node.</li>
+</ol>
+<h3 id="description">Description</h3>
+<p>Describes how you use the REST API to retrieve a Web Application Security Event Log record using a support_id.</p>
+<h3 id="rest-api-actions.">REST API actions.</h3>
+<h4 id="perform-a-post-operation-to-perform-a-search-of-the-logs-by-a-given-support_id.">1. Perform a POST operation to perform a search of the logs by a given support_id.</h4>
+<pre><code>POST: https:/&lt;mgmtip&gt;//mgmt/cm/shared/es/logiq/asmindex/_search
+{  
+   &quot;query&quot;:{  
+      &quot;query_string&quot;:{  
+         &quot;query&quot;:&quot;support_id: 10961136626817826933&quot;
+      }
+   },
+   &quot;from&quot;:0,
+   &quot;size&quot;:50,
+   &quot;sort&quot;:{  
+      &quot;date_time&quot;:&quot;desc&quot;
+   }
+}</code></pre>
+<p>The following is the JSON response from the POST operation:</p>
+<pre><code>{
+    &quot;took&quot;: 19,
+    &quot;timed_out&quot;: false,
+    &quot;_shards&quot;: {
+        &quot;total&quot;: 5,
+        &quot;successful&quot;: 5,
+        &quot;failed&quot;: 0
+    },
+    &quot;hits&quot;: {
+        &quot;total&quot;: 1,
+        &quot;max_score&quot;: null,
+        &quot;hits&quot;: [
+            {
+                &quot;_index&quot;: &quot;asmindex_2016-11-13t05-05-22-0800&quot;,
+                &quot;_type&quot;: &quot;syslog&quot;,
+                &quot;_id&quot;: &quot;AVho9JvuqfHiZKdO7Wah&quot;,
+                &quot;_score&quot;: null,
+                &quot;_source&quot;: {
+                    &quot;unit_hostname&quot;: &quot;omar.olympus.f5net.com&quot;,
+                    &quot;management_ip_address&quot;: &quot;172.29.41.125&quot;,
+                    &quot;http_class_name&quot;: &quot;/Common/EVENTlOGtEST&quot;,
+                    &quot;web_application_name&quot;: &quot;/Common/EVENTlOGtEST&quot;,
+                    &quot;policy_name&quot;: &quot;/Common/EVENTlOGtEST&quot;,
+                    &quot;policy_apply_date&quot;: &quot;2016-11-13 09:31:59&quot;,
+                    &quot;violations&quot;: [
+                        &quot;HTTP protocol compliance failed&quot;,
+                        &quot;JSON data does not comply with format settings&quot;,
+                        &quot;Access from disallowed User/Session/IP&quot;,
+                        &quot;Mandatory HTTP header is missing&quot;
+                    ],
+                    &quot;support_id&quot;: &quot;10961136626817826933&quot;,
+                    &quot;request_status&quot;: &quot;alerted&quot;,
+                    &quot;response_code&quot;: &quot;200&quot;,
+                    &quot;ip_client&quot;: &quot;192.168.188.148&quot;,
+                    &quot;route_domain&quot;: &quot;0&quot;,
+                    &quot;method&quot;: &quot;GET&quot;,
+                    &quot;protocol&quot;: &quot;HTTP&quot;,
+                    &quot;query_string&quot;: &quot;json_qs={%22N%22:%20%221%22,%22M%22:%20[%20%221%22,%20%222%22,%20%223%22,%20%224%22,%20%225%22,%20%226%22,%20%227%22,%20%228%22,%20%229%22,%20%2210%22%20]%20}&quot;,
+                    &quot;x_forwarded_for_header_value&quot;: &quot;N/A&quot;,
+                    &quot;sig_ids&quot;: [],
+                    &quot;sig_names&quot;: &quot;&quot;,
+                    &quot;date_time&quot;: &quot;2016-11-15 10:46:02&quot;,
+                    &quot;severity&quot;: &quot;Error&quot;,
+                    &quot;attack_type&quot;: [
+                        &quot;Other Application Attacks&quot;,
+                        &quot;Abuse of Functionality&quot;,
+                        &quot;HTTP Parser Attack&quot;,
+                        &quot;JSON Parser Attack&quot;
+                    ],
+                    &quot;geo_location&quot;: &quot;N/A&quot;,
+                    &quot;ip_address_intelligence&quot;: &quot;N/A&quot;,
+                    &quot;username&quot;: &quot;N/A&quot;,
+                    &quot;session_id&quot;: &quot;e7d07a35478f97c9&quot;,
+                    &quot;src_port&quot;: &quot;55262&quot;,
+                    &quot;dest_port&quot;: &quot;8080&quot;,
+                    &quot;dest_ip&quot;: &quot;172.29.43.8&quot;,
+                    &quot;sub_violations&quot;: [
+                        &quot;HTTP protocol compliance failed:Host header contains IP address&quot;
+                    ],
+                    &quot;virus_name&quot;: &quot;N/A&quot;,
+                    &quot;uri&quot;: &quot;/index2.php&quot;,
+                    &quot;violation_details&quot;: &quot;&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;&lt;BAD_MSG&gt;&lt;violation_masks&gt;&lt;block&gt;0000000000000000-0000000000000000&lt;/block&gt;&lt;alarm&gt;7cffffffffdffffb-c002000000000000&lt;/alarm&gt;&lt;learn&gt;7cffffffffdffffb-c000000000000000&lt;/learn&gt;&lt;staging&gt;0000000000000000-0000000000000000&lt;/staging&gt;&lt;/violation_masks&gt;&lt;request-violations&gt;&lt;violation&gt;&lt;viol_index&gt;14&lt;/viol_index&gt;&lt;viol_name&gt;VIOL_HTTP_PROTOCOL&lt;/viol_name&gt;&lt;http_sanity_checks_status&gt;2048&lt;/http_sanity_checks_status&gt;&lt;http_sub_violation_status&gt;2048&lt;/http_sub_violation_status&gt;&lt;http_sub_violation&gt;SG9zdCBoZWFkZXIgd2l0aCBJUCB2YWx1ZTogMTcyLjI5LjQzLjg=&lt;/http_sub_violation&gt;&lt;/violation&gt;&lt;violation&gt;&lt;viol_index&gt;64&lt;/viol_index&gt;&lt;viol_name&gt;VIOL_MANDATORY_HEADER&lt;/viol_name&gt;&lt;header_data&gt;&lt;header_name&gt;mandatory_header&lt;/header_name&gt;&lt;/header_data&gt;&lt;/violation&gt;&lt;violation&gt;&lt;viol_index&gt;28&lt;/viol_index&gt;&lt;viol_name&gt;VIOL_JSON_FORMAT&lt;/viol_name&gt;&lt;context&gt;parameter&lt;/context&gt;&lt;param_data&gt;&lt;param_name&gt;anNvbl9xcw==&lt;/param_name&gt;&lt;staging&gt;0&lt;/staging&gt;&lt;param_value&gt;eyJOIjogIjEiLCJNIjogWyAiMSIsICIyIiwgIjMiLCAiNCIsICI1IiwgIjYiLCAiNyIsICI4IiwgIjkiLCAiMTAiIF0gfQ==&lt;/param_value&gt;&lt;/param_data&gt;&lt;staging&gt;0&lt;/staging&gt;&lt;content_profile_data&gt;&lt;type&gt;JSON&lt;/type&gt;&lt;content_id&gt;15&lt;/content_id&gt;&lt;content_profile_id&gt;12&lt;/content_profile_id&gt;&lt;content_profile_name&gt;json1_qs&lt;/content_profile_name&gt;&lt;location&gt;element value&lt;/location&gt;&lt;error_code&gt;32&lt;/error_code&gt;&lt;specific_desc&gt;Defense alert&lt;/specific_desc&gt;&lt;/content_profile_data&gt;&lt;failed_defense&gt;/policy/json/max_children&lt;/failed_defense&gt;&lt;failed_defense_xpath&gt;/policy/json/max_children&lt;/failed_defense_xpath&gt;&lt;allowed_value&gt;9&lt;/allowed_value&gt;&lt;actual_value&gt;10&lt;/actual_value&gt;&lt;/violation&gt;&lt;violation&gt;&lt;viol_index&gt;50&lt;/viol_index&gt;&lt;viol_name&gt;VIOL_SESSION_AWARENESS&lt;/viol_name&gt;&lt;/violation&gt;&lt;/request-violations&gt;&lt;info_violations&gt;&lt;violation&gt;&lt;session_awareness&gt;&lt;violation_data&gt;&lt;scope&gt;sid&lt;/scope&gt;&lt;flag&gt;block_all&lt;/flag&gt;&lt;/violation_data&gt;&lt;violation_data&gt;&lt;scope&gt;ip&lt;/scope&gt;&lt;flag&gt;block_all&lt;/flag&gt;&lt;/violation_data&gt;&lt;/session_awareness&gt;&lt;/violation&gt;&lt;/info_violations&gt;&lt;/BAD_MSG&gt;&quot;,
+                    &quot;violation_rating&quot;: &quot;5&quot;,
+                    &quot;websocket_direction&quot;: &quot;N/A&quot;,
+                    &quot;websocket_message_type&quot;: &quot;N/A&quot;,
+                    &quot;device_id&quot;: &quot;N/A&quot;,
+                    &quot;staged_sig_ids&quot;: &quot;&quot;,
+                    &quot;staged_sig_names&quot;: &quot;&quot;,
+                    &quot;blocking_exception_reason&quot;: &quot;N/A&quot;,
+                    &quot;header&quot;: &quot;Host: a.com:8080\\r\\nConnection: keep-alive\\r\\nCache-Control: max-age=0\\r\\nUpgrade-Insecure-Requests: 1\\r\\nUser-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36\\r\\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\\r\\nAccept-Encoding: gzip, deflate, sdch\\r\\nAccept-Language: en-US,en;q=0.8,he;q=0.6\\r\\n\\r\\n&quot;,
+                    &quot;request&quot;: &quot;GET /index2.php?json_qs={%22N%22:%20%221%22,%22M%22:%20[%20%221%22,%20%222%22,%20%223%22,%20%224%22,%20%225%22,%20%226%22,%20%227%22,%20%228%22,%20%229%22,%20%2210%22%20]%20} HTTP/1.1\\r\\nHost: a.com:8080\\r\\nConnection: keep-alive\\r\\nCache-Control: max-age=0\\r\\nUpgrade-Insecure-Requests: 1\\r\\nUser-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36\\r\\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\\r\\nAccept-Encoding: gzip, deflate, sdch\\r\\nAccept-Language: en-US,en;q=0.8,he;q=0.6\\r\\n\\r\\n&quot;,
+                    &quot;response&quot;: &quot;HTTP/1.1 200 OK\\r\\nDate: Tue, 15 Nov 2016 20:30:39 GMT\\r\\nVary: User-Agent\\r\\nContent-Length: 13\\r\\nKeep-Alive: timeout=15, max=97\\r\\nConnection: Keep-Alive\\r\\nContent-Type: text/html; charset=UTF-8\\r\\n\\r\\n&lt;html&gt;&lt;/html&gt;&quot;
+                },
+                &quot;sort&quot;: [
+                    1479206762000
+                ]
+            }
+        ]
+    }
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h2 id="licensing-initial-activation-api">Licensing Initial Activation API</h2>
+<h3 id="overview">Overview</h3>
+<p>The Initial Activation API provides a common starting point for activating all pool-style licenses (Purchased Pool, Utility, Volume, and FPS licenses). You can use the API to perform the initial activation of the top-level pool and any offerings it may include. The API helps to avoid having know the type of particular registration key and which API should be used to activate it.</p>
+<ol style="list-style-type: decimal">
+<li>For automatic activation, the system gets the license text from the F5 license server. For manual activation, the API provides a dossier, which you can use to acquire license text from the F5 licensing web portal.</li>
+<li>The API uses the license text to determine the type of license and with that, it creates an entry in the appropriate license collection. For instance, a purchased pool license registration key will result in an entry in <code>cm/device/licensing/pool/purchased-pool/licenses</code>.</li>
+<li>For automatic activation, the API waits for the activation process to finish in the specific collection. This is typically a multi-step process, as each offering needs to be activated.</li>
+<li>For manual activation, the process is more involved. As with automatic activation, an item will be created in the relevant license collection, but activation of any offerings must be completed via that license collection's API.</li>
+</ol>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Make certain that the following prerequisites have been met.</p>
+<ul>
+<li>The BIG-IQ Centralized Management device is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>The BIG-IQ has an internet connection to the F5 licensing server if you plan to use automatic activation.</li>
+<li>You have one of the following roles: administrator, device manager, or license manager.</li>
+</ul>
+<p>Note: When you perform these tasks using the example code provided, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ device, change localhost to be the IP address of the BIG-IQ Centralized Management device.</p>
+<h4 id="start-activation-of-a-license">1. Start activation of a license</h4>
+<p>There are three methods to activate a license: automatic, manual and closed-circuit network (CCN). An example of an starting an automatic activation is shown here. For manual activation, set <code>status</code> to <code>ACTIVATING_MANUAL</code>. CCN activation requires opening a support case with F5.</p>
+<p>Replace MY-REGISTRATION-KEY in this example with your actual registration key.</p>
+<pre><code>POST https://localhost/mgmt/cm/device/licensing/pool/initial-activation</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;regKey&quot;: &quot;MY-REGISTRATION-KEY&quot;,
+  &quot;name&quot;: &quot;my own freeform name&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;regKey&quot;: &quot;MY-REGISTRATION-KEY&quot;,
+  &quot;sortName&quot;: &quot;Pending&quot;,
+  &quot;publicKey&quot;: [
+    -84,
+    1,
+    -48,
+    ...
+  ],
+  &quot;internalPrivateKey&quot;: &quot;UAYLtswdQo...&quot;,
+  &quot;encryptedPrivateKey&quot;: [
+    -125,
+    -3,
+    103,
+    ...
+  ],
+  &quot;name&quot;: &quot;my own freeform name&quot;,
+  &quot;message&quot;: &quot;Automatic activation in progress&quot;,
+  &quot;dossier&quot;: &quot;60b0eaaa7q...&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488929240559574,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:initial-activation:initialactivationworkeritemstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/initial-activation/MY-REGISTRATION-KEY&quot;
+}</code></pre>
+<h4 id="poll-to-get-status">2. Poll to get status</h4>
+<p>After initiating an activation, you should poll to check the activation status.</p>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/initial-activation/MY-REGISTRATION-KEY</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;eulaText&quot;: &quot;END USER LICENSE AGREEMENT\r\nDOC-0355-08\r\n\r\nIMPORTANT - READ BEFORE...&quot;,
+  &quot;message&quot;: &quot;Accept EULA to continue&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC_NEED_EULA_ACCEPT&quot;,
+  ...
+}</code></pre>
+<h4 id="complete-automatic-activation-by-accepting-the-eula">3. Complete automatic activation by accepting the EULA</h4>
+<p>Echo the EULA text back to the license endpoint to agree to the EULA and complete the automatic activation workflow.</p>
+<p>After doing so, again poll to get the final activation status (either <code>READY</code> or <code>ACTIVATION_FAILED</code>).</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/initial-activation/MY-REGISTRATION-KEY</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC_EULA_ACCEPTED&quot;,
+  &quot;eulaText&quot;: &quot;END USER LICENSE AGREEMENT\r\nDOC-0355-08\r\n\r\nIMPORTANT - READ BEFORE...&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;message&quot;: &quot;Finishing activation&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC_EULA_ACCEPTED&quot;,
+  ...
+}</code></pre>
+<h4 id="complete-manual-activation-by-providing-license-text">4. Complete manual activation by providing license text</h4>
+<p>If manual activation is used instead of automatic activation, then the PATCH to complete activation will include the license text received from the F5 licensing web portal.</p>
+<p>Similar to automatic activation, you will need to poll to get the final activation status.</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/initial-activation/MY-REGISTRATION-KEY</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;status&quot;: &quot;ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED&quot;,
+  &quot;licenseText&quot;: &quot;...&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;message&quot;: &quot;Regkey MY-REGISTRATION-KEY activated - populating collection&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_MANUAL_LICENSE_TEXT_PROVIDED&quot;,
+  ...
+}</code></pre>
+<h4 id="retry-a-failed-activation">5. Retry a failed activation</h4>
+<p>If an activation fails, check error messages returned from the API or the restjavad logs for details.</p>
+<p>Similar to the prior steps, you will need to poll to get the final activation status.</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/initial-activation/MY-REGISTRATION-KEY</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;message&quot;: &quot;Automatic activation in progress&quot;,
+  &quot;status&quot;: &quot;ACTIVATING_AUTOMATIC&quot;,
+  ...
+}</code></pre>
+<h4 id="remove-a-failed-activation">6. Remove a failed activation</h4>
+<p>If desired, you can remove a failed activation attempt.</p>
+<pre><code>DELETE https://localhost/mgmt/cm/device/licensing/pool/initial-activation/MY-REGISTRATION-KEY</code></pre>
+<h4 id="confirm-license-is-ready">7. Confirm license is ready</h4>
+<p>After completing the initial activation process, the <code>status</code> will be <code>READY</code> and the API will provide a reference to the created license. Depending on the license type, activation of any offerings will still be required when using manual activation. Those activations will occur via the API endpoint noted in the reference. Purchased pool licenses do not require this additional step.</p>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/initial-activation/MY-REGISTRATION-KEY</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;licenseReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}&quot;
+  },
+  &quot;status&quot;: &quot;READY&quot;,
+  ...
+}</code></pre>
+<p>Following the reference to the new license:</p>
+<pre><code>GET {endpoint noted in licenseReference}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;state&quot;: &quot;LICENSED&quot;,
+  &quot;totalDeviceLicenses&quot;: 25,
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>
+</body>
+</html>

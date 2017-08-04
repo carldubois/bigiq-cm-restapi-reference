@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="api-purchased-pool-license-members">API Purchased Pool License Members</h1>
+<h2 id="overview">Overview</h2>
+<p>API to assign, refresh or revoke a purchased pool license seat for managed or unmanaged BIG-IP devices. Note that administrator credentials are required for all operations involving unmanaged devices.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>You should be sure the following prerequisites have been met.</p>
+<ul>
+<li>The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>BIG-IQ is managing the BIG-IP device(s) to be licensed. If dealing with unmanaged BIG-IP devices, you will need their IP addresses and administrator credentials.</li>
+<li>You have one of the following roles: administrator, device manager, or license manager.</li>
+</ul>
+<h3 id="assign">Assign</h3>
+<p>A purchased pool license can be assigned to a BIG-IP by sending a POST to the <code>/members</code> subcollection of the license. Items 2 and 3 below show examples of assigning a license to managed and unmanaged devices respectively.</p>
+<h3 id="refresh">Refresh</h3>
+<p>If a purchased pool license is reactivated within BIG-IQ, the updated license will not be reflected on any BIG-IP devices automatically. The updated license can be pushed to BIG-IP devices that are already using the license. Item 5 below shows an example of refreshing the license on a BIG-IP by sending a PATCH to a license assignment in the <code>/members</code> subcollection.</p>
+<h3 id="revoke">Revoke</h3>
+<p>A license seat can be reclaimed by sending a DELETE to a license assignment in the <code>/members</code> subcollection. Item 6 below shows an example of revoking the license from a BIG-IP.</p>
+<h4 id="query-assignments-for-a-purchased-pool-license">1. Query assignments for a purchased pool license</h4>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;items&quot;: [
+    {
+      &quot;auditRecordReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/device/licensing/audit/6f14789b-c12f-4018-b086-d0b4b638beec&quot;
+      },
+      &quot;deviceAddress&quot;: &quot;10.145.198.181&quot;,
+      &quot;deviceMachineId&quot;: &quot;77d9d4a4-9255-4f46-907e-b2bbd717e819&quot;,
+      &quot;deviceName&quot;: &quot;dsc-ip3.pdsea.f5net.com&quot;,
+      &quot;deviceReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/77d9d4a4-9255-4f46-907e-b2bbd717e819&quot;
+      },
+      &quot;generation&quot;: 4,
+      &quot;kind&quot;: &quot;cm:device:licensing:pool:purchased-pool:licenses:licensepoolmemberstate&quot;,
+      &quot;lastUpdateMicros&quot;: 1488240514143425,
+      &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/56c1b433-8cfa-485e-b1fb-0d964f994f90/members/e228a87d-3b89-4f42-951e-557e839a4d59&quot;,
+      &quot;state&quot;: &quot;LICENSED&quot;,
+      &quot;uuid&quot;: &quot;e228a87d-3b89-4f42-951e-557e839a4d59&quot;
+    },
+    ...</code></pre>
+<h4 id="license-a-managed-device">2. License a managed device</h4>
+<p>Assigning a license to a managed device only requires providing a <code>deviceReference</code>. All managed BIG-IP devices will exist in the <code>cm-bigip-allBigIpDevices</code> device group. If needed, you can query the device group to find a device reference.</p>
+<p>After the POST to assign a license, you can poll the assignment to check the status, waiting for <code>state</code> to be <code>LICENSED</code> (see item 4).</p>
+<pre><code>POST https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;deviceReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/77d9d4a4-9255-4f46-907e-b2bbd717e819&quot;
+  }
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;uuid&quot;: &quot;20a5cf91-f9a3-400f-9325-b4fc2a2c464b&quot;,
+  &quot;deviceName&quot;: &quot;dsc-ip3.pdsea.f5net.com&quot;,
+  &quot;deviceReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/77d9d4a4-9255-4f46-907e-b2bbd717e819&quot;
+  },
+  &quot;deviceMachineId&quot;: &quot;77d9d4a4-9255-4f46-907e-b2bbd717e819&quot;,
+  &quot;deviceAddress&quot;: &quot;10.145.198.181&quot;,
+  &quot;state&quot;: &quot;INSTALL&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488434123132956,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:purchased-pool:licenses:licensepoolmemberstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/56c1b433-8cfa-485e-b1fb-0d964f994f90/members/20a5cf91-f9a3-400f-9325-b4fc2a2c464b&quot;
+}</code></pre>
+<h4 id="license-an-unmanaged-device">3. License an unmanaged device</h4>
+<p>BIG-IQ also supports licensing devices that are not actively managed. BIG-IQ has no interaction with such devices outside of licensing. Because of the lower overhead, BIG-IQ supports this type of licensing at a larger scale (thousands). Because BIG-IQ isn't managing such BIG-IP devices, they have no device reference. Instead, the required inputs are an IP address, administrator username and password.</p>
+<p>Similar to managed devices, you can poll the assignment after it's created to check the status, waiting for <code>state</code> to be <code>LICENSED</code> (see item 4).</p>
+<pre><code>POST https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;deviceAddress&quot;: &quot;10.145.193.61&quot;,
+  &quot;username&quot;: &quot;admin&quot;,
+  &quot;password&quot;: &quot;password&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;uuid&quot;: &quot;ab267880-c34a-418a-9e75-fb507f636120&quot;,
+  &quot;deviceName&quot;: &quot;dsc-ip4.pdsea.f5net.com&quot;,
+  &quot;deviceMachineId&quot;: &quot;fb4e7e62-f3ae-4a95-b1a4-e89d7ba6ead3&quot;,
+  &quot;deviceAddress&quot;: &quot;10.145.193.61&quot;,
+  &quot;state&quot;: &quot;INSTALL&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488435208256456,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:purchased-pool:licenses:licensepoolmemberstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/56c1b433-8cfa-485e-b1fb-0d964f994f90/members/ab267880-c34a-418a-9e75-fb507f636120&quot;
+}</code></pre>
+<h4 id="query-license-assignment-status">4. Query license assignment status</h4>
+<p>After a license assignment is made, you can query the status of the assignment. Successful assignments will reach a <code>state</code> of <code>LICENSED</code>. This typically takes less than a minute.</p>
+<p>For unmanaged device assignments, basic health checking occurs periodically because BIG-IQ isn't otherwise managing the device. Fields related to the health checking will appear only for unmanaged device assignments as shown in the example here.</p>
+<pre><code>GET https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member_uuid}
+</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;auditRecordReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/device/licensing/audit/7252695f-1531-4c1a-8775-18a872f22fc8&quot;
+  },
+  &quot;deviceAddress&quot;: &quot;10.145.193.61&quot;,
+  &quot;deviceMachineId&quot;: &quot;fb4e7e62-f3ae-4a95-b1a4-e89d7ba6ead3&quot;,
+  &quot;deviceName&quot;: &quot;dsc-ip4.pdsea.f5net.com&quot;,
+  &quot;generation&quot;: 5,
+  &quot;healthCheckFailureCount&quot;: 0,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:purchased-pool:licenses:licensepoolmemberstate&quot;,
+  &quot;lastGoodHealthCheckDateTime&quot;: &quot;2017-03-02T06:15:57.846Z&quot;,
+  &quot;lastUpdateMicros&quot;: 1488435357850120,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/56c1b433-8cfa-485e-b1fb-0d964f994f90/members/ab267880-c34a-418a-9e75-fb507f636120&quot;,
+  &quot;state&quot;: &quot;LICENSED&quot;,
+  &quot;uuid&quot;: &quot;ab267880-c34a-418a-9e75-fb507f636120&quot;
+}</code></pre>
+<h4 id="refresh-the-license-on-a-big-ip-device">5. Refresh the license on a BIG-IP device</h4>
+<p>If a license is reactivated within BIG-IQ, the updated license can be pushed to a BIG-IP device that is using the license via a simple PATCH. Similar to the initial license assignment, you can poll the assignment after the PATCH completes to check the status, waiting for <code>state</code> to be <code>LICENSED</code> (see item 4).</p>
+<p>The PATCH body should also include administrator credentials (<code>username</code> and <code>password</code>) for unmanaged devices.</p>
+<pre><code>PATCH https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member_uuid}</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;state&quot;: &quot;INSTALL&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;uuid&quot;: &quot;ec234bf5-80bb-41dc-96bc-4d5e15f6dcf5&quot;,
+  &quot;deviceName&quot;: &quot;bigip11-41.f5net.com&quot;,
+  &quot;deviceReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-bigip-allBigIpDevices/devices/7141a063-7cf8-423f-9829-9d40599fa3e0&quot;
+  },
+  &quot;deviceMachineId&quot;: &quot;7141a063-7cf8-423f-9829-9d40599fa3e0&quot;,
+  &quot;deviceAddress&quot;: &quot;10.145.197.41&quot;,
+  &quot;state&quot;: &quot;INSTALL&quot;,
+  &quot;auditRecordReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/device/licensing/audit/ef7ce604-1c61-498e-a6df-32e13780ea14&quot;
+  },
+  &quot;generation&quot;: 8,
+  &quot;lastUpdateMicros&quot;: 1488436813066133,
+  &quot;kind&quot;: &quot;cm:device:licensing:pool:purchased-pool:licenses:licensepoolmemberstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/56c1b433-8cfa-485e-b1fb-0d964f994f90/members/ec234bf5-80bb-41dc-96bc-4d5e15f6dcf5&quot;
+}</code></pre>
+<h4 id="revoke-license-from-a-device">6. Revoke license from a device</h4>
+<p>To revoke a license from a BIG-IP device to reclaim a seat, send a DELETE to the assignment. For managed devices, no request body is needed. For unmanaged devices, the request body must include administrator credentials and the member_uuid for the assignment as shown in the example.</p>
+<pre><code>DELETE https://localhost/mgmt/cm/device/licensing/pool/purchased-pool/licenses/{uuid}/members/{member_uuid}</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;uuid&quot;: &quot;1ecbb7fb-8f2a-421c-9450-d2d927181b47&quot;,
+  &quot;username&quot;: &quot;admin&quot;,
+  &quot;password&quot;: &quot;password&quot;
+}</code></pre>
+</body>
+</html>

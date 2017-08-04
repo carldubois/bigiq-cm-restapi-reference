@@ -1,0 +1,826 @@
+= BIG-IQ ASM Policies
+
+
+[[_overview]]
+== Overview
+API used to create / edit BIG-IQ web application policies in ASM.
+
+
+=== Version information
+[%hardbreaks]
+_Version_ : 5.2
+
+
+=== URI scheme
+[%hardbreaks]
+_BasePath_ : /mgmt/cm/asm/working-config
+_Schemes_ : HTTPS
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_policies_post]]
+=== Create a new BIG-IQ web application security policy for ASM.
+....
+POST /policies
+....
+
+
+==== Description
+Add a new web application security policy.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Body*|*Json string for request body.* +
+_required_|Input parameter list in json format. ex. {"name":"Policy_3", "partition":"Common", "fullPath":"/Common/Policy_3", "applicationLanguage": "utf-8"}|<<_post_asm_body,post_asm_body>>|None
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|POST to create a web application security policy.|<<_properties_asm,properties_asm>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_policies_get]]
+=== Used to GET the BIG-IQ web application security policies for ASM.
+....
+GET /policies
+....
+
+
+==== Description
+Returns all web application security policies as part of a item collection.
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|GET BIG-IQ web application security policies.|<<_properties_asm_collection,properties_asm_collection>>
+|*400*|Error response Bad Request|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+[[_policies_objectid_get]]
+=== Used to GET the BIG-IQ web application policy.
+....
+GET /policies/{objectId}
+....
+
+
+==== Description
+Returns a web application policy defined by a object id.
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|Type|Name|Description|Schema|Default
+|*Path*|*objectId* +
+_required_|Unique id associated with policy.|string(UUID)|None
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|*200*|BIG-IQ web application policy.|<<_properties_asm,properties_asm>>
+|*400*|Server error response Bad Request.|<<_400_error_collection,400_error_collection>>
+|*404*|Error response Public URI path not registered.|<<_404_error_collection,404_error_collection>>
+|===
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_400_error_collection]]
+=== 400_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection if policies. 400 error.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for ASM web application security policies - cm:asm:working-config:policies:policycollectionstate.|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_404_error_collection]]
+=== 404_error_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*errorStack* +
+_optional_ +
+_read-only_|Error stack trace returned by java.|string
+|*items* +
+_optional_|Collection of policies. 404 error.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for ASM web application security policies - cm:asm:working-config:policies:policycollectionstate|string
+|*message* +
+_optional_ +
+_read-only_|Error message returned from server.|string
+|*requestBody* +
+_optional_ +
+_read-only_|The data in the request body. GET (None)|string
+|*requestOperationId* +
+_optional_ +
+_read-only_|Unique id assigned to rest operation.|integer(int64)
+|===
+
+
+[[_post_asm_body]]
+=== post_asm_body
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*applicationLanguage* +
+_optional_|Character encoding used by BIGIQ to create the policy object. ex. utf8|string
+|*fullPath* +
+_optional_|BIGIP full path which includes partition / policy name. ex. /Common/Policy_3|string
+|*name* +
+_optional_|Name of ASM web application security policy.|string
+|*partition* +
+_optional_|BIGIP partition name as to where this policy will reside. default. Common|string
+|===
+
+
+[[_properties_asm]]
+=== properties_asm
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*allowedResponseCodes* +
+_optional_|Array of response codes from server.|< integer > array
+|*applicationLanguage* +
+_optional_|Character encoding used by BIGIQ to create the policy object. ex. utf8|string
+|*attributes* +
+_optional_||<<_properties_asm_attributes,attributes>>
+|*bruteForceAttackPreventionReference* +
+_optional_|Reference link to brute force attach prevention configuration preventing brute force attacks performed when a hacker tries to log on to a URL numerous times, running many combinations of user names and passwords, until successfully logs on.|<<_properties_asm_bruteforceattackpreventionreference,bruteForceAttackPreventionReference>>
+|*caseInsensitive* +
+_optional_|Is the ASM web application policy elements case sensitive. True / False|boolean
+|*characterSetReference* +
+_optional_|Reference link to character set configuration which lists characters (letters, digits, and symbols) available, and how the security policy responds when that character appears in the value field of an HTTP header in a request, and an uncommon header name.|<<_properties_asm_charactersetreference,characterSetReference>>
+|*cookieReference* +
+_optional_|Reference link to cookie configuration which handles the cookies in a list based on the specific cookie type (Enforced/Allowed).|<<_properties_asm_cookiereference,cookieReference>>
+|*createDateTime* +
+_optional_ +
+_read-only_|Date / Time when web application policy was created. ex. 2016-11-28T20:50:12Z|string
+|*creatorName* +
+_optional_|Name of user that created the web application policy.|string
+|*csrfProtectionReference* +
+_optional_|Reference link to configured cross site request forgery. Unauthorized user access to authenticated accounts using cross-site request forgery (CSRF) Proerty as defined by the policy.|<<_properties_asm_csrfprotectionreference,csrfProtectionReference>>
+|*customXffHeaders* +
+_optional_|Additional HTTP header, the X-Forwarded-For header, to proxy an HTTP request to another server.|< string > array
+|*dataGuardReference* +
+_optional_|Reference link to policy data guard configuration which protects sensitive data. If a web server response contains a credit card number, U.S. Social Security number, or pattern that matches a user-defined pattern, then the system responds based on the enforcement mode setting.|<<_properties_asm_dataguardreference,dataGuardReference>>
+|*description* +
+_optional_|Description of security policy.|string
+|*disallowedGeolocationReference* +
+_optional_|Reference link to configured countries that can access your web application. Property as defined by the policy.|<<_properties_asm_disallowedgeolocationreference,disallowedGeolocationReference>>
+|*enforcementMode* +
+_optional_|Specifies how the system processes a request that triggers a security policy violation. options. Transparent / Blocking|string
+|*evasionsReference* +
+_optional_|Reference link to list of evasion technique detected, which is triggered when the BIG-IP ASM system fails to normalize requests. Normalization is the process of decoding requests that are encoded.|<<_properties_asm_evasionsreference,evasionsReference>>
+|*extractionsReference* +
+_optional_|Reference link to extraction service configuration which manages how the system extracts dynamic values for dynamic parameters from the responses returned by the web application server.|<<_properties_asm_extractionsreference,extractionsReference>>
+|*filetypeReference* +
+_optional_|Reference link to a list allow / disallow file types in the web application that the security policy considers legal.|<<_properties_asm_filetypereference,filetypeReference>>
+|*fullPath* +
+_optional_|Full path containing BIG-IP partition and name of web application security policy. ex. /Common/Policy_3|string
+|*generation* +
+_optional_||string
+|*gwtProfileReference* +
+_optional_|Reference link to gwt configuration used to protect web applications created by google web toolkit (gwt). Google Web Toolkit (GWT) is a Java framework that is used to create AJAX applications. When you add GWT enforcement to a security policy, the Security Enforcer can detect malformed GWT data, request payloads and parameter values.|<<_properties_asm_gwtprofilereference,gwtProfileReference>>
+|*hasParent* +
+_optional_|Does this policy contain a parent to inherit configuration. True / False|boolean
+|*headerReference* +
+_optional_|Reference link to policy header configuration. Each parameter can perform normalization and attack signature checks on HTTP headers.|<<_properties_asm_headerreference,headerReference>>
+|*hostNameReference* +
+_optional_|Reference link to a list of allow / disallow host name that are used to access the web application that this security policy protects.|<<_properties_asm_hostnamereference,hostNameReference>>
+|*httpProtocolsReference* +
+_optional_|Reference link to a http protocol compliance option which are validation checks that are performed on HTTP requests to ensure the requests are properly formatted.|<<_properties_asm_httpprotocolsreference,httpProtocolsReference>>
+|*id* +
+_optional_|Unique id associated with security policy.|string
+|*ipIntelligenceReference* +
+_optional_|Reference link to configured ASM ip intellegence functions, such as log and block requests from source IP addresses that, according to an IP Address Intelligence database, have a bad reputation.|<<_properties_asm_ipintelligencereference,ipIntelligenceReference>>
+|*jsonProfileReference* +
+_optional_|Reference link to json profiles which defines what the security policy enforces and considers legal when it detects traffic that contains JSON data.|<<_properties_asm_jsonprofilereference,jsonProfileReference>>
+|*kind* +
+_optional_|Type information for security policy. cm:asm:working-config:policies:policystate.|string
+|*lastUpdateMicros* +
+_optional_|Update time (micros) for last change made to a security policy object. time.|string
+|*learningMode* +
+_optional_|ASM will attempt to adapt to changing patterms in learning mode. options Automatic makes suggestions, and enforces most suggestions after sufficient traffic over a period of time, Manual. The system examines traffic and makes suggestions on what to add to the policy. You manually examine the changes and accept, delete, or ignore the suggestions. Disabled. The system does not do any learning for the security policy, and makes no suggestions.|string
+|*loginEnforcementReference* +
+_optional_|Reference link to login enforcement configuration which will allow a user to create or edit the properties of authenticated URLs. Authenticated URLs are URLs that become accessible to users only after they successfully log in to the login URL.|<<_properties_asm_loginenforcementreference,loginEnforcementReference>>
+|*loginPageReference* +
+_optional_|Reference link to session login page configuration used to protect restricted parts of the web application by forcing users to pass through the login page before viewing the restricted (authenticated) URL.|<<_properties_asm_loginpagereference,loginPageReference>>
+|*methodReference* +
+_optional_|Reference link to configured ASM methods. Allowable - GET, POST and HEAD. Methods settings are used to specify the HTTP methods that are acceptable within the context of the web application and to specify whether the method should act as the GET method or as the POST method.|<<_properties_asm_methodreference,methodReference>>
+|*modifierName* +
+_optional_|ASM policy modifiers from the custom syntax.|string
+|*name* +
+_optional_|Name of security policy.|string
+|*parameterReference* +
+_optional_|Reference link to configured ASM parameters that the policy permits, such as attack signature check, perform staging and enable regular expressions and other pieces of information within a web application.|<<_properties_asm_parameterreference,parameterReference>>
+|*partition* +
+_optional_|The BIG-IP partition which this policy lives.|string
+|*plainTextProfileReference* +
+_optional_|Reference link to plain text content profile that defines the properties that a security policy enforces for unstructured text content, such as those used in websocket messages.|<<_properties_asm_plaintextprofilereference,plainTextProfileReference>>
+|*policyBuilderReference* +
+_optional_|Reference link to policy builder configuration which provides functions such as traffic learning and enforcement readiness.|<<_properties_asm_policybuilderreference,policyBuilderReference>>
+|*protocolIndependent* +
+_optional_|Does the user want to allow for protocol independent URLs? True / False|boolean
+|*redirectionProtectionReference* +
+_optional_|Reference link to redirection protection configuration to prevent open redirect vulnerability where the server tries to redirect the user to a target domain that is not defined in the security policy. The server redirects a user to a different web application, without any validation. This vulnerability is used in phishing attacks to get users to visit malicious sites without realizing it.|<<_properties_asm_redirectionprotectionreference,redirectionProtectionReference>>
+|*responsePageReference* +
+_optional_|Reference link to policy response page configuration, where the user can edit the default response page, the login response page, the XML response page, the AJAX blocking response page, and the AJAX login response page for a web application.|<<_properties_asm_responsepagereference,responsePageReference>>
+|*sectionReference* +
+_optional_|Reference link to a list of each ASC property sections. Such as evasion techniques, policy-building, websocket protocol, general settings etc..|<<_properties_asm_sectionreference,sectionReference>>
+|*selfLink* +
+_optional_|Reference link to security policy object.|string
+|*sensitiveParameterReference* +
+_optional_|Reference link to sensitive parameter configuration used to protect sensitive user input, such as a password or a credit card number, in a validated request.|<<_properties_asm_sensitiveparameterreference,sensitiveParameterReference>>
+|*sessionTrackingReference* +
+_optional_|Reference link to configured ASM session tracking to track, enforce, and report on user sessions and IP addresses.|<<_properties_asm_sessiontrackingreference,sessionTrackingReference>>
+|*signatureReference* +
+_optional_|Reference link to configured attach signitures. Property as defined by the policy.|<<_properties_asm_signaturereference,signatureReference>>
+|*signatureSetReference* +
+_optional_|Reference link to signature sets used by ASM to mitigate attack. Attack signatures belong to signature sets assigned to the security policy. A user can enable or disable security policy attack signatures.|<<_properties_asm_signaturesetreference,signatureSetReference>>
+|*stagingSettings* +
+_optional_|Staging allows you to test the policy entities and the attack signatures for false positives without enforcing them.|<<_properties_asm_stagingsettings,stagingSettings>>
+|*trustXff* +
+_optional_|Trust flag for XFF HTTP request header.|boolean
+|*type* +
+_optional_|This is a descripive type of policy. ex. security|string
+|*urlReference* +
+_optional_|Reference link to policy url configuration which will match URLs, or URLs specified string to manage the flow allow / disallow.|<<_properties_asm_urlreference,urlReference>>
+|*versionDatetime* +
+_optional_|Date time of provisioned security policy.|string
+|*versionDeviceName* +
+_optional_|Security Policy name as represented by version of BIGIP.|string
+|*versionLastChange* +
+_optional_|Operation of last change to a security policy represented.|string
+|*versionPolicyName* +
+_optional_|Partition and security policy full path.|string
+|*violationsReference* +
+_optional_|Reference link to a list of violations that occur when some aspect of a request or response does not comply with the security policy for a web application.|<<_properties_asm_violationsreference,violationsReference>>
+|*webScrapingReference* +
+_optional_|Reference link to policy web scraping configuation detection such as prevent web data extraction by detecting session anomalies in web application usage.|<<_properties_asm_webscrapingreference,webScrapingReference>>
+|*webServicesSecurityReference* +
+_optional_|Reference link to a web service with will verify XML format, and validate XML document integrity against a WSDL or XSD file. The security policy can also handle encryption and decryption for web services.|<<_properties_asm_webservicessecurityreference,webServicesSecurityReference>>
+|*websocketUrlReference* +
+_optional_|Reference link to web socket url list used to simplifies and speeds up communication between clients and servers.|<<_properties_asm_websocketurlreference,websocketUrlReference>>
+|*whitelistIpReference* +
+_optional_|Reference link to configured white list ip list used to identify source IP addresses for the system to consider safe even if it found in the IP Address Intelligence database.|<<_properties_asm_whitelistipreference,whitelistIpReference>>
+|*xmlProfileReference* +
+_optional_|Reference link to policy xml profile configuration. An XML profile is a set of content definitions that determine whether the system allows or disallows requests that contain XML.|<<_properties_asm_xmlprofilereference,xmlProfileReference>>
+|*xmlValidationFileReference* +
+_optional_|Reference link to xml validation configuration used to enforce or validate xml content for web application.|<<_properties_asm_xmlvalidationfilereference,xmlValidationFileReference>>
+|===
+
+[[_properties_asm_attributes]]
+*attributes*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*inspectHttpUploads* +
+_optional_|Flag to enable inspection of all http uploads. default false|boolean
+|*maskCreditCardNumbersInRequest* +
+_optional_|If enabled, the system masks credit card numbers. If disabled (cleared), the system does not mask credit card numbers.|boolean
+|*maximumCookieHeaderLength* +
+_optional_|0&lt;= number&lt;=8192 default. 8192|string
+|*maximumHttpHeaderLength* +
+_optional_|Maximum length of an HTTP header name and value that the system processes. The default setting is 8192 bytes. The system calculates and enforces the HTTP header length based on the sum of the length of the HTTP header name and value.|string
+|*pathParameterHandling* +
+_optional_|Specifies how the system handles path parameters that are attached to path segments in URIs. options. as parameter, as url, ignore.|string
+|*triggerAsmIruleEvent* +
+_optional_|Enable irule event. List of values. disabled, enabled-compatibility, enabled-normal.|string
+|*useDynamicSessionIdInUrl* +
+_optional_|Specifies how the security policy processes URLs that use dynamic sessions. options. disabled, default pattern, custom pattern.|boolean
+|===
+
+[[_properties_asm_bruteforceattackpreventionreference]]
+*bruteForceAttackPreventionReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_charactersetreference]]
+*characterSetReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_cookiereference]]
+*cookieReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_csrfprotectionreference]]
+*csrfProtectionReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_dataguardreference]]
+*dataGuardReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_disallowedgeolocationreference]]
+*disallowedGeolocationReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_evasionsreference]]
+*evasionsReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_extractionsreference]]
+*extractionsReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_filetypereference]]
+*filetypeReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_gwtprofilereference]]
+*gwtProfileReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_headerreference]]
+*headerReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_hostnamereference]]
+*hostNameReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_httpprotocolsreference]]
+*httpProtocolsReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_ipintelligencereference]]
+*ipIntelligenceReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_jsonprofilereference]]
+*jsonProfileReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_loginenforcementreference]]
+*loginEnforcementReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_loginpagereference]]
+*loginPageReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_methodreference]]
+*methodReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_parameterreference]]
+*parameterReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_plaintextprofilereference]]
+*plainTextProfileReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_policybuilderreference]]
+*policyBuilderReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_redirectionprotectionreference]]
+*redirectionProtectionReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_responsepagereference]]
+*responsePageReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_sectionreference]]
+*sectionReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_sensitiveparameterreference]]
+*sensitiveParameterReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_sessiontrackingreference]]
+*sessionTrackingReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_signaturereference]]
+*signatureReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_signaturesetreference]]
+*signatureSetReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_stagingsettings]]
+*stagingSettings*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*enforcementReadinessPeriod* +
+_optional_|Period in days both security policy entities and attack signatures remain in staging mode before the system suggests you enforce them.|integer
+|*placeSignaturesInStaging* +
+_optional_|Signature staging - the system places new or updated signatures in staging for the number of days specified in the enforcement readiness period.|boolean
+|*signatureStaging* +
+_optional_|Signature staging is supported on the security policy. True / False|boolean
+|===
+
+[[_properties_asm_urlreference]]
+*urlReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to url asm signature.|string
+|===
+
+[[_properties_asm_violationsreference]]
+*violationsReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_webscrapingreference]]
+*webScrapingReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_webservicessecurityreference]]
+*webServicesSecurityReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_websocketurlreference]]
+*websocketUrlReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_whitelistipreference]]
+*whitelistIpReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_xmlprofilereference]]
+*xmlProfileReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+[[_properties_asm_xmlvalidationfilereference]]
+*xmlValidationFileReference*
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*isSubcollection* +
+_optional_|Is a subcollection (True/False)|boolean
+|*link* +
+_optional_|Reference link to asm signature.|string
+|===
+
+
+[[_properties_asm_collection]]
+=== properties_asm_collection
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|*generation* +
+_optional_ +
+_read-only_|A integer that will track change made to a ASM web application security policy collection object. generation.|integer(int64)
+|*items* +
+_optional_|Collection if asm signatures.|< object > array
+|*kind* +
+_optional_ +
+_read-only_|Type information for a ASM web application security policy collection object - cm:asm:working-config:policies:policycollectionstate.|string
+|*lastUpdateMicros* +
+_optional_ +
+_read-only_|Update time (micros) for last change made to an ASM web application security policy collection object. time.|integer(int64)
+|*selfLink* +
+_optional_ +
+_read-only_|A reference link URI to a ASM web application security policy collection object.|string
+|===
+
+
+
+
+

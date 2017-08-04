@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h2 id="create-simple-application">Create simple application</h2>
+<h3 id="overview">Overview</h3>
+<p>Using the BIG-IQ REST API, you can create a simple application and then deploy that application to BIG-IP devices. A typical simple application includes the following four LTM objects: virtual server, pool, pool member, and node. To create a simple application, all four LTM objects are required.</p>
+<p>Virtual server is an entry point to a simple application. A virtual server references a pool. A pool includes a list of pool member objects. A pool member is dependent on a node object. Typically, one or more profiles will also need to be attached to the virtual server.</p>
+<p>Use the following steps to create a simple application:</p>
+<ol style="list-style-type: decimal">
+<li>Create a node.</li>
+<li>Create a pool.</li>
+<li>Add a pool member to a pool.</li>
+<li>Create a virtual server.</li>
+<li>Attach a pool to a virtual server.</li>
+<li>Attach profiles to a virtual server.</li>
+</ol>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Make certain that the following prerequisites have been met.</p>
+<ul>
+<li>All BIG-IP devices are operational and have the services provisioned that will be managed by the BIG-IQ Centralized Management device.</li>
+<li>The BIG-IQ Centralized Management device is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>Trust has been established between the BIG-IP device and the BIG-IQ Centralized Management device, and the current configuration of the BIG-IP device has been discovered on the BIG-IQ Centralized Management device.</li>
+</ul>
+<p>Note: When you perform these tasks using the example code provided, review the listed IP addresses and device/object IDs and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ device, change localhost to be the IP address of the BIG-IQ Centralized Management device.</p>
+<h3 id="examples-for-creating-a-simple-application">Examples for creating a simple application</h3>
+<p>Below are a few examples showing how to create a simple application.</p>
+<h4 id="create-a-node">1. Create a node</h4>
+<p>When the POST command completes successfully, it creates a node in working config. The response is the state of the created object. The response contains a <code>selfLink</code>, which is used to reference the created object.</p>
+<p>Nodes are device-specific objects, hence the <code>deviceReference</code> is required. All devices eligible for use with LTM objects can be found by issuing a GET to <code>shared/resolver/device-groups/cm-adccore-allbigipDevices/devices</code> (the <code>selfLink</code> for the relevant device should be used as the <code>deviceReference</code>).</p>
+<pre><code>POST https://localhost/mgmt/cm/adc-core/working-config/ltm/node</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;partition&quot;: &quot;Common&quot;,
+  &quot;name&quot;: &quot;myNode&quot;,
+  &quot;address&quot;: &quot;20.20.20.20&quot;,
+  &quot;deviceReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;
+  }
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;address&quot;: &quot;20.20.20.20&quot;,
+  &quot;connectionLimit&quot;: 0,
+  &quot;isEphemeral&quot;: false,
+  &quot;rateLimit&quot;: &quot;disabled&quot;,
+  &quot;fqdn&quot;: {
+    &quot;addressFamily&quot;: &quot;ipv4&quot;,
+    &quot;isAutoPopulate&quot;: false,
+    &quot;downInterval&quot;: 5,
+    &quot;interval&quot;: &quot;3600&quot;
+  },
+  &quot;partition&quot;: &quot;Common&quot;,
+  &quot;deviceReference&quot;: {
+    &quot;id&quot;: &quot;6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;,
+    &quot;name&quot;: &quot;bigip13-234.f5net.com&quot;,
+    &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+    &quot;machineId&quot;: &quot;6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;,
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;
+  },
+  &quot;name&quot;: &quot;myNode&quot;,
+  &quot;id&quot;: &quot;f5bd1bf0-a49c-39eb-b1b0-4469aa165804&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488955362239673,
+  &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:node:adcnodestate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/f5bd1bf0-a49c-39eb-b1b0-4469aa165804&quot;
+}</code></pre>
+<h4 id="create-a-pool">2. Create a pool</h4>
+<pre><code>POST https://localhost/mgmt/cm/adc-core/working-config/ltm/pool</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;partition&quot;: &quot;Common&quot;,
+  &quot;name&quot;: &quot;myPool&quot;,
+  &quot;loadBalancingMode&quot;: &quot;round-robin&quot;,
+  &quot;deviceReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;
+  }
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;allowNat&quot;: true,
+  &quot;allowSnat&quot;: true,
+  &quot;ignorePersistedWeight&quot;: false,
+  &quot;ipTosToClientControl&quot;: &quot;pass-through&quot;,
+  &quot;ipTosToServerControl&quot;: &quot;pass-through&quot;,
+  &quot;linkQosToClient&quot;: 65535,
+  &quot;linkQosToServer&quot;: 65535,
+  &quot;loadBalancingMode&quot;: &quot;round-robin&quot;,
+  &quot;minActiveMembers&quot;: 0,
+  &quot;queueDepthLimit&quot;: 0,
+  &quot;enableQueueOnConnectionLimit&quot;: false,
+  &quot;queueTimeLimit&quot;: 0,
+  &quot;reselectTries&quot;: 0,
+  &quot;serviceDownAction&quot;: &quot;none&quot;,
+  &quot;slowRampTime&quot;: 10,
+  &quot;membersCollectionReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/186c7d78-a6bf-395a-9505-d0d49280d0a2/members&quot;,
+    &quot;isSubcollection&quot;: true
+  },
+  &quot;partition&quot;: &quot;Common&quot;,
+  &quot;deviceReference&quot;: {
+    &quot;id&quot;: &quot;6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;,
+    &quot;name&quot;: &quot;bigip13-234.f5net.com&quot;,
+    &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+    &quot;machineId&quot;: &quot;6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;,
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;
+  },
+  &quot;name&quot;: &quot;myPool&quot;,
+  &quot;id&quot;: &quot;186c7d78-a6bf-395a-9505-d0d49280d0a2&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488956037638261,
+  &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:pool:adcpoolstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/186c7d78-a6bf-395a-9505-d0d49280d0a2&quot;
+}</code></pre>
+<h4 id="add-a-pool-member-to-a-pool">3. Add a pool member to a pool</h4>
+<p>Below is an example showing how to create a pool member using the node and pool created in the previous steps.</p>
+<p>Note, pool member names must be of the format &quot;{nodeName}:{port}&quot;.</p>
+<pre><code>POST https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/186c7d78-a6bf-395a-9505-d0d49280d0a2/members</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;partition&quot;: &quot;Common&quot;,
+  &quot;name&quot;: &quot;myNode:80&quot;,
+  &quot;port&quot;: 80,
+  &quot;nodeReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/f5bd1bf0-a49c-39eb-b1b0-4469aa165804&quot;
+   }
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;connectionLimit&quot;: 0,
+  &quot;port&quot;: 80,
+  &quot;priorityGroup&quot;: 0,
+  &quot;rateLimit&quot;: &quot;disabled&quot;,
+  &quot;sessionConfig&quot;: &quot;user-enabled&quot;,
+  &quot;stateConfig&quot;: &quot;user-up&quot;,
+  &quot;nodeReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/node/f5bd1bf0-a49c-39eb-b1b0-4469aa165804&quot;
+  },
+  &quot;partition&quot;: &quot;Common&quot;,
+  &quot;name&quot;: &quot;myNode:80&quot;,
+  &quot;id&quot;: &quot;43ef0c03-0630-379f-a652-0c2e4fbbdce0&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488960207572659,
+  &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:pool:members:adcpoolmemberstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/186c7d78-a6bf-395a-9505-d0d49280d0a2/members/43ef0c03-0630-379f-a652-0c2e4fbbdce0&quot;
+}</code></pre>
+<h4 id="create-a-virtual-server">4. Create a virtual server</h4>
+<pre><code>POST https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;partition&quot;: &quot;Common&quot;,
+  &quot;name&quot;: &quot;myVirtual&quot;,
+  &quot;destinationAddress&quot;: &quot;10.10.10.10&quot;,
+  &quot;mask&quot;: &quot;255.255.255.255&quot;,
+  &quot;destinationPort&quot;: 80,
+  &quot;sourceAddress&quot;: &quot;0.0.0.0/0&quot;,
+  &quot;deviceReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;
+  }
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;sourceAddress&quot;: &quot;0.0.0.0/0&quot;,
+  &quot;sourceAddressTranslation&quot;: {
+    &quot;type&quot;: &quot;none&quot;
+  },
+  &quot;destinationAddress&quot;: &quot;10.10.10.10&quot;,
+  &quot;destinationPort&quot;: &quot;80&quot;,
+  &quot;mask&quot;: &quot;255.255.255.255&quot;,
+  &quot;state&quot;: &quot;enabled&quot;,
+  &quot;mirror&quot;: &quot;disabled&quot;,
+  &quot;ipProtocol&quot;: &quot;any&quot;,
+  &quot;profilesCollectionReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/9a269865-55c4-3a42-82db-5c099899dbc0/profiles&quot;,
+    &quot;isSubcollection&quot;: true
+  },
+  &quot;vlansEnabled&quot;: &quot;disabled&quot;,
+  &quot;addressStatus&quot;: &quot;yes&quot;,
+  &quot;autoLasthop&quot;: &quot;default&quot;,
+  &quot;connectionLimit&quot;: 0,
+  &quot;gtmScore&quot;: 0,
+  &quot;nat64&quot;: &quot;disabled&quot;,
+  &quot;rateLimit&quot;: &quot;disabled&quot;,
+  &quot;rateLimitMode&quot;: &quot;object&quot;,
+  &quot;translateAddress&quot;: &quot;enabled&quot;,
+  &quot;translatePort&quot;: &quot;enabled&quot;,
+  &quot;sourcePort&quot;: &quot;preserve&quot;,
+  &quot;partition&quot;: &quot;Common&quot;,
+  &quot;deviceReference&quot;: {
+    &quot;id&quot;: &quot;6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;,
+    &quot;name&quot;: &quot;bigip13-234.f5net.com&quot;,
+    &quot;kind&quot;: &quot;shared:resolver:device-groups:restdeviceresolverdevicestate&quot;,
+    &quot;machineId&quot;: &quot;6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;,
+    &quot;link&quot;: &quot;https://localhost/mgmt/shared/resolver/device-groups/cm-adccore-allbigipDevices/devices/6c094b2e-af44-40d3-9ca8-7af2e0d51b0f&quot;
+  },
+  &quot;name&quot;: &quot;myVirtual&quot;,
+  &quot;id&quot;: &quot;9a269865-55c4-3a42-82db-5c099899dbc0&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488963686800110,
+  &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:virtual:adcvirtualstate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/9a269865-55c4-3a42-82db-5c099899dbc0&quot;
+}</code></pre>
+<h4 id="attach-a-pool-to-a-virtual-server">5. Attach a pool to a virtual server</h4>
+<p>The below example shows how to attach a pool to an existing virtual server. Note, it's also possible to include the <code>poolReference</code> directly when creating the virtual server.</p>
+<pre><code>PATCH https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/9a269865-55c4-3a42-82db-5c099899dbc0</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;poolReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/pool/186c7d78-a6bf-395a-9505-d0d49280d0a2&quot;
+  }
+}</code></pre>
+<p>To detach a pool from a virtual server:</p>
+<pre><code>PATCH https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/9a269865-55c4-3a42-82db-5c099899dbc0</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;poolReference&quot;: null
+}</code></pre>
+<h4 id="attach-profiles-to-a-virtual-server">6. Attach profiles to a virtual server</h4>
+<p>Virtual servers generally need one or more profiles to be attached. The below shows an example of finding and attaching an Any IP profile to our example virtual server.</p>
+<pre><code>GET https://localhost/mgmt/cm/adc-core/working-config/ltm/profile/ipother/</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;items&quot;: [
+    {
+      &quot;partition&quot;: &quot;Common&quot;,
+      &quot;name&quot;: &quot;ipother&quot;,
+      &quot;id&quot;: &quot;2220c38c-e8aa-33fe-8e82-5c269c8c5c64&quot;,
+      &quot;generation&quot;: 1,
+      &quot;lastUpdateMicros&quot;: 1488704404109159,
+      &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:profile:ipother:adcprofileipotherstate&quot;,
+      &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/profile/ipother/2220c38c-e8aa-33fe-8e82-5c269c8c5c64&quot;
+    }
+  ],
+  &quot;generation&quot;: 1,
+  &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:profile:ipother:adcprofileipothercollectionstate&quot;,
+  &quot;lastUpdateMicros&quot;: 1488704216186713,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/profile/ipother&quot;
+}</code></pre>
+<pre><code>POST https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/9a269865-55c4-3a42-82db-5c099899dbc0/profiles</code></pre>
+<p>Request:</p>
+<pre><code>{
+  &quot;name&quot;: &quot;ipother&quot;,
+  &quot;partition&quot;: &quot;Common&quot;,
+  &quot;profileIpotherReference&quot;: {
+    &quot;link&quot;:&quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/profile/ipother/2220c38c-e8aa-33fe-8e82-5c269c8c5c64&quot;
+  },
+  &quot;context&quot;: &quot;all&quot;
+}</code></pre>
+<p>Response:</p>
+<pre><code>{
+  &quot;profileIpotherReference&quot;: {
+    &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/profile/ipother/2220c38c-e8aa-33fe-8e82-5c269c8c5c64&quot;
+  },
+  &quot;context&quot;: &quot;all&quot;,
+  &quot;partition&quot;: &quot;Common&quot;,
+  &quot;name&quot;: &quot;ipother&quot;,
+  &quot;id&quot;: &quot;2220c38c-e8aa-33fe-8e82-5c269c8c5c64&quot;,
+  &quot;generation&quot;: 1,
+  &quot;lastUpdateMicros&quot;: 1488967129854978,
+  &quot;kind&quot;: &quot;cm:adc-core:working-config:ltm:virtual:profiles:adcvirtualprofilestate&quot;,
+  &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/ltm/virtual/9a269865-55c4-3a42-82db-5c099899dbc0/profiles/2220c38c-e8aa-33fe-8e82-5c269c8c5c64&quot;
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>
+</body>
+</html>
