@@ -8,7 +8,7 @@ API used for discovery task management of BIG-IP by BIG-IQ.
 
 === Version information
 [%hardbreaks]
-_Version_ : 5.2
+_Version_ : 5.2 | 5.3
 
 
 === URI scheme

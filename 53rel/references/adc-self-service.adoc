@@ -8,7 +8,7 @@ API used create a self-service task to perform functions such as enable/disable 
 
 === Version information
 [%hardbreaks]
-_Version_ : 5.2
+_Version_ : 5.2 | 5.3
 
 
 === URI scheme

@@ -8,7 +8,7 @@ API used to create and modify firewall contexts on BIG-IQ.
 
 === Version information
 [%hardbreaks]
-_Version_ : 5.2
+_Version_ : 5.2 | 5.3
 
 
 === URI scheme
