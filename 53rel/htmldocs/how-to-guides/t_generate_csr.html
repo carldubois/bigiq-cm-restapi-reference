@@ -1,0 +1,156 @@
+<h2 id="generate-csr-to-create-a-ca-signed-certificate-using-a-big-iq-centralized-management-system">Generate CSR to create a CA signed certificate using a BIG-IQ Centralized Management system</h2>
+<h3 id="overview">Overview</h3>
+<p>You can use the REST API to generate a CSR and send it to the CA for signing.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>You should be sure the following prerequisites have been met.</p>
+<ul>
+<li>The BIG-IQ Centralized Management system is operational, has completed the setup wizard, and completed any other needed configuration.</li>
+<li>When performing the tasks in this example, review the listed IP addresses and change them as appropriate for your environment. For example, if you are not running the script directly on the BIG-IQ system, you should change localhost to be the IP address of the BIG-IQ Centralized Management system.</li>
+</ul>
+<h3 id="description">Description</h3>
+<p>You use the following process to create a CSR on the BIG-IQ Centralized Management system.</p>
+<ol style="list-style-type: decimal">
+<li>Perform a POST method on the certificate-management URI to generate the CSR.</li>
+<li>Monitor the task using GET methods until the status has reached a value of FINISHED, FAILED or CANCELLED. When the GET method status value is FINISHED, the CSR generation has completed.</li>
+</ol>
+<h3 id="example-for-generating-a-csr">Example for generating a CSR</h3>
+<h4 id="perform-a-post-method-to-the-certificate-management-task.">1. Perform a POST method to the certificate-management task.</h4>
+<p>Use a POST method with the following JSON on the certificate-management task to start generating the CSR. - <strong>command</strong>: To generate CSR use &quot;GENERATE_CSR&quot; command - <strong>itemName</strong>: The name of the configuration item on BIG-IQ, must contain &quot;.csr&quot; suffix - <strong>itemPartition</strong>: The partition of the configuration item - <strong>durationInDays</strong>: The length of time that certificate will be valid before expiration (in days) - <strong>commonName</strong>: The certificate Common Name or &quot;CN&quot; to identify the host name associated with the certificate. - <strong>country</strong>: The certificate country field. - <strong>division</strong>: The certificate division field. - <strong>organization</strong>: The certificate organization field. - <strong>locality</strong>: The certificate locality field. - <strong>state</strong>: The certificate state field. - <strong>email</strong>: The certificate email field. - <strong>subjectAlternativeName</strong>: The Subject Alternative Name that is embedded in a certificate for X509 extension purposes. Supported names include email, DNS, URI, IP, and RID. For the Subject Alternative Name field, use the format of a comma-separated list of name:value pairs. - <strong>keyType</strong>: The key type for the generated key. Supported types are RSA, DSA and ECDSA - <strong>keySize</strong>: The key size for the generated key. Valid values are 1024, 2048 and 4096. Only required if keyType is RSA or DSA. - <strong>keyCurveName</strong>: The key curve for the generated key. Valid values are prime256v1, secp384r1 and secp521r1 . Only required if keyType is ECDSA. - <strong>keyPassphrase</strong>: The key password. Only required if securityType is password. For security, it is a good idea to encrypt your key. If you provide 'normal' value, the key will be stored as unencrypted, which can put your data at risk. - <strong>administratorEmail</strong>: The optional administrator email. - <strong>challengePassword</strong>: The CA challenge password for the CSR.</p>
+<pre><code>POST: https://localhost/mgmt/cm/adc-core/tasks/certificate-management
+{
+    &quot;command&quot;: &quot;GENERATE_CSR&quot;,
+    &quot;itemName&quot;: &quot;MyCACert.csr&quot;,
+    &quot;itemPartition&quot;: &quot;Common&quot;,
+    &quot;durationInDays&quot;: 365,
+    &quot;commonName&quot;: &quot;example.com&quot;,
+    &quot;country&quot;: &quot;US&quot;,
+    &quot;division&quot;: &quot;div&quot;,
+    &quot;organization&quot;: &quot;org&quot;,
+    &quot;locality&quot;: &quot;local&quot;,
+    &quot;state&quot;: &quot;state&quot;,
+    &quot;email&quot;: &quot;john@example.com&quot;,
+    &quot;subjectAlternativeName&quot;: &quot;DNS:login.example.com,IP:192.0.2.1&quot;,
+    &quot;securityType&quot;: &quot;password&quot;,
+    &quot;keyType&quot;: &quot;RSA&quot;,
+    &quot;keySize&quot;: 2048,
+    &quot;keyPassphrase&quot;: &quot;password&quot;,
+    &quot;administratorEmail&quot;: &quot;admin@example.com&quot;,
+    &quot;challengePassword&quot;: &quot;challengePassword&quot;
+}</code></pre>
+<p>The following is the response JSON from the previous POST method:</p>
+<pre><code>{
+    &quot;command&quot;: &quot;GENERATE_CSR&quot;,
+    &quot;itemName&quot;: &quot;MyCACert.csr&quot;,
+    &quot;itemPartition&quot;: &quot;Common&quot;,
+    &quot;keyType&quot;: &quot;RSA&quot;,
+    &quot;keySize&quot;: 2048,
+    &quot;commonName&quot;: &quot;example.com&quot;,
+    &quot;division&quot;: &quot;div&quot;,
+    &quot;organization&quot;: &quot;org&quot;,
+    &quot;locality&quot;: &quot;local&quot;,
+    &quot;state&quot;: &quot;state&quot;,
+    &quot;country&quot;: &quot;US&quot;,
+    &quot;subjectAlternativeName&quot;: &quot;DNS:login.example.com,IP:172.16.1.2&quot;,
+    &quot;email&quot;: &quot;john@example.com&quot;,
+    &quot;durationInDays&quot;: 365,
+    &quot;administratorEmail&quot;: &quot;admin@example.com&quot;,
+    &quot;id&quot;: &quot;6845991e-8b66-4391-a71c-1f7416473e23&quot;,
+    &quot;status&quot;: &quot;STARTED&quot;,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;identityReferences&quot;: [{
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    }],
+    &quot;ownerMachineId&quot;: &quot;f714c000-f5f8-45bd-9e06-2a475f3f342e&quot;,
+    &quot;taskWorkerGeneration&quot;: 1,
+    &quot;generation&quot;: 1,
+    &quot;lastUpdateMicros&quot;: 1501622193221888,
+    &quot;kind&quot;: &quot;cm:adc-core:tasks:certificate-management:certmgmttaskstate&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/tasks/certificate-management/6845991e-8b66-4391-a71c-1f7416473e23&quot;
+}</code></pre>
+<h4 id="perform-additional-get-methods-to-the-discovery-task-created-in-step-1.">2. Perform additional GET methods to the discovery task created in Step 1.</h4>
+<p>Perform additional GET methods on the selfLink returned from the Step 1. Perform them in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED. You may use a select option to reduce the content of the returned JSON to a manageable amount.</p>
+<pre><code>GET: https://localhost/mgmt/cm/adc-core/tasks/certificate-management/6845991e-8b66-4391-a71c-1f7416473e23</code></pre>
+<p>Additional fields received on success - <strong>csrReference</strong>: Reference to the CSR configuration item - <strong>csrText</strong>: The CSR in text format. New lines in the text are represented by . - <strong>keyReference</strong>: Reference to the generated key configuration item The following is the response JSON from the GET method:</p>
+<pre><code>{
+    &quot;command&quot;: &quot;GENERATE_CSR&quot;,
+    &quot;itemName&quot;: &quot;MyCACert.csr&quot;,
+    &quot;itemPartition&quot;: &quot;Common&quot;,
+    &quot;keyType&quot;: &quot;RSA&quot;,
+    &quot;keySize&quot;: 2048,
+    &quot;commonName&quot;: &quot;example.com&quot;,
+    &quot;division&quot;: &quot;div&quot;,
+    &quot;organization&quot;: &quot;org&quot;,
+    &quot;locality&quot;: &quot;local&quot;,
+    &quot;state&quot;: &quot;state&quot;,
+    &quot;country&quot;: &quot;US&quot;,
+    &quot;subjectAlternativeName&quot;: &quot;DNS:login.example.com,IP:172.16.1.2&quot;,
+    &quot;email&quot;: &quot;john@example.com&quot;,
+    &quot;durationInDays&quot;: 365,
+    &quot;administratorEmail&quot;: &quot;admin@example.com&quot;,
+    &quot;csrReference&quot;: {
+        &quot;id&quot;: &quot;aa680548-26b1-3493-bca1-42040cad1518&quot;,
+        &quot;name&quot;: &quot;aaa.csr&quot;,
+        &quot;kind&quot;: &quot;cm:adc-core:working-config:sys:file:ssl-csr:adcsslcsrstate&quot;,
+        &quot;partition&quot;: &quot;Common&quot;,
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/sys/file/ssl-csr/aa680548-26b1-3493-bca1-42040cad1518&quot;
+    },
+    &quot;csrText&quot;: &quot;-----BEGIN CERTIFICATE REQUEST-----\nMIIC9TCCAd0CAQAwYTELMAkGA1UEBhMCVVMxCjAIBgNVBAgTAWUxCjAIBgNVBAcT\nAWQxCjAIBgNVBAoTAWMxCjAIBgNVBAsTAWIxCjAIBgNVBAMTAWExFjAUBgkqhkiG\n9w0BCQEWB2ZAZy5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCg\nTWYYdZ16hKfE6ZCwbvUxSXAOi04X8g6x4OL177HK0gXPZglxsWMWnNsFMfePj1hL\n9XzG/XsX5kJnoxK1iKARF4xxDm3uRU0WhiQl88yV63oaW51Gh8Lzeax9ZPwEpucV\niviTW5CQcfgUY7biQju4PqffMsXAM91VRM6xB0XJsrKTE9z8zgw+Au1AmNeAx/Dq\nSv5BrzJ5/Zu08dUyslC772wZtYDACuV1QnAoOfYKBX57CfV2kK7VUPivwqOHJecc\nE4bDND5uYO03dTyh0VLuCINdnE5QBHJwFhX3SgZmc70l4CB5bOtfEeZN5bHWj8ny\nj/R49KNdYX6WHopSlASVAgMBAAGgTzAQBgkqhkiG9w0BCQcxAxMBbjAWBgkqhkiG\n9w0BCQExCRYHbEBtLmNvbTAjBgkqhkiG9w0BCQ4xFjAUMBIGA1UdEQQLMAmBB2ZA\nZy5jb20wDQYJKoZIhvcNAQENBQADggEBAAk7rB+Z0i1b6c+E8n8lABxSlONc5ktc\nHz8Cyb0VnQlHEnlVNuh8ih/wkohSjEUGTXe389JAs/nmu9EH8XNWIhxKydfizez+\n2/rn8E0fi7n7TPH5NelV7wRCJ4Irg1VwoBl3VH+GPJHcRSMIm/RVUc7HHWLra2Fy\nIvKL1YoYwjgbxmXctWq4aDpIu2mrZ4NsT0Rb5Lfz/2ExfYToMOvn5I7GKVORqLuo\nCJT1XnRocr2L0dw+aSU7ZhxiRcolPO6wYFTZhdZvSA0+jct+VGoxYG7Oweureb17\nnYtQysbfGRfVqqY3Ecd+XB3ZWsNVBsVZ8z7g4vvoKsXDfz33wsQAoLc=\n-----END CERTIFICATE REQUEST-----\n&quot;,
+    &quot;endDateTime&quot;: &quot;2017-08-01T12:50:24.696-0700&quot;,
+    &quot;filePath&quot;: &quot;/tmp/cert-mgmt-5394076854566655482/MyCACert.key&quot;,
+    &quot;generation&quot;: 10,
+    &quot;id&quot;: &quot;1aa670e5-dbb8-4306-a8e7-6ae054daae7c&quot;,
+    &quot;identityReferences&quot;: [
+        {
+            &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+        }
+    ],
+    &quot;keyReference&quot;: {
+        &quot;id&quot;: &quot;46f012a2-3218-3062-8524-c8658c711665&quot;,
+        &quot;name&quot;: &quot;aaa.key&quot;,
+        &quot;kind&quot;: &quot;cm:adc-core:working-config:sys:file:ssl-key:adcsslkeystate&quot;,
+        &quot;partition&quot;: &quot;Common&quot;,
+        &quot;link&quot;: &quot;https://localhost/mgmt/cm/adc-core/working-config/sys/file/ssl-key/46f012a2-3218-3062-8524-c8658c711665&quot;
+    },
+    &quot;kind&quot;: &quot;cm:adc-core:tasks:certificate-management:certmgmttaskstate&quot;,
+    &quot;lastUpdateMicros&quot;: 1501622193224853,
+    &quot;ownerMachineId&quot;: &quot;f714c000-f5f8-45bd-9e06-2a475f3f342e&quot;,
+    &quot;progress&quot;: &quot;Finished&quot;,
+    &quot;selfLink&quot;: &quot;https://localhost/mgmt/cm/adc-core/tasks/certificate-management/1aa670e5-dbb8-4306-a8e7-6ae054daae7c&quot;,
+    &quot;startDateTime&quot;: &quot;2017-08-01T12:50:22.987-0700&quot;,
+    &quot;status&quot;: &quot;FINISHED&quot;,
+    &quot;subjectAlternativeName&quot;: &quot;&quot;,
+    &quot;userReference&quot;: {
+        &quot;link&quot;: &quot;https://localhost/mgmt/shared/authz/users/admin&quot;
+    },
+    &quot;username&quot;: &quot;admin&quot;
+}</code></pre>
+<h3 id="common-errors">Common Errors</h3>
+<p>When an error occurs, review the BIG-IQ Centralized Management user interface for device management to determine the details of the failure. In addition to using the user interface, some error information can be determined from the REST API response JSON as shown in the following error.</p>
+<h4 id="error-generated-when-an-incorrect-uri-is-sent-in-the-rest-request.">Error generated when an incorrect URI is sent in the REST request.</h4>
+<pre><code>{
+  &quot;code&quot;: 404,
+  &quot;message&quot;: &quot;Public URI path not registered&quot;,
+  &quot;restOperationId&quot;: 19541801,
+  &quot;errorStack&quot;: [
+    &quot;com.f5.rest.common.RestWorkerUriNotFoundException: Public URI path not registered&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.cloneAndForwardRequest(ForwarderPassThroughWorker.java:250)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onForward(ForwarderPassThroughWorker.java:106)&quot;,
+    &quot;at com.f5.rest.workers.ForwarderPassThroughWorker.onQuery(ForwarderPassThroughWorker.java:409)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callDerivedRestMethod(RestWorker.java:1071)&quot;,
+    &quot;at com.f5.rest.common.RestWorker.callRestMethodHandler(RestWorker.java:1040)&quot;,
+    &quot;at com.f5.rest.common.RestServer.processQueuedRequests(RestServer.java:1467)&quot;,
+    &quot;at com.f5.rest.common.RestServer.access$000(RestServer.java:53)&quot;,
+    &quot;at com.f5.rest.common.RestServer$1.run(RestServer.java:333)&quot;,
+    &quot;at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)&quot;,
+    &quot;at java.util.concurrent.FutureTask.run(FutureTask.java:262)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)&quot;,
+    &quot;at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)&quot;,
+    &quot;at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)&quot;,
+    &quot;at java.lang.Thread.run(Thread.java:745)\n&quot;
+  ],
+  &quot;kind&quot;: &quot;:resterrorresponse&quot;
+}</code></pre>
+<h3 id="api-reference">API Reference</h3>
