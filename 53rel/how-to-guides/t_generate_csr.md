@@ -22,6 +22,7 @@ You use the following process to create a CSR on the BIG-IQ Centralized Manageme
 #### 1. Perform a POST method to the certificate-management task.
 
 Use a POST method with the following JSON on the certificate-management task to start generating the CSR.
+
 - __command__: To generate CSR use "GENERATE_CSR" command
 - __itemName__: The name of the configuration item on BIG-IQ, must contain ".csr" suffix
 - __itemPartition__: The partition of the configuration item
@@ -40,6 +41,7 @@ Use a POST method with the following JSON on the certificate-management task to 
 - __keyPassphrase__: The key password. Only required if securityType is password. For security, it is a good idea to encrypt your key. If you provide 'normal' value, the key will be stored as unencrypted, which can put your data at risk.
 - __administratorEmail__: The optional administrator email.
 - __challengePassword__: The CA challenge password for the CSR.
+
 ```
 POST: https://localhost/mgmt/cm/adc-core/tasks/certificate-management
 {
@@ -63,7 +65,9 @@ POST: https://localhost/mgmt/cm/adc-core/tasks/certificate-management
     "challengePassword": "challengePassword"
 }
 ```
+
 The following is the response JSON from the previous POST method:
+
 ```
 {
     "command": "GENERATE_CSR",
@@ -101,14 +105,19 @@ The following is the response JSON from the previous POST method:
 #### 2. Perform additional GET methods to the discovery task created in Step 1.
 
 Perform additional GET methods on the selfLink returned from the Step 1. Perform them in a loop until the status reaches one of the following: FINISHED, CANCELLED or FAILED. You may use a select option to reduce the content of the returned JSON to a manageable amount.
+
 ```
 GET: https://localhost/mgmt/cm/adc-core/tasks/certificate-management/6845991e-8b66-4391-a71c-1f7416473e23
 ```
+
 Additional fields received on success
+
 - __csrReference__: Reference to the CSR configuration item
 - __csrText__: The CSR in text format. New lines in the text are represented by \n.
 - __keyReference__: Reference to the generated key configuration item
+
 The following is the response JSON from the GET method:
+
 ```
 {
     "command": "GENERATE_CSR",
@@ -169,6 +178,7 @@ The following is the response JSON from the GET method:
 When an error occurs, review the BIG-IQ Centralized Management user interface for device management to determine the details of the failure. In addition to using the user interface, some error information can be determined from the REST API response JSON as shown in the following error.
 
 #### Error generated when an incorrect URI is sent in the REST request.
+
 ```
 {
   "code": 404,
